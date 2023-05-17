@@ -173,22 +173,22 @@
 						
 						switch ($i) {
 								case 1:
-								  echo '<div class="sl-item sl-primary">';
+								  echo '<div class="sl-item">';
 								  break;
 								case 2:
-								  echo '<div class="sl-item sl-danger">';
+								  echo '<div class="sl-item">';
 								  break;
 								case 3:
-								  echo '<div class="sl-item sl-success">';
+								  echo '<div class="sl-item sl-primary">';
 								  break;
 								case 4:
-								  echo '<div class="sl-item sl-info">';
+								  echo '<div class="sl-item sl-success">';
 								  break;
 								case 5:
 								  echo '<div class="sl-item sl-warning">';
 								  break;
 								case 6:
-								  echo '<div class="sl-item">';
+								  echo '<div class="sl-item sl-danger">';
 								  break;	  
 							  }
 						?>

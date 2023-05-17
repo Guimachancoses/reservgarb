@@ -17,11 +17,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
-    <title>Reserve Lab</title>
+    <title>Reserve Garbuio</title>
 
      <link rel="icon" 
         type="image/jpg"
-        href="https://scontent.fcpq8-1.fna.fbcdn.net/v/t39.30808-6/328476839_904244333952155_2647975080732862430_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFTl15UXEzg_5M_mkXUeo2FhL8UvCp3iAaEvxS8KneIBsT-xoZUE2Vlf9A6rZZootsRgjQ33X1-iZxGCAaSWvgb&_nc_ohc=bZq4bTH6s0gAX_RHhWa&_nc_ht=scontent.fcpq8-1.fna&oh=00_AfCThSnTT5trsoDKxGZO-PvXg-VGx6fKJOT2CRrp3Gd4jw&oe=6439D9E5" />
+        href="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" />
       
     <!-- Calender CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">

@@ -5,13 +5,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Reserve Lab</title>
+    <title>Reserve Garbuio</title>
 
     <link rel="icon" 
         type="image/jpg" 
-        href="https://scontent.fcpq8-1.fna.fbcdn.net/v/t39.30808-6/328476839_904244333952155_2647975080732862430_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFTl15UXEzg_5M_mkXUeo2FhL8UvCp3iAaEvxS8KneIBsT-xoZUE2Vlf9A6rZZootsRgjQ33X1-iZxGCAaSWvgb&_nc_ohc=bZq4bTH6s0gAX_RHhWa&_nc_ht=scontent.fcpq8-1.fna&oh=00_AfCThSnTT5trsoDKxGZO-PvXg-VGx6fKJOT2CRrp3Gd4jw&oe=6439D9E5" />
+        href="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" />
  
-<!-- Calender CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
@@ -42,7 +41,7 @@
                       <form method="POST" action="">
                         <div class="section text-center">
                           <div class="logoeinstein" align="left">
-                            <img src="https://portal.einstein-net.com.br/moodle/pluginfile.php/1/theme_moove/logo/1674527758/logo.png">
+                          <img src="./img/lg_garbuio.png">
                           </div>
                           <div class="form-group">
                             <input
@@ -50,7 +49,7 @@
                               name="ra"
                               maxlength="7"
                               class="form-style"
-                              placeholder="Digite seu RA"
+                              placeholder="Insira seu usuário"
                               id="usuario"
                               autocomplete="on"
                             />
@@ -68,7 +67,7 @@
                             />
                             <i class="input-icon uil uil-lock-alt"></i>
                           </div>
-                          <button name="login" class="btn mt-4">Acessar</button>
+                          <button name="login" style="color:black"class="btn mt-4">Acessar</button>
                           <div id='msgError'></div>
                           <p class="mb-2 mt-4 text-center">
                             <a href="#" class="link" id="reg-log" name="reg-log">Esqueceu sua senha?</a>
@@ -83,7 +82,7 @@
                     <div class="center-wrap">
                       <div class="section text-center">
                         <div class="logoeinstein" align="left">
-                            <img src="https://portal.einstein-net.com.br/moodle/pluginfile.php/1/theme_moove/logo/1674527758/logo.png">
+                            <img src="./img/lg_garbuio.png">
                           </div>
                           
                         <form method="POST" action="" id="form-cadastro">
@@ -96,7 +95,7 @@
                               name="ra"
                               maxlength="7"
                               class="form-style"
-                              placeholder="Digite seu RA"
+                              placeholder="Insira seu usuário"
                               id="usuario"
                               autocomplete="on"
                             />
@@ -124,7 +123,7 @@
                           />
                           <i class="input-icon uil uil-lock-alt"></i>
                         </div>
-                        <a href="#" class="btn mt-4">Enviar</a>
+                        <a href="#" style="color:black" class="btn mt-4">Enviar</a>
                         <div id='msgError'></div>
                         <p class="mb-0 mt-3 text-center" >
                           <a href="#" class="link" id="reg-log2" name="reg-log2">Entrar com sua conta!</a>

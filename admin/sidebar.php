@@ -15,7 +15,7 @@
     }
 ?>
             <div class="sidebar-header">
-                <h3><img src="https://production.listennotes.com/podcasts/itens-geniais-do-curso-de-análise-e-sFK9He0Q-Sb-AsjZeX6kxW0.1400x1400.jpg" class="img-fluid"/><span>Rerserve Lab</span></h3>
+                <h3><img src="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" class="img-fluid"/><span>Reserve Garbuio</span></h3>
             </div>
             <ul class="list-unstyled components">
 			    <li>

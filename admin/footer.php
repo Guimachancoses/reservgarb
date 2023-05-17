@@ -13,8 +13,7 @@
 					   </div>					   
 					   <div class="col-md-6">
 					       <p class="copyright d-flex justify-content-end">
-						      &copy 2023 Turma de TADS 3º semestre.&#160
-							  <a href="https://www.einsteinlimeira.com.br/portal/public/">Faculdades Integradas Einstein de Limeira</a>
+						      &copy GuiMac &#10084;&#65039; 2023							  	                         		
 						   </p>
 					   </div>
 				   </div>

@@ -21,17 +21,17 @@
             <span class="material-icons">arrow_back_ios</span>
         </button>
         <a class="navbar-brand" href="#">
-            <img class="logoeinstein" src="https://portal.einstein-net.com.br/moodle/pluginfile.php/1/theme_moove/logo/1674527758/logo.png">
+            <img class="logoeinstein" src="../img/lg_garbuio.png">
         </a>
         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse"
                 data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle">
-                <i style="font-size:35px;padding:10px" class="material-icons">menu</i>
+                <i style="font-size:35px;padding:10px;color:white" class="material-icons">menu</i>
         </button>        
         <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none" id="navbarcollapse">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
-                        <span class="material-icons">notifications</span>
+                        <span class="material-icons" >notifications</span>
                             <?php if ($f_p['total'] > 0) { ?>
                                 <span name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?> 

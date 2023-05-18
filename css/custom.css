@@ -123,7 +123,7 @@ a:focus {
   width: 260px;
   overflow: auto;
   transition: all 0.3s;
-  background-color: white;
+  background-color: #363535;
   box-shadow: 0 10px 30px -12px rgba(0 0 0 / 42%),
     0 4px 25px 0px rgba(0 0 0 / 12%), 0 8px 10px -5px rgba(0 0 0 / 20%);
 }
@@ -131,14 +131,14 @@ a:focus {
 #sidebar::-webkit-scrollbar {
   width: 5px;
   border-radius: 10px;
-  background-color: #eee;
+  background-color: #ffffff;
   display: none;
 }
 
 #sidebar::-webkit-scrollbar-thumbs {
   width: 5px;
   border-radius: 10px;
-  background-color: #333;
+  background-color: #ffffff;
   display: none;
 }
 
@@ -152,11 +152,11 @@ a:focus {
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background-color: white;
+  background-color: #363535;
 }
 
 .sidebar-header h3 {
-  color: #333;
+  color: #ffffff;
   font-size: 17px;
   margin: 0px;
   /* text-transform: uppercase; */
@@ -170,19 +170,20 @@ a:focus {
 }
 
 #sidebar ul li a {
-  background-color: white;
+  color: #ffffff;
+  background-color: #363535;
   /* border-bottom: 1px solid #7770ca; */
   padding: 2px 7px;
 }
 
 #sidebar ul li.active > a {
-  color: #333;
-  background-color: rgba(200, 200, 200, 0.2);
+  color: #ffffff;
+  background-color: #363535;
 }
 
 #sidebar ul li a:hover {
-  color: #333;
-  background-color: rgba(200, 200, 200, 0.2);
+  color: #189923;
+  background-color: rgba(255, 253, 253, 0.2);
 }
 
 .dropdown-toggle::after {
@@ -218,8 +219,8 @@ a:focus {
   position: relative;
   margin-right: 10px;
   top: 5px;
-  color: #555555;
-  margin-left: 10px;
+  color: #fafafa;
+  margin-left: 5px;
 }
 
 /*==========================================================
@@ -266,12 +267,19 @@ a:focus {
 }
 
 .navbar .material-icons {
-  color: #000000;
+  color: #ffffff;
+  padding: 10px;
+  background-color: rgba(3, 3, 3, 0.192);
+  border-radius: 100%;
+}
+
+.navbar .material-icons:hover {
+  color: #5faa4f;
 }
 
 .navbar-brand {
-  color: #fff;
-  margin-left: 20px;
+  color: #000000;
+  margin-left: 1px 6px;
 }
 
 .navbar button {
@@ -292,7 +300,7 @@ a:focus {
   margin-right: 20px;
   margin-left: 20px;
   border: none;
-  color: #fff;
+  color: #000000;
   background-color: rgba(0, 0, 0, 0.09);
 }
 
@@ -302,13 +310,13 @@ a:focus {
 }
 
 .navbar-nav > li.active {
-  color: #fff;
+  color: #0f0e0e;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.08);
 }
 
 .navbar-nav > li > a {
-  color: #fff;
+  color: #000000;
 }
 
 .navbar .notification {
@@ -344,7 +352,7 @@ a:focus {
 }
 
 .navbar-nav > .active > a:focus {
-  color: #fff;
+  color: #000000;
   background-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -427,8 +435,14 @@ a:focus {
 .card .card-footer {
   margin: 0 7px 0px;
   padding-top: 10px;
-  background-color: #000000;
-  border-top: 1px solid #000000;
+  background-color: #555555;
+  border-top: 1px solid #555555;
+}
+.card .card-foot {
+  margin: 0 7px 0px;
+  padding-top: 10px;
+  background-color: #ffffff;
+  /* border-top: 1px solid #555555; */
 }
 
 .text-info {
@@ -590,8 +604,8 @@ a:focus {
   ================================*/
 
 .footer {
-  background-color: #000000;
-  border-top: 1px solid #000000;
+  background-color: #363535;
+  border-top: 1px solid #363535;
 }
 
 footer {
@@ -606,6 +620,26 @@ footer ul li {
 
 footer ul li a {
   color: white;
+  padding: 15px;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  display: block;
+  position: relative;
+}
+
+footer ul li a:hover {
+  color: #189923;
+  padding: 15px;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  display: block;
+  position: relative;
+}
+
+footer ul li a:focus {
+  color: #fcfcfc;
   padding: 15px;
   font-weight: 500;
   font-size: 12px;
@@ -829,6 +863,8 @@ a.btn.btn-success:focus {
   height: 68px;
   width: auto;
   padding: 10px;
+  background-color: rgba(3, 3, 3, 0.192);
+  border-radius: 8px 8px 8px 8px;
 }
 
 .select-soft {

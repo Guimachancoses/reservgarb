@@ -1,3 +1,4 @@
+
 <div class="main-content">
 	<?php
 		// query for total pendding
@@ -119,9 +120,24 @@
 						<tbody>
 
 						<?php  
-								$queryad = $conn->query("SELECT users_id, firstname, lastname, funcao, username, email, contactno FROM `users` WHERE funcao != 'Administrador'") or die(mysqli_error());
-								while($fetch = $queryad->fetch_array()){
-							?>
+							$perPage = 6; // Número de resultados por página
+							$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
+							$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
+							$totalResults = $conn->query("SELECT COUNT(*) as total FROM users WHERE funcao != 'Administrador'")->fetch_assoc()['total']; // Total de resultados no banco de dados
+							$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
+							$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+							$queryad = $conn->query("SELECT users_id, 
+															firstname,
+															lastname,
+															funcao,
+															username,
+															email,
+															contactno
+															FROM `users` 
+															WHERE funcao != 'Administrador'
+															LIMIT $perPage OFFSET $offset") or die(mysqli_error());
+							while($fetch = $queryad->fetch_array()){
+						?>
 							<tr>
 								<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 								<td><?php echo $fetch['funcao']?></td>
@@ -138,6 +154,30 @@
 						
 					</table>
 				</div>
+				<!-- Paginação -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php if ($page > 1) { ?>
+                            <li class="page-item">
+                                <a class="page-link" href="reservlab.php?page=<?php echo ($page - 1); ?>">Anterior</a>
+                            </li>
+                        <?php } ?>
+                        <?php if (mysqli_num_rows($queryad) == $perPage && $totalPages > 1) { ?>
+                            <li class="page-item">
+                                <a class="page-link" href="reservlab.php?page=<?php echo ($page + 1); ?>">Next</a>
+                            </li>
+                        <?php } ?>
+						<?php
+							if ($totalPages > 1) {
+								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página $current_page de $totalPages</p>";
+							} else {
+								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página 1</p>";
+							}
+						?>
+                        </li>
+                    </ul>
+                   
+                </nav>
 			</div>
 		<div>
 	</div>

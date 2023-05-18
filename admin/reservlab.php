@@ -64,6 +64,9 @@
     	$content = 'user/alter-account.php';
 	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
+	else if(preg_match("~page=~", $url)) {
+    	$content = 'main-content.php';
+	}
 	else
 		$content = 'main-content.php';
 ?>

@@ -27,7 +27,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <?php
+                            $perPage = 10; // Número de resultados por página
+                            $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
+                            $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
+                            $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao")->fetch_assoc()['total']; // Total de resultados no banco de dados
+                            $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
+                            $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+                               
                                 $query = $conn->query("SELECT
                                                             u.firstname
                                                             ,u.lastname
@@ -56,7 +64,8 @@
                                                         ON st.status_id = lc.status_id
                                                         INNER JOIN `mensagens` as ms
                                                         ON ms.mensagens_id = lc.mensagens_id
-                                                        WHERE lc.mensagens_id = 4") or die(mysqli_error());
+                                                        WHERE lc.mensagens_id = 4
+                                                        LIMIT $perPage OFFSET $offset") or die(mysqli_error());
                                 while($fetch = $query->fetch_array()){
                             ?>
                             <tr>
@@ -73,12 +82,33 @@
                                 <td><?php echo "<label style = 'color:#808080;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#800000;'><strong>" .$fetch['assunto']."</strong></label>"?></td>
                             </tr>
+                            
                             <?php
                                 }	
-                            ?>
+                            ?>                            
                         </tbody>
                     </table>
                 </div>
+                <!-- Paginação -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php if ($page > 1) { ?>
+                            <li class="page-item">
+                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page - 1); ?>">Anterior</a>
+                            </li>
+                        <?php } ?>
+                        <?php if (mysqli_num_rows($query) == $perPage) { ?>
+                            <li class="page-item">
+                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page + 1); ?>">Next</a>
+                            </li>
+                        <?php } ?>
+                        <li class="page-item">
+                            <p style="margin-left:10px" class="text-primary"> Página <?php echo $current_page; ?> de <?php echo $totalPages; ?></p>
+                        </li>
+                    </ul>
+                   
+                </nav>
+                
             </div>
         </div>
 </div>

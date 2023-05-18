@@ -5,15 +5,15 @@
 					       <nav class="d-flex">
 						      <ul class="m-0 p-0">
 							     <li><a href="#">Home</a></li>
-								  <li><a href="#">company</a></li>
-								   <li><a href="#">portfolio</a></li>
-								    <li><a href="#">Blogs</a></li>
+								  <li><a href="https://www.garbuio.com.br/" target="blank">Empresa</a></li>
+								   <li><a href="https://garbuio.tomticket.com" target="blank">atendimento</a></li>
+								    <li><a href="https://www.garbuio.com.br/contato/" target="blank">contato</a></li>
 							  <ul>
 						   </nav>
 					   </div>					   
 					   <div class="col-md-6">
 					       <p class="copyright d-flex justify-content-end">
-						      &copy GuiMac &#10084;&#65039; 2023							  	                         		
+						      &copy &#160<a style="color:white" href="https://www.linkedin.com/in/guilherme-machancoses-772986233/" target="blank"> GuiMac </a>&#160 &#10084;&#65039; 2023							  	                         		
 						   </p>
 					   </div>
 				   </div>
@@ -42,19 +42,47 @@
 	<script src="../js/validateForm.js"></script>
 
 	  
-<script type="text/javascript">	
-	$(document).ready(function(){
-		$("#sidebar-collapse").on('click',function(){
-		$('#sidebar').toggleClass('active');
-		$('#content').toggleClass('active');
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#sidebar-collapse").on('mouseenter', function() {
+			$('#sidebar').addClass('active');
+			$('#content').addClass('active');
 		});
-		
-		$(".more-button,.body-overlay").on('click',function(){
+	$(document).ready(function() {
+		$("#sidebar").on('mouseleave', function() {
+			$('#sidebar').removeClass('active');
+			$('#content').removeClass('active');
+		});
+	// $(".sidebar-header").on('click', function() {
+	// 		$('#sidebar').toggleClass('active');
+	// 		$('#content').toggleClass('active');
+	// 	});
+
+	$(".more-button,.body-overlay").on('click',function(){
 			$('#sidebar,.body-overlay').toggleClass('show-nav');
 		});
-		
-	});	
+
+
+    // Retrair a barra lateral ao clicar fora dela
+    $(document).on('click', function(event) {
+        var sidebar = $('#sidebar');
+        var sidebarCollapse = $('#sidebar-collapse');
+        if (!sidebar.is(event.target) && sidebar.has(event.target).length === 0 && !sidebarCollapse.is(event.target)) {
+            if (sidebarCollapse.hasClass('active')) {
+                sidebar.removeClass('active');
+                $('#content').removeClass('active');
+            } else {
+                sidebar.addClass('active');
+                $('#content').addClass('active');
+            }
+        }
+    });
+});
+
+});
+
 </script>
+
 
 <script type = "text/javascript">
 	$(document).ready(function(){

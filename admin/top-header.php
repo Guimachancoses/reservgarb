@@ -17,8 +17,8 @@
 <!-- top navbar design -->
 <div class="top-navbar">
     <nav class="navbar  navbar-expand-lg">
-        <button type="button" id="sidebar-collapse" class="d-xl-block d-lg-block d-md-none d-none">
-            <span class="material-icons">arrow_back_ios</span>
+        <button id="sidebar-collapse" class="d-xl-block d-lg-block d-md-none d-none" hidden="hidden">
+            <span  class="material-icons">chevron_left</span>
         </button>
         <a class="navbar-brand" href="#">
             <img class="logoeinstein" src="../img/lg_garbuio.png">

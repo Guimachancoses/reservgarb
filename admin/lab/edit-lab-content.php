@@ -12,7 +12,7 @@
 					?>
                     <div class = "col-md-10"style="min-height:425px">	
                         <form method = "POST" enctype = "multipart/form-data">
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Tipo de Laboratório:</strong></label>
                                 <select class = "form-control" required = required name = "room_type">
                                     <option value = "">Escolha uma opção</option>
@@ -23,16 +23,16 @@
                                     <option value = "Estética" <?php if($fetch['room_type'] == "Estética"){echo "selected";}?>>Estética</option>
                                 </select>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Capacidade:</strong></label>
                                 <input type = "text" value = "<?php echo $fetch['capacity']?>" class = "form-control" name = "capacity" />
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Número do Laboratório:</strong></label>
                                 <input type = "text" required = "required" value = "<?php echo $fetch['room_no']?>" class = "form-control"  id = "room_no" name = "room_no"/>
                             </div>
                             <br/>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <button name = "edit_room" class = "btn btn-warning form-control"><i class = "glyphicon glyphicon-edit"></i> Salvar alterações</button>
                             </div>
                         </form>

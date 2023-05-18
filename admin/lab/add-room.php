@@ -8,7 +8,7 @@
                     <br />
                     <div class = "col-md-10"style="min-height:425px">	
                         <form method = "POST" enctype = "multipart/form-data">
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Tipo de Laboratório:</strong></label>
                                 <select class = "form-control" required = required name = "room_type">
                                     <option value = "">Escolha uma opção</option>
@@ -19,16 +19,16 @@
                                     <option value = "Estética">Estética</option>
                                 </select>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Capacidade:</strong></label>
                                 <input type = "text" class = "form-control" name = "capacity" />
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Número do Laboratório:</strong></label>
                                 <input type = "text" class = "form-control" name = "room_no" />
                             </div>
                             <br />
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <button name = "add_room" onclick="addroom()" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                             </div>
                         </form>

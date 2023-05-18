@@ -15,8 +15,10 @@
     }
 ?>
             <div class="sidebar-header">
-                <h3><img src="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" class="img-fluid"/><span>Reserve Garbuio</span></h3>
-            </div>
+                <h3 style="font-family: 'Monte Serrat', sans-serif; letter-spacing: 0.1px;">
+                    <img src="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" class="img-fluid" />
+                        <span><strong>Reserve Garbuio</strong></span>
+                </h3>
             <ul class="list-unstyled components">
 			    <li>
                     <a href="reservlab.php" class="dashboard"><i class="material-icons">home</i><span>Página Inicial</span></a>

@@ -29,7 +29,7 @@
                         <tbody>
                             
                         <?php
-                            $perPage = 10; // Número de resultados por página
+                            $perPage = 5; // Número de resultados por página
                             $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
                             $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
                             $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao")->fetch_assoc()['total']; // Total de resultados no banco de dados
@@ -102,7 +102,7 @@
                         <?php } ?>
                         <?php if (mysqli_num_rows($query) == $perPage && $totalPages > 1) { ?>
                             <li class="page-item">
-                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page + 1); ?>">Next</a>
+                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page + 1); ?>">Próxima</a>
                             </li>
                         <?php } ?>
                         <li>

@@ -11,45 +11,45 @@
                     ?>
                     <div class = "col-md-7">	
                         <form method = "POST" action = "edit_query_account_users.php?users_id=<?php echo $fetch['users_id']?>">
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Nome:</strong></label>
                                 <input type = "text" class = "form-control" value = "<?php echo $fetch['firstname']?>" name = "firstname" />
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Sobrenome:</strong></label>
                                 <input type = "text" class = "form-control" value = "<?php echo $fetch['lastname']?>" name = "lastname" />
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> RA:</strong></label>
                                 <input type = "text" class = "form-control" id="usuario" value = "<?php echo substr($fetch['username'], 0, 4) . "/" . substr($fetch['username'], 4, 2) . "-" . substr($fetch['username'], 6, 1); ?>" name = "username" disabled = "disabled"/>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Função:</strong></label>
                                 <input type = "text" class = "form-control" value = "<?php echo $fetch['funcao']?>" name = "funcao" disabled = "disabled"/>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> E-mail:</strong></label>
                                 <input type = "email" class = "form-control" value = "<?php echo $fetch['email']?>" name = "email" />
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Telefone:</strong></label>
                                 <?php $contactno = $fetch['contactno'];$formatted_contactno = '(' . substr($contactno, 0, 2) . ') ' . substr($contactno, 2, 5) . '-' . substr($contactno, 7);?>
                                 <input type = "fone" class = "form-control" value = "<?php echo $formatted_contactno?>" name = "contactno" />
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> CPF:</strong></label>
-                                <input class = "form-control" type="text" id="cpf" onblur="validateCPF(this)"  placeholder="Digite apenas números" minlength="11" maxlength="14" name="cpf" required>
+                                <input class = "form-control" type="text" id="cpf" onblur="validateCPF(this)" value = "<?php echo $fetch['cpf']?>" placeholder="Digite apenas números" minlength="11" maxlength="14" name="cpf" required>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Senha:</strong></label>
                                 <input type = "password" class = "form-control" placeholder="********" minlength="8" value = "" name = "password" required/>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <label><strong> Confirmar Senha:</strong></label>
                                 <input type="password" id="pwd2" placeholder="********" minlength="8" value="" class = "form-control" name = "confirme" onblur="validatePdw()" required/>
                             </div>
                             <br />
-                            <div class="card-footer">
+                            <div class="card-foot">
                                 <button name = "edit_account_users" onclick="editsuccess()" class = "btn btn-warning form-control"><i class = "glyphicon glyphicon-edit"></i> Salvar alterações</button>
                             </div>
                         </form>

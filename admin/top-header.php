@@ -33,7 +33,7 @@
                     <a class="nav-link " href="#" data-toggle="dropdown">
                         <span class="material-icons" >notifications</span>
                             <?php if ($f_p['total'] > 0) { ?>
-                                <span name="notification" class="notification"><?php echo $f_p['total'] ?></span>
+                                <span style="color:white" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?> 
                    </a>
                     <ul class="dropdown-menu">

@@ -121,7 +121,7 @@
                             </div>
                         <br style = "clear:both;"/>
                         <br />
-                        <div class="card-footer">
+                        <div class="card-foot">
                         <button  name = "add_form" class = "btn btn-primary"><i class = "glyphicon glyphicon-save"></i> Confimar</button>
                         </div>
                     </form>

@@ -1,5 +1,5 @@
 :root {
-  --primary-clr: #b38add;
+  --primary-clr: #5faa4f;
 }
 /* * {
   margin: 0;
@@ -31,18 +31,17 @@
 } */
 .container {
   position: relative;
-  max-width: 1000px;
-  /* min-height: 850px; */
+  max-width: auto;
+  min-height: 850px;
   margin: 0 auto;
   padding: 6px;
   color: #fff;
-  /* display: flex; */
-
+  display: flex;
   border-radius: 10px;
-  background-color: #373c4f;
+  background-color: #555555;
 }
 .left {
-  width: 85%;
+  width: 50%;
   padding: 20px;
 }
 .calendar {

@@ -33,7 +33,7 @@
                 <div class="events"></div>
                     <div class="add-event-wrapper">
                         <div class="add-event-header">
-                        <div class="title" style="color:#b38add;"><strong>Adicionar Locação</strong></div>
+                        <div class="title" style="color:#5faa4f;"><strong>Adicionar Locação</strong></div>
                             <i class="fas fa-times close"></i>
                         </div>
                         <div class="add-event-body">
@@ -52,12 +52,12 @@
                             </div>
                             <div class="add-event-input">
                                 <select class="event-disc select-box" >
-                                <option class="select-box" syle="border:none; outline:none; color:#a5a5a5;"value="" disabled selected>Escolha sua Disciplina</option>
+                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha sua Disciplina</option>
                                 <?php  
 									$queryad = $conn->query("SELECT * FROM `disciplinas`") or die(mysqli_error());
 									while($fetch = $queryad->fetch_array()){
 								?>
-                                    <option class="select-box" syle="border:none; outline:none; color:#a5a5a5;"><?php echo $fetch['nm_disciplina'];?></option>
+                                    <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"><?php echo $fetch['nm_disciplina'];?></option>
                                     <?php
                                     }
                                     ?>
@@ -77,5 +77,4 @@
                 </div>
                 <button class="add-event"><i class="fas fa-plus"></i></button>
             </div>
-        
 

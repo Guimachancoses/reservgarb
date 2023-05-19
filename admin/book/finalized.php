@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                             
-                            <?php
+                        <?php
                             $perPage = 10; // Número de resultados por página
                             $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
                             $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
@@ -66,6 +66,9 @@
                                                         ON ms.mensagens_id = lc.mensagens_id
                                                         WHERE lc.mensagens_id = 4
                                                         LIMIT $perPage OFFSET $offset") or die(mysqli_error());
+                                if (mysqli_num_rows($query) == 0) {
+                                    echo "<td>Sem histórico de reservas...</td>";
+                                }
                                 while($fetch = $query->fetch_array()){
                             ?>
                             <tr>
@@ -97,13 +100,19 @@
                                 <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page - 1); ?>">Anterior</a>
                             </li>
                         <?php } ?>
-                        <?php if (mysqli_num_rows($query) == $perPage) { ?>
+                        <?php if (mysqli_num_rows($query) == $perPage && $totalPages > 1) { ?>
                             <li class="page-item">
                                 <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page + 1); ?>">Next</a>
                             </li>
                         <?php } ?>
-                        <li class="page-item">
-                            <p style="margin-left:10px" class="text-primary"> Página <?php echo $current_page; ?> de <?php echo $totalPages; ?></p>
+                        <li>
+						<?php
+							if ($totalPages > 1) {
+								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página $current_page de $totalPages</p>";
+							} else {
+								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página 1</p>";
+							}
+						?>
                         </li>
                     </ul>
                    

@@ -90,19 +90,19 @@
 				
 				 <li class="dropdown">
                     <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-					<i class="material-icons searching">add_home_work</i><span>Laboratórios</span></a>
+					<i class="material-icons searching">add_home_work</i><span>Salas</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu2">
 
                         <li>
                             <?php $addlab = 'addlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $addlab?>"><i class="material-icons" style="color:red">add</i>Cadastrar Laboratórios</a>
+                            <a href="reservlab.php?<?php echo $addlab?>"><i class="material-icons" style="color:red">add</i>Cadastrar Sala</a>
                         </li>
 
                         <li>
                             <?php $editlab = 'editlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $editlab?>"><i class="material-icons" style="color:orange">edit</i>Editar Laboratórios</a>
+                            <a href="reservlab.php?<?php echo $editlab?>"><i class="material-icons" style="color:orange">edit</i>Editar Salas</a>
                         </li>
 
                         <li>
@@ -125,13 +125,13 @@
                         <li>
                             <?php $reslab = 'reslab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $reslab?>"><i class="material-icons" style="color:#4caf50" >lock_clock</i>Laboratórios Reservados</a>
+                            <a href="reservlab.php?<?php echo $reslab?>"><i class="material-icons" style="color:#4caf50" >lock_clock</i>Reservados</a>
                         </li>
 
                         <li>
                             <?php $finlab = 'finlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $finlab?>"><i class="material-icons" style="color:#00bcd4">history</i>Histórico de Locações</a>
+                            <a href="reservlab.php?<?php echo $finlab?>"><i class="material-icons" style="color:#00bcd4">history</i>Histórico de Reservas</a>
                         </li>
                     </ul>
                 </li>

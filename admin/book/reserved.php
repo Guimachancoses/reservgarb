@@ -6,7 +6,7 @@
 			<div class="col-lg-12 col-md-9">
 				<div class="card" style="min-height:725px">
 					<div class="card-header card-header-text">
-					<h4 class="card-title"><strong class="text-primary"> Laboratórios Reservados</strong></h4>
+					<h4 class="card-title"><strong class="text-primary"> Reservados</strong></h4>
 						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
 					</div>
 					<div class="card-content table-responsive">
@@ -28,6 +28,13 @@
                         </thead>
                         <tbody>
                             <?php
+                                $perPage = 10; // Número de resultados por página
+                                $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
+                                $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
+                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE status_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
+                                $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
+                                $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+
                                 $query = $conn->query("SELECT
                                                             u.firstname
                                                             ,u.lastname
@@ -56,7 +63,11 @@
                                                         ON s.semester_id = dc.semester_id
                                                         INNER JOIN `status` st
                                                         ON st.status_id = lc.status_id
-                                                        WHERE lc.status_id = 2") or die(mysqli_query());
+                                                        WHERE lc.status_id = 2
+                                                        LIMIT $perPage OFFSET $offset") or die(mysqli_query());
+                                if (mysqli_num_rows($query) == 0) {
+                                    echo "<td>Sem reservas...</td>";
+                                }
                                 while($fetch = $query->fetch_array()){
                             ?>
                             <tr>
@@ -79,6 +90,31 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Paginação -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php if ($page > 1) { ?>
+                            <li class="page-item">
+                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page - 1); ?>">Anterior</a>
+                            </li>
+                        <?php } ?>
+                        <?php if (mysqli_num_rows($query) == $perPage && $totalPages > 1) { ?>
+                            <li class="page-item">
+                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page + 1); ?>">Next</a>
+                            </li>
+                        <?php } ?>
+                        <li>
+						<?php
+							if ($totalPages > 1) {
+								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página $current_page de $totalPages</p>";
+							} else {
+								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página 1</p>";
+							}
+						?>
+                        </li>
+                    </ul>
+                   
+                </nav>
             </div>
         </div>
 </div>

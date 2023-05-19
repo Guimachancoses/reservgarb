@@ -17,7 +17,7 @@
 	<div class="row">
 
 	<div class="col-lg-3 col-md-6 col-sm-6">
-		<a href="reservlab.php?<?php echo $edituser?>"><div class="card card-stats">
+		<a class="day" href="reservlab.php?<?php echo $edituser?>"><div class="card card-stats">
 				<div class="card-header">
 					<div class="icon icon-warning">
 						<span class="material-icons">group</span>
@@ -126,6 +126,7 @@
 							$totalResults = $conn->query("SELECT COUNT(*) as total FROM users WHERE funcao != 'Administrador'")->fetch_assoc()['total']; // Total de resultados no banco de dados
 							$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
 							$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+							
 							$queryad = $conn->query("SELECT users_id, 
 															firstname,
 															lastname,
@@ -167,6 +168,7 @@
                                 <a class="page-link" href="reservlab.php?page=<?php echo ($page + 1); ?>">Next</a>
                             </li>
                         <?php } ?>
+						<li>
 						<?php
 							if ($totalPages > 1) {
 								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página $current_page de $totalPages</p>";

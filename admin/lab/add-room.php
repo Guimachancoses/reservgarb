@@ -1,12 +1,12 @@
 <div class="main-content">  
     <div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-8">
 				<div class="card" style="min-height:625px">
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Adicionar Laboratório</strong></h4>
 						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
                     <br />
-                    <div class = "col-md-10"style="min-height:425px">	
+                    <div  class = "col-md-10" style="min-height:670px">	
                         <form method = "POST" enctype = "multipart/form-data">
                             <div class="card-foot">
                                 <label><strong> Tipo de Laboratório:</strong></label>
@@ -37,5 +37,4 @@
                 </div>
             </div>
         </div>
-</div>
 </div>

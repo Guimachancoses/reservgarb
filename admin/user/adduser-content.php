@@ -1,11 +1,11 @@
 <div class="main-content">    
         <div class="row">
-			<div class="col-lg-7">
+			<div class="col-lg-8">
 				<div class="card" style="min-height:950px">
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Adicionar Usuário</strong></h4>
 						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
-                    <div class = "col-md-8" style="min-height:850px">	
+                    <div  class = "col-md-10" style="min-height:850px">	
                         <form method = "POST" action="#">
                             <div class="card-foot">
                                 <label><strong> Nome:</strong></label>
@@ -88,5 +88,4 @@
                 </div>
             </div>
         </div>
-</div>
 </div>

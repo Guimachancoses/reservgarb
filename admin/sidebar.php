@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar" class="active">
 
 <?php
     // query for total pending
@@ -45,7 +45,7 @@
                             <i class="material-icons">person</i><span><?php echo $name;?></span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                                 <li>
-                                    <a class="nav-link" href="logout.php"><i class="material-icons text-logout">logout</i><span><strong> LOGOUT</strong></span></a>
+                                    <a class="nav-link" href="logout.php"><i class="material-icons text-logout">logout</i><span class="text-primary"><strong> LOGOUT</strong></span></a>
                                 </li>
                             </ul>
                     </li>
@@ -57,7 +57,7 @@
                             <i class="material-icons">settings</i><span>Configuração</span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu2">
                                 <li>
-                                    <a class="nav-link" href="reservlab.php?alter-account"><span>Alterar Seu Dados</span></a>
+                                    <a class="nav-link" href="reservlab.php?alter-account"><span class="text-primary">Alterar Seu Dados</span></a>
                                 </li>
                             </ul>
                     </li>

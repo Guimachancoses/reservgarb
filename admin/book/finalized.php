@@ -3,8 +3,8 @@
 	<!---row-second----->
 
 		<div class="row">
-			<div class="col-lg-12 col-md-9">
-				<div class="card" style="min-height:725px">
+			<div class="col-lg-10 col-md-9">
+				<div class="card" style="min-height:750px">
 					<div class="card-header card-header-text">
 					<h4 class="card-title"><strong class="text-primary"> Reservas Finalizadas</strong></h4>
 						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
@@ -97,20 +97,20 @@
                     <ul class="pagination justify-content-center">
                         <?php if ($page > 1) { ?>
                             <li class="page-item">
-                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page - 1); ?>">Anterior</a>
+                                <a class="n-overlay" href="reservlab.php?finlab&page=<?php echo ($page - 1); ?>">Anterior</a>
                             </li>
                         <?php } ?>
                         <?php if (mysqli_num_rows($query) == $perPage && $totalPages > 1) { ?>
                             <li class="page-item">
-                                <a class="page-link" href="reservlab.php?finlab&page=<?php echo ($page + 1); ?>">Próxima</a>
+                                <a class="n-overlay" href="reservlab.php?finlab&page=<?php echo ($page + 1); ?>">Próxima</a>
                             </li>
                         <?php } ?>
                         <li>
 						<?php
 							if ($totalPages > 1) {
-								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página $current_page de $totalPages</p>";
+								echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
 							} else {
-								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página 1</p>";
+								echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página 1</p>";
 							}
 						?>
                         </li>
@@ -120,5 +120,4 @@
                 
             </div>
         </div>
-</div>
 </div>

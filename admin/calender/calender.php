@@ -1,3 +1,4 @@
+<div class="main-content" style="padding: 10px 5px 0px 5px;">
 <div class="container" >
     <div class="left">
         <div class="calendar">

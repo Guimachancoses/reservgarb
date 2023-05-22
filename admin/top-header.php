@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" class="active">
 <?php
     // query for total pending
     $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error());
@@ -18,10 +18,10 @@
 <div class="top-navbar">
     <nav class="navbar  navbar-expand-lg">
         <button id="sidebar-collapse" class="d-xl-block d-lg-block d-md-none d-none" hidden="hidden">
-            <span  class="material-icons">chevron_left</span>
+            <span  class="material-icons">arrow_back_ios</span>
         </button>
         <a class="navbar-brand" href="#">
-            <img class="logoeinstein" src="../img/lg_garbuio.png">
+            <img class="logoeinstein2" src="../img/lg_garbuio.png">
         </a>
         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse"
                 data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle">
@@ -31,7 +31,7 @@
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
-                        <span class="material-icons" >notifications</span>
+                        <span class="div-link material-icons" >notifications</span>
                             <?php if ($f_p['total'] > 0) { ?>
                                 <span style="color:white" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?> 
@@ -46,7 +46,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown"><span style="cursor:pointer" class = "material-icons">person</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="logout.php"><span class = "material-icons text-logout">logout</span><strong> LOGOUT</strong></span></a></li>
+                        <li><a class="nav-link" href="logout.php"><span class = "material-icons text-logout" style="color:#5faa4f">logout</span><strong> LOGOUT</strong></span></a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

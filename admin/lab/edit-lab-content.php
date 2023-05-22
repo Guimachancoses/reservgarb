@@ -1,9 +1,9 @@
 <div class="main-content">  
     <div class="row">
-			<div class="col-lg-6">
-				<div class="card" style="min-height:625px">
+			<div class="col-lg-8">
+				<div class="card" style="min-height:750px">
 					<div class="card-header card-header-text">
-						<h4 class="card-title"><strong class="text-primary"> Adicionar Laboratório</strong></h4>
+						<h4 class="card-title"><strong class="text-primary"> Editar Laboratório</strong></h4>
 						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
                     <br />
                     <?php
@@ -41,5 +41,4 @@
                 </div>
             </div>
         </div>
-<div>
 <div>

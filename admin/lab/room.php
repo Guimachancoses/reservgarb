@@ -4,7 +4,7 @@
 
 		<div class="row">
 			<div class="col-lg-10 col-md-12">
-				<div class="card" style="min-height:625px">
+				<div class="card" style="min-height:750px">
 					<div class="card-header card-header-text">
                         <h4 class="card-title"><strong class="text-primary"> Editar Laboratórios</strong></h4>
 						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
@@ -38,5 +38,4 @@
                 </div>
             </div>
         </div>
-</div>
 </div>

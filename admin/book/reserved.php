@@ -3,8 +3,8 @@
 	<!---row-second----->
 
 		<div class="row">
-			<div class="col-lg-12 col-md-9">
-				<div class="card" style="min-height:725px">
+			<div class="col-lg-10 col-md-9">
+				<div class="card" style="min-height:750px">
 					<div class="card-header card-header-text">
 					<h4 class="card-title"><strong class="text-primary"> Reservados</strong></h4>
 						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
@@ -117,5 +117,4 @@
                 </nav>
             </div>
         </div>
-</div>
 </div>

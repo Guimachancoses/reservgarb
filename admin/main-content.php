@@ -16,7 +16,7 @@
 	?>
 	<div class="row">
 
-	<div class="col-lg-3 col-md-6 col-sm-6">
+	<div class="div-link col-lg-3 col-md-6 col-sm-6">
 		<a class="day" href="reservlab.php?<?php echo $edituser?>"><div class="card card-stats">
 				<div class="card-header">
 					<div class="icon icon-warning">
@@ -36,7 +36,7 @@
 			</a></div>
 		</div>
 		
-		<div class="col-lg-3 col-md-6 col-sm-6">
+		<div class="div-link col-lg-3 col-md-6 col-sm-6">
 			<a href="reservlab.php?<?php echo $penlab?>"><div class="card card-stats">
 				<div class="card-header">
 					<div class="icon icon-rose">
@@ -56,7 +56,7 @@
 			</a></div>
 		</div>
 
-		<div class="col-lg-3 col-md-6 col-sm-6">
+		<div class="div-link col-lg-3 col-md-6 col-sm-6">
 			<a href="reservlab.php?<?php echo $reslab?>"><div class="card card-stats">
 				<div class="card-header">
 					<div class="icon icon-success">
@@ -75,7 +75,7 @@
 				</div>
 			</a></div>
 		</div>
-		<div class="col-lg-3 col-md-6 col-sm-6">
+		<div class="div-link col-lg-3 col-md-6 col-sm-6">
 			<a href="reservlab.php?<?php echo $finlab?>"><div class="card card-stats">
 			<div class="card-header">
 					<div class="icon icon-info">
@@ -100,7 +100,7 @@
 
 	<div class="row">
 		<div class="col-lg-9 col-md-9">
-			<div class="card" style="min-height:485px;">
+			<div class="card" style="min-height:420px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Usuários Cadastrados</h4>
 					<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
@@ -160,20 +160,20 @@
                     <ul class="pagination justify-content-center">
                         <?php if ($page > 1) { ?>
                             <li class="page-item">
-                                <a class="page-link" href="reservlab.php?page=<?php echo ($page - 1); ?>">Anterior</a>
+                                <a class="n-overlay" href="reservlab.php?page=<?php echo ($page - 1); ?>">Anterior</a>
                             </li>
                         <?php } ?>
                         <?php if (mysqli_num_rows($queryad) == $perPage && $totalPages > 1) { ?>
                             <li class="page-item">
-                                <a class="page-link" href="reservlab.php?page=<?php echo ($page + 1); ?>">Next</a>
+                                <a class="n-overlay" href="reservlab.php?page=<?php echo ($page + 1); ?>">Próxima</a>
                             </li>
                         <?php } ?>
 						<li>
 						<?php
 							if ($totalPages > 1) {
-								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página $current_page de $totalPages</p>";
+								echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
 							} else {
-								echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página 1</p>";
+								echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página 1</p>";
 							}
 						?>
                         </li>
@@ -187,7 +187,7 @@
 </div>
 								
 		    <div class="col-lg-3 col-md-12">
-		        <div class="card" style="min-height:485">
+		        <div class="card" style="min-height:420">
 			        <div class="card-header card-header-text">
                   		<h4 class="card-title">Atividade</h4>
                     </div>

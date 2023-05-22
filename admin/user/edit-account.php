@@ -9,7 +9,7 @@
                         $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_REQUEST[users_id]'") or die(mysqli_error());
                         $fetch = $query->fetch_array();
                     ?>
-                    <div class = "col-md-7">	
+                    <div  class = "col-md-10" style="min-height:850px">	
                         <form method = "POST" action = "edit_query_account_users.php?users_id=<?php echo $fetch['users_id']?>">
                             <div class="card-foot">
                                 <label><strong> Nome:</strong></label>
@@ -92,5 +92,4 @@
                 </div>
             </div>
         </div>
-</div>
 </div>

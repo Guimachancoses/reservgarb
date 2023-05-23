@@ -44,26 +44,31 @@
 	<script src="../js/validateForm.js"></script>
 
 	  
-<script type="text/javascript">
+	<script type="text/javascript">
+	
 	$(document).ready(function() {
-		$("#sidebar-collapse").on('mouseenter', function() {
-			$('#sidebar').addClass('active');
-			$('#content').addClass('active');
-		});
-	$(document).ready(function() {
-		$("#sidebar").on('mouseleave', function() {
-			$('#sidebar').removeClass('active');
-			$('#content').removeClass('active');
-		});
-	// $(".sidebar-header").on('click', function() {
-	// 		$('#sidebar').toggleClass('active');
-	// 		$('#content').toggleClass('active');
-	// 	});
+
+    $('#sidebar').addClass('active');
+    $('#content').addClass('active');
+
+	$("#sidebar-collapse").on('mouseenter', function() {
+		$('#sidebar').addClass('active');
+		$('#content').addClass('active');
+	});
+
+	$("#sidebar").on('mouseleave', function() {
+		$('#sidebar').removeClass('active');
+		$('#content').removeClass('active');
+	});
+
+	$("#sidebar-collapse").on('click',function(){
+		$('#sidebar').toggleClass('active');
+		$('#content').toggleClass('active');
+	});
 
 	$(".more-button,.body-overlay").on('click',function(){
 			$('#sidebar,.body-overlay').toggleClass('show-nav');
 		});
-
 
     // Retrair a barra lateral ao clicar fora dela
     $(document).on('click', function(event) {
@@ -81,7 +86,6 @@
     });
 });
 
-});
 </script>
 
 

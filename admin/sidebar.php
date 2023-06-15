@@ -88,7 +88,7 @@
                     </ul>
                 </li>
 				
-				 <li class="dropdown">
+				<li class="dropdown">
                     <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 					<i class="material-icons searching">add_home_work</i><span>Salas</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu2">
@@ -113,8 +113,54 @@
 
                 <li class="dropdown">
                     <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-					<i class="material-icons">edit_calendar</i><span>Reservas</span></a>
+					<i class="material-icons searching">directions_car_filled</i><span>Veículos</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu3">
+
+                        <li>
+                            <?php $addlab = 'addlab';
+                                ?>
+                            <a href="reservlab.php?<?php echo $addlab?>"><i class="material-icons" style="color:red">add</i>Cadastrar Veículo</a>
+                        </li>
+
+                        <li>
+                            <?php $editlab = 'editlab';
+                                ?>
+                            <a href="reservlab.php?<?php echo $editlab?>"><i class="material-icons" style="color:orange">edit</i>Editar Veículo</a>
+                        </li>
+
+                        <li>
+                            <a></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons searching">laptop_mac</i><span>Equipamentos</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu4">
+
+                        <li>
+                            <?php $addlab = 'addlab';
+                                ?>
+                            <a href="reservlab.php?<?php echo $addlab?>"><i class="material-icons" style="color:red">add</i>Cadastrar Equipamento</a>
+                        </li>
+
+                        <li>
+                            <?php $editlab = 'editlab';
+                                ?>
+                            <a href="reservlab.php?<?php echo $editlab?>"><i class="material-icons" style="color:orange">edit</i>Editar Equipamento</a>
+                        </li>
+
+                        <li>
+                            <a></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">edit_calendar</i><span>Reservas</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu5">
 
                         <li>
                             <?php $penlab = 'penlab';

@@ -275,7 +275,7 @@ a:focus {
 
 .navbar .material-icons {
   color: #ffffff;
-  padding: 10px;
+  /* padding: 10px; */
   /* background-color: rgba(3, 3, 3, 0.192);
   border-radius: 100%; */
 }
@@ -391,10 +391,11 @@ a:focus {
   border: none;
   width: 100%;
   margin: 15px 0;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+  /* box-shadow: 0 1px 2px rgb(0 0 0 / 8%); */
   border-radius: 6px;
   color: rgba(0, 0, 0, 0.87);
   background-color: #fff;
+  box-shadow: 10px 10px 10px #00000049;
 }
 
 .card-stats .card-header {
@@ -442,8 +443,10 @@ a:focus {
 .card .card-footer {
   margin: 0 7px 0px;
   padding-top: 10px;
-  background-color: #555555;
-  border-top: 1px solid #555555;
+  background-color: #000000;
+  border-top: 1px solid #000000;
+  box-shadow: 10px 10px 10px #00000049;
+  border-radius: 10px 10px 0px 0px;
 }
 .card .card-foot {
   margin: 0 7px 0px;
@@ -611,8 +614,9 @@ a:focus {
   ================================*/
 
 .footer {
-  background-color: #363535;
-  border-top: 1px solid #363535;
+  border-radius: 10px 10px 0px 0px;
+  border-top: 1px solid #000000;
+  background-color: #000000;
 }
 
 footer {

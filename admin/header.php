@@ -19,9 +19,9 @@
 
     <title>Reserve Garbuio</title>
 
-     <link rel="icon" 
-        type="image/jpg"
-        href="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" />
+    <link rel="icon" 
+      type="image/jpg"
+      href="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" />
       
     <!-- Calender CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -33,10 +33,7 @@
     <link rel="stylesheet" href="../css/custom.css">
     <link rel="stylesheet" href="../css/style-calender.css">
 
-		
-		
-		<!--google fonts -->
-	
+		<!--google fonts -->	
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -53,16 +50,14 @@
     <script src="../js/updateLocation.js"></script>	
     <link rel="stylesheet" href="<?=$base_url?>../css/bootstrap-datetimepicker.min.css" />
 
-	
-	
-	
-	<!--google material icon-->
+	  <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   </head>
-  <body>
+<body>
   
 <div class="wrapper">
 
-
-        <div class="body-overlay"></div>
+  <div class="body-overlay"></div>

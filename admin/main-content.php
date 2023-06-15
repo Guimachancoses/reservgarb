@@ -17,7 +17,7 @@
 	<div class="row">
 
 	<div class="div-link col-lg-3 col-md-6 col-sm-6">
-		<a class="day" href="reservlab.php?<?php echo $edituser?>"><div class="card card-stats">
+		<a href="reservlab.php?<?php echo $edituser?>"><div class="card card-stats">
 				<div class="card-header">
 					<div class="icon icon-warning">
 						<span class="material-icons">group</span>
@@ -33,7 +33,7 @@
 						Total de usuários cadastrados
 					</div>
 				</div>
-			</a></div>
+				</div></a>
 		</div>
 		
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
@@ -89,7 +89,7 @@
 				<div class="card-footer">
 					<div class="stats">
 					<i class="material-icons text-location">update</i>
-						Total de Locações
+						Total de locações
 					</div>
 				</div>
 			</div>
@@ -106,18 +106,51 @@
 					<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
 				</div>
 				<div class="card-content table-responsive">
-					<table class="table table-hover">
+					<div class="search-container ">
+						<input type="text" class = "select-box" id="search-input" placeholder="Pesquisar...">
+					</div>
 
-						<thead class="text-primary">
+					<script>
+						// Função para filtrar os resultados da tabela com base no valor de busca
+						function searchTable() {
+							var input, filter, table, tr, td, i, txtValue;
+							input = document.getElementById("search-input");
+							filter = input.value.toUpperCase();
+							table = document.getElementById("myTable");
+							tr = table.getElementsByTagName("tr");
+
+							// Iterar sobre todas as linhas da tabela e ocultar aquelas que não correspondem ao critério de busca
+							for (i = 0; i < tr.length; i++) {
+							td = tr[i].getElementsByTagName("td");
+							for (var j = 0; j < td.length; j++) {
+								if (td[j]) {
+								txtValue = td[j].textContent || td[j].innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									tr[i].style.display = "";
+									break; // Exibir a linha e passar para a próxima linha
+								} else {
+									tr[i].style.display = "none"; // Ocultar a linha se não corresponder ao critério de busca
+								}
+								}
+							}
+							}
+						}
+
+						// Adicionar um ouvinte de eventos ao campo de busca para chamar a função searchTable() sempre que o valor mudar
+						document.getElementById("search-input").addEventListener("input", searchTable);
+						</script>
+
+					<table class="table table-hover" id="myTable">
+
+						<thead class="text-primary" style="cursor:pointer">
 							<tr>
+								<th></th>
 								<th>Nome</th>
 								<th>Função</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
 							</tr>
 						</thead>
-
-						<tbody>
 
 						<?php  
 							$perPage = 6; // Número de resultados por página
@@ -138,15 +171,16 @@
 															WHERE funcao != 'Administrador'
 															LIMIT $perPage OFFSET $offset") or die(mysqli_error());
 							while($fetch = $queryad->fetch_array()){
+							$editLink = "reservlab.php?users_id=".$fetch['users_id']."edit-account";		
 						?>
-							<tr>
-								<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
+							<tr onclick="window.location='<?php echo $editLink; ?>'">
+								<td><?php echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success"">'?></td>
+								<td></div><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 								<td><?php echo $fetch['funcao']?></td>
 								<td><?php echo $fetch['email']?></td>
-								<?php $contactno = $fetch['contactno'];
-								$formatted_contactno = '(' . substr($contactno, 0, 2) . ') ' . substr($contactno, 2, 5) . '-' . substr($contactno, 7);?>
+								<?php $contactno = $fetch['contactno'];	$formatted_contactno = '(' . substr($contactno, 0, 2) . ') ' . substr($contactno, 2, 5) . '-' . substr($contactno, 7);?>
 								<td><?php echo $formatted_contactno?></td>
-							</tr>
+							</tr> 
 							<?php
 								}
 							?>
@@ -155,6 +189,41 @@
 						
 					</table>
 				</div>
+
+				<script>
+					$(document).ready(function() {
+					// Função para ordenar a tabela
+					function sortTable(columnIndex) {
+						var table, rows, switching, i, x, y, shouldSwitch;
+						table = document.getElementById("myTable");
+						switching = true;
+						while (switching) {
+						switching = false;
+						rows = table.getElementsByTagName("tr");
+						for (i = 1; i < (rows.length - 1); i++) {
+							shouldSwitch = false;
+							x = rows[i].getElementsByTagName("td")[columnIndex];
+							y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+							if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+							}
+						}
+						if (shouldSwitch) {
+							rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+							switching = true;
+						}
+						}
+					}
+					
+					// Evento de clique no cabeçalho da tabela
+					$("th").click(function() {
+						var columnIndex = $(this).index();
+						sortTable(columnIndex);
+					});
+					});
+				</script>
+
 				<!-- Paginação -->
                 <nav>
                     <ul class="pagination justify-content-center">

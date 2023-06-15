@@ -27,16 +27,16 @@
                 data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle">
                 <i style="font-size:35px;padding:10px;color:white" class="material-icons">menu</i>
         </button>        
-        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none" id="navbarcollapse">
+        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none justify-content-end" id="navbarcollapse">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
                         <span class="div-link material-icons" >notifications</span>
                             <?php if ($f_p['total'] > 0) { ?>
-                                <span style="color:white" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
+                                <span style="color:white;border-radius:100%" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?> 
                    </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="display:flex;align-items:center;justify-content:center;">
                         <li>
                             <?php $penlab = 'penlab'; ?>
                             <a href="reservlab.php?<?php echo $penlab?>" class="text-primary"><?php echo $pendente?></a>
@@ -46,7 +46,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown"><span style="cursor:pointer" class = "material-icons">person</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="logout.php"><span class = "material-icons text-logout" style="color:#5faa4f">logout</span><strong> LOGOUT</strong></span></a></li>
+                    <li><a class="nav-link" href="logout.php" style="display:flex;align-items:center;justify-content:center;"><span class = "material-icons text-logout" style="color:#5faa4f" >logout</span><strong>&#160SAIR</strong></span></a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -55,7 +55,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href = "reservlab.php?alter-account" class="text-primary">Alterar seu dados</a>
+                        <a href = "reservlab.php?alter-account" style="display:flex;align-items:center;justify-content:center;" class="text-primary">Alterar seu dados</a>
                         </li>
                     </ul>
                 </li>

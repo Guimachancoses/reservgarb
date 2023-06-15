@@ -27,9 +27,9 @@
 
 <!----------html code compleate----------->
   
-      <!-- Optional JavaScript -->
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
- 	<script src="../js/jquery-3.3.1.slim.min.js"></script>
+	<script src="../js/jquery-3.3.1.slim.min.js"></script>
 	<script src="../js/popper.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/jquery-3.3.1.min.js"></script>
@@ -42,117 +42,162 @@
 	<script src="../js/verif_cookie.js"></script>
 	<script src="../js/validateCpf.js"></script>
 	<script src="../js/validateForm.js"></script>
+	<script src="../js/validatePwd.js"></script>
+	<script src="../js/alerts.js"></script>
+	<script src="../js/eyesPwd.js"></script>
 
-	  
+	<!-- Função para automatizar sidebar	 -->
 	<script type="text/javascript">
-	
-	$(document).ready(function() {
+		
+		$(document).ready(function() {
 
-    $('#sidebar').addClass('active');
-    $('#content').addClass('active');
+			$('#sidebar').addClass('active');
+			$('#content').addClass('active');
 
-	$("#sidebar-collapse").on('mouseenter', function() {
-		$('#sidebar').addClass('active');
-		$('#content').addClass('active');
-	});
+			$("#sidebar-collapse").on('mouseleave', function() {
+				$('#sidebar').addClass('active');
+				$('#content').addClass('active');
+			});
 
-	$("#sidebar").on('mouseleave', function() {
-		$('#sidebar').removeClass('active');
-		$('#content').removeClass('active');
-	});
+			$("#sidebar").on('mouseenter', function() {
+				$('#sidebar').removeClass('active');
+				$('#content').removeClass('active');
+			});
 
-	$("#sidebar-collapse").on('click',function(){
-		$('#sidebar').toggleClass('active');
-		$('#content').toggleClass('active');
-	});
+			$("#sidebar-collapse").on('click',function(){
+				$('#sidebar').toggleClass('active');
+				$('#content').toggleClass('active');
+			});
 
-	$(".more-button,.body-overlay").on('click',function(){
-			$('#sidebar,.body-overlay').toggleClass('show-nav');
+			$(".more-button,.body-overlay").on('click',function(){
+					$('#sidebar,.body-overlay').toggleClass('show-nav');
+			});
+
+			// Função para abrir menu e fechar no touch do dispositivo móvel
+			var touchStartX = 0;
+			var touchMoveX = 0;
+			var minSwipeDistance = 250;
+			var sidebarWidth = $('#sidebar').outerWidth();
+
+			$(document).on('touchstart', function(event) {
+			touchStartX = event.originalEvent.touches[0].clientX;
+			});
+
+			$(document).on('touchmove', function(event) {
+			touchMoveX = event.originalEvent.touches[0].clientX;
+			});
+
+			$(document).on('touchend', function(event) {
+			var swipeDistance = touchMoveX - touchStartX;
+
+			// Verificar se o gesto ocorreu de dentro para fora da área do elemento #sidebar
+			if (swipeDistance > minSwipeDistance && touchStartX <= sidebarWidth && touchMoveX > touchStartX) {
+				event.preventDefault(); // Impedir que o navegador feche
+				$('#sidebar, .body-overlay').addClass('show-nav');
+			} else if (swipeDistance < -minSwipeDistance) {
+				$('#sidebar, .body-overlay').removeClass('show-nav');
+			}
+
+			touchStartX = 0; // Resetar os valores
+			touchMoveX = 0;
+			});
+
+
+			// Retrair a barra lateral ao clicar fora dela
+			$(document).on('click', function(event) {
+				var sidebar = $('#sidebar');
+				var sidebarCollapse = $('#sidebar-collapse');
+				if (!sidebar.is(event.target) && sidebar.has(event.target).length === 0 && !sidebarCollapse.is(event.target)) {
+					if (sidebarCollapse.hasClass('active')) {
+						sidebar.removeClass('active');
+						$('#content').removeClass('active');
+					} else {
+						sidebar.addClass('active');
+						$('#content').addClass('active');
+					}
+				}
+			});
 		});
+		
+	</script>
 
-    // Retrair a barra lateral ao clicar fora dela
-    $(document).on('click', function(event) {
-        var sidebar = $('#sidebar');
-        var sidebarCollapse = $('#sidebar-collapse');
-        if (!sidebar.is(event.target) && sidebar.has(event.target).length === 0 && !sidebarCollapse.is(event.target)) {
-            if (sidebarCollapse.hasClass('active')) {
-                sidebar.removeClass('active');
-                $('#content').removeClass('active');
-            } else {
-                sidebar.addClass('active');
-                $('#content').addClass('active');
-            }
-        }
-    });
-});
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.dropdown.keep-open').on({
+			"shown.bs.dropdown": function() {
+				$(this).data('closable', false);
+			},
+			"click": function() {
+				$(this).data('closable', true);
+			},
+			"hide.bs.dropdown": function() {
+				return $(this).data('closable');
+			}
+			});
 
-</script>
+			// Fechar o submenu quando clicar fora dele
+			$(document).on('click', function(e) {
+      		var target = $(e.target);
+     		var isDropdownToggle = target.hasClass('.dropdown-toggle');
+      		var isOpenSubmenu = target.next('.collapse.show');
+      		var isSubmenu = target.hasClass('collapse');
+
+			if (!isDropdownToggle && !isSubmenu && isOpenSubmenu) {
+				$('.collapse.show').removeClass('show');
+			}
+			});
+
+			// Fechar o submenu ao clicar em outro menu com ID diferente
+			$('.dropdown-toggle').on('click', function() {
+			var submenu = $(this).next('.collapse');
+			var openSubmenus = $('.collapse.show');
+
+			if (submenu.length && submenu[0] !== openSubmenus[0]) {
+				openSubmenus.removeClass('show');
+			}
+			});
+		});
+	</script>
 
 
-<script type = "text/javascript">
-	$(document).ready(function(){
-		$("#table").DataTable();
-	});
-</script>
+	<!-- Função para mensagem de exclusão -->
+	<script type = "text/javascript">
+		function confirmationDelete(anchor){
+			var conf = confirm("Você tem certeza que deseja excluir??");
+			if(conf){
+				window.location = anchor.attr("href");
+			}
+		} 
+	</script>
 
-<script type = "text/javascript">
-$('.dropdown.keep-open').on({
-    "shown.bs.dropdown": function() { this.closable = false; },
-    "click":             function() { this.closable = true; },
-    "hide.bs.dropdown":  function() { return this.closable; }
-});
-</script>
+	<!-- Função para mensagem de exclusão de banco de dados para usuários-->
+	<script type = "text/javascript">
+		function confirmationDeletedb(anchor){
+			var conf = confirm("( ATENÇÃO ) Essa ação apagará todos dados desse usuário.\n\nVocê tem certeza que deseja excluir, permanentemente??");
+			if(conf){
+				window.location = anchor.attr("href");
+			}
+		} 
+	</script>
 
-<script type = "text/javascript">
-	function confirmationDelete(anchor){
-		var conf = confirm("Você tem certeza que deseja excluir??");
-		if(conf){
-			window.location = anchor.attr("href");
+	<!-- Função para mensagem de exclusão de banco de dados para laboratorios-->
+	<script type = "text/javascript">
+		function confirmationDeletedbl(anchor){
+			var conf = confirm("( ATENÇÃO ) Essa ação apagará todos dados desse laboratório.\n\nVocê tem certeza que deseja excluir, permanentemente??");
+			if(conf){
+				window.location = anchor.attr("href");
+			}
+		} 
+	</script>
+
+	<!-- Função para mensagem de liberar evento -->
+	<script type = "text/javascript">
+		function confirmationCheckin(anchor){
+			var conf = confirm("Você tem certeza que deseja liberar essa locação?");
+			if(conf){
+				window.location = anchor.attr("href");
+			}
 		}
-	} 
-</script>
-
-<script>
-	function success(){
-		alert("Usuário inserido com sucesso!!!");
-	}		
-</script>
-
-<script>
-	function editsuccess(){
-		alert("As alterações de usuário, foram feitas com sucesso!!!");
-	}
-</script>
-
-<script>
-	function addroom(){
-		alert("Laboratório inserido com sucesso!!!");
-	}		
-</script>
-
-<script>
-$(document).ready(function() {
-  $('#add-software-button').click(function() {
-    $('#add-software-dialog').dialog('open');
-  });
-
-  $('#add-software-dialog').dialog({
-    autoOpen: false,
-    width: 400,
-    buttons: {
-      "Salvar": function() {
-        // Aqui você pode adicionar o código para salvar o software
-        $(this).dialog('close');
-      },
-      "Cancelar": function() {
-        $(this).dialog('close');
-      }
-    }
-  });
-});
-
-</script>
-
-
+	</script>
   </body>
 </html>

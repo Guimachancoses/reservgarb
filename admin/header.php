@@ -21,7 +21,7 @@
 
     <link rel="icon" 
       type="image/jpg"
-      href="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" />
+      href="../img/logo_title.png" />
       
     <!-- Calender CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">

@@ -65,7 +65,7 @@ body {
       rgba(255, 255, 255, 0.5),
       rgba(0, 0, 0, 0.5)
     ),
-    url(https://www.garbuio.com.br/wp-content/uploads/2021/08/slider1_tgservice_home.jpg);
+    url("../img/background_login.jpg");
   /* background-image: url(https://www.garbuio.com.br/wp-content/uploads/2021/08/slider3_tgservice_home.jpg); */
   background-size: cover;
   background-position: center;

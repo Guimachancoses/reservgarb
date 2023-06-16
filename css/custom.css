@@ -254,22 +254,73 @@ a:focus {
   color: #fff;
 } */
 
-.navbar {
-  height: 200px;
-  background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-    url(https://www.garbuio.com.br/wp-content/uploads/2021/08/slider3_tgservice_home.jpg);
-  /* background-image: url(https://www.garbuio.com.br/wp-content/uploads/2021/08/slider3_tgservice_home.jpg); */
-  background-size: 100% auto !important;
-  background-position: center;
+@media (min-width: 1981px) and (max-width: 10000px) {
+  .navbar {
+    height: 260px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_1.jpg");
+    background-size: cover;
+    background-position: center bottom 655px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 1551px) and (max-width: 1980px) {
   .navbar {
-    height: auto;
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_1.jpg");
+    background-size: cover;
+    background-position: center bottom 480px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1550px) {
+  .navbar {
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_1.jpg");
+    background-size: cover;
+    background-position: center bottom 380px;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 1024px) {
+  .navbar {
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_1.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .navbar {
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_1.jpg");
+    background-size: cover;
+    background-position: center;
   }
 }
 

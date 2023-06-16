@@ -138,7 +138,7 @@
 
 						// Adicionar um ouvinte de eventos ao campo de busca para chamar a função searchTable() sempre que o valor mudar
 						document.getElementById("search-input").addEventListener("input", searchTable);
-						</script>
+					</script>
 
 					<table class="table table-hover" id="myTable">
 
@@ -164,17 +164,20 @@
 															firstname,
 															lastname,
 															funcao,
-															username,
 															email,
-															contactno
+															contactno,
+															status
 															FROM `users` 
 															WHERE funcao != 'Administrador'
 															LIMIT $perPage OFFSET $offset") or die(mysqli_error());
+							if (mysqli_num_rows($queryad) == 0) {
+								echo "<td>Sem usuários cadastrados</td>";
+							}
 							while($fetch = $queryad->fetch_array()){
 							$editLink = "reservlab.php?users_id=".$fetch['users_id']."edit-account";		
 						?>
 							<tr onclick="window.location='<?php echo $editLink; ?>'">
-								<td><?php echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success"">'?></td>
+								<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "7") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
 								<td></div><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 								<td><?php echo $fetch['funcao']?></td>
 								<td><?php echo $fetch['email']?></td>
@@ -278,6 +281,14 @@
 												ORDER BY 2 DESC 
 												LIMIT 6;") or die(mysqli_error());						
 						$i = 1;
+						if (mysqli_num_rows($q_act) == 0) {
+							echo '<div class="sl-item">';
+								echo'<div class="sl-content">';
+								echo'<small class="text-muted"></small>';
+								echo'<p>Sem atividades</p>';
+							echo'</div>';
+						echo'</div>';
+						}
 						while($f_act = $q_act->fetch_array()){
 							${'assunto'.$i} = $f_act['assunto'];
 							${'tempo'.$i} = $f_act['tempo'];

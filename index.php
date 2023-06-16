@@ -9,7 +9,7 @@
 
     <link rel="icon" 
         type="image/jpg" 
-        href="https://www.garbuio.com.br/wp-content/uploads/2021/08/cropped-favicon-270x270.png" />
+        href="./img/logo_title.png" />
  
     <link
       rel="stylesheet"
@@ -46,12 +46,12 @@
                           <div class="form-group">
                             <input
                               type="text"
-                              name="ra"
-                              maxlength="7"
+                              name="ra"                              
                               class="form-style"
                               placeholder="Insira seu usuário"
                               id="usuario"
                               autocomplete="on"
+                              required
                             />
                             <i class="input-icon uil uil-user"></i>
                           </div>
@@ -146,32 +146,6 @@
 
 <script>
 
-const input = document.getElementById('usuario');
-
-// adiciona um evento para formatar o número ao perder o foco do input
-input.addEventListener('blur', function() {
-  const value = this.value;
-  
-  // verifica se o valor tem 7 caracteres e contém apenas números
-  if (value.length === 7 && /^\d+$/.test(value)) {
-    const formattedValue = formatNumber(value);
-    
-    // define o valor formatado como o valor do input
-    this.value = formattedValue;
-  } else {
-    // alert('Por favor, digite um número de 7 dígitos.');
-    this.focus();
-  }
-});
-
-// função para formatar o número
-function formatNumber(number) {
-  const firstPart = number.substring(0, 4);
-  const secondPart = number.substring(4, 6);
-  const thirdPart = number.substring(6, 7);
-  
-  return `${firstPart}/${secondPart}-${thirdPart}`;
-}
 const forgotPasswordLink = document.querySelector('a#reg-log');
 
 forgotPasswordLink.addEventListener('click', function(e) {

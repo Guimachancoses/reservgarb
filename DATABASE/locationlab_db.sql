@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04-Maio-2023 às 12:22
+-- Tempo de geração: 23/06/2023 às 11:46
 -- Versão do servidor: 10.4.28-MariaDB
--- versão do PHP: 8.2.4
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,10 +26,9 @@ USE `locationlab_db`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `activities`
+-- Estrutura para tabela `activities`
 --
--- Criação: 23-Abr-2023 às 00:56
--- Última actualização: 04-Maio-2023 às 01:01
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -49,190 +48,157 @@ CREATE TABLE `activities` (
 --
 
 --
--- Extraindo dados da tabela `activities`
+-- Despejando dados para a tabela `activities`
 --
 
 INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
-(1, 3, 3, '2023-04-23 00:57:14'),
-(2, 1, 4, '2023-04-23 00:57:23'),
-(3, 4, 4, '2023-04-23 00:58:22'),
-(4, 1, 4, '2023-04-23 00:58:32'),
-(5, 5, 4, '2023-04-23 00:58:40'),
-(6, 2, 4, '2023-04-23 00:58:47'),
-(7, 6, 4, '2023-04-23 00:58:55'),
-(8, 11, 3, '2023-04-23 00:59:02'),
-(9, 11, 3, '2023-04-23 00:59:09'),
-(10, 11, 3, '2023-04-23 00:59:15'),
-(11, 11, 3, '2023-04-23 00:59:21'),
-(12, 11, 3, '2023-04-23 00:59:28'),
-(13, 13, 3, '2023-04-23 00:59:52'),
-(14, 17, 3, '2023-04-23 01:00:01'),
-(15, 6, 4, '2023-04-23 01:00:09'),
-(16, 6, 4, '2023-04-23 01:00:16'),
-(17, 4, 4, '2023-04-23 01:00:22'),
-(18, 6, 4, '2023-04-23 01:00:40'),
-(19, 1, 4, '2023-04-23 01:00:56'),
-(20, 6, 4, '2023-04-23 01:01:04'),
-(21, 18, 1, '2023-04-23 01:01:16'),
-(22, 18, 1, '2023-04-23 01:01:26'),
-(23, 19, 2, '2023-04-23 01:01:38'),
-(24, 20, 2, '2023-04-23 01:01:48'),
-(25, 13, 3, '2023-04-23 01:01:57'),
-(26, 13, NULL, '2023-04-17 23:19:58'),
-(27, 2, NULL, '2023-04-17 23:22:07'),
-(28, 3, NULL, '2023-04-17 23:22:41'),
-(29, 13, NULL, '2023-04-18 00:40:35'),
-(30, 13, NULL, '2023-04-18 01:19:46'),
-(31, 13, NULL, '2023-04-18 01:19:53'),
-(32, 13, NULL, '2023-04-18 01:37:24'),
-(33, 4, NULL, '2023-04-18 10:20:05'),
-(34, 21, NULL, '2023-04-18 14:08:48'),
-(35, 21, NULL, '2023-04-18 14:17:42'),
-(36, 21, NULL, '2023-04-18 14:19:08'),
-(37, 22, NULL, '2023-04-18 14:43:53'),
-(38, 2, NULL, '2023-04-18 20:43:38'),
-(39, 3, NULL, '2023-04-18 20:44:49'),
-(40, 23, NULL, '2023-04-19 12:44:27'),
-(41, 24, NULL, '2023-04-19 14:35:52'),
-(42, 24, NULL, '2023-04-19 14:36:10'),
-(43, 24, NULL, '2023-04-19 14:37:21'),
-(44, 24, NULL, '2023-04-19 14:41:17'),
-(45, 24, NULL, '2023-04-19 14:44:43'),
-(46, 24, NULL, '2023-04-19 14:45:05'),
-(47, 24, NULL, '2023-04-19 14:47:24'),
-(48, 24, NULL, '2023-04-19 14:47:59'),
-(49, 2, NULL, '2023-04-19 18:11:28'),
-(50, 2, NULL, '2023-04-19 18:12:02'),
-(51, 3, NULL, '2023-04-19 18:12:11'),
-(52, 2, NULL, '2023-04-19 18:14:15'),
-(53, 2, NULL, '2023-04-19 18:14:31'),
-(54, 3, NULL, '2023-04-19 18:14:40'),
-(55, 2, NULL, '2023-04-19 20:31:12'),
-(56, 2, NULL, '2023-04-19 23:17:46'),
-(57, 21, NULL, '2023-04-19 23:19:13'),
-(58, 22, NULL, '2023-04-19 23:19:17'),
-(59, 2, NULL, '2023-04-19 23:34:02'),
-(60, 4, NULL, '2023-04-20 22:39:48'),
-(61, 21, NULL, '2023-04-20 22:59:09'),
-(62, 21, NULL, '2023-04-20 22:59:14'),
-(63, 22, NULL, '2023-04-20 22:59:18'),
-(64, 22, NULL, '2023-04-20 22:59:20'),
-(65, 4, NULL, '2023-04-21 14:14:00'),
-(66, 2, NULL, '2023-04-21 14:40:30'),
-(67, 2, NULL, '2023-04-21 16:07:15'),
-(68, 2, NULL, '2023-04-21 17:08:42'),
-(69, 21, NULL, '2023-04-21 18:37:14'),
-(70, 22, NULL, '2023-04-21 18:37:19'),
-(71, 21, NULL, '2023-04-21 18:37:33'),
-(72, 22, NULL, '2023-04-21 18:37:38'),
-(73, 2, NULL, '2023-04-21 18:40:23'),
-(74, 2, NULL, '2023-04-21 21:32:14'),
-(75, 2, NULL, '2023-04-21 22:12:50'),
-(76, 2, NULL, '2023-04-21 22:52:22'),
-(77, 2, NULL, '2023-04-21 22:55:26'),
-(78, 2, NULL, '2023-04-21 22:59:31'),
-(79, 4, NULL, '2023-04-22 14:03:29'),
-(80, 2, NULL, '2023-04-22 16:11:21'),
-(81, 2, NULL, '2023-04-22 16:26:49'),
-(82, 2, NULL, '2023-04-22 16:27:18'),
-(83, 2, NULL, '2023-04-22 16:31:25'),
-(84, 2, NULL, '2023-04-22 16:31:44'),
-(85, 2, NULL, '2023-04-22 16:38:15'),
-(86, 4, 4, '2023-04-23 12:09:15'),
-(87, 4, 4, '2023-04-25 23:09:56'),
-(88, 21, 2, '2023-04-25 23:41:27'),
-(89, 4, 4, '2023-04-26 22:40:42'),
-(90, 22, 2, '2023-04-26 22:41:02'),
-(91, 4, 4, '2023-04-27 22:39:00'),
-(92, 18, 2, '2023-04-27 22:43:43'),
-(93, 21, 2, '2023-04-27 22:45:05'),
-(94, 2, 2, '2023-04-27 22:48:50'),
-(95, 23, 2, '2023-04-27 22:51:10'),
-(96, 11, NULL, '2023-04-27 22:57:41'),
-(97, 13, NULL, '2023-04-27 22:57:56'),
-(98, 13, NULL, '2023-04-27 22:58:10'),
-(99, 4, 4, '2023-04-28 21:34:06'),
-(100, 21, 2, '2023-04-28 21:34:32'),
-(101, 2, 2, '2023-04-28 21:35:08'),
-(102, 2, 2, '2023-04-28 22:53:52'),
-(103, 22, 2, '2023-04-28 22:54:24'),
-(104, 22, 2, '2023-04-28 22:54:26'),
-(105, 2, 2, '2023-04-28 22:56:02'),
-(106, 2, 2, '2023-04-28 23:04:43'),
-(107, 2, 2, '2023-04-28 23:08:51'),
-(108, 1, 4, '2023-04-28 23:25:48'),
-(109, 18, 20, '2023-04-28 23:28:56'),
-(110, 2, 2, '2023-04-28 23:34:50'),
-(111, 2, 2, '2023-04-28 23:36:29'),
-(112, 2, 2, '2023-04-28 23:37:23'),
-(113, 2, 2, '2023-04-28 23:40:28'),
-(114, 4, 4, '2023-04-29 12:51:25'),
-(115, 2, 2, '2023-04-29 12:52:25'),
-(116, 2, 2, '2023-04-29 12:55:30'),
-(117, 2, 2, '2023-04-29 12:57:15'),
-(118, 2, 2, '2023-04-29 13:06:09'),
-(119, 2, 2, '2023-04-29 13:09:45'),
-(120, 2, 2, '2023-04-29 13:15:20'),
-(121, 2, 2, '2023-04-29 13:17:43'),
-(122, 2, 2, '2023-04-29 13:18:34'),
-(123, 2, 2, '2023-04-29 13:25:02'),
-(124, 2, 2, '2023-04-29 13:30:08'),
-(125, 2, 2, '2023-04-29 13:31:25'),
-(126, 2, 2, '2023-04-29 13:33:22'),
-(127, 2, 2, '2023-04-29 13:52:11'),
-(128, 2, 2, '2023-04-29 13:56:49'),
-(129, 2, 2, '2023-04-29 14:00:45'),
-(130, 2, 2, '2023-04-29 14:03:50'),
-(131, 2, 2, '2023-04-29 14:06:14'),
-(132, 2, 2, '2023-04-29 14:11:19'),
-(133, 8, 4, '2023-04-29 14:28:00'),
-(134, 8, 4, '2023-04-29 14:28:02'),
-(135, 8, 4, '2023-04-29 14:28:05'),
-(136, 8, 4, '2023-04-29 14:28:07'),
-(137, 8, 4, '2023-04-29 14:28:11'),
-(138, 8, 4, '2023-04-29 14:28:14'),
-(139, 8, 4, '2023-04-29 14:28:17'),
-(140, 8, 4, '2023-04-29 14:28:20'),
-(141, 8, 4, '2023-04-29 14:28:23'),
-(142, 8, 4, '2023-04-29 14:28:25'),
-(143, 8, 4, '2023-04-29 14:28:28'),
-(144, 8, 4, '2023-04-29 14:28:30'),
-(145, 8, 4, '2023-04-29 14:28:32'),
-(146, 8, 4, '2023-04-29 14:28:35'),
-(147, 8, 4, '2023-04-29 14:28:37'),
-(148, 8, 4, '2023-04-29 14:28:40'),
-(149, 8, 4, '2023-04-29 14:28:43'),
-(150, 2, 2, '2023-04-29 15:17:40'),
-(151, 2, 2, '2023-04-29 15:25:45'),
-(152, 2, 2, '2023-04-29 15:27:50'),
-(153, 2, 2, '2023-04-29 15:29:10'),
-(154, 2, 2, '2023-04-29 15:30:28'),
-(155, 2, 2, '2023-04-29 15:41:04'),
-(156, 23, 2, '2023-04-29 15:49:19'),
-(157, 21, 1, '2023-04-29 15:59:50'),
-(158, 2, 1, '2023-04-29 16:00:15'),
-(159, 3, 4, '2023-04-29 16:01:08'),
-(160, 4, 4, '2023-04-29 16:01:51'),
-(161, 2, 1, '2023-04-29 16:02:31'),
-(162, 3, 4, '2023-04-29 16:03:19'),
-(163, 2, 1, '2023-04-29 16:06:46'),
-(164, 3, 4, '2023-04-29 16:07:17'),
-(165, 2, 1, '2023-04-29 16:17:17'),
-(166, 3, 4, '2023-04-29 16:17:57'),
-(167, 2, 1, '2023-04-29 16:32:46'),
-(168, 3, 4, '2023-04-29 16:33:04'),
-(169, 4, 4, '2023-05-04 01:01:55'),
-(170, 4, 4, '2023-05-04 01:01:55'),
-(171, 4, 4, '2023-05-04 01:01:55'),
-(172, 4, 4, '2023-05-04 01:01:55'),
-(173, 4, 4, '2023-05-04 01:01:55');
+(2, 28, 1, '2023-06-05 13:13:24'),
+(3, 1, 1, '2023-06-05 13:23:42'),
+(4, 1, 1, '2023-06-05 13:27:17'),
+(5, 6, 1, '2023-06-05 13:35:49'),
+(6, 1, 1, '2023-06-05 13:41:09'),
+(7, 1, 1, '2023-06-05 14:16:49'),
+(8, 1, 1, '2023-06-05 14:17:55'),
+(9, 5, 1, '2023-06-05 14:18:24'),
+(10, 5, 1, '2023-06-05 14:18:53'),
+(11, 5, 1, '2023-06-05 14:19:06'),
+(12, 5, 1, '2023-06-05 14:19:19'),
+(13, 5, 1, '2023-06-05 14:19:35'),
+(14, 5, 1, '2023-06-05 14:19:53'),
+(15, 1, 1, '2023-06-05 15:07:35'),
+(16, 18, 2, '2023-06-05 15:14:30'),
+(17, 18, 2, '2023-06-05 15:16:17'),
+(18, 18, 2, '2023-06-05 15:24:43'),
+(19, 11, NULL, '2023-06-05 15:30:46'),
+(20, 21, 2, '2023-06-05 15:31:07'),
+(21, 11, NULL, '2023-06-05 15:33:09'),
+(22, 11, NULL, '2023-06-05 16:19:43'),
+(23, 21, 2, '2023-06-05 16:20:02'),
+(24, 11, NULL, '2023-06-05 16:24:16'),
+(25, 13, NULL, '2023-06-05 16:25:05'),
+(26, 13, NULL, '2023-06-05 16:25:08'),
+(27, 13, NULL, '2023-06-05 16:25:14'),
+(28, 13, NULL, '2023-06-05 16:25:20'),
+(29, 13, NULL, '2023-06-05 16:25:52'),
+(30, 13, NULL, '2023-06-05 16:25:56'),
+(31, 13, NULL, '2023-06-05 16:26:12'),
+(32, 13, NULL, '2023-06-05 16:26:17'),
+(33, 13, NULL, '2023-06-05 16:26:33'),
+(34, 2, 2, '2023-06-05 16:28:00'),
+(35, 2, 2, '2023-06-05 16:32:17'),
+(36, 2, 2, '2023-06-05 16:32:42'),
+(37, 18, 5, '2023-06-05 16:34:39'),
+(38, 18, 5, '2023-06-05 16:35:22'),
+(39, 2, 5, '2023-06-05 16:35:41'),
+(40, 2, 5, '2023-06-05 16:36:32'),
+(41, 7, 1, '2023-06-05 16:37:58'),
+(42, 2, 5, '2023-06-05 16:38:51'),
+(43, 18, 4, '2023-06-05 16:54:13'),
+(44, 18, 4, '2023-06-05 16:55:06'),
+(45, 18, 4, '2023-06-05 16:55:36'),
+(46, 11, NULL, '2023-06-05 16:59:37'),
+(47, 21, 4, '2023-06-05 17:03:52'),
+(48, 21, 4, '2023-06-05 17:03:56'),
+(49, 11, NULL, '2023-06-05 17:06:37'),
+(50, 13, NULL, '2023-06-05 17:07:01'),
+(51, 13, NULL, '2023-06-05 17:07:12'),
+(52, 21, 4, '2023-06-05 17:07:44'),
+(53, 2, 4, '2023-06-05 17:08:18'),
+(54, 2, 4, '2023-06-05 17:08:34'),
+(55, 18, 6, '2023-06-05 17:13:00'),
+(56, 18, 6, '2023-06-05 17:14:36'),
+(57, 19, 6, '2023-06-05 17:16:23'),
+(58, 21, 6, '2023-06-05 17:17:19'),
+(59, 21, 6, '2023-06-05 17:17:23'),
+(60, 21, 6, '2023-06-05 17:17:34'),
+(61, 2, 6, '2023-06-05 17:18:21'),
+(62, 18, 3, '2023-06-05 17:30:25'),
+(63, 18, 3, '2023-06-05 17:30:57'),
+(64, 21, 3, '2023-06-05 18:08:42'),
+(65, 22, 3, '2023-06-05 18:10:17'),
+(66, 2, 3, '2023-06-05 18:10:57'),
+(67, 19, 3, '2023-06-05 18:14:02'),
+(68, 19, 3, '2023-06-05 18:14:14'),
+(69, 18, 3, '2023-06-05 18:24:56'),
+(70, 20, 3, '2023-06-05 18:25:13'),
+(71, 19, 3, '2023-06-05 18:31:49'),
+(72, 19, 3, '2023-06-05 18:41:00'),
+(73, 19, 3, '2023-06-05 19:19:09'),
+(74, 19, 3, '2023-06-05 19:19:44'),
+(75, 19, 3, '2023-06-05 19:19:59'),
+(76, 19, 3, '2023-06-05 19:29:04'),
+(77, 2, 3, '2023-06-05 19:29:17'),
+(78, 19, 3, '2023-06-05 19:33:08'),
+(79, 2, 3, '2023-06-05 19:33:27'),
+(80, 21, 3, '2023-06-05 19:44:53'),
+(81, 2, 3, '2023-06-05 19:45:33'),
+(82, 2, 3, '2023-06-05 19:45:58'),
+(83, 2, 3, '2023-06-05 19:51:55'),
+(84, 19, 3, '2023-06-05 20:19:46'),
+(85, 2, 3, '2023-06-05 20:23:19'),
+(86, 4, 1, '2023-06-14 12:18:31'),
+(87, 4, 1, '2023-06-14 12:18:31'),
+(88, 4, 1, '2023-06-14 12:18:31'),
+(89, 4, 1, '2023-06-14 12:18:31'),
+(90, 4, 1, '2023-06-14 12:18:31'),
+(91, 4, 1, '2023-06-14 12:18:31'),
+(92, 4, 1, '2023-06-14 12:18:31'),
+(93, 4, 1, '2023-06-14 12:18:31'),
+(94, 4, 1, '2023-06-15 12:41:45'),
+(95, 4, 1, '2023-06-16 13:25:04'),
+(96, 1, 1, '2023-06-16 19:28:31'),
+(97, 6, 1, '2023-06-16 19:48:34'),
+(98, 9, 1, '2023-06-16 19:58:33'),
+(99, 9, 1, '2023-06-16 19:58:40'),
+(100, 9, 1, '2023-06-16 19:58:45'),
+(101, 9, 1, '2023-06-16 19:59:45'),
+(102, 9, 1, '2023-06-16 19:59:48'),
+(103, 9, 1, '2023-06-16 19:59:48'),
+(104, 9, 1, '2023-06-16 19:59:49'),
+(105, 9, 1, '2023-06-16 19:59:50'),
+(106, 9, 1, '2023-06-16 20:00:04'),
+(107, 9, 1, '2023-06-16 20:00:06'),
+(108, 9, 1, '2023-06-16 20:00:07'),
+(109, 9, 1, '2023-06-16 20:00:07'),
+(110, 9, 1, '2023-06-16 20:00:09'),
+(111, 9, 1, '2023-06-16 20:00:11'),
+(112, 9, 1, '2023-06-16 20:00:12'),
+(113, 9, 1, '2023-06-16 20:00:15'),
+(114, 9, 1, '2023-06-16 20:00:15'),
+(115, 9, 1, '2023-06-16 20:00:16'),
+(116, 9, 1, '2023-06-16 20:00:17'),
+(117, 9, 1, '2023-06-16 20:00:45'),
+(118, 9, 1, '2023-06-16 20:00:45'),
+(119, 9, 1, '2023-06-16 20:00:46'),
+(120, 9, 1, '2023-06-16 20:00:47'),
+(121, 9, 1, '2023-06-16 20:00:48'),
+(122, 9, 1, '2023-06-16 22:25:02'),
+(123, 6, 1, '2023-06-16 22:34:02'),
+(124, 9, 1, '2023-06-16 22:35:43'),
+(125, 9, 1, '2023-06-16 22:35:45'),
+(126, 9, 1, '2023-06-16 22:35:46'),
+(127, 9, 1, '2023-06-16 22:35:47'),
+(128, 9, 1, '2023-06-16 22:35:51'),
+(129, 9, 1, '2023-06-16 22:35:52'),
+(130, 1, 1, '2023-06-16 23:31:49'),
+(131, 9, 1, '2023-06-16 23:35:51'),
+(132, 1, 1, '2023-06-16 23:36:46'),
+(133, 9, 1, '2023-06-17 00:48:30'),
+(134, 1, 1, '2023-06-17 00:49:34'),
+(135, 6, 1, '2023-06-17 01:04:33'),
+(136, 6, 1, '2023-06-17 01:08:23'),
+(137, 9, 1, '2023-06-17 01:45:01'),
+(138, 9, 1, '2023-06-17 01:45:03'),
+(139, 9, 1, '2023-06-17 01:45:06'),
+(140, 9, 1, '2023-06-17 01:45:07'),
+(141, 4, 1, '2023-06-17 02:33:59');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categorias`
+-- Estrutura para tabela `categorias`
 --
--- Criação: 19-Abr-2023 às 23:16
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `categorias`;
@@ -246,7 +212,7 @@ CREATE TABLE `categorias` (
 --
 
 --
--- Extraindo dados da tabela `categorias`
+-- Despejando dados para a tabela `categorias`
 --
 
 INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
@@ -259,10 +225,9 @@ INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `chamados`
+-- Estrutura para tabela `chamados`
 --
--- Criação: 19-Abr-2023 às 23:16
--- Última actualização: 29-Abr-2023 às 15:49
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `chamados`;
@@ -292,22 +257,12 @@ CREATE TABLE `chamados` (
 --       `status` -> `status_id`
 --
 
---
--- Extraindo dados da tabela `chamados`
---
-
-INSERT INTO `chamados` (`chamado_id`, `users_id`, `room_id`, `categoria_id`, `prioridade_id`, `assuntos`, `msg_chamado`, `status_id`, `t_stamp`) VALUES
-(1, 2, 1, 1, 1, 'Instalar Power Bi', 'Agora foi!', 1, '2023-04-19 14:47:59'),
-(2, 2, 1, 3, 1, 'Atualização Power BI', 'Atualizar versão para 2023', 4, '2023-04-19 15:16:15'),
-(3, 2, 1, 1, 1, 'Instalar Power BI', 'Por gentileza instalar o Power BI no laboratório.', 1, '2023-04-27 22:51:10'),
-(4, 2, 2, 1, 1, 'Instalar Power BI', 'foi', 1, '2023-04-29 15:49:19');
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cursos`
+-- Estrutura para tabela `cursos`
 --
--- Criação: 19-Abr-2023 às 23:16
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `cursos`;
@@ -321,7 +276,7 @@ CREATE TABLE `cursos` (
 --
 
 --
--- Extraindo dados da tabela `cursos`
+-- Despejando dados para a tabela `cursos`
 --
 
 INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
@@ -334,10 +289,9 @@ INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `disciplinas`
+-- Estrutura para tabela `disciplinas`
 --
--- Criação: 19-Abr-2023 às 23:16
--- Última actualização: 28-Abr-2023 às 23:28
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `disciplinas`;
@@ -362,23 +316,29 @@ CREATE TABLE `disciplinas` (
 --
 
 --
--- Extraindo dados da tabela `disciplinas`
+-- Despejando dados para a tabela `disciplinas`
 --
 
 INSERT INTO `disciplinas` (`disciplina_id`, `users_id`, `curso_id`, `semester_id`, `nm_disciplina`, `qtd_users`, `date`) VALUES
-(1, 3, 1, 1, 'Banco de dados não relacional', '70', '2023-02-01'),
-(2, 2, 1, 2, 'Banco de dados relacional', '70', '2022-06-01'),
-(3, 1, 2, 1, 'Inglês Técnico', '70', '2022-02-01'),
-(4, 1, 1, 1, 'Culinária', '55', '2022-04-12'),
-(5, 2, 1, 4, 'Análise de Dados e BI', '75', '2023-07-01'),
-(6, 20, 1, 1, 'aiulas com o gui', '100', '2023-06-01');
+(1, 2, 1, 3, 'Banco de dados não relacional', '75', '2023-02-05'),
+(2, 2, 1, 1, 'Programação orientada a objetos', '75', '2022-02-02'),
+(3, 2, 1, 1, 'Java', '85', '2022-02-02'),
+(4, 5, 1, 2, 'Bancos de dados relacional', '75', '2022-03-02'),
+(5, 5, 1, 4, 'Análise de dados e business intelligence', '85', '2023-05-02'),
+(6, 4, 1, 1, 'Serviços e infraestrutura de redes ', '80', '2022-02-01'),
+(7, 4, 1, 3, 'Criptografia e cibersegurança ', '75', '2023-02-01'),
+(8, 4, 1, 2, 'Estrutura de dados', '75', '2022-06-02'),
+(9, 6, 1, 3, 'Desenvolvimento Web back-end ', '80', '2022-06-02'),
+(10, 6, 1, 2, 'Desenvolvimento Web front-end ', '85', '2022-06-02'),
+(11, 3, 1, 2, 'Algoritmos e lógica de programação', '65', '2022-02-02'),
+(12, 3, 1, 2, 'Engenharia de software ', '65', '2022-06-02');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `laboratorios`
+-- Estrutura para tabela `laboratorios`
 --
--- Criação: 19-Abr-2023 às 23:16
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -394,25 +354,23 @@ CREATE TABLE `laboratorios` (
 --
 
 --
--- Extraindo dados da tabela `laboratorios`
+-- Despejando dados para a tabela `laboratorios`
 --
 
 INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUES
-(1, 'Informática', '80', '14'),
-(2, 'Informática', '70', '15'),
-(3, 'Informática', '80', '16'),
-(4, 'Informática', '100', '17'),
-(13, 'Fisioterápia', '60', '02'),
-(14, 'Nutrição', '40', '05'),
-(15, 'Estética', '55', '03');
+(1, 'Informática', '100', '14'),
+(2, 'Informática', '80', '15'),
+(3, 'Informática', '70', '16'),
+(4, 'Fisioterápia', '50', '01'),
+(5, 'Elétrica', '50', '10'),
+(6, 'Nutrição', '40', '20');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `locacao`
+-- Estrutura para tabela `locacao`
 --
--- Criação: 19-Abr-2023 às 23:16
--- Última actualização: 04-Maio-2023 às 01:01
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -443,35 +401,30 @@ CREATE TABLE `locacao` (
 --
 
 --
--- Extraindo dados da tabela `locacao`
+-- Despejando dados para a tabela `locacao`
 --
 
 INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `mensagens_id`, `disciplina_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`) VALUES
-(115, 3, 1, 4, 1, 4, '2023-04-14', '20:00:00', '23:00:00'),
-(116, 3, 1, 4, 1, 4, '2023-04-17', '21:00:00', '23:00:00'),
-(117, 3, 1, 4, 1, 4, '2023-04-19', '20:00:00', '23:00:00'),
-(119, 2, 4, 4, 2, 4, '2023-04-22', '20:00:00', '23:00:00'),
-(120, 3, 3, 4, 1, 4, '2023-04-21', '20:00:00', '23:00:00'),
-(121, 3, 3, 4, 1, 4, '2023-04-20', '20:00:00', '23:00:00'),
-(123, 3, 1, 4, 1, 4, '2023-04-28', '20:00:00', '23:00:00'),
-(125, 2, 1, 4, 2, 4, '2023-04-27', '20:00:00', '23:00:00'),
-(126, 2, 4, 4, 2, 4, '2023-04-26', '20:00:00', '23:00:00'),
-(127, 2, 1, 4, 2, 4, '2023-04-25', '20:00:00', '23:00:00'),
-(128, 1, 13, 4, 3, 4, '2023-04-24', '20:00:00', '23:00:00'),
-(167, 2, 1, 2, 2, 1, '2023-05-17', '20:00:00', '23:00:00'),
-(173, 2, 1, 4, 2, 4, '2023-04-30', '20:00:00', '23:00:00'),
-(174, 1, 1, 4, 3, 4, '2023-04-30', '10:00:00', '14:00:00'),
-(175, 1, 1, 4, 3, 4, '2023-04-30', '10:00:00', '14:00:00'),
-(176, 1, 1, 4, 3, 4, '2023-04-29', '20:00:00', '23:00:00'),
-(177, 1, 1, 4, 3, 4, '2023-05-01', '20:00:00', '23:00:00'),
-(178, 1, 1, 4, 3, 4, '2023-05-02', '20:00:00', '23:00:00');
+(1, 2, 2, 4, 1, 4, '2023-06-09', '20:00:00', '23:00:00'),
+(2, 2, 2, 4, 2, 4, '2023-06-08', '20:00:00', '23:00:00'),
+(3, 2, 2, 4, 2, 4, '2023-06-15', '20:00:00', '23:00:00'),
+(4, 5, 1, 4, 5, 4, '2023-06-07', '20:00:00', '23:00:00'),
+(5, 5, 2, 4, 4, 4, '2023-06-16', '20:00:00', '23:00:00'),
+(6, 5, 1, 2, 4, 1, '2023-06-19', '20:00:00', '23:00:00'),
+(7, 4, 1, 4, 8, 4, '2023-06-06', '20:00:00', '23:00:00'),
+(8, 4, 2, 4, 6, 4, '2023-06-12', '20:00:00', '23:00:00'),
+(9, 6, 2, 2, 9, 1, '2023-06-23', '20:00:00', '23:00:00'),
+(12, 3, 2, 4, 11, 4, '2023-06-07', '20:00:00', '23:00:00'),
+(14, 3, 2, 4, 11, 4, '2023-06-14', '20:00:00', '23:00:00'),
+(15, 3, 2, 4, 12, 4, '2023-06-06', '20:00:00', '23:00:00'),
+(16, 3, 3, 4, 11, 4, '2023-06-08', '20:00:00', '23:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `mensagens`
+-- Estrutura para tabela `mensagens`
 --
--- Criação: 19-Abr-2023 às 23:16
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -485,7 +438,7 @@ CREATE TABLE `mensagens` (
 --
 
 --
--- Extraindo dados da tabela `mensagens`
+-- Despejando dados para a tabela `mensagens`
 --
 
 INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
@@ -513,14 +466,17 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 (22, 'Requisito excluído da disciplina!!'),
 (23, 'Chamado aberto!'),
 (24, 'Chamado alterado!'),
-(25, 'Chamado excluído!');
+(25, 'Chamado excluído!'),
+(26, 'Senha alterada!'),
+(27, 'Senha alterada!'),
+(28, 'Seus dados foram alterados!');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `prioridades`
+-- Estrutura para tabela `prioridades`
 --
--- Criação: 19-Abr-2023 às 23:16
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `prioridades`;
@@ -534,7 +490,7 @@ CREATE TABLE `prioridades` (
 --
 
 --
--- Extraindo dados da tabela `prioridades`
+-- Despejando dados para a tabela `prioridades`
 --
 
 INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
@@ -545,10 +501,30 @@ INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `req_software`
+-- Estrutura para tabela `pwdtemp`
 --
--- Criação: 19-Abr-2023 às 23:16
--- Última actualização: 29-Abr-2023 às 15:59
+-- Criação: 16/06/2023 às 22:23
+--
+
+DROP TABLE IF EXISTS `pwdtemp`;
+CREATE TABLE `pwdtemp` (
+  `pwd_temp` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `username` varchar(26) NOT NULL,
+  `codigo` varchar(26) NOT NULL,
+  `timestp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `pwdtemp`:
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `req_software`
+--
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `req_software`;
@@ -567,20 +543,36 @@ CREATE TABLE `req_software` (
 --
 
 --
--- Extraindo dados da tabela `req_software`
+-- Despejando dados para a tabela `req_software`
 --
 
 INSERT INTO `req_software` (`rqs_id`, `software_id`, `disciplina_id`) VALUES
-(1, 1, 2),
-(2, 4, 2),
-(12, 1, 3);
+(1, 1, 1),
+(2, 1, 2),
+(4, 8, 1),
+(5, 10, 2),
+(6, 1, 4),
+(7, 1, 5),
+(8, 1, 6),
+(9, 1, 7),
+(10, 1, 8),
+(11, 2, 8),
+(12, 12, 8),
+(13, 13, 6),
+(14, 1, 9),
+(15, 1, 10),
+(16, 6, 9),
+(17, 3, 9),
+(18, 6, 10),
+(20, 1, 12),
+(23, 13, 12);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `semestre`
+-- Estrutura para tabela `semestre`
 --
--- Criação: 19-Abr-2023 às 23:16
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `semestre`;
@@ -594,7 +586,7 @@ CREATE TABLE `semestre` (
 --
 
 --
--- Extraindo dados da tabela `semestre`
+-- Despejando dados para a tabela `semestre`
 --
 
 INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
@@ -612,17 +604,16 @@ INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `softwares`
+-- Estrutura para tabela `softwares`
 --
--- Criação: 19-Abr-2023 às 23:16
--- Última actualização: 27-Abr-2023 às 22:57
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `softwares`;
 CREATE TABLE `softwares` (
   `software_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `editor` varchar(24) NOT NULL,
+  `editor` varchar(50) NOT NULL,
   `version` varchar(24) NOT NULL,
   `realesed` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -632,7 +623,7 @@ CREATE TABLE `softwares` (
 --
 
 --
--- Extraindo dados da tabela `softwares`
+-- Despejando dados para a tabela `softwares`
 --
 
 INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`) VALUES
@@ -642,15 +633,20 @@ INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`)
 (4, 'SQL Server Management Studio', 'Microsoft Corporation', '18.2.3.0', '2022-06-21'),
 (5, 'VirtualBox', 'Oracle', '7.0.6', '2023-01-07'),
 (6, 'Sublime Text', 'Jon Skinner, Will Bond, ', 'Build 3211', '2019-10-01'),
-(7, 'Power BI', 'Microsoft Corporation', '2.108.603.0', '2023-04-27');
+(7, 'Power BI', 'Microsoft Corporation', '2.108.603.0', '2023-04-27'),
+(8, 'MongoDB', 'MongoDB Inc.', '6.0 Community Edition - ', '2023-05-04'),
+(9, 'NetBeans', 'Oracle', '18', '2023-05-30'),
+(10, 'BlueJ', 'King\'s College London', '5.1.0', '2022-10-27'),
+(11, 'Microsoft SQL Server', 'Microsoft Company', '2019', '2019-01-01'),
+(12, 'Python', 'Guido van Rossum', '3.11.3', '2023-02-10'),
+(13, 'Diagrams.net', 'JGraph Ltd', '21.3.5', '2023-05-28');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `so_disponivel`
+-- Estrutura para tabela `so_disponivel`
 --
--- Criação: 19-Abr-2023 às 23:16
--- Última actualização: 27-Abr-2023 às 22:58
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `so_disponivel`;
@@ -669,24 +665,34 @@ CREATE TABLE `so_disponivel` (
 --
 
 --
--- Extraindo dados da tabela `so_disponivel`
+-- Despejando dados para a tabela `so_disponivel`
 --
 
 INSERT INTO `so_disponivel` (`sod_id`, `software_id`, `room_id`) VALUES
 (1, 1, 1),
-(4, 6, 1),
-(6, 2, 1),
-(7, 3, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 2, 1),
 (8, 4, 1),
-(9, 7, 2),
-(10, 4, 2);
+(9, 7, 1),
+(10, 11, 1),
+(11, 3, 2),
+(12, 6, 2),
+(13, 8, 2),
+(14, 10, 2),
+(15, 10, 3),
+(16, 13, 2),
+(17, 12, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `status`
+-- Estrutura para tabela `status`
 --
--- Criação: 19-Abr-2023 às 23:16
+-- Criação: 16/06/2023 às 22:23
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -700,22 +706,24 @@ CREATE TABLE `status` (
 --
 
 --
--- Extraindo dados da tabela `status`
+-- Despejando dados para a tabela `status`
 --
 
 INSERT INTO `status` (`status_id`, `status`) VALUES
 (1, 'Pendente'),
 (2, 'Reservado'),
 (3, 'Disponível'),
-(4, 'Finalizado');
+(4, 'Finalizado'),
+(5, 'Ativo'),
+(6, 'Inativo'),
+(7, 'Não atribuído');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `users`
+-- Estrutura para tabela `users`
 --
--- Criação: 19-Abr-2023 às 23:16
--- Última actualização: 29-Abr-2023 às 16:13
+-- Criação: 17/06/2023 às 00:35
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -723,37 +731,40 @@ CREATE TABLE `users` (
   `users_id` int(11) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
-  `username` varchar(7) NOT NULL,
   `funcao` varchar(24) NOT NULL,
   `email` varchar(50) NOT NULL,
   `contactno` varchar(13) NOT NULL,
   `cpf` varchar(14) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `password` varchar(60) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `users`:
+--   `status`
+--       `status` -> `status_id`
 --
 
 --
--- Extraindo dados da tabela `users`
+-- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `username`, `funcao`, `email`, `contactno`, `cpf`, `password`) VALUES
-(1, 'Andréia', 'Machado', '0000002', 'Professor(a)', 'andreia.machado3497@gmail.com', '19982763272', '375.652.298-90', '12345678'),
-(2, 'Johanny', 'Tetzner', '5566221', 'Professor(a)', 'johanny@hotmail.com', '666555222333', '375.652.298-90', '12345678'),
-(3, 'Alex', 'Zacharias', '0000001', 'Responsável Laboratório', 'guilherme.machancoses@gmail.com', '1934556678', '375.652.298-90', '12345678'),
-(4, 'Guilherme', 'Machancoses', '0005221', 'Administrador', 'guilherme.machancoses@gmail.com', '19981955602', '37565229890', 'Gui@19=='),
-(18, 'Lucas', 'Barros', '6665554', 'Responsável Laboratório', 'lucasbarros@garbuio.com.br', '19992630596', '375.652.298-90', '12345678'),
-(19, 'Davi', 'Machancoses', '0123221', 'Professor(a)', 'davimachancoses@gmail.com', '19981955602', '375.652.298-90', '12345678'),
-(20, 'Mateus', 'Coelho', '1247856', 'Professor(a)', 'mateusgamescoelho547@gmail.com', '19984226276', '375.652.298-90', '12345678');
+INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
+(1, 'Guilherme', 'Machancoses', 'Administrador', 'guilherme.machancoses@gmail.com', '19981955602', '37565229890', '$2y$10$RylogYa9uphx/65rXnElnuGBldU24osOcYLt6mcyVqyq4UYcMGw3W', 5),
+(2, 'Alex', 'Zacharias', 'Usuário', 'alexzacharias@gmail.com', '19997504736', '28618793000', 'Gui@19==', 6),
+(3, 'Pedro', 'Ivo Garcia Nunes', 'Usuário', 'pedro.ivo@gmail.com', '19988043221', '11627744010', 'Gui@19==', 5),
+(4, 'Jonas', 'Henrique Ferreira', 'Usuário', 'jonasferreira@gmail.com', '19981556622', '88911955027', 'Gui@19==', 5),
+(5, 'Johanny', 'Tetzner De Souza', 'Usuário', 'johanny@gmail.com', '19877512221', '47730373009', 'Gui@19==', 5),
+(6, 'Thiago', 'Salhab Alves', 'Aprovador', 'thiagosalhab@gmail.com', '19966552213', '56848593052', 'Gui@19==', 5),
+(7, 'Wanderley', 'Piccinini Junior', 'Aprovador', 'wanderleypiccinini@gmail.com', '19981954422', '62575272017', 'Gui@19==', 7),
+(11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '375.652.298-90', 'Gui@19==', 5);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `activities`
+-- Índices de tabela `activities`
 --
 ALTER TABLE `activities`
   ADD PRIMARY KEY (`atctive_id`),
@@ -761,13 +772,13 @@ ALTER TABLE `activities`
   ADD KEY `users_id` (`users_id`);
 
 --
--- Índices para tabela `categorias`
+-- Índices de tabela `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`categoria_id`);
 
 --
--- Índices para tabela `chamados`
+-- Índices de tabela `chamados`
 --
 ALTER TABLE `chamados`
   ADD PRIMARY KEY (`chamado_id`),
@@ -778,13 +789,13 @@ ALTER TABLE `chamados`
   ADD KEY `status_id` (`status_id`);
 
 --
--- Índices para tabela `cursos`
+-- Índices de tabela `cursos`
 --
 ALTER TABLE `cursos`
   ADD PRIMARY KEY (`curso_id`);
 
 --
--- Índices para tabela `disciplinas`
+-- Índices de tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD PRIMARY KEY (`disciplina_id`),
@@ -793,13 +804,13 @@ ALTER TABLE `disciplinas`
   ADD KEY `disciplinas_ibfk_3` (`semester_id`);
 
 --
--- Índices para tabela `laboratorios`
+-- Índices de tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
   ADD PRIMARY KEY (`room_id`);
 
 --
--- Índices para tabela `locacao`
+-- Índices de tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD PRIMARY KEY (`locacao_id`),
@@ -810,19 +821,25 @@ ALTER TABLE `locacao`
   ADD KEY `status_id` (`status_id`);
 
 --
--- Índices para tabela `mensagens`
+-- Índices de tabela `mensagens`
 --
 ALTER TABLE `mensagens`
   ADD PRIMARY KEY (`mensagens_id`);
 
 --
--- Índices para tabela `prioridades`
+-- Índices de tabela `prioridades`
 --
 ALTER TABLE `prioridades`
   ADD PRIMARY KEY (`prioridade_id`);
 
 --
--- Índices para tabela `req_software`
+-- Índices de tabela `pwdtemp`
+--
+ALTER TABLE `pwdtemp`
+  ADD PRIMARY KEY (`pwd_temp`);
+
+--
+-- Índices de tabela `req_software`
 --
 ALTER TABLE `req_software`
   ADD PRIMARY KEY (`rqs_id`),
@@ -830,19 +847,19 @@ ALTER TABLE `req_software`
   ADD KEY `room_id` (`disciplina_id`);
 
 --
--- Índices para tabela `semestre`
+-- Índices de tabela `semestre`
 --
 ALTER TABLE `semestre`
   ADD PRIMARY KEY (`semester_id`);
 
 --
--- Índices para tabela `softwares`
+-- Índices de tabela `softwares`
 --
 ALTER TABLE `softwares`
   ADD PRIMARY KEY (`software_id`);
 
 --
--- Índices para tabela `so_disponivel`
+-- Índices de tabela `so_disponivel`
 --
 ALTER TABLE `so_disponivel`
   ADD PRIMARY KEY (`sod_id`),
@@ -850,26 +867,27 @@ ALTER TABLE `so_disponivel`
   ADD KEY `room_id` (`room_id`);
 
 --
--- Índices para tabela `status`
+-- Índices de tabela `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`status_id`);
 
 --
--- Índices para tabela `users`
+-- Índices de tabela `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`users_id`);
+  ADD PRIMARY KEY (`users_id`),
+  ADD KEY `status` (`status`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -881,7 +899,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de tabela `chamados`
 --
 ALTER TABLE `chamados`
-  MODIFY `chamado_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `chamado_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `cursos`
@@ -893,19 +911,19 @@ ALTER TABLE `cursos`
 -- AUTO_INCREMENT de tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
-  MODIFY `disciplina_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `disciplina_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `prioridades`
@@ -914,10 +932,16 @@ ALTER TABLE `prioridades`
   MODIFY `prioridade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de tabela `pwdtemp`
+--
+ALTER TABLE `pwdtemp`
+  MODIFY `pwd_temp` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `req_software`
 --
 ALTER TABLE `req_software`
-  MODIFY `rqs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `rqs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `semestre`
@@ -929,39 +953,39 @@ ALTER TABLE `semestre`
 -- AUTO_INCREMENT de tabela `softwares`
 --
 ALTER TABLE `softwares`
-  MODIFY `software_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `software_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `so_disponivel`
 --
 ALTER TABLE `so_disponivel`
-  MODIFY `sod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `sod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `status`
 --
 ALTER TABLE `status`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `activities`
+-- Restrições para tabelas `activities`
 --
 ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_1` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Limitadores para a tabela `chamados`
+-- Restrições para tabelas `chamados`
 --
 ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -971,7 +995,7 @@ ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
 
 --
--- Limitadores para a tabela `disciplinas`
+-- Restrições para tabelas `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -979,7 +1003,7 @@ ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_3` FOREIGN KEY (`semester_id`) REFERENCES `semestre` (`semester_id`);
 
 --
--- Limitadores para a tabela `locacao`
+-- Restrições para tabelas `locacao`
 --
 ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -989,18 +1013,24 @@ ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`);
 
 --
--- Limitadores para a tabela `req_software`
+-- Restrições para tabelas `req_software`
 --
 ALTER TABLE `req_software`
   ADD CONSTRAINT `req_software_ibfk_1` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `req_software_ibfk_2` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`disciplina_id`);
 
 --
--- Limitadores para a tabela `so_disponivel`
+-- Restrições para tabelas `so_disponivel`
 --
 ALTER TABLE `so_disponivel`
   ADD CONSTRAINT `so_disponivel_ibfk_2` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `so_disponivel_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`);
+
+--
+-- Restrições para tabelas `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -106,39 +106,53 @@
 					<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
 				</div>
 				<div class="card-content table-responsive">
-					<div class="search-container ">
-						<input type="text" class = "select-box" id="search-input" placeholder="Pesquisar...">
-					</div>
+					<div class="search-container">
+							<input for="search-input" type="text" class="select-box" id="search-input" placeholder="Pesquisar..."/>
+							<i class="material-icons" id="search-icon">search</i>
+						</div>
 
-					<script>
-						// Função para filtrar os resultados da tabela com base no valor de busca
-						function searchTable() {
-							var input, filter, table, tr, td, i, txtValue;
-							input = document.getElementById("search-input");
-							filter = input.value.toUpperCase();
-							table = document.getElementById("myTable");
-							tr = table.getElementsByTagName("tr");
+						<script>
+							// Função para filtrar os resultados da tabela com base no valor de busca
+							function searchTable() {
+								var input, filter, table, tr, td, i, txtValue;
+								input = document.getElementById("search-input");
+								filter = input.value.toUpperCase();
+								table = document.getElementById("myTable");
+								tr = table.getElementsByTagName("tr");
 
-							// Iterar sobre todas as linhas da tabela e ocultar aquelas que não correspondem ao critério de busca
-							for (i = 0; i < tr.length; i++) {
-							td = tr[i].getElementsByTagName("td");
-							for (var j = 0; j < td.length; j++) {
-								if (td[j]) {
-								txtValue = td[j].textContent || td[j].innerText;
-								if (txtValue.toUpperCase().indexOf(filter) > -1) {
-									tr[i].style.display = "";
-									break; // Exibir a linha e passar para a próxima linha
-								} else {
-									tr[i].style.display = "none"; // Ocultar a linha se não corresponder ao critério de busca
+								// Iterar sobre todas as linhas da tabela e ocultar aquelas que não correspondem ao critério de busca
+								for (i = 0; i < tr.length; i++) {
+								td = tr[i].getElementsByTagName("td");
+								for (var j = 0; j < td.length; j++) {
+									if (td[j]) {
+									txtValue = td[j].textContent || td[j].innerText;
+									if (txtValue.toUpperCase().indexOf(filter) > -1) {
+										tr[i].style.display = "";
+										break; // Exibir a linha e passar para a próxima linha
+									} else {
+										tr[i].style.display = "none"; // Ocultar a linha se não corresponder ao critério de busca
+									}
+									}
 								}
 								}
 							}
-							}
-						}
 
-						// Adicionar um ouvinte de eventos ao campo de busca para chamar a função searchTable() sempre que o valor mudar
-						document.getElementById("search-input").addEventListener("input", searchTable);
-					</script>
+							// Adicionar um ouvinte de eventos ao campo de busca para chamar a função searchTable() sempre que o valor mudar
+							document.getElementById("search-input").addEventListener("input", searchTable);
+
+							const searchInput = document.getElementById("search-input");
+							const searchIcon = document.getElementById("search-icon");
+
+							searchInput.addEventListener("focus", function () {
+							searchIcon.classList.add("active");
+							});
+
+							searchInput.addEventListener("blur", function () {
+							searchIcon.classList.remove("active");
+							});
+
+						</script>
+
 
 					<table class="table table-hover" id="myTable">
 
@@ -156,7 +170,7 @@
 							$perPage = 6; // Número de resultados por página
 							$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
 							$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-							$totalResults = $conn->query("SELECT COUNT(*) as total FROM users WHERE funcao != 'Administrador'")->fetch_assoc()['total']; // Total de resultados no banco de dados
+							$totalResults = $conn->query("SELECT COUNT(*) as total FROM users WHERE users_id != '$_SESSION[users_id]'")->fetch_assoc()['total']; // Total de resultados no banco de dados
 							$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
 							$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 							
@@ -168,7 +182,8 @@
 															contactno,
 															status
 															FROM `users` 
-															WHERE funcao != 'Administrador'
+															WHERE users_id != '$_SESSION[users_id]'
+															ORDER BY firstname
 															LIMIT $perPage OFFSET $offset") or die(mysqli_error());
 							if (mysqli_num_rows($queryad) == 0) {
 								echo "<td>Sem usuários cadastrados</td>";

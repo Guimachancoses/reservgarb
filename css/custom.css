@@ -988,3 +988,26 @@ a.btn.btn-success:focus {
   border: 3px solid transparent;
   cursor: pointer;
 }
+
+.search-container {
+  position: relative;
+}
+
+.search-container input {
+  position: relative;
+  display: inline-block;
+  padding-left: 35px; /* Adiciona uma margem esquerda para o ícone de pesquisa */
+}
+
+.search-container i.material-icons {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 1; /* Garante que o ícone esteja na frente do texto do input */
+  color: #a5a5a5;
+}
+
+.search-container i.material-icons.active {
+  color: #5faa4f;
+}

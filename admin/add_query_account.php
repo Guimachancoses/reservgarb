@@ -1,6 +1,7 @@
 <?php
 	require_once 'connect.php';
 	require_once 'validate.php';
+	require_once 'encryptVigenere.php';
 	if(ISSET($_POST['add_account'])){
 		$firstname = $_POST['firstname'];
 		$lastname = $_POST['lastname'];
@@ -11,12 +12,16 @@
         $contactno = preg_replace('/[\s()-]+/', '', $fone);
 		$cpf = $_POST['cpf'];
 		$password = $_POST['password'];
+
+		// Gera um hash criptográfico da senha usando o algoritmo bcrypt
+		$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
 		$query = $conn->query("SELECT email  FROM `users` WHERE `email` = '$email'") or die(mysqli_error());
 		$valid = $query->num_rows;
 		if($valid > 0){
 			echo "<center><label style = 'color:red;'>Usuário já existe</label></center>";
 		}else{
-			$conn->query("INSERT INTO `users` (firstname, lastname, funcao, email, contactno, cpf, password, status) VALUES('$firstname', '$lastname', '$funcao', '$email','$contactno', '$cpf', '$password', '$status')") or die(mysqli_error());
+			$conn->query("INSERT INTO `users` (firstname, lastname, funcao, email, contactno, cpf, password, status) VALUES('$firstname', '$lastname', '$funcao', '$email','$contactno', '$cpf', '$hashedPassword', '$status')") or die(mysqli_error());
 			$conn->query("INSERT INTO `activities` set mensagens_id = 1, users_id = '$_SESSION[users_id]'") or die(mysqli_error());
 		}
 	}

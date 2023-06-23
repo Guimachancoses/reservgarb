@@ -28,8 +28,8 @@
                                 <select class = "form-control" name = "funcao" required = required>
                                     <option value = "">Escolha uma das opções</option>
                                     <option value = "Administrador">Administrador</option>
-                                    <option value = "Responsável Laboratório">Responsável Laboratório</option>
-                                    <option value = "Professor(a)">Coordenador Acadêmico</option>
+                                    <option value = "Aprovador">Aprovador</option>
+                                    <option value = "Usuário">Usuário</option>
                                 </select>
                             </div>
                             <div class="card-foot">

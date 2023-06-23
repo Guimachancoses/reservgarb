@@ -7,12 +7,13 @@
 				<div class="card" style="min-height:755px">
 					<div class="card-header card-header-text">
 					<h4 class="card-title"><strong class="text-primary"> Editar Usuários</strong></h4>
-						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
+						<p class="category">Escolha qual usuário você deseja editar, ativar, inativar ou excluir:</p>
 					</div>
 					<div class="card-content table-responsive">
 
-						<div class="search-container ">
-							<input type="text" class = "select-box" id="search-input" placeholder="Pesquisar...">
+						<div class="search-container">
+							<input for="search-input" type="text" class="select-box" id="search-input" placeholder="Pesquisar..."/>
+							<i class="material-icons" id="search-icon">search</i>
 						</div>
 
 						<script>
@@ -43,6 +44,18 @@
 
 							// Adicionar um ouvinte de eventos ao campo de busca para chamar a função searchTable() sempre que o valor mudar
 							document.getElementById("search-input").addEventListener("input", searchTable);
+
+							const searchInput = document.getElementById("search-input");
+							const searchIcon = document.getElementById("search-icon");
+
+							searchInput.addEventListener("focus", function () {
+							searchIcon.classList.add("active");
+							});
+
+							searchInput.addEventListener("blur", function () {
+							searchIcon.classList.remove("active");
+							});
+
 						</script>
 
 						<table class="table table-hover" id="myTable">
@@ -62,7 +75,7 @@
 							<tbody>
 
 								<?php  
-										$queryad = $conn->query("SELECT users_id, firstname, lastname, funcao, email, contactno, status FROM `users` WHERE users_id != '$_SESSION[users_id]'") or die(mysqli_error());
+										$queryad = $conn->query("SELECT users_id, firstname, lastname, funcao, email, contactno, status FROM `users` WHERE users_id != '$_SESSION[users_id]'ORDER BY firstname") or die(mysqli_error());
 										while($fetch = $queryad->fetch_array()){
 									?>
 									<tr>

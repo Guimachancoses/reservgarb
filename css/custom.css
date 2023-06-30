@@ -934,6 +934,20 @@ a.btn.btn-success:focus {
   padding: 10px;
 }
 
+@media (min-width: 426px) and (max-width: 1024px) {
+  .logoeinstein2 {
+    width: 90%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 425px) {
+  .logoeinstein2 {
+    width: 90%;
+    padding: 10px;
+  }
+}
+
 .select-soft {
   width: 50%;
   height: 100%;

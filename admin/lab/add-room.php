@@ -1,31 +1,26 @@
 <div class="main-content">  
     <div class="row">
-			<div class="col-lg-8">
+			<div class="col-lg-6">
 				<div class="card" style="min-height:625px">
 					<div class="card-header card-header-text">
-						<h4 class="card-title"><strong class="text-primary"> Adicionar Laboratório</strong></h4>
-						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
+						<h4 class="card-title"><strong class="text-primary"> Adicionar Sala</strong></h4>
+                            <p class="category">Verifique as informações antes de salvar:</p>
                     <br />
-                    <div  class = "col-md-10" style="min-height:670px">	
-                        <form method = "POST" enctype = "multipart/form-data">
+                    <div  class = "col-md-10" style="min-height:225px">	
+                        <form method = "POST" enctype = "multipart/form-data" autocomplete="off" onsubmit="return validateForm()">
                             <div class="card-foot">
-                                <label><strong> Tipo de Laboratório:</strong></label>
-                                <select class = "form-control" required = required name = "room_type">
-                                    <option value = "">Escolha uma opção</option>
-                                    <option value = "Informática">Informática</option>
-                                    <option value = "Fisioterápia">Fisioterápia</option>
-                                    <option value = "Elétrica">Elétrica</option>
-                                    <option value = "Nutrição">Nutrição</option>
-                                    <option value = "Estética">Estética</option>
-                                </select>
+                                <label><strong> Tipo de Sala:</strong></label>
+                                <input class = "form-control" required = required name = "room_type" required />
                             </div>
                             <div class="card-foot">
                                 <label><strong> Capacidade:</strong></label>
-                                <input type = "text" class = "form-control" name = "capacity" />
+                                <input type = "text" class = "form-control" name = "capacity" required />
+                                <span id="capacity-error" class="text-danger"></span>
                             </div>
                             <div class="card-foot">
-                                <label><strong> Número do Laboratório:</strong></label>
-                                <input type = "text" class = "form-control" name = "room_no" />
+                                <label><strong> Descrição:</strong></label>
+                                <input type = "text" class = "form-control" name = "room_no" required />
+                                <span id="no-error" class="text-danger"></span>
                             </div>
                             <br />
                             <div class="card-foot">
@@ -38,3 +33,28 @@
             </div>
         </div>
 </div>
+
+<script>
+    function validateForm() {
+        var capacityInput = document.getElementById('capacity');
+        var noInput = document.getElementById('no');
+        var capacityError = document.getElementById('capacity-error');
+        var noError = document.getElementById('no-error');
+        var capacityValue = capacityInput.value.trim();
+        var noValue = noInput.value.trim();
+
+        // Verifica se a capacidade é um número
+        if (!/^\d+$/.test(capacityValue)) {
+            capacityError.innerText = 'A capacidade deve ser um número.';
+            return false;
+        } else {
+            capacityError.innerText = '';
+        }
+
+        return true;
+    }
+
+    window.onbeforeunload = function() {
+        document.querySelector('form').reset();
+    };
+</script>

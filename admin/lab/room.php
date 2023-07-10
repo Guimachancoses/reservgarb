@@ -7,21 +7,24 @@
 				<div class="card" style="min-height:750px">
 					<div class="card-header card-header-text">
                         <h4 class="card-title"><strong class="text-primary"> Editar Laboratórios</strong></h4>
-						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
+						<p class="category">Escolha qual sala você deseja editar ou excluir:</p>
 					</div>
 					<div class="card-content table-responsive"> 
                     <table class="table table-hover">
                         <thead class="text-primary">
                             <tr>
-                                <th>Tipo de Laboratório</th>
+                                <th>Tipo da Sala</th>
                                 <th>Capacidade</th>
-                                <th>Número do Laboratório</th>
-                                <th>Ação</th>
+                                <th>Descrição</th>
+                                <th class="text-center">Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php
                             $query = $conn->query("SELECT * FROM `laboratorios`") or die(mysqli_error());
+                            if (mysqli_num_rows($query) == 0) {
+								echo "<td>Sem sala cadastrada</td>";
+							}
                             while($fetch = $query->fetch_array()){
                         ?>	
                             <tr>

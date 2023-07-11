@@ -1,5 +1,5 @@
 
-<div class="main-content">
+<div class="main-content" >
 	<?php
 		// query for total pendding
 		$q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error());
@@ -17,7 +17,8 @@
 	<div class="row">
 
 	<div class="div-link col-lg-3 col-md-6 col-sm-6">
-		<a href="reservlab.php?<?php echo $edituser?>"><div class="card card-stats">
+		<a href="reservlab.php?<?php echo $edituser?>">
+			<div class="card card-stats">
 				<div class="card-header">
 					<div class="icon icon-warning">
 						<span class="material-icons">group</span>
@@ -33,8 +34,9 @@
 						Total de usuários cadastrados
 					</div>
 				</div>
-				</div></a>
-		</div>
+			</div>
+		</a>
+	</div>
 		
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
 			<a href="reservlab.php?<?php echo $penlab?>"><div class="card card-stats">
@@ -100,7 +102,7 @@
 
 	<div class="row">
 		<div class="col-lg-9 col-md-9">
-			<div class="card" style="min-height:420px;">
+			<div class="card" style="min-height:485px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Usuários Cadastrados</h4>
 					<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
@@ -206,7 +208,7 @@
 						</tbody>
 						
 					</table>
-				</div>
+				
 
 				<script>
 					$(document).ready(function() {
@@ -267,6 +269,7 @@
                     </ul>
                    
                 </nav>
+				</div>
 			</div>
 		<div>
 	</div>
@@ -274,7 +277,7 @@
 </div>
 								
 		    <div class="col-lg-3 col-md-12">
-		        <div class="card" style="min-height:420">
+		        <div class="card" style="min-height:485px">
 			        <div class="card-header card-header-text">
                   		<h4 class="card-title">Atividade</h4>
                     </div>

@@ -941,10 +941,10 @@ a.btn.btn-success:focus {
   }
 }
 
-@media (max-width: 425px) {
+@media (min-width: 226px) and (max-width: 425px) {
   .logoeinstein2 {
-    width: 90%;
-    padding: 10px;
+    width: 80%;
+    padding: 12px;
   }
 }
 

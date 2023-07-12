@@ -67,6 +67,23 @@
 	else if(preg_match("~page=~", $url)) {
     	$content = 'main-content.php';
 	}
+	// Redirecionamento para deltetar todas as informações no banco de dados dos usuarios
+	else if(preg_match("~deluser~", $url)) {
+    	$content = 'relation/relation-user.php';
+	}
+	// Redirecionamento para deltetar todas as informações no banco de dados dos laboratórios
+	else if(preg_match("~dellab~", $url)) {
+    	$content = 'relation/relation-room.php';
+	}
+	// Redirecionamento para adicionar veículos
+	else if(preg_match("~addvei~", $url)) {
+    	$content = 'vehicles/add-vehicles.php';
+	}
+	// Redirecionamento para adicionar veículos
+	else if(preg_match("~editvei~", $url)) {
+    	$content = 'vehicles/vehicles.php';
+	}
+	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else
 		$content = 'main-content.php';
 ?>

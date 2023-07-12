@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/06/2023 às 11:46
+-- Tempo de geração: 13-Jul-2023 às 01:31
 -- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,9 +26,10 @@ USE `locationlab_db`;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `activities`
+-- Estrutura da tabela `activities`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
+-- Última actualização: 12-Jul-2023 às 20:46
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -48,7 +49,7 @@ CREATE TABLE `activities` (
 --
 
 --
--- Despejando dados para a tabela `activities`
+-- Extraindo dados da tabela `activities`
 --
 
 INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
@@ -191,14 +192,32 @@ INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`)
 (138, 9, 1, '2023-06-17 01:45:03'),
 (139, 9, 1, '2023-06-17 01:45:06'),
 (140, 9, 1, '2023-06-17 01:45:07'),
-(141, 4, 1, '2023-06-17 02:33:59');
+(141, 4, 1, '2023-06-17 02:33:59'),
+(142, 4, 1, '2023-06-23 13:07:51'),
+(143, 6, 1, '2023-06-23 13:09:22'),
+(144, 4, 1, '2023-06-29 15:12:24'),
+(145, 5, 1, '2023-07-10 19:30:53'),
+(146, 5, 1, '2023-07-10 20:44:00'),
+(147, 5, 1, '2023-07-10 20:44:53'),
+(148, 10, 1, '2023-07-12 17:37:33'),
+(149, 10, 1, '2023-07-12 17:37:41'),
+(150, 10, 1, '2023-07-12 17:37:55'),
+(151, 10, 1, '2023-07-12 17:48:20'),
+(152, 10, 1, '2023-07-12 17:48:28'),
+(153, 10, 1, '2023-07-12 17:48:33'),
+(154, 7, 1, '2023-07-12 18:20:45'),
+(155, 29, 1, '2023-07-12 20:35:04'),
+(156, 29, 1, '2023-07-12 20:41:27'),
+(157, 29, 1, '2023-07-12 20:43:01'),
+(158, 29, 1, '2023-07-12 20:45:40'),
+(159, 29, 1, '2023-07-12 20:46:28');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `categorias`
+-- Estrutura da tabela `categorias`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `categorias`;
@@ -212,7 +231,7 @@ CREATE TABLE `categorias` (
 --
 
 --
--- Despejando dados para a tabela `categorias`
+-- Extraindo dados da tabela `categorias`
 --
 
 INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
@@ -225,9 +244,9 @@ INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `chamados`
+-- Estrutura da tabela `chamados`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `chamados`;
@@ -260,9 +279,9 @@ CREATE TABLE `chamados` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `cursos`
+-- Estrutura da tabela `cursos`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `cursos`;
@@ -276,7 +295,7 @@ CREATE TABLE `cursos` (
 --
 
 --
--- Despejando dados para a tabela `cursos`
+-- Extraindo dados da tabela `cursos`
 --
 
 INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
@@ -289,9 +308,9 @@ INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `disciplinas`
+-- Estrutura da tabela `disciplinas`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `disciplinas`;
@@ -316,7 +335,7 @@ CREATE TABLE `disciplinas` (
 --
 
 --
--- Despejando dados para a tabela `disciplinas`
+-- Extraindo dados da tabela `disciplinas`
 --
 
 INSERT INTO `disciplinas` (`disciplina_id`, `users_id`, `curso_id`, `semester_id`, `nm_disciplina`, `qtd_users`, `date`) VALUES
@@ -336,9 +355,10 @@ INSERT INTO `disciplinas` (`disciplina_id`, `users_id`, `curso_id`, `semester_id
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `laboratorios`
+-- Estrutura da tabela `laboratorios`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 10-Jul-2023 às 19:31
+-- Última actualização: 12-Jul-2023 às 18:20
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -346,7 +366,7 @@ CREATE TABLE `laboratorios` (
   `room_id` int(11) NOT NULL,
   `room_type` varchar(50) NOT NULL,
   `capacity` varchar(11) NOT NULL,
-  `room_no` varchar(10) NOT NULL
+  `room_no` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -354,23 +374,21 @@ CREATE TABLE `laboratorios` (
 --
 
 --
--- Despejando dados para a tabela `laboratorios`
+-- Extraindo dados da tabela `laboratorios`
 --
 
 INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUES
-(1, 'Informática', '100', '14'),
-(2, 'Informática', '80', '15'),
-(3, 'Informática', '70', '16'),
-(4, 'Fisioterápia', '50', '01'),
-(5, 'Elétrica', '50', '10'),
-(6, 'Nutrição', '40', '20');
+(7, 'Sala de treinamento', '20', 'Ao lado da oficina'),
+(8, 'Sala de reunião', '10', 'Segundo piso'),
+(9, 'Sala de atendimento', '5', 'Ao lado do RH');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `locacao`
+-- Estrutura da tabela `locacao`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
+-- Última actualização: 12-Jul-2023 às 17:48
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -400,31 +418,13 @@ CREATE TABLE `locacao` (
 --       `mensagens` -> `mensagens_id`
 --
 
---
--- Despejando dados para a tabela `locacao`
---
-
-INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `mensagens_id`, `disciplina_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`) VALUES
-(1, 2, 2, 4, 1, 4, '2023-06-09', '20:00:00', '23:00:00'),
-(2, 2, 2, 4, 2, 4, '2023-06-08', '20:00:00', '23:00:00'),
-(3, 2, 2, 4, 2, 4, '2023-06-15', '20:00:00', '23:00:00'),
-(4, 5, 1, 4, 5, 4, '2023-06-07', '20:00:00', '23:00:00'),
-(5, 5, 2, 4, 4, 4, '2023-06-16', '20:00:00', '23:00:00'),
-(6, 5, 1, 2, 4, 1, '2023-06-19', '20:00:00', '23:00:00'),
-(7, 4, 1, 4, 8, 4, '2023-06-06', '20:00:00', '23:00:00'),
-(8, 4, 2, 4, 6, 4, '2023-06-12', '20:00:00', '23:00:00'),
-(9, 6, 2, 2, 9, 1, '2023-06-23', '20:00:00', '23:00:00'),
-(12, 3, 2, 4, 11, 4, '2023-06-07', '20:00:00', '23:00:00'),
-(14, 3, 2, 4, 11, 4, '2023-06-14', '20:00:00', '23:00:00'),
-(15, 3, 2, 4, 12, 4, '2023-06-06', '20:00:00', '23:00:00'),
-(16, 3, 3, 4, 11, 4, '2023-06-08', '20:00:00', '23:00:00');
-
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `mensagens`
+-- Estrutura da tabela `mensagens`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
+-- Última actualização: 12-Jul-2023 às 20:28
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -438,7 +438,7 @@ CREATE TABLE `mensagens` (
 --
 
 --
--- Despejando dados para a tabela `mensagens`
+-- Extraindo dados da tabela `mensagens`
 --
 
 INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
@@ -469,14 +469,15 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 (25, 'Chamado excluído!'),
 (26, 'Senha alterada!'),
 (27, 'Senha alterada!'),
-(28, 'Seus dados foram alterados!');
+(28, 'Seus dados foram alterados!'),
+(29, 'Veículo inserido!');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `prioridades`
+-- Estrutura da tabela `prioridades`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `prioridades`;
@@ -490,7 +491,7 @@ CREATE TABLE `prioridades` (
 --
 
 --
--- Despejando dados para a tabela `prioridades`
+-- Extraindo dados da tabela `prioridades`
 --
 
 INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
@@ -501,9 +502,9 @@ INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pwdtemp`
+-- Estrutura da tabela `pwdtemp`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
@@ -522,9 +523,9 @@ CREATE TABLE `pwdtemp` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `req_software`
+-- Estrutura da tabela `req_software`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `req_software`;
@@ -543,7 +544,7 @@ CREATE TABLE `req_software` (
 --
 
 --
--- Despejando dados para a tabela `req_software`
+-- Extraindo dados da tabela `req_software`
 --
 
 INSERT INTO `req_software` (`rqs_id`, `software_id`, `disciplina_id`) VALUES
@@ -570,9 +571,9 @@ INSERT INTO `req_software` (`rqs_id`, `software_id`, `disciplina_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `semestre`
+-- Estrutura da tabela `semestre`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `semestre`;
@@ -586,7 +587,7 @@ CREATE TABLE `semestre` (
 --
 
 --
--- Despejando dados para a tabela `semestre`
+-- Extraindo dados da tabela `semestre`
 --
 
 INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
@@ -604,9 +605,9 @@ INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `softwares`
+-- Estrutura da tabela `softwares`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `softwares`;
@@ -623,7 +624,7 @@ CREATE TABLE `softwares` (
 --
 
 --
--- Despejando dados para a tabela `softwares`
+-- Extraindo dados da tabela `softwares`
 --
 
 INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`) VALUES
@@ -644,9 +645,10 @@ INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`)
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `so_disponivel`
+-- Estrutura da tabela `so_disponivel`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
+-- Última actualização: 12-Jul-2023 às 17:37
 --
 
 DROP TABLE IF EXISTS `so_disponivel`;
@@ -664,35 +666,12 @@ CREATE TABLE `so_disponivel` (
 --       `laboratorios` -> `room_id`
 --
 
---
--- Despejando dados para a tabela `so_disponivel`
---
-
-INSERT INTO `so_disponivel` (`sod_id`, `software_id`, `room_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 1, 5),
-(6, 1, 6),
-(7, 2, 1),
-(8, 4, 1),
-(9, 7, 1),
-(10, 11, 1),
-(11, 3, 2),
-(12, 6, 2),
-(13, 8, 2),
-(14, 10, 2),
-(15, 10, 3),
-(16, 13, 2),
-(17, 12, 1);
-
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `status`
+-- Estrutura da tabela `status`
 --
--- Criação: 16/06/2023 às 22:23
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -706,7 +685,7 @@ CREATE TABLE `status` (
 --
 
 --
--- Despejando dados para a tabela `status`
+-- Extraindo dados da tabela `status`
 --
 
 INSERT INTO `status` (`status_id`, `status`) VALUES
@@ -721,9 +700,9 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
+-- Estrutura da tabela `users`
 --
--- Criação: 17/06/2023 às 00:35
+-- Criação: 23-Jun-2023 às 13:07
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -746,7 +725,7 @@ CREATE TABLE `users` (
 --
 
 --
--- Despejando dados para a tabela `users`
+-- Extraindo dados da tabela `users`
 --
 
 INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
@@ -757,14 +736,47 @@ INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `co
 (5, 'Johanny', 'Tetzner De Souza', 'Usuário', 'johanny@gmail.com', '19877512221', '47730373009', 'Gui@19==', 5),
 (6, 'Thiago', 'Salhab Alves', 'Aprovador', 'thiagosalhab@gmail.com', '19966552213', '56848593052', 'Gui@19==', 5),
 (7, 'Wanderley', 'Piccinini Junior', 'Aprovador', 'wanderleypiccinini@gmail.com', '19981954422', '62575272017', 'Gui@19==', 7),
-(11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '375.652.298-90', 'Gui@19==', 5);
+(11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '375.652.298-90', '$2y$10$dJAcS5q4pvq522.HVHpLmeZN6jI4E.6uzPr.qwGkb9SAgRjEMpCB6', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `vehicles`
+--
+-- Criação: 12-Jul-2023 às 18:37
+-- Última actualização: 12-Jul-2023 às 20:46
+--
+
+DROP TABLE IF EXISTS `vehicles`;
+CREATE TABLE `vehicles` (
+  `vehicle_id` int(11) NOT NULL,
+  `name` varchar(26) NOT NULL,
+  `model` varchar(26) NOT NULL,
+  `description` varchar(50) NOT NULL,
+  `photo` varchar(24) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `vehicles`:
+--
+
+--
+-- Extraindo dados da tabela `vehicles`
+--
+
+INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) VALUES
+(1, 'Nivus', 'Comfortline 1.0 TS', 'Automático', '1.jpg'),
+(2, 'Virtus', 'Virtus 1.6 MSI MT', 'Manual', '2.jpg'),
+(3, 'Polo', 'Comfortline 200 TSI', 'Automático', '3.jpg'),
+(4, 'T-Cross', ' Comfortline 250 TSI', 'Automático', '4.jpg'),
+(5, 'Gol', 'Total Flex 1.0', 'Manual', '5.jpg');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `activities`
+-- Índices para tabela `activities`
 --
 ALTER TABLE `activities`
   ADD PRIMARY KEY (`atctive_id`),
@@ -772,13 +784,13 @@ ALTER TABLE `activities`
   ADD KEY `users_id` (`users_id`);
 
 --
--- Índices de tabela `categorias`
+-- Índices para tabela `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`categoria_id`);
 
 --
--- Índices de tabela `chamados`
+-- Índices para tabela `chamados`
 --
 ALTER TABLE `chamados`
   ADD PRIMARY KEY (`chamado_id`),
@@ -789,13 +801,13 @@ ALTER TABLE `chamados`
   ADD KEY `status_id` (`status_id`);
 
 --
--- Índices de tabela `cursos`
+-- Índices para tabela `cursos`
 --
 ALTER TABLE `cursos`
   ADD PRIMARY KEY (`curso_id`);
 
 --
--- Índices de tabela `disciplinas`
+-- Índices para tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD PRIMARY KEY (`disciplina_id`),
@@ -804,13 +816,13 @@ ALTER TABLE `disciplinas`
   ADD KEY `disciplinas_ibfk_3` (`semester_id`);
 
 --
--- Índices de tabela `laboratorios`
+-- Índices para tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
   ADD PRIMARY KEY (`room_id`);
 
 --
--- Índices de tabela `locacao`
+-- Índices para tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD PRIMARY KEY (`locacao_id`),
@@ -821,25 +833,25 @@ ALTER TABLE `locacao`
   ADD KEY `status_id` (`status_id`);
 
 --
--- Índices de tabela `mensagens`
+-- Índices para tabela `mensagens`
 --
 ALTER TABLE `mensagens`
   ADD PRIMARY KEY (`mensagens_id`);
 
 --
--- Índices de tabela `prioridades`
+-- Índices para tabela `prioridades`
 --
 ALTER TABLE `prioridades`
   ADD PRIMARY KEY (`prioridade_id`);
 
 --
--- Índices de tabela `pwdtemp`
+-- Índices para tabela `pwdtemp`
 --
 ALTER TABLE `pwdtemp`
   ADD PRIMARY KEY (`pwd_temp`);
 
 --
--- Índices de tabela `req_software`
+-- Índices para tabela `req_software`
 --
 ALTER TABLE `req_software`
   ADD PRIMARY KEY (`rqs_id`),
@@ -847,19 +859,19 @@ ALTER TABLE `req_software`
   ADD KEY `room_id` (`disciplina_id`);
 
 --
--- Índices de tabela `semestre`
+-- Índices para tabela `semestre`
 --
 ALTER TABLE `semestre`
   ADD PRIMARY KEY (`semester_id`);
 
 --
--- Índices de tabela `softwares`
+-- Índices para tabela `softwares`
 --
 ALTER TABLE `softwares`
   ADD PRIMARY KEY (`software_id`);
 
 --
--- Índices de tabela `so_disponivel`
+-- Índices para tabela `so_disponivel`
 --
 ALTER TABLE `so_disponivel`
   ADD PRIMARY KEY (`sod_id`),
@@ -867,27 +879,33 @@ ALTER TABLE `so_disponivel`
   ADD KEY `room_id` (`room_id`);
 
 --
--- Índices de tabela `status`
+-- Índices para tabela `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`status_id`);
 
 --
--- Índices de tabela `users`
+-- Índices para tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`users_id`),
   ADD KEY `status` (`status`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- Índices para tabela `vehicles`
+--
+ALTER TABLE `vehicles`
+  ADD PRIMARY KEY (`vehicle_id`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -917,7 +935,7 @@ ALTER TABLE `disciplinas`
 -- AUTO_INCREMENT de tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `locacao`
@@ -974,18 +992,24 @@ ALTER TABLE `users`
   MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Restrições para tabelas despejadas
+-- AUTO_INCREMENT de tabela `vehicles`
+--
+ALTER TABLE `vehicles`
+  MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `activities`
+-- Limitadores para a tabela `activities`
 --
 ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_1` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Restrições para tabelas `chamados`
+-- Limitadores para a tabela `chamados`
 --
 ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -995,7 +1019,7 @@ ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
 
 --
--- Restrições para tabelas `disciplinas`
+-- Limitadores para a tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -1003,7 +1027,7 @@ ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_3` FOREIGN KEY (`semester_id`) REFERENCES `semestre` (`semester_id`);
 
 --
--- Restrições para tabelas `locacao`
+-- Limitadores para a tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -1013,21 +1037,21 @@ ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`);
 
 --
--- Restrições para tabelas `req_software`
+-- Limitadores para a tabela `req_software`
 --
 ALTER TABLE `req_software`
   ADD CONSTRAINT `req_software_ibfk_1` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `req_software_ibfk_2` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`disciplina_id`);
 
 --
--- Restrições para tabelas `so_disponivel`
+-- Limitadores para a tabela `so_disponivel`
 --
 ALTER TABLE `so_disponivel`
   ADD CONSTRAINT `so_disponivel_ibfk_2` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `so_disponivel_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`);
 
 --
--- Restrições para tabelas `users`
+-- Limitadores para a tabela `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);

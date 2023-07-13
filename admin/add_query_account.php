@@ -1,7 +1,6 @@
 <?php
 	require_once 'connect.php';
 	require_once 'validate.php';
-	require_once 'encryptVigenere.php';
 	if(ISSET($_POST['add_account'])){
 		$firstname = $_POST['firstname'];
 		$lastname = $_POST['lastname'];

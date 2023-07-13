@@ -17,6 +17,7 @@
                                 <option value = "<?php echo $fetch['status']?>"><?php if ($fetch['status'] == "5") { echo 'Ativo';} else if ($fetch['status'] == "7") { echo 'Não atribuido';} else { echo 'Inativo';}?></option>
                                 <option value = "5">Ativo</option>
                                 <option value = "6">Inativo</option>
+                                <option value = "7">Não atribuído</option>
                             </select>
                         </div>
                         <div class="card-foot">

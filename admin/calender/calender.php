@@ -40,25 +40,50 @@
                         <div class="add-event-body">
                             <div class="add-event-input">
                                 <select class="event-name select-box" >
-                                <option value="" disabled selected>Escolha o Laboratório</option>
-                                <?php  
-									$queryad = $conn->query("SELECT * FROM `laboratorios`") or die(mysqli_error());
-									while($fetch = $queryad->fetch_array()){
-								?>
-                                    <option><?php echo $fetch['room_type']." - ".$fetch['room_no']?></option>
-                                    <?php
-                                    }
-                                    ?>
+                                    <!-- query para trazer as salas -->
+                                    <option value="" disabled selected>Escolha o que você deseja locar:</option>
+                                    <optgroup label="Salas">
+                                    <?php  
+                                        $queryad = $conn->query("SELECT * FROM `laboratorios`") or die(mysqli_error());
+                                        while($fetch = $queryad->fetch_array()){
+                                    ?>     
+                                        <option><?php echo $fetch['room_type']." - ".$fetch['room_no']?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </optgroup>
+                                    <!-- query para trazer as veículos -->
+                                    <optgroup label="Veículos">
+                                    <?php  
+                                        $queryad = $conn->query("SELECT * FROM `vehicles`") or die(mysqli_error());
+                                        while($fetch = $queryad->fetch_array()){
+                                    ?>     
+                                        <option><?php echo $fetch['name']." - ".$fetch['model']?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </optgroup>
+                                    <!-- query para trazer as equipameantos -->
+                                    <optgroup label="Equipamentos">
+                                    <?php  
+                                        $queryad = $conn->query("SELECT * FROM `equipment`") or die(mysqli_error());
+                                        while($fetch = $queryad->fetch_array()){
+                                    ?>     
+                                        <option><?php echo $fetch['equipment']?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </optgroup>
                                 </select>
                             </div>
                             <div class="add-event-input">
                                 <select class="event-disc select-box" >
-                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha sua Disciplina</option>
+                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar:</option>
                                 <?php  
-									$queryad = $conn->query("SELECT * FROM `disciplinas`") or die(mysqli_error());
+									$queryad = $conn->query("SELECT * FROM `users` WHERE users_id != $_SESSION[users_id]") or die(mysqli_error());
 									while($fetch = $queryad->fetch_array()){
 								?>
-                                    <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"><?php echo $fetch['nm_disciplina'];?></option>
+                                    <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"><?php echo $fetch['firstname']." ".$fetch['lastname'];?></option>
                                     <?php
                                     }
                                     ?>

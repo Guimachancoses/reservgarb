@@ -1025,3 +1025,11 @@ a.btn.btn-success:focus {
 .search-container i.material-icons.active {
   color: #5faa4f;
 }
+
+.image {
+  transition: opacity 0.5s;
+}
+
+.image:hover {
+  opacity: 0.5;
+}

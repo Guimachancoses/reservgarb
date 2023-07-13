@@ -140,15 +140,15 @@
                     <ul class="collapse list-unstyled menu" id="pageSubmenu4">
 
                         <li>
-                            <?php $addlab = 'addlab';
+                            <?php $addequip = 'add-equip';
                                 ?>
-                            <a href="reservlab.php?<?php echo $addlab?>"><i class="material-icons" style="color:red">add</i>Cadastrar Equipamento</a>
+                            <a href="reservlab.php?<?php echo $addequip?>"><i class="material-icons" style="color:red">add</i>Cadastrar Equipamento</a>
                         </li>
 
                         <li>
-                            <?php $editlab = 'editlab';
+                            <?php $editequip = 'editequip';
                                 ?>
-                            <a href="reservlab.php?<?php echo $editlab?>"><i class="material-icons" style="color:orange">edit</i>Editar Equipamento</a>
+                            <a href="reservlab.php?<?php echo $editequip?>"><i class="material-icons" style="color:orange">edit</i>Editar Equipamento</a>
                         </li>
 
                         <li>

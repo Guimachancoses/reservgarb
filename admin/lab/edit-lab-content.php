@@ -3,8 +3,8 @@
         <div class="col-lg-8">
             <div class="card" style="min-height:750px">
                 <div class="card-header card-header-text">
-                    <h4 class="card-title"><strong class="text-primary"> Editar Laboratório</strong></h4>
-                    <!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
+                    <h4 class="card-title"><strong class="text-primary"> Editar Sala</strong></h4>
+                        <p class="category">Verifique as informações antes de salvar:</p>
                 <br />
                 <?php
                     $query = $conn->query("SELECT * FROM `laboratorios` WHERE `room_id` = '$_REQUEST[room_id]'") or die(mysqli_error());

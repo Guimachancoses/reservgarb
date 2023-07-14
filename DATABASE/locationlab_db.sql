@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Jul-2023 às 22:51
+-- Tempo de geração: 14/07/2023 às 16:13
 -- Versão do servidor: 10.4.28-MariaDB
--- versão do PHP: 8.2.4
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,10 +26,10 @@ USE `locationlab_db`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `activities`
+-- Estrutura para tabela `activities`
 --
--- Criação: 23-Jun-2023 às 13:07
--- Última actualização: 13-Jul-2023 às 20:38
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 14/07/2023 às 00:40
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
   PRIMARY KEY (`atctive_id`),
   KEY `mensagens_id` (`mensagens_id`),
   KEY `users_id` (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `activities`:
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
 --
 
 --
--- Extraindo dados da tabela `activities`
+-- Despejando dados para a tabela `activities`
 --
 
 INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
@@ -180,14 +180,27 @@ INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`)
 (175, 32, 1, '2023-07-13 18:54:29'),
 (176, 30, 1, '2023-07-13 19:47:05'),
 (177, 1, 1, '2023-07-13 20:34:11'),
-(178, 1, 1, '2023-07-13 20:38:24');
+(178, 1, 1, '2023-07-13 20:38:24'),
+(179, 2, 1, '2023-07-13 23:53:08'),
+(180, 2, 1, '2023-07-14 00:00:36'),
+(181, 2, 1, '2023-07-14 00:09:37'),
+(182, 2, 1, '2023-07-14 00:17:51'),
+(183, 2, 1, '2023-07-14 00:18:35'),
+(184, 2, 1, '2023-07-14 00:26:34'),
+(185, 2, 1, '2023-07-14 00:28:05'),
+(186, 2, 1, '2023-07-14 00:30:23'),
+(187, 2, 1, '2023-07-14 00:34:25'),
+(188, 2, 1, '2023-07-14 00:38:26'),
+(189, 2, 1, '2023-07-14 00:39:45'),
+(190, 2, 1, '2023-07-14 00:40:29');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categorias`
+-- Estrutura para tabela `categorias`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `categorias`;
@@ -202,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 --
 
 --
--- Extraindo dados da tabela `categorias`
+-- Despejando dados para a tabela `categorias`
 --
 
 INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
@@ -215,9 +228,9 @@ INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `chamados`
+-- Estrutura para tabela `chamados`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `chamados`;
@@ -256,9 +269,10 @@ CREATE TABLE IF NOT EXISTS `chamados` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cursos`
+-- Estrutura para tabela `cursos`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `cursos`;
@@ -273,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
 --
 
 --
--- Extraindo dados da tabela `cursos`
+-- Despejando dados para a tabela `cursos`
 --
 
 INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
@@ -286,10 +300,9 @@ INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `disciplinas`
+-- Estrutura para tabela `disciplinas`
 --
--- Criação: 23-Jun-2023 às 13:07
--- Última actualização: 13-Jul-2023 às 18:03
+-- Criação: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `disciplinas`;
@@ -320,10 +333,10 @@ CREATE TABLE IF NOT EXISTS `disciplinas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `equipment`
+-- Estrutura para tabela `equipment`
 --
--- Criação: 13-Jul-2023 às 18:16
--- Última actualização: 13-Jul-2023 às 18:54
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `equipment`;
@@ -340,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `equipment` (
 --
 
 --
--- Extraindo dados da tabela `equipment`
+-- Despejando dados para a tabela `equipment`
 --
 
 INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUES
@@ -350,10 +363,10 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `laboratorios`
+-- Estrutura para tabela `laboratorios`
 --
--- Criação: 10-Jul-2023 às 19:31
--- Última actualização: 12-Jul-2023 às 18:20
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -370,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `laboratorios` (
 --
 
 --
--- Extraindo dados da tabela `laboratorios`
+-- Despejando dados para a tabela `laboratorios`
 --
 
 INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUES
@@ -381,10 +394,10 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `locacao`
+-- Estrutura para tabela `locacao`
 --
--- Criação: 23-Jun-2023 às 13:07
--- Última actualização: 12-Jul-2023 às 17:48
+-- Criação: 13/07/2023 às 23:46
+-- Última atualização: 14/07/2023 às 00:57
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -393,7 +406,6 @@ CREATE TABLE IF NOT EXISTS `locacao` (
   `users_id` int(11) NOT NULL,
   `room_id` int(11) DEFAULT NULL,
   `mensagens_id` int(11) DEFAULT NULL,
-  `disciplina_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
   `checkin` date NOT NULL,
   `checkin_time` time NOT NULL,
@@ -401,10 +413,9 @@ CREATE TABLE IF NOT EXISTS `locacao` (
   PRIMARY KEY (`locacao_id`),
   KEY `room_id` (`room_id`),
   KEY `users_id` (`users_id`),
-  KEY `disciplina_id` (`disciplina_id`),
   KEY `mensagens.id` (`mensagens_id`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `locacao`:
@@ -414,19 +425,25 @@ CREATE TABLE IF NOT EXISTS `locacao` (
 --       `laboratorios` -> `room_id`
 --   `status_id`
 --       `status` -> `status_id`
---   `disciplina_id`
---       `disciplinas` -> `disciplina_id`
 --   `mensagens_id`
 --       `mensagens` -> `mensagens_id`
 --
 
+--
+-- Despejando dados para a tabela `locacao`
+--
+
+INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`) VALUES
+(20, 15, 9, 2, 1, '2023-07-14', '20:00:00', '23:00:00'),
+(28, 15, 7, 2, 1, '2023-07-17', '20:00:00', '23:00:00');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `mensagens`
+-- Estrutura para tabela `mensagens`
 --
--- Criação: 23-Jun-2023 às 13:07
--- Última actualização: 13-Jul-2023 às 18:44
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -441,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `mensagens` (
 --
 
 --
--- Extraindo dados da tabela `mensagens`
+-- Despejando dados para a tabela `mensagens`
 --
 
 INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
@@ -483,9 +500,10 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `prioridades`
+-- Estrutura para tabela `prioridades`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `prioridades`;
@@ -500,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `prioridades` (
 --
 
 --
--- Extraindo dados da tabela `prioridades`
+-- Despejando dados para a tabela `prioridades`
 --
 
 INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
@@ -511,9 +529,9 @@ INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pwdtemp`
+-- Estrutura para tabela `pwdtemp`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
@@ -533,10 +551,9 @@ CREATE TABLE IF NOT EXISTS `pwdtemp` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `req_software`
+-- Estrutura para tabela `req_software`
 --
--- Criação: 23-Jun-2023 às 13:07
--- Última actualização: 13-Jul-2023 às 18:03
+-- Criação: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `req_software`;
@@ -560,9 +577,10 @@ CREATE TABLE IF NOT EXISTS `req_software` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `semestre`
+-- Estrutura para tabela `semestre`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `semestre`;
@@ -577,7 +595,7 @@ CREATE TABLE IF NOT EXISTS `semestre` (
 --
 
 --
--- Extraindo dados da tabela `semestre`
+-- Despejando dados para a tabela `semestre`
 --
 
 INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
@@ -595,9 +613,10 @@ INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `softwares`
+-- Estrutura para tabela `softwares`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `softwares`;
@@ -615,7 +634,7 @@ CREATE TABLE IF NOT EXISTS `softwares` (
 --
 
 --
--- Extraindo dados da tabela `softwares`
+-- Despejando dados para a tabela `softwares`
 --
 
 INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`) VALUES
@@ -636,10 +655,9 @@ INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`)
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `so_disponivel`
+-- Estrutura para tabela `so_disponivel`
 --
--- Criação: 23-Jun-2023 às 13:07
--- Última actualização: 12-Jul-2023 às 17:37
+-- Criação: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `so_disponivel`;
@@ -663,9 +681,10 @@ CREATE TABLE IF NOT EXISTS `so_disponivel` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `status`
+-- Estrutura para tabela `status`
 --
--- Criação: 23-Jun-2023 às 13:07
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -680,7 +699,7 @@ CREATE TABLE IF NOT EXISTS `status` (
 --
 
 --
--- Extraindo dados da tabela `status`
+-- Despejando dados para a tabela `status`
 --
 
 INSERT INTO `status` (`status_id`, `status`) VALUES
@@ -695,10 +714,10 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `users`
+-- Estrutura para tabela `users`
 --
--- Criação: 23-Jun-2023 às 13:07
--- Última actualização: 13-Jul-2023 às 20:38
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 14/07/2023 às 00:40
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -723,22 +742,22 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 --
--- Extraindo dados da tabela `users`
+-- Despejando dados para a tabela `users`
 --
 
 INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
 (1, 'Guilherme', 'Machancoses', 'Administrador', 'guilherme.machancoses@gmail.com', '19981955602', '37565229890', '$2y$10$RylogYa9uphx/65rXnElnuGBldU24osOcYLt6mcyVqyq4UYcMGw3W', 5),
 (11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '375.652.298-90', '$2y$10$dJAcS5q4pvq522.HVHpLmeZN6jI4E.6uzPr.qwGkb9SAgRjEMpCB6', 5),
-(15, 'Orlando', 'Bagni Jr.', 'Usuário', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$nlYlytWhG1/ptjUJA6zfoezj3ofsOGXY8.91AXPuqRh1v.PwSC10u', 5),
+(15, 'Orlando', 'Bagni', 'Usuário', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$nlYlytWhG1/ptjUJA6zfoezj3ofsOGXY8.91AXPuqRh1v.PwSC10u', 5),
 (16, 'Cesar', 'Monção', 'Usuário', 'cesarmoncao@garbuio.com.br', '19998068077', '286.430.488-01', '$2y$10$rFic2iVN3XhJKEuKORVQNeUUhbHUc6PvXXaIzB32jh.YR0EPKrkvO', 5);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `vehicles`
+-- Estrutura para tabela `vehicles`
 --
--- Criação: 12-Jul-2023 às 18:37
--- Última actualização: 13-Jul-2023 às 19:47
+-- Criação: 13/07/2023 às 23:12
+-- Última atualização: 13/07/2023 às 23:12
 --
 
 DROP TABLE IF EXISTS `vehicles`;
@@ -756,7 +775,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 --
 
 --
--- Extraindo dados da tabela `vehicles`
+-- Despejando dados para a tabela `vehicles`
 --
 
 INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) VALUES
@@ -767,18 +786,18 @@ INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) V
 (5, 'Gol', 'Total Flex 1.0', 'Manual', '5.jpg');
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `activities`
+-- Restrições para tabelas `activities`
 --
 ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_1` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Limitadores para a tabela `chamados`
+-- Restrições para tabelas `chamados`
 --
 ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -788,7 +807,7 @@ ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
 
 --
--- Limitadores para a tabela `disciplinas`
+-- Restrições para tabelas `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -796,31 +815,30 @@ ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_3` FOREIGN KEY (`semester_id`) REFERENCES `semestre` (`semester_id`);
 
 --
--- Limitadores para a tabela `locacao`
+-- Restrições para tabelas `locacao`
 --
 ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
   ADD CONSTRAINT `locacao_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`),
   ADD CONSTRAINT `locacao_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
-  ADD CONSTRAINT `locacao_ibfk_4` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`disciplina_id`),
   ADD CONSTRAINT `locacao_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`);
 
 --
--- Limitadores para a tabela `req_software`
+-- Restrições para tabelas `req_software`
 --
 ALTER TABLE `req_software`
   ADD CONSTRAINT `req_software_ibfk_1` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `req_software_ibfk_2` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`disciplina_id`);
 
 --
--- Limitadores para a tabela `so_disponivel`
+-- Restrições para tabelas `so_disponivel`
 --
 ALTER TABLE `so_disponivel`
   ADD CONSTRAINT `so_disponivel_ibfk_2` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `so_disponivel_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`);
 
 --
--- Limitadores para a tabela `users`
+-- Restrições para tabelas `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);

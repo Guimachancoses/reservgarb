@@ -34,7 +34,23 @@ $stmt->bind_result($room_id);
 $stmt->fetch();
 $stmt->close();
 
-// Executa a segunda consulta para obter o disciplina_id
+// Executa a primeira consulta para obter o vehicle_id
+$stmt = $conn->prepare("SELECT vehicle_id FROM vehicles WHERE name = ?");
+$stmt->bind_param("s", $eventTitle);
+$stmt->execute();
+$stmt->bind_result($vehicle_id);
+$stmt->fetch();
+$stmt->close();
+
+// Executa a primeira consulta para obter o equip_id
+$stmt = $conn->prepare("SELECT equip_id FROM equipment WHERE equipment = ?");
+$stmt->bind_param("s", $eventTitle);
+$stmt->execute();
+$stmt->bind_result($equip_id);
+$stmt->fetch();
+$stmt->close();
+
+// Executa a segunda consulta para obter o users_id
 $stmt = $conn->prepare("SELECT users_id FROM users WHERE firstname = ? AND lastname = ?");
 $stmt->bind_param("ss", $firstname, $lastname);
 $stmt->execute();
@@ -43,8 +59,8 @@ $stmt->fetch();
 $stmt->close();
 
 // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
-$verif = $conn->prepare("SELECT * FROM locacao WHERE room_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4");
-$verif->bind_param("isss", $room_id, $mysql_date, $timeFrom, $timeTo);
+$verif = $conn->prepare("SELECT * FROM locacao WHERE room_id = ? OR vehicle_id = ? OR equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4");
+$verif->bind_param("iiisss", $room_id, $vehicle_id, $equip_id, $mysql_date, $timeFrom, $timeTo);
 $verif->execute();
 $verif->store_result();
 $valid = $verif->num_rows();
@@ -58,8 +74,8 @@ else {
     $status_id = 1;
 
     // Realiza o INSERT no banco de dados usando as variáveis `room_id` e `disciplina_id`
-    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiiisss", $users_id, $room_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo);
+    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iiiiiisss", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo);
     $stmt->execute();
     $stmt->close();
 

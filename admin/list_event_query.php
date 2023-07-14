@@ -2,20 +2,20 @@
 require_once 'connect.php';
 // Executa a consulta SQL para buscar os eventos inseridos no banco de dados
 $query = $conn->query("SELECT 
-                          lc.checkin,
-                          lc.checkin_time,
-                          lc.checkout_time,
-                          lb.room_type,
-                          lb.room_no,
-                          us.firstname,
-                          us.lastname,
-                          if (lc.status_id = 1, 'Pend.', 'Reserv.') as status
-                          FROM `locacao`as lc 
-                          INNER JOIN `laboratorios` as lb 
-                          ON lb.room_id = lc.room_id
-                          INNER JOIN `users` as us
-                          ON us.users_id = lc.users_id
-                          WHERE lc.mensagens_id != 4 ") or die(mysqli_error());
+                            lc.checkin,
+                            lc.checkin_time,
+                            lc.checkout_time,
+                            COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
+                            COALESCE(lb.room_no, vs.model) AS description,
+                            us.firstname,
+                            us.lastname,
+                            IF(lc.status_id = 1, 'Pend.', 'Reserv.') AS status
+                            FROM `locacao` AS lc 
+                            LEFT JOIN `laboratorios` AS lb ON lb.room_id = lc.room_id
+                            LEFT JOIN `vehicles` AS vs ON vs.vehicle_id = lc.vehicle_id
+                            LEFT JOIN `equipment` AS eq ON eq.equip_id = lc.equip_id
+                            INNER JOIN `users` AS us ON us.users_id = lc.users_id
+                            WHERE lc.mensagens_id != 4; ") or die(mysqli_error());
 // Cria um array para armazenar os eventos
 $events = array();
 // Adiciona cada evento ao array de eventos
@@ -28,7 +28,7 @@ while ($row = $query->fetch_assoc()) {
     'day'=> intval($day),
     'month'=> intval($month),
     'year'=> intval($year),
-    'title' => $row['room_type']." - ".$row["room_no"]." * ".$row['status']." - ".$row['firstname']." ".substr($row['lastname'], 0, 2).".",
+    'title' => $row['locacao']." - ".$row["description"]." * ".$row['status']." - ".$row['firstname']." ".substr($row['lastname'], 0, 2).".",
     'time' => $checkin_time . " - " . $checkout_time,
   );
   array_push($events, $date);

@@ -7,9 +7,9 @@
                     <h4 class="card-title"><strong class="text-primary"> Editar Veículos</strong></h4>
                     <p class="category">Escolha qual veículo você deseja editar ou excluir:</p>
                 </div>
-                <div class="card-content table-responsive" style="padding:2px">
+                <div class="card-content table-responsive" style="padding:2">
                     <div style = "background-color:white;" class = "container">
-                        <div class = "panel panel-default">
+                        <div class = "panel panel-default" >
                             <?php
                                 require_once 'connect.php';
                                 $query = $conn->query("SELECT * FROM `vehicles`") or die(mysql_error());

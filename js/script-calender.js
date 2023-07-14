@@ -583,6 +583,8 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
     var firstname = nameParts[0]; // A primeira parte contém o primeiro nome
     var lastname = nameParts[1]; // A segunda parte contém o segundo nome
 
+    console.log(firstname, lastname);
+
     // Envia uma solicitação POST para a API "locacao_query.php" para inserir o evento do banco de dados
     var inser = new FormData();
     inser.append("firstname", firstname);

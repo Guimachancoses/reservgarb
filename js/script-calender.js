@@ -230,7 +230,7 @@ function getActiveDay(date) {
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------
-//function atualizar "eventos" quanto houver eventos ativos
+// function atualizar "eventos" quando houver eventos ativos
 function updateEvents(date) {
   let events = "";
   eventsArr.forEach((event) => {
@@ -240,10 +240,19 @@ function updateEvents(date) {
       year === event.year
     ) {
       event.events.forEach((event) => {
+        let eventTitle = event.title;
+        let eventColorStyle = "";
+
+        if (eventTitle.includes("Pend")) {
+          eventColorStyle = 'style="color: yellow;"';
+        } else {
+          eventColorStyle = 'style="color: green;"';
+        }
+
         events += `<div class="event">
             <div class="title">
-              <i class="fas fa-circle"></i>
-              <h3 class="event-title">${event.title}</h3>
+              <i class="fas fa-circle" ${eventColorStyle}></i>
+              <h3 class="event-title"><small>${eventTitle}</small></h3>
             </div>
             <div class="event-time">
               <span class="event-time">${event.time}</span>
@@ -252,12 +261,14 @@ function updateEvents(date) {
       });
     }
   });
+
   if (events === "") {
     events = `<div class="no-event">
-            <h3>Sem eventos</h3>
+            <h3>Sem locações</h3>
         </div>`;
   }
-  eventsContainer.innerHTML = events; //para exibir os eventos no html
+
+  eventsContainer.innerHTML = events; // para exibir os eventos no HTML
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------

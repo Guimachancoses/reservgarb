@@ -42,10 +42,10 @@
 				 <li  class="d-lg-none d-md-block d-xl-none d-sm-block">
                     <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
                         <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" >
-                            <i class="material-icons">person</i><span><?php echo $name;?></span></a>
+                            <i class="material-icons">person</i><span><small><?php echo $name;?></small></span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                                 <li>
-                                    <a class="nav-link" href="logout.php"><i class="material-icons text-logout">logout</i><span class="text-primary"><strong> LOGOUT</strong></span></a>
+                                    <a class="nav-link" href="logout.php"><i class="material-icons text-logout">logout</i><span class="text-primary"><strong><small>Sair</small></strong></span></a>
                                 </li>
                             </ul>
                     </li>
@@ -73,13 +73,13 @@
                         <li>
                             <?php $adduser = 'adduser';
                                 ?>
-                            <a href="reservlab.php?<?php echo $adduser?>"><i class="material-icons" style="color:red">add</i>Cadastrar Usuários</a>
+                            <a href="reservlab.php?<?php echo $adduser?>"><i class="material-icons" style="color:red">add</i><small>Cadastrar Usuários</small></a>
                         </li>
 
                         <li>
                             <?php $edituser = 'edituser';
                             ?>
-                            <a href="reservlab.php?<?php echo $edituser?>"><i class="material-icons" style="color:orange">edit</i>Editar Usuários</a>
+                            <a href="reservlab.php?<?php echo $edituser?>"><i class="material-icons" style="color:orange">edit</i><small>Editar Usuários</small></a>
                         </li>
 
                         <li>
@@ -96,13 +96,13 @@
                         <li>
                             <?php $addlab = 'addlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $addlab?>"><i class="material-icons" style="color:red">add</i>Cadastrar Sala</a>
+                            <a href="reservlab.php?<?php echo $addlab?>"><i class="material-icons" style="color:red">add</i><small>Cadastrar Sala</small></a>
                         </li>
 
                         <li>
                             <?php $editlab = 'editlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $editlab?>"><i class="material-icons" style="color:orange">edit</i>Editar Salas</a>
+                            <a href="reservlab.php?<?php echo $editlab?>"><i class="material-icons" style="color:orange">edit</i><small>Editar Salas</small></a>
                         </li>
 
                         <li>
@@ -119,13 +119,13 @@
                         <li>
                             <?php $addvei = 'addvei';
                                 ?>
-                            <a href="reservlab.php?<?php echo $addvei?>"><i class="material-icons" style="color:red">add</i>Cadastrar Veículo</a>
+                            <a href="reservlab.php?<?php echo $addvei?>"><i class="material-icons" style="color:red">add</i><small>Cadastrar Veículo</small></a>
                         </li>
 
                         <li>
                             <?php $editvei = 'editvei';
                                 ?>
-                            <a href="reservlab.php?<?php echo $editvei?>"><i class="material-icons" style="color:orange">edit</i>Editar Veículo</a>
+                            <a href="reservlab.php?<?php echo $editvei?>"><i class="material-icons" style="color:orange">edit</i><small>Editar Veículo</small></a>
                         </li>
 
                         <li>
@@ -142,13 +142,13 @@
                         <li>
                             <?php $addequip = 'add-equip';
                                 ?>
-                            <a href="reservlab.php?<?php echo $addequip?>"><i class="material-icons" style="color:red">add</i>Cadastrar Equipamento</a>
+                            <a href="reservlab.php?<?php echo $addequip?>"><i class="material-icons" style="color:red">add</i><small>Cadastrar Equipamento</small></a>
                         </li>
 
                         <li>
                             <?php $editequip = 'editequip';
                                 ?>
-                            <a href="reservlab.php?<?php echo $editequip?>"><i class="material-icons" style="color:orange">edit</i>Editar Equipamento</a>
+                            <a href="reservlab.php?<?php echo $editequip?>"><i class="material-icons" style="color:orange">edit</i><small>Editar Equipamento</small></a>
                         </li>
 
                         <li>
@@ -165,19 +165,19 @@
                         <li>
                             <?php $penlab = 'penlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $penlab?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i>Solicitações Pendentes</a>
+                            <a href="reservlab.php?<?php echo $penlab?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i><small>Solicitações Pendentes</small></a>
                         </li>
 
                         <li>
                             <?php $reslab = 'reslab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $reslab?>"><i class="material-icons" style="color:#4caf50" >lock_clock</i>Reservados</a>
+                            <a href="reservlab.php?<?php echo $reslab?>"><i class="material-icons" style="color:#4caf50" >lock_clock</i><small>Reservados</small></a>
                         </li>
 
                         <li>
                             <?php $finlab = 'finlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $finlab?>"><i class="material-icons" style="color:#00bcd4">history</i>Histórico de Reservas</a>
+                            <a href="reservlab.php?<?php echo $finlab?>"><i class="material-icons" style="color:#00bcd4">history</i><small>Histórico de Reservas</small></a>
                         </li>
                     </ul>
                 </li>

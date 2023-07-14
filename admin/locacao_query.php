@@ -59,7 +59,7 @@ $stmt->fetch();
 $stmt->close();
 
 // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
-$verif = $conn->prepare("SELECT * FROM locacao WHERE room_id = ? OR vehicle_id = ? OR equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4");
+$verif = $conn->prepare("SELECT * FROM locacao WHERE room_id = ? AND vehicle_id = ? AND equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4");
 $verif->bind_param("iiisss", $room_id, $vehicle_id, $equip_id, $mysql_date, $timeFrom, $timeTo);
 $verif->execute();
 $verif->store_result();

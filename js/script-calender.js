@@ -491,7 +491,7 @@ addEventSubmit.addEventListener("click", () => {
       }
     })
     .catch((error) => {
-      console.log("Erro ao salvar evento: " + error);
+      console.log(error);
       alert(error); // exibir mensagem de erro ao usuário
       return false;
     });
@@ -574,16 +574,20 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
     const inputDate = new Date(year, month, activeDay);
     var checkin = inputDate.toLocaleDateString();
 
-    // Separa o eventTitle em duas partes usando a string " - Nº " como separador
+    // Separa o eventTitle em duas partes usando a string " - " como separador
     var titleParts = eventTitle.split(" - ");
     var title = titleParts[0]; // A primeira parte contém o título do evento
-    var num = titleParts[1]; // A segunda parte contém o número da sala
+
+    // Separa o eventDisc em duas partes usando a string " " como separador
+    var nameParts = eventDisc.split(" ");
+    var firstname = nameParts[0]; // A primeira parte contém o primeiro nome
+    var lastname = nameParts[1]; // A segunda parte contém o segundo nome
 
     // Envia uma solicitação POST para a API "locacao_query.php" para inserir o evento do banco de dados
     var inser = new FormData();
+    inser.append("firstname", firstname);
+    inser.append("lastname", lastname);
     inser.append("title", title);
-    inser.append("room_no", num);
-    inser.append("eventDisc", eventDisc);
     inser.append("eventCheckin", checkin);
     inser.append("eventTimeFrom", eventTimeFrom);
     inser.append("eventTimeTo", eventTimeTo);
@@ -597,7 +601,7 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
         if (result == "") {
           console.log(result);
           reject(
-            "(Erro)Verifique as opções abaixo:\n \n * Laboratório não tem capacidade para total de alunos.\n * Verifique se já existe locação nesse horáio.\n * Os requisitos do laboratório não atendem a sua disciplina."
+            " - ERRO -\n \n * Verifique se já existe uma reserva nesse horário. *"
           );
         } else {
           console.log(result);

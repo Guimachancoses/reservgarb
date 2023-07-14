@@ -3,8 +3,8 @@ require_once 'connect.php';
 require_once 'validate.php';
 // Obtém os dados do evento a partir da requisição POST
 $eventTitle = $_POST['title'];
-$room_no = $_POST['room_no'];
-$eventDisc = $_POST['eventDisc'];
+$firstname = $_POST['firstname'];
+$lastname = $_POST['lastname'];
 $eventCheckin = $_POST['eventCheckin'];
 $eventTimeFrom = $_POST['eventTimeFrom'];
 $eventTimeTo = $_POST['eventTimeTo'];
@@ -27,18 +27,18 @@ if ($conn->connect_error) {
 }
 
 // Executa a primeira consulta para obter o room_id
-$stmt = $conn->prepare("SELECT room_id FROM laboratorios WHERE room_type = ? && room_no = ?");
-$stmt->bind_param("ss", $eventTitle, $room_no);
+$stmt = $conn->prepare("SELECT room_id FROM laboratorios WHERE room_type = ?");
+$stmt->bind_param("s", $eventTitle);
 $stmt->execute();
 $stmt->bind_result($room_id);
 $stmt->fetch();
 $stmt->close();
 
 // Executa a segunda consulta para obter o disciplina_id
-$stmt = $conn->prepare("SELECT users_id, disciplina_id FROM disciplinas WHERE nm_disciplina = ?");
-$stmt->bind_param("s", $eventDisc);
+$stmt = $conn->prepare("SELECT users_id FROM users WHERE firstname = ? AND lastname = ?");
+$stmt->bind_param("ss", $firstname, $lastname);
 $stmt->execute();
-$stmt->bind_result($users_id, $disciplina_id);
+$stmt->bind_result($users_id);
 $stmt->fetch();
 $stmt->close();
 
@@ -58,8 +58,8 @@ else {
     $status_id = 1;
 
     // Realiza o INSERT no banco de dados usando as variáveis `room_id` e `disciplina_id`
-    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, mensagens_id, disciplina_id, status_id ,checkin, checkin_time, checkout_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiiiisss", $users_id, $room_id, $mensagens_id, $disciplina_id, $status_id, $mysql_date, $timeFrom, $timeTo);
+    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iiiisss", $users_id, $room_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo);
     $stmt->execute();
     $stmt->close();
 

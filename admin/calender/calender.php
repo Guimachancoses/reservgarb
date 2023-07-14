@@ -34,14 +34,14 @@
                 <div class="events"></div>
                     <div class="add-event-wrapper">
                         <div class="add-event-header">
-                        <div class="title" style="color:#5faa4f;"><strong>Adicionar Locação</strong></div>
+                        <div class="title" style="color:#5faa4f;"><strong>Adicionar Reserva</strong></div>
                             <i class="fas fa-times close"></i>
                         </div>
                         <div class="add-event-body">
                             <div class="add-event-input">
                                 <select class="event-name select-box" >
                                     <!-- query para trazer as salas -->
-                                    <option value="" disabled selected>Escolha o que você deseja locar:</option>
+                                    <option value="" disabled selected>Escolha o que você deseja locar</option>
                                     <optgroup label="Salas">
                                     <?php  
                                         $queryad = $conn->query("SELECT * FROM `laboratorios`") or die(mysqli_error());
@@ -78,7 +78,7 @@
                             </div>
                             <div class="add-event-input">
                                 <select class="event-disc select-box" >
-                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar:</option>
+                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
                                 <?php  
 									$queryad = $conn->query("SELECT * FROM `users` WHERE users_id != $_SESSION[users_id]") or die(mysqli_error());
 									while($fetch = $queryad->fetch_array()){

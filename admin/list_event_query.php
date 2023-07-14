@@ -13,8 +13,6 @@ $query = $conn->query("SELECT
                           FROM `locacao`as lc 
                           INNER JOIN `laboratorios` as lb 
                           ON lb.room_id = lc.room_id
-                          INNER JOIN `disciplinas`as dc
-                          ON dc.disciplina_id = lc.disciplina_id
                           INNER JOIN `users` as us
                           ON us.users_id = lc.users_id
                           WHERE lc.mensagens_id != 4 ") or die(mysqli_error());
@@ -30,7 +28,7 @@ while ($row = $query->fetch_assoc()) {
     'day'=> intval($day),
     'month'=> intval($month),
     'year'=> intval($year),
-    'title' => $row['room_type']." - ".$row["room_no"]." * ".$row['status']." - ".$row['firstname']." ".substr($row['lastname'], 0, 1).".",
+    'title' => $row['room_type']." - ".$row["room_no"]." * ".$row['status']." - ".$row['firstname']." ".substr($row['lastname'], 0, 2).".",
     'time' => $checkin_time . " - " . $checkout_time,
   );
   array_push($events, $date);

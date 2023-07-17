@@ -6,7 +6,6 @@
 						      <ul class="m-0 p-0">
 							     <li><a href="#">Home</a></li>
 								  <li><a href="https://www.garbuio.com.br/" target="blank">Empresa</a></li>
-								   <li><a href="https://garbuio.tomticket.com" target="blank">atendimento</a></li>
 								    <li><a href="https://www.garbuio.com.br/contato/" target="blank">contato</a></li>
 							  <ul>
 						   </nav>

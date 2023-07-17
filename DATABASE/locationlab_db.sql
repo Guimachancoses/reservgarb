@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Jul-2023 às 21:51
+-- Tempo de geração: 17/07/2023 às 05:05
 -- Versão do servidor: 10.4.28-MariaDB
--- versão do PHP: 8.2.4
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,10 +26,10 @@ USE `locationlab_db`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `activities`
+-- Estrutura para tabela `activities`
 --
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 17:39
+-- Criação: 14/07/2023 às 20:41
+-- Última atualização: 16/07/2023 às 17:44
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -49,7 +49,7 @@ CREATE TABLE `activities` (
 --
 
 --
--- Extraindo dados da tabela `activities`
+-- Despejando dados para a tabela `activities`
 --
 
 INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
@@ -200,139 +200,58 @@ INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`)
 (198, 2, 1, '2023-07-14 16:52:48'),
 (199, 2, 1, '2023-07-14 16:55:38'),
 (200, 2, 1, '2023-07-14 16:57:12'),
-(201, 2, 1, '2023-07-14 17:39:33');
+(201, 2, 1, '2023-07-14 17:39:33'),
+(202, 2, 1, '2023-07-14 21:26:13'),
+(203, 3, 1, '2023-07-14 21:46:09'),
+(204, 4, 1, '2023-07-15 18:10:40'),
+(205, 1, 1, '2023-07-15 18:13:03'),
+(206, 35, 1, '2023-07-16 01:29:00'),
+(207, 36, 1, '2023-07-16 01:29:08'),
+(208, 36, 1, '2023-07-16 01:29:16'),
+(209, 35, 1, '2023-07-16 01:29:22'),
+(210, 35, 1, '2023-07-16 02:08:10'),
+(211, 36, 1, '2023-07-16 02:08:14'),
+(212, 3, 1, '2023-07-16 15:55:12'),
+(213, 36, 1, '2023-07-16 17:05:41'),
+(214, 35, 1, '2023-07-16 17:42:00'),
+(215, 6, 1, '2023-07-16 17:44:46'),
+(216, 35, 1, '2023-07-16 17:44:58');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categorias`
+-- Estrutura para tabela `approver`
 --
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 22:16
+-- Última atualização: 14/07/2023 às 22:19
 --
 
-DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE `categorias` (
-  `categoria_id` int(11) NOT NULL,
-  `categoria` varchar(50) NOT NULL
+DROP TABLE IF EXISTS `approver`;
+CREATE TABLE `approver` (
+  `approver_id` int(11) NOT NULL,
+  `approvers` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONAMENTOS PARA TABELAS `categorias`:
+-- RELACIONAMENTOS PARA TABELAS `approver`:
 --
 
 --
--- Extraindo dados da tabela `categorias`
+-- Despejando dados para a tabela `approver`
 --
 
-INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
-(1, 'Instalação de Softwares'),
-(2, 'Instalação de Periféricos'),
-(3, 'Atualização'),
-(4, 'Manutenção'),
-(5, 'Outro');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `chamados`
---
--- Criação: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `chamados`;
-CREATE TABLE `chamados` (
-  `chamado_id` int(11) NOT NULL,
-  `users_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
-  `prioridade_id` int(11) NOT NULL,
-  `assuntos` varchar(50) NOT NULL,
-  `msg_chamado` varchar(255) NOT NULL,
-  `status_id` int(11) NOT NULL,
-  `t_stamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `chamados`:
---   `users_id`
---       `users` -> `users_id`
---   `room_id`
---       `laboratorios` -> `room_id`
---   `categoria_id`
---       `categorias` -> `categoria_id`
---   `prioridade_id`
---       `prioridades` -> `prioridade_id`
---   `status_id`
---       `status` -> `status_id`
---
+INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
+(1, 'Administrador'),
+(2, 'Veículos'),
+(3, 'Equipamentos'),
+(4, 'Salas');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cursos`
+-- Estrutura para tabela `equipment`
 --
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `cursos`;
-CREATE TABLE `cursos` (
-  `curso_id` int(11) NOT NULL,
-  `curso` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `cursos`:
---
-
---
--- Extraindo dados da tabela `cursos`
---
-
-INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
-(1, 'TADS'),
-(2, 'Adm'),
-(3, 'Nutrição'),
-(4, 'Estética'),
-(5, 'Fisioterapia');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `disciplinas`
---
--- Criação: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `disciplinas`;
-CREATE TABLE `disciplinas` (
-  `disciplina_id` int(11) NOT NULL,
-  `users_id` int(11) NOT NULL,
-  `curso_id` int(11) NOT NULL,
-  `semester_id` int(11) NOT NULL,
-  `nm_disciplina` varchar(50) NOT NULL,
-  `qtd_users` varchar(11) NOT NULL,
-  `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `disciplinas`:
---   `users_id`
---       `users` -> `users_id`
---   `curso_id`
---       `cursos` -> `curso_id`
---   `semester_id`
---       `semestre` -> `semester_id`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `equipment`
---
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 20:41
 --
 
 DROP TABLE IF EXISTS `equipment`;
@@ -348,7 +267,7 @@ CREATE TABLE `equipment` (
 --
 
 --
--- Extraindo dados da tabela `equipment`
+-- Despejando dados para a tabela `equipment`
 --
 
 INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUES
@@ -358,10 +277,43 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `laboratorios`
+-- Estrutura para tabela `gp_approver`
 --
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 22:20
+-- Última atualização: 16/07/2023 às 17:44
+--
+
+DROP TABLE IF EXISTS `gp_approver`;
+CREATE TABLE `gp_approver` (
+  `gp_approver_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `approver_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `gp_approver`:
+--   `approver_id`
+--       `approver` -> `approver_id`
+--   `users_id`
+--       `users` -> `users_id`
+--
+
+--
+-- Despejando dados para a tabela `gp_approver`
+--
+
+INSERT INTO `gp_approver` (`gp_approver_id`, `users_id`, `approver_id`) VALUES
+(1, 1, 1),
+(5, 17, 2),
+(8, 11, 1),
+(9, 15, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `laboratorios`
+--
+-- Criação: 14/07/2023 às 20:41
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -377,7 +329,7 @@ CREATE TABLE `laboratorios` (
 --
 
 --
--- Extraindo dados da tabela `laboratorios`
+-- Despejando dados para a tabela `laboratorios`
 --
 
 INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUES
@@ -388,10 +340,10 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `locacao`
+-- Estrutura para tabela `locacao`
 --
--- Criação: 14-Jul-2023 às 16:33
--- Última actualização: 14-Jul-2023 às 17:39
+-- Criação: 16/07/2023 às 01:36
+-- Última atualização: 16/07/2023 às 15:55
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -405,7 +357,8 @@ CREATE TABLE `locacao` (
   `status_id` int(11) NOT NULL,
   `checkin` date NOT NULL,
   `checkin_time` time NOT NULL,
-  `checkout_time` time NOT NULL
+  `checkout_time` time NOT NULL,
+  `approver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -422,25 +375,28 @@ CREATE TABLE `locacao` (
 --       `vehicles` -> `vehicle_id`
 --   `equip_id`
 --       `equipment` -> `equip_id`
+--   `approver_id`
+--       `approver` -> `approver_id`
 --
 
 --
--- Extraindo dados da tabela `locacao`
+-- Despejando dados para a tabela `locacao`
 --
 
-INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`) VALUES
-(20, 15, 9, NULL, NULL, 2, 1, '2023-07-14', '20:00:00', '23:00:00'),
-(28, 15, 7, NULL, NULL, 2, 1, '2023-07-17', '20:00:00', '23:00:00'),
-(38, 11, NULL, 1, NULL, 2, 1, '2023-07-18', '20:00:00', '23:00:00'),
-(39, 16, NULL, NULL, 1, 2, 1, '2023-07-19', '10:00:00', '23:00:00');
+INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
+(20, 15, 9, NULL, NULL, 4, 4, '2023-07-14', '20:00:00', '23:00:00', 4),
+(28, 15, 7, NULL, NULL, 3, 2, '2023-07-17', '20:00:00', '23:00:00', 4),
+(38, 11, NULL, 1, NULL, 3, 2, '2023-07-18', '20:00:00', '23:00:00', 2),
+(39, 16, NULL, NULL, 1, 2, 1, '2023-07-19', '10:00:00', '23:00:00', 3),
+(40, 15, NULL, 1, NULL, 2, 1, '2023-07-20', '20:00:00', '23:00:00', 2);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `mensagens`
+-- Estrutura para tabela `mensagens`
 --
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 20:41
+-- Última atualização: 16/07/2023 às 01:11
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -454,7 +410,7 @@ CREATE TABLE `mensagens` (
 --
 
 --
--- Extraindo dados da tabela `mensagens`
+-- Despejando dados para a tabela `mensagens`
 --
 
 INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
@@ -491,42 +447,16 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 (31, 'Veículo excluído!'),
 (32, 'Equipamento inserído!'),
 (33, 'Equipamento excluído!'),
-(34, 'Equipamento editado!');
+(34, 'Equipamento editado!'),
+(35, 'Aprovador inserido!'),
+(36, 'Aprovador removido!');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `prioridades`
+-- Estrutura para tabela `pwdtemp`
 --
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `prioridades`;
-CREATE TABLE `prioridades` (
-  `prioridade_id` int(11) NOT NULL,
-  `prioridade` varchar(24) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `prioridades`:
---
-
---
--- Extraindo dados da tabela `prioridades`
---
-
-INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
-(1, 'Baixa'),
-(2, 'Média'),
-(3, 'Alta');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `pwdtemp`
---
--- Criação: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 20:41
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
@@ -545,132 +475,9 @@ CREATE TABLE `pwdtemp` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `req_software`
+-- Estrutura para tabela `status`
 --
--- Criação: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `req_software`;
-CREATE TABLE `req_software` (
-  `rqs_id` int(11) NOT NULL,
-  `software_id` int(11) NOT NULL,
-  `disciplina_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `req_software`:
---   `software_id`
---       `softwares` -> `software_id`
---   `disciplina_id`
---       `disciplinas` -> `disciplina_id`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `semestre`
---
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `semestre`;
-CREATE TABLE `semestre` (
-  `semester_id` int(11) NOT NULL,
-  `semestre` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `semestre`:
---
-
---
--- Extraindo dados da tabela `semestre`
---
-
-INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
-(1, '1º Semestre'),
-(2, '2º Semestre'),
-(3, '3º Semestre'),
-(4, '4º Semestre'),
-(5, '5º Semestre'),
-(6, '6º Semestre'),
-(7, '7º Semestre'),
-(8, '8º Semestre'),
-(9, '9º Semestre'),
-(10, '10º Semestre');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `softwares`
---
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `softwares`;
-CREATE TABLE `softwares` (
-  `software_id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `editor` varchar(50) NOT NULL,
-  `version` varchar(24) NOT NULL,
-  `realesed` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `softwares`:
---
-
---
--- Extraindo dados da tabela `softwares`
---
-
-INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`) VALUES
-(1, 'Microsoft 365', 'Microsoft Corporation', '16.0.16130.20332', '2023-04-11'),
-(2, 'Visual Studio Code', 'Microsoft Corporation', '1.77.3', '2023-04-12'),
-(3, 'XAMPP', 'Apache Friends', '8.2.0-0', '2022-12-28'),
-(4, 'SQL Server Management Studio', 'Microsoft Corporation', '18.2.3.0', '2022-06-21'),
-(5, 'VirtualBox', 'Oracle', '7.0.6', '2023-01-07'),
-(6, 'Sublime Text', 'Jon Skinner, Will Bond, ', 'Build 3211', '2019-10-01'),
-(7, 'Power BI', 'Microsoft Corporation', '2.108.603.0', '2023-04-27'),
-(8, 'MongoDB', 'MongoDB Inc.', '6.0 Community Edition - ', '2023-05-04'),
-(9, 'NetBeans', 'Oracle', '18', '2023-05-30'),
-(10, 'BlueJ', 'King\'s College London', '5.1.0', '2022-10-27'),
-(11, 'Microsoft SQL Server', 'Microsoft Company', '2019', '2019-01-01'),
-(12, 'Python', 'Guido van Rossum', '3.11.3', '2023-02-10'),
-(13, 'Diagrams.net', 'JGraph Ltd', '21.3.5', '2023-05-28');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `so_disponivel`
---
--- Criação: 14-Jul-2023 às 14:55
---
-
-DROP TABLE IF EXISTS `so_disponivel`;
-CREATE TABLE `so_disponivel` (
-  `sod_id` int(11) NOT NULL,
-  `software_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONAMENTOS PARA TABELAS `so_disponivel`:
---   `software_id`
---       `softwares` -> `software_id`
---   `room_id`
---       `laboratorios` -> `room_id`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `status`
---
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 20:41
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -684,7 +491,7 @@ CREATE TABLE `status` (
 --
 
 --
--- Extraindo dados da tabela `status`
+-- Despejando dados para a tabela `status`
 --
 
 INSERT INTO `status` (`status_id`, `status`) VALUES
@@ -699,9 +506,10 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `users`
+-- Estrutura para tabela `users`
 --
--- Criação: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 22:25
+-- Última atualização: 16/07/2023 às 17:44
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -724,22 +532,22 @@ CREATE TABLE `users` (
 --
 
 --
--- Extraindo dados da tabela `users`
+-- Despejando dados para a tabela `users`
 --
 
 INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
 (1, 'Guilherme', 'Machancoses', 'Administrador', 'guilherme.machancoses@gmail.com', '19981955602', '37565229890', '$2y$10$RylogYa9uphx/65rXnElnuGBldU24osOcYLt6mcyVqyq4UYcMGw3W', 5),
 (11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '375.652.298-90', '$2y$10$dJAcS5q4pvq522.HVHpLmeZN6jI4E.6uzPr.qwGkb9SAgRjEMpCB6', 5),
-(15, 'Orlando', 'Bagni', 'Usuário', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$nlYlytWhG1/ptjUJA6zfoezj3ofsOGXY8.91AXPuqRh1v.PwSC10u', 5),
-(16, 'Cesar', 'Monção', 'Usuário', 'cesarmoncao@garbuio.com.br', '19998068077', '286.430.488-01', '$2y$10$rFic2iVN3XhJKEuKORVQNeUUhbHUc6PvXXaIzB32jh.YR0EPKrkvO', 5);
+(15, 'Orlando', 'Bagni', 'Aprovador', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$AK6U0VFfZs5L9pyo4TCLb.OL08zDvgrJSUj.hdt7HdOjrswsBtCNm', 5),
+(16, 'Cesar', 'Monção', 'Usuário', 'cesarmoncao@garbuio.com.br', '19998068077', '286.430.488-01', '$2y$10$rFic2iVN3XhJKEuKORVQNeUUhbHUc6PvXXaIzB32jh.YR0EPKrkvO', 5),
+(17, 'Fernanda', 'Rochel', 'Aprovador', 'fernandarochel@garbuio.com.br', '19981955602', '375.652.298-90', '$2y$10$NtMqr2RtDs19z0THswbiSeHUnjY2U5gO7RdUwnenqxPA4Mo2bRPpK', 5);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `vehicles`
+-- Estrutura para tabela `vehicles`
 --
--- Criação: 14-Jul-2023 às 14:55
--- Última actualização: 14-Jul-2023 às 14:55
+-- Criação: 14/07/2023 às 20:41
 --
 
 DROP TABLE IF EXISTS `vehicles`;
@@ -756,7 +564,7 @@ CREATE TABLE `vehicles` (
 --
 
 --
--- Extraindo dados da tabela `vehicles`
+-- Despejando dados para a tabela `vehicles`
 --
 
 INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) VALUES
@@ -771,7 +579,7 @@ INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) V
 --
 
 --
--- Índices para tabela `activities`
+-- Índices de tabela `activities`
 --
 ALTER TABLE `activities`
   ADD PRIMARY KEY (`atctive_id`),
@@ -779,51 +587,33 @@ ALTER TABLE `activities`
   ADD KEY `users_id` (`users_id`);
 
 --
--- Índices para tabela `categorias`
+-- Índices de tabela `approver`
 --
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`categoria_id`);
+ALTER TABLE `approver`
+  ADD PRIMARY KEY (`approver_id`);
 
 --
--- Índices para tabela `chamados`
---
-ALTER TABLE `chamados`
-  ADD PRIMARY KEY (`chamado_id`),
-  ADD KEY `users_id` (`users_id`),
-  ADD KEY `room_id` (`room_id`),
-  ADD KEY `categoria_id` (`categoria_id`),
-  ADD KEY `prioridade_id` (`prioridade_id`),
-  ADD KEY `status_id` (`status_id`);
-
---
--- Índices para tabela `cursos`
---
-ALTER TABLE `cursos`
-  ADD PRIMARY KEY (`curso_id`);
-
---
--- Índices para tabela `disciplinas`
---
-ALTER TABLE `disciplinas`
-  ADD PRIMARY KEY (`disciplina_id`),
-  ADD KEY `users_id` (`users_id`),
-  ADD KEY `disciplinas_ibfk_2` (`curso_id`),
-  ADD KEY `disciplinas_ibfk_3` (`semester_id`);
-
---
--- Índices para tabela `equipment`
+-- Índices de tabela `equipment`
 --
 ALTER TABLE `equipment`
   ADD PRIMARY KEY (`equip_id`);
 
 --
--- Índices para tabela `laboratorios`
+-- Índices de tabela `gp_approver`
+--
+ALTER TABLE `gp_approver`
+  ADD PRIMARY KEY (`gp_approver_id`),
+  ADD KEY `approver_id` (`approver_id`),
+  ADD KEY `users_id` (`users_id`);
+
+--
+-- Índices de tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
   ADD PRIMARY KEY (`room_id`);
 
 --
--- Índices para tabela `locacao`
+-- Índices de tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD PRIMARY KEY (`locacao_id`),
@@ -832,112 +622,67 @@ ALTER TABLE `locacao`
   ADD KEY `mensagens.id` (`mensagens_id`),
   ADD KEY `status_id` (`status_id`),
   ADD KEY `vehicle_id` (`vehicle_id`),
-  ADD KEY `equip_id` (`equip_id`);
+  ADD KEY `equip_id` (`equip_id`),
+  ADD KEY `approver_id` (`approver_id`);
 
 --
--- Índices para tabela `mensagens`
+-- Índices de tabela `mensagens`
 --
 ALTER TABLE `mensagens`
   ADD PRIMARY KEY (`mensagens_id`);
 
 --
--- Índices para tabela `prioridades`
---
-ALTER TABLE `prioridades`
-  ADD PRIMARY KEY (`prioridade_id`);
-
---
--- Índices para tabela `pwdtemp`
+-- Índices de tabela `pwdtemp`
 --
 ALTER TABLE `pwdtemp`
   ADD PRIMARY KEY (`pwd_temp`);
 
 --
--- Índices para tabela `req_software`
---
-ALTER TABLE `req_software`
-  ADD PRIMARY KEY (`rqs_id`),
-  ADD KEY `software_id` (`software_id`),
-  ADD KEY `room_id` (`disciplina_id`);
-
---
--- Índices para tabela `semestre`
---
-ALTER TABLE `semestre`
-  ADD PRIMARY KEY (`semester_id`);
-
---
--- Índices para tabela `softwares`
---
-ALTER TABLE `softwares`
-  ADD PRIMARY KEY (`software_id`);
-
---
--- Índices para tabela `so_disponivel`
---
-ALTER TABLE `so_disponivel`
-  ADD PRIMARY KEY (`sod_id`),
-  ADD KEY `software_id` (`software_id`),
-  ADD KEY `room_id` (`room_id`);
-
---
--- Índices para tabela `status`
+-- Índices de tabela `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`status_id`);
 
 --
--- Índices para tabela `users`
+-- Índices de tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`users_id`),
   ADD KEY `status` (`status`);
 
 --
--- Índices para tabela `vehicles`
+-- Índices de tabela `vehicles`
 --
 ALTER TABLE `vehicles`
   ADD PRIMARY KEY (`vehicle_id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
--- AUTO_INCREMENT de tabela `categorias`
+-- AUTO_INCREMENT de tabela `approver`
 --
-ALTER TABLE `categorias`
-  MODIFY `categoria_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de tabela `chamados`
---
-ALTER TABLE `chamados`
-  MODIFY `chamado_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `cursos`
---
-ALTER TABLE `cursos`
-  MODIFY `curso_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4735818;
-
---
--- AUTO_INCREMENT de tabela `disciplinas`
---
-ALTER TABLE `disciplinas`
-  MODIFY `disciplina_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+ALTER TABLE `approver`
+  MODIFY `approver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `equipment`
 --
 ALTER TABLE `equipment`
   MODIFY `equip_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `gp_approver`
+--
+ALTER TABLE `gp_approver`
+  MODIFY `gp_approver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `laboratorios`
@@ -949,43 +694,13 @@ ALTER TABLE `laboratorios`
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT de tabela `prioridades`
---
-ALTER TABLE `prioridades`
-  MODIFY `prioridade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`
 --
 ALTER TABLE `pwdtemp`
   MODIFY `pwd_temp` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `req_software`
---
-ALTER TABLE `req_software`
-  MODIFY `rqs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT de tabela `semestre`
---
-ALTER TABLE `semestre`
-  MODIFY `semester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de tabela `softwares`
---
-ALTER TABLE `softwares`
-  MODIFY `software_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de tabela `so_disponivel`
---
-ALTER TABLE `so_disponivel`
-  MODIFY `sod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `status`
@@ -997,7 +712,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `vehicles`
@@ -1006,36 +721,25 @@ ALTER TABLE `vehicles`
   MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `activities`
+-- Restrições para tabelas `activities`
 --
 ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_1` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Limitadores para a tabela `chamados`
+-- Restrições para tabelas `gp_approver`
 --
-ALTER TABLE `chamados`
-  ADD CONSTRAINT `chamados_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
-  ADD CONSTRAINT `chamados_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`),
-  ADD CONSTRAINT `chamados_ibfk_3` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`categoria_id`),
-  ADD CONSTRAINT `chamados_ibfk_4` FOREIGN KEY (`prioridade_id`) REFERENCES `prioridades` (`prioridade_id`),
-  ADD CONSTRAINT `chamados_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
+ALTER TABLE `gp_approver`
+  ADD CONSTRAINT `gp_approver_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`),
+  ADD CONSTRAINT `gp_approver_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Limitadores para a tabela `disciplinas`
---
-ALTER TABLE `disciplinas`
-  ADD CONSTRAINT `disciplinas_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
-  ADD CONSTRAINT `disciplinas_ibfk_2` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`curso_id`),
-  ADD CONSTRAINT `disciplinas_ibfk_3` FOREIGN KEY (`semester_id`) REFERENCES `semestre` (`semester_id`);
-
---
--- Limitadores para a tabela `locacao`
+-- Restrições para tabelas `locacao`
 --
 ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -1043,24 +747,11 @@ ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
   ADD CONSTRAINT `locacao_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `locacao_ibfk_6` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`vehicle_id`),
-  ADD CONSTRAINT `locacao_ibfk_7` FOREIGN KEY (`equip_id`) REFERENCES `equipment` (`equip_id`);
+  ADD CONSTRAINT `locacao_ibfk_7` FOREIGN KEY (`equip_id`) REFERENCES `equipment` (`equip_id`),
+  ADD CONSTRAINT `locacao_ibfk_8` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 
 --
--- Limitadores para a tabela `req_software`
---
-ALTER TABLE `req_software`
-  ADD CONSTRAINT `req_software_ibfk_1` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
-  ADD CONSTRAINT `req_software_ibfk_2` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`disciplina_id`);
-
---
--- Limitadores para a tabela `so_disponivel`
---
-ALTER TABLE `so_disponivel`
-  ADD CONSTRAINT `so_disponivel_ibfk_2` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
-  ADD CONSTRAINT `so_disponivel_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`);
-
---
--- Limitadores para a tabela `users`
+-- Restrições para tabelas `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);

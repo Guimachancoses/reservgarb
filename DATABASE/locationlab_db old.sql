@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14/07/2023 às 16:13
+-- Tempo de geração: 14-Jul-2023 às 21:51
 -- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,22 +26,19 @@ USE `locationlab_db`;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `activities`
+-- Estrutura da tabela `activities`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 14/07/2023 às 00:40
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 17:39
 --
 
 DROP TABLE IF EXISTS `activities`;
-CREATE TABLE IF NOT EXISTS `activities` (
-  `atctive_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `activities` (
+  `atctive_id` int(11) NOT NULL,
   `mensagens_id` int(11) NOT NULL,
   `users_id` int(11) DEFAULT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`atctive_id`),
-  KEY `mensagens_id` (`mensagens_id`),
-  KEY `users_id` (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `activities`:
@@ -52,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
 --
 
 --
--- Despejando dados para a tabela `activities`
+-- Extraindo dados da tabela `activities`
 --
 
 INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
@@ -192,30 +189,40 @@ INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`)
 (187, 2, 1, '2023-07-14 00:34:25'),
 (188, 2, 1, '2023-07-14 00:38:26'),
 (189, 2, 1, '2023-07-14 00:39:45'),
-(190, 2, 1, '2023-07-14 00:40:29');
+(190, 2, 1, '2023-07-14 00:40:29'),
+(191, 2, 1, '2023-07-14 14:55:42'),
+(192, 2, 1, '2023-07-14 14:56:02'),
+(193, 2, 1, '2023-07-14 16:25:23'),
+(194, 2, 1, '2023-07-14 16:28:20'),
+(195, 2, 1, '2023-07-14 16:30:28'),
+(196, 2, 1, '2023-07-14 16:48:56'),
+(197, 2, 1, '2023-07-14 16:50:15'),
+(198, 2, 1, '2023-07-14 16:52:48'),
+(199, 2, 1, '2023-07-14 16:55:38'),
+(200, 2, 1, '2023-07-14 16:57:12'),
+(201, 2, 1, '2023-07-14 17:39:33');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `categorias`
+-- Estrutura da tabela `categorias`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE IF NOT EXISTS `categorias` (
-  `categoria_id` int(11) NOT NULL AUTO_INCREMENT,
-  `categoria` varchar(50) NOT NULL,
-  PRIMARY KEY (`categoria_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `categorias` (
+  `categoria_id` int(11) NOT NULL,
+  `categoria` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `categorias`:
 --
 
 --
--- Despejando dados para a tabela `categorias`
+-- Extraindo dados da tabela `categorias`
 --
 
 INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
@@ -228,14 +235,14 @@ INSERT INTO `categorias` (`categoria_id`, `categoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `chamados`
+-- Estrutura da tabela `chamados`
 --
--- Criação: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `chamados`;
-CREATE TABLE IF NOT EXISTS `chamados` (
-  `chamado_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `chamados` (
+  `chamado_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `categoria_id` int(11) NOT NULL,
@@ -243,13 +250,7 @@ CREATE TABLE IF NOT EXISTS `chamados` (
   `assuntos` varchar(50) NOT NULL,
   `msg_chamado` varchar(255) NOT NULL,
   `status_id` int(11) NOT NULL,
-  `t_stamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`chamado_id`),
-  KEY `users_id` (`users_id`),
-  KEY `room_id` (`room_id`),
-  KEY `categoria_id` (`categoria_id`),
-  KEY `prioridade_id` (`prioridade_id`),
-  KEY `status_id` (`status_id`)
+  `t_stamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -269,25 +270,24 @@ CREATE TABLE IF NOT EXISTS `chamados` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `cursos`
+-- Estrutura da tabela `cursos`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `cursos`;
-CREATE TABLE IF NOT EXISTS `cursos` (
-  `curso_id` int(11) NOT NULL AUTO_INCREMENT,
-  `curso` varchar(50) NOT NULL,
-  PRIMARY KEY (`curso_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4735818 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `cursos` (
+  `curso_id` int(11) NOT NULL,
+  `curso` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `cursos`:
 --
 
 --
--- Despejando dados para a tabela `cursos`
+-- Extraindo dados da tabela `cursos`
 --
 
 INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
@@ -300,25 +300,21 @@ INSERT INTO `cursos` (`curso_id`, `curso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `disciplinas`
+-- Estrutura da tabela `disciplinas`
 --
--- Criação: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `disciplinas`;
-CREATE TABLE IF NOT EXISTS `disciplinas` (
-  `disciplina_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `disciplinas` (
+  `disciplina_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `curso_id` int(11) NOT NULL,
   `semester_id` int(11) NOT NULL,
   `nm_disciplina` varchar(50) NOT NULL,
   `qtd_users` varchar(11) NOT NULL,
-  `date` date NOT NULL,
-  PRIMARY KEY (`disciplina_id`),
-  KEY `users_id` (`users_id`),
-  KEY `disciplinas_ibfk_2` (`curso_id`),
-  KEY `disciplinas_ibfk_3` (`semester_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `disciplinas`:
@@ -333,27 +329,26 @@ CREATE TABLE IF NOT EXISTS `disciplinas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `equipment`
+-- Estrutura da tabela `equipment`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `equipment`;
-CREATE TABLE IF NOT EXISTS `equipment` (
-  `equip_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `equipment` (
+  `equip_id` int(11) NOT NULL,
   `equipment` varchar(50) NOT NULL,
   `description` varchar(50) NOT NULL,
-  `sector` varchar(26) NOT NULL,
-  PRIMARY KEY (`equip_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `sector` varchar(26) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `equipment`:
 --
 
 --
--- Despejando dados para a tabela `equipment`
+-- Extraindo dados da tabela `equipment`
 --
 
 INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUES
@@ -363,27 +358,26 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `laboratorios`
+-- Estrutura da tabela `laboratorios`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
-CREATE TABLE IF NOT EXISTS `laboratorios` (
-  `room_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `laboratorios` (
+  `room_id` int(11) NOT NULL,
   `room_type` varchar(50) NOT NULL,
   `capacity` varchar(11) NOT NULL,
-  `room_no` varchar(50) NOT NULL,
-  PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `room_no` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `laboratorios`:
 --
 
 --
--- Despejando dados para a tabela `laboratorios`
+-- Extraindo dados da tabela `laboratorios`
 --
 
 INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUES
@@ -394,28 +388,25 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `locacao`
+-- Estrutura da tabela `locacao`
 --
--- Criação: 13/07/2023 às 23:46
--- Última atualização: 14/07/2023 às 00:57
+-- Criação: 14-Jul-2023 às 16:33
+-- Última actualização: 14-Jul-2023 às 17:39
 --
 
 DROP TABLE IF EXISTS `locacao`;
-CREATE TABLE IF NOT EXISTS `locacao` (
-  `locacao_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `locacao` (
+  `locacao_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `room_id` int(11) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `equip_id` int(11) DEFAULT NULL,
   `mensagens_id` int(11) DEFAULT NULL,
   `status_id` int(11) NOT NULL,
   `checkin` date NOT NULL,
   `checkin_time` time NOT NULL,
-  `checkout_time` time NOT NULL,
-  PRIMARY KEY (`locacao_id`),
-  KEY `room_id` (`room_id`),
-  KEY `users_id` (`users_id`),
-  KEY `mensagens.id` (`mensagens_id`),
-  KEY `status_id` (`status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `checkout_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `locacao`:
@@ -427,30 +418,35 @@ CREATE TABLE IF NOT EXISTS `locacao` (
 --       `status` -> `status_id`
 --   `mensagens_id`
 --       `mensagens` -> `mensagens_id`
+--   `vehicle_id`
+--       `vehicles` -> `vehicle_id`
+--   `equip_id`
+--       `equipment` -> `equip_id`
 --
 
 --
--- Despejando dados para a tabela `locacao`
+-- Extraindo dados da tabela `locacao`
 --
 
-INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`) VALUES
-(20, 15, 9, 2, 1, '2023-07-14', '20:00:00', '23:00:00'),
-(28, 15, 7, 2, 1, '2023-07-17', '20:00:00', '23:00:00');
+INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`) VALUES
+(20, 15, 9, NULL, NULL, 2, 1, '2023-07-14', '20:00:00', '23:00:00'),
+(28, 15, 7, NULL, NULL, 2, 1, '2023-07-17', '20:00:00', '23:00:00'),
+(38, 11, NULL, 1, NULL, 2, 1, '2023-07-18', '20:00:00', '23:00:00'),
+(39, 16, NULL, NULL, 1, 2, 1, '2023-07-19', '10:00:00', '23:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `mensagens`
+-- Estrutura da tabela `mensagens`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `mensagens`;
-CREATE TABLE IF NOT EXISTS `mensagens` (
+CREATE TABLE `mensagens` (
   `mensagens_id` int(11) NOT NULL,
-  `assunto` varchar(50) NOT NULL,
-  PRIMARY KEY (`mensagens_id`)
+  `assunto` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -458,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `mensagens` (
 --
 
 --
--- Despejando dados para a tabela `mensagens`
+-- Extraindo dados da tabela `mensagens`
 --
 
 INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
@@ -500,25 +496,24 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `prioridades`
+-- Estrutura da tabela `prioridades`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `prioridades`;
-CREATE TABLE IF NOT EXISTS `prioridades` (
-  `prioridade_id` int(11) NOT NULL AUTO_INCREMENT,
-  `prioridade` varchar(24) NOT NULL,
-  PRIMARY KEY (`prioridade_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `prioridades` (
+  `prioridade_id` int(11) NOT NULL,
+  `prioridade` varchar(24) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `prioridades`:
 --
 
 --
--- Despejando dados para a tabela `prioridades`
+-- Extraindo dados da tabela `prioridades`
 --
 
 INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
@@ -529,19 +524,18 @@ INSERT INTO `prioridades` (`prioridade_id`, `prioridade`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pwdtemp`
+-- Estrutura da tabela `pwdtemp`
 --
--- Criação: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
-CREATE TABLE IF NOT EXISTS `pwdtemp` (
-  `pwd_temp` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pwdtemp` (
+  `pwd_temp` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `username` varchar(26) NOT NULL,
   `codigo` varchar(26) NOT NULL,
-  `timestp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`pwd_temp`)
+  `timestp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -551,20 +545,17 @@ CREATE TABLE IF NOT EXISTS `pwdtemp` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `req_software`
+-- Estrutura da tabela `req_software`
 --
--- Criação: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `req_software`;
-CREATE TABLE IF NOT EXISTS `req_software` (
-  `rqs_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `req_software` (
+  `rqs_id` int(11) NOT NULL,
   `software_id` int(11) NOT NULL,
-  `disciplina_id` int(11) NOT NULL,
-  PRIMARY KEY (`rqs_id`),
-  KEY `software_id` (`software_id`),
-  KEY `room_id` (`disciplina_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `disciplina_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `req_software`:
@@ -577,25 +568,24 @@ CREATE TABLE IF NOT EXISTS `req_software` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `semestre`
+-- Estrutura da tabela `semestre`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `semestre`;
-CREATE TABLE IF NOT EXISTS `semestre` (
-  `semester_id` int(11) NOT NULL AUTO_INCREMENT,
-  `semestre` varchar(20) NOT NULL,
-  PRIMARY KEY (`semester_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `semestre` (
+  `semester_id` int(11) NOT NULL,
+  `semestre` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `semestre`:
 --
 
 --
--- Despejando dados para a tabela `semestre`
+-- Extraindo dados da tabela `semestre`
 --
 
 INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
@@ -613,28 +603,27 @@ INSERT INTO `semestre` (`semester_id`, `semestre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `softwares`
+-- Estrutura da tabela `softwares`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `softwares`;
-CREATE TABLE IF NOT EXISTS `softwares` (
-  `software_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `softwares` (
+  `software_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `editor` varchar(50) NOT NULL,
   `version` varchar(24) NOT NULL,
-  `realesed` date NOT NULL,
-  PRIMARY KEY (`software_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `realesed` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `softwares`:
 --
 
 --
--- Despejando dados para a tabela `softwares`
+-- Extraindo dados da tabela `softwares`
 --
 
 INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`) VALUES
@@ -655,20 +644,17 @@ INSERT INTO `softwares` (`software_id`, `name`, `editor`, `version`, `realesed`)
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `so_disponivel`
+-- Estrutura da tabela `so_disponivel`
 --
--- Criação: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `so_disponivel`;
-CREATE TABLE IF NOT EXISTS `so_disponivel` (
-  `sod_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `so_disponivel` (
+  `sod_id` int(11) NOT NULL,
   `software_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
-  PRIMARY KEY (`sod_id`),
-  KEY `software_id` (`software_id`),
-  KEY `room_id` (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `room_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `so_disponivel`:
@@ -681,25 +667,24 @@ CREATE TABLE IF NOT EXISTS `so_disponivel` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `status`
+-- Estrutura da tabela `status`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `status`;
-CREATE TABLE IF NOT EXISTS `status` (
-  `status_id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` varchar(24) NOT NULL,
-  PRIMARY KEY (`status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `status` (
+  `status_id` int(11) NOT NULL,
+  `status` varchar(24) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `status`:
 --
 
 --
--- Despejando dados para a tabela `status`
+-- Extraindo dados da tabela `status`
 --
 
 INSERT INTO `status` (`status_id`, `status`) VALUES
@@ -714,15 +699,14 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
+-- Estrutura da tabela `users`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 14/07/2023 às 00:40
+-- Criação: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `users_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `users_id` int(11) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `funcao` varchar(24) NOT NULL,
@@ -730,10 +714,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `contactno` varchar(13) NOT NULL,
   `cpf` varchar(14) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `status` int(11) NOT NULL,
-  PRIMARY KEY (`users_id`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `users`:
@@ -742,7 +724,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 --
--- Despejando dados para a tabela `users`
+-- Extraindo dados da tabela `users`
 --
 
 INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
@@ -754,28 +736,27 @@ INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `co
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `vehicles`
+-- Estrutura da tabela `vehicles`
 --
--- Criação: 13/07/2023 às 23:12
--- Última atualização: 13/07/2023 às 23:12
+-- Criação: 14-Jul-2023 às 14:55
+-- Última actualização: 14-Jul-2023 às 14:55
 --
 
 DROP TABLE IF EXISTS `vehicles`;
-CREATE TABLE IF NOT EXISTS `vehicles` (
-  `vehicle_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `vehicles` (
+  `vehicle_id` int(11) NOT NULL,
   `name` varchar(26) NOT NULL,
   `model` varchar(26) NOT NULL,
   `description` varchar(50) NOT NULL,
-  `photo` varchar(24) NOT NULL,
-  PRIMARY KEY (`vehicle_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `photo` varchar(24) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `vehicles`:
 --
 
 --
--- Despejando dados para a tabela `vehicles`
+-- Extraindo dados da tabela `vehicles`
 --
 
 INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) VALUES
@@ -786,18 +767,257 @@ INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) V
 (5, 'Gol', 'Total Flex 1.0', 'Manual', '5.jpg');
 
 --
--- Restrições para tabelas despejadas
+-- Índices para tabelas despejadas
 --
 
 --
--- Restrições para tabelas `activities`
+-- Índices para tabela `activities`
+--
+ALTER TABLE `activities`
+  ADD PRIMARY KEY (`atctive_id`),
+  ADD KEY `mensagens_id` (`mensagens_id`),
+  ADD KEY `users_id` (`users_id`);
+
+--
+-- Índices para tabela `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`categoria_id`);
+
+--
+-- Índices para tabela `chamados`
+--
+ALTER TABLE `chamados`
+  ADD PRIMARY KEY (`chamado_id`),
+  ADD KEY `users_id` (`users_id`),
+  ADD KEY `room_id` (`room_id`),
+  ADD KEY `categoria_id` (`categoria_id`),
+  ADD KEY `prioridade_id` (`prioridade_id`),
+  ADD KEY `status_id` (`status_id`);
+
+--
+-- Índices para tabela `cursos`
+--
+ALTER TABLE `cursos`
+  ADD PRIMARY KEY (`curso_id`);
+
+--
+-- Índices para tabela `disciplinas`
+--
+ALTER TABLE `disciplinas`
+  ADD PRIMARY KEY (`disciplina_id`),
+  ADD KEY `users_id` (`users_id`),
+  ADD KEY `disciplinas_ibfk_2` (`curso_id`),
+  ADD KEY `disciplinas_ibfk_3` (`semester_id`);
+
+--
+-- Índices para tabela `equipment`
+--
+ALTER TABLE `equipment`
+  ADD PRIMARY KEY (`equip_id`);
+
+--
+-- Índices para tabela `laboratorios`
+--
+ALTER TABLE `laboratorios`
+  ADD PRIMARY KEY (`room_id`);
+
+--
+-- Índices para tabela `locacao`
+--
+ALTER TABLE `locacao`
+  ADD PRIMARY KEY (`locacao_id`),
+  ADD KEY `room_id` (`room_id`),
+  ADD KEY `users_id` (`users_id`),
+  ADD KEY `mensagens.id` (`mensagens_id`),
+  ADD KEY `status_id` (`status_id`),
+  ADD KEY `vehicle_id` (`vehicle_id`),
+  ADD KEY `equip_id` (`equip_id`);
+
+--
+-- Índices para tabela `mensagens`
+--
+ALTER TABLE `mensagens`
+  ADD PRIMARY KEY (`mensagens_id`);
+
+--
+-- Índices para tabela `prioridades`
+--
+ALTER TABLE `prioridades`
+  ADD PRIMARY KEY (`prioridade_id`);
+
+--
+-- Índices para tabela `pwdtemp`
+--
+ALTER TABLE `pwdtemp`
+  ADD PRIMARY KEY (`pwd_temp`);
+
+--
+-- Índices para tabela `req_software`
+--
+ALTER TABLE `req_software`
+  ADD PRIMARY KEY (`rqs_id`),
+  ADD KEY `software_id` (`software_id`),
+  ADD KEY `room_id` (`disciplina_id`);
+
+--
+-- Índices para tabela `semestre`
+--
+ALTER TABLE `semestre`
+  ADD PRIMARY KEY (`semester_id`);
+
+--
+-- Índices para tabela `softwares`
+--
+ALTER TABLE `softwares`
+  ADD PRIMARY KEY (`software_id`);
+
+--
+-- Índices para tabela `so_disponivel`
+--
+ALTER TABLE `so_disponivel`
+  ADD PRIMARY KEY (`sod_id`),
+  ADD KEY `software_id` (`software_id`),
+  ADD KEY `room_id` (`room_id`);
+
+--
+-- Índices para tabela `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`status_id`);
+
+--
+-- Índices para tabela `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`users_id`),
+  ADD KEY `status` (`status`);
+
+--
+-- Índices para tabela `vehicles`
+--
+ALTER TABLE `vehicles`
+  ADD PRIMARY KEY (`vehicle_id`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `activities`
+--
+ALTER TABLE `activities`
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+
+--
+-- AUTO_INCREMENT de tabela `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `categoria_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `chamados`
+--
+ALTER TABLE `chamados`
+  MODIFY `chamado_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `cursos`
+--
+ALTER TABLE `cursos`
+  MODIFY `curso_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4735818;
+
+--
+-- AUTO_INCREMENT de tabela `disciplinas`
+--
+ALTER TABLE `disciplinas`
+  MODIFY `disciplina_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de tabela `equipment`
+--
+ALTER TABLE `equipment`
+  MODIFY `equip_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `laboratorios`
+--
+ALTER TABLE `laboratorios`
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de tabela `locacao`
+--
+ALTER TABLE `locacao`
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT de tabela `prioridades`
+--
+ALTER TABLE `prioridades`
+  MODIFY `prioridade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `pwdtemp`
+--
+ALTER TABLE `pwdtemp`
+  MODIFY `pwd_temp` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `req_software`
+--
+ALTER TABLE `req_software`
+  MODIFY `rqs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de tabela `semestre`
+--
+ALTER TABLE `semestre`
+  MODIFY `semester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de tabela `softwares`
+--
+ALTER TABLE `softwares`
+  MODIFY `software_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de tabela `so_disponivel`
+--
+ALTER TABLE `so_disponivel`
+  MODIFY `sod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de tabela `status`
+--
+ALTER TABLE `status`
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `users`
+--
+ALTER TABLE `users`
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de tabela `vehicles`
+--
+ALTER TABLE `vehicles`
+  MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `activities`
 --
 ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_1` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Restrições para tabelas `chamados`
+-- Limitadores para a tabela `chamados`
 --
 ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -807,7 +1027,7 @@ ALTER TABLE `chamados`
   ADD CONSTRAINT `chamados_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
 
 --
--- Restrições para tabelas `disciplinas`
+-- Limitadores para a tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -815,30 +1035,32 @@ ALTER TABLE `disciplinas`
   ADD CONSTRAINT `disciplinas_ibfk_3` FOREIGN KEY (`semester_id`) REFERENCES `semestre` (`semester_id`);
 
 --
--- Restrições para tabelas `locacao`
+-- Limitadores para a tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
   ADD CONSTRAINT `locacao_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`),
   ADD CONSTRAINT `locacao_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
-  ADD CONSTRAINT `locacao_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`);
+  ADD CONSTRAINT `locacao_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
+  ADD CONSTRAINT `locacao_ibfk_6` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`vehicle_id`),
+  ADD CONSTRAINT `locacao_ibfk_7` FOREIGN KEY (`equip_id`) REFERENCES `equipment` (`equip_id`);
 
 --
--- Restrições para tabelas `req_software`
+-- Limitadores para a tabela `req_software`
 --
 ALTER TABLE `req_software`
   ADD CONSTRAINT `req_software_ibfk_1` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `req_software_ibfk_2` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`disciplina_id`);
 
 --
--- Restrições para tabelas `so_disponivel`
+-- Limitadores para a tabela `so_disponivel`
 --
 ALTER TABLE `so_disponivel`
   ADD CONSTRAINT `so_disponivel_ibfk_2` FOREIGN KEY (`software_id`) REFERENCES `softwares` (`software_id`),
   ADD CONSTRAINT `so_disponivel_ibfk_3` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`);
 
 --
--- Restrições para tabelas `users`
+-- Limitadores para a tabela `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);

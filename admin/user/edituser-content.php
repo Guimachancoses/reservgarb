@@ -5,6 +5,16 @@
 		<div class="row">
 			<div class="col-lg-10 col-md-20">
 				<div class="card" style="min-height:755px">
+				<div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+                        </button>
+                    </div>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
 					<div class="card-header card-header-text">
 					<h4 class="card-title"><strong class="text-primary"> Editar Usuários</strong></h4>
 						<p class="category">Escolha qual usuário você deseja editar, ativar, inativar ou excluir:</p>

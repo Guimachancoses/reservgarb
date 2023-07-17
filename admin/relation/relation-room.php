@@ -5,6 +5,16 @@
 		<div class="row">
 			<div class="col-lg-10 col-md-12">
 				<div class="card" style="min-height:625px">
+                <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+                        </button>
+                    </div>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
 					<div class="card-header card-header-text">
                         <h4 class="card-title"><strong class="text-primary"> Excluir Dados das Salas</strong></h4>
 						<p class="category" style="display:flex;align-items:center;justify-content:center; background-color: #f4d7d3;  border-radius: 6px;  padding: 5px;  margin-bottom: 8px; color: #000000;">Essa área é destinada para apagar todas as informações vinculadas a um laboratório, caso desejar "Excluir um Laboratório". Atenção, pois, ao clicar sobre o botão de exclusão, todas os dados serão deletados do laboratório permanentemente, não sendo possível recuperá-los
@@ -25,16 +35,6 @@
                                                         FROM `laboratorios` lb
                                                         WHERE 
                                                         EXISTS (
-                                                            SELECT 1
-                                                            FROM chamados
-                                                            WHERE room_id = lb.room_id
-                                                        )
-                                                        OR EXISTS (
-                                                            SELECT 1
-                                                            FROM so_disponivel
-                                                            WHERE room_id = lb.room_id
-                                                        )
-                                                        OR EXISTS (
                                                             SELECT 1
                                                             FROM locacao
                                                             WHERE room_id = lb.room_id

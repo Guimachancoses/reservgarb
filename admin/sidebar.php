@@ -81,6 +81,12 @@
                             ?>
                             <a href="reservlab.php?<?php echo $edituser?>"><i class="material-icons" style="color:orange">edit</i><small>Editar Usuários</small></a>
                         </li>
+                            
+                        <li>
+                            <?php $gpapp = 'gpapp';
+                            ?>
+                            <a href="reservlab.php?<?php echo $gpapp?>"><i class="material-icons" style="color:#4caf50">groups</i><small>Grupo Aprovador</small></a>
+                        </li>
 
                         <li>
                             <a></a>

@@ -99,6 +99,14 @@
 	else if(preg_match("~edit-equip~", $url)) {
     	$content = 'equip/edit-equip.php';
 	}
+	// Redirecionamento para listar grupo de aprovadores
+	else if(preg_match("~gpapp~", $url)) {
+    	$content = 'user/gp-approver.php';
+	}
+	// Redirecionamento para adicionar aprovadores
+	else if(preg_match("~add-approver~", $url)) {
+    	$content = 'user/add-approver.php';
+	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else
 		$content = 'main-content.php';

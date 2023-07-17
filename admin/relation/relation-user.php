@@ -5,6 +5,16 @@
 		<div class="row">
 			<div class="col-lg-8 col-md-2">
 				<div class="card" style="min-height:625px">
+				<div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+                        </button>
+                    </div>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
 					<div class="card-header card-header-text">
 					<h4 class="card-title"><strong class="text-primary"> Excluir Dados dos Usuários</strong></h4>
 						<p class="category" style="display:flex;align-items:center;justify-content:center; background-color: #f4d7d3;  border-radius: 6px;  padding: 5px;  margin-bottom: 8px; color: #000000;">Essa área é destinada para apagar todas as informações vinculadas a um usuário, caso desejar "Excluir um Usuário". Atenção, pois, ao clicar sobre o botão de exclusão, todas os dados serão deletados do usuário permanentemente, não sendo possível recuperá-los
@@ -39,12 +49,7 @@
 															WHERE u.funcao != 'Administrador'
 															AND EXISTS (
 																		SELECT 1
-																		FROM req_software
-																		WHERE users_id = u.users_id
-																	)
-																	OR EXISTS (
-																		SELECT 1
-																		FROM disciplinas
+																		FROM gp_approver
 																		WHERE users_id = u.users_id
 																	)
 																	OR EXISTS (

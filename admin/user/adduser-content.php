@@ -1,7 +1,18 @@
-<div class="main-content">    
+<div class="main-content">   
         <div class="row">
 			<div class="col-lg-8">
 				<div class="card" style="min-height:950px">
+                    <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+                        </button>
+                    </div>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
+
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Adicionar Usuário</strong></h4>
 						<p class="category">Verifique as informações antes de salvar:</p>
@@ -24,12 +35,12 @@
                                 <input type = "text" class = "form-control" name = "lastname" required = required/>
                             </div>
                             <div class="card-foot">
-                                <label><strong> Função:</strong></label>
-                                <select class = "form-control" name = "funcao" required = required>
-                                    <option value = "">Escolha uma das opções</option>
-                                    <option value = "Administrador">Administrador</option>
-                                    <option value = "Aprovador">Aprovador</option>
-                                    <option value = "Usuário">Usuário</option>
+                                <label><strong>Função:</strong></label>
+                                <select class="form-control" name="funcao" required>
+                                    <option value="">Escolha uma das opções</option>
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Aprovador">Aprovador</option>
+                                    <option value="Usuário">Usuário</option>
                                 </select>
                             </div>
                             <div class="card-foot">

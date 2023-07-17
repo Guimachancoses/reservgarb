@@ -2,6 +2,16 @@
     <div class="row">
 			<div class="col-lg-8">
 				<div class="card" style="min-height:725px">
+                <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+                        </button>
+                    </div>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastrais</strong></h4>
 						<p class="category">Comfirme seus dados antes de salvar:</p>
@@ -18,10 +28,6 @@
                             <div class="card-foot">
                                 <label><strong> Sobrenome:</strong></label>
                                 <input type = "text" class = "form-control" value = "<?php echo $fetch['lastname']?>" name = "lastname" />
-                            </div>
-                            <div class="card-foot">
-                                <label><strong> RA:</strong></label>
-                                <input type = "text" class = "form-control" id="usuario" value = "<?php echo substr($fetch['username'], 0, 4) . "/" . substr($fetch['username'], 4, 2) . "-" . substr($fetch['username'], 6, 1); ?>" name = "username" disabled = "disabled"/>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Função:</strong></label>

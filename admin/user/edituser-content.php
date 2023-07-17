@@ -84,9 +84,30 @@
 
 							<tbody>
 
-								<?php  
-										$queryad = $conn->query("SELECT users_id, firstname, lastname, funcao, email, contactno, status FROM `users` WHERE users_id != '$_SESSION[users_id]'ORDER BY firstname") or die(mysqli_error());
-										while($fetch = $queryad->fetch_array()){
+								<?php
+									$perPage = 10; // Número de resultados por página
+									$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
+									$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
+									$totalResults = $conn->query("SELECT COUNT(*) as total FROM users WHERE users_id != '$_SESSION[users_id]'")->fetch_assoc()['total']; // Total de resultados no banco de dados
+									$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
+									$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+
+									$queryad = $conn->query("SELECT
+																users_id, 
+																firstname, 
+																lastname, 
+																funcao, 
+																email, 
+																contactno, 
+																status 
+																FROM `users` 
+																WHERE users_id != '$_SESSION[users_id]'
+																ORDER BY firstname
+																LIMIT $perPage OFFSET $offset") or die(mysqli_error($coon));
+									if (mysqli_num_rows($queryad) == 0) {
+										echo "<td>Sem usuários cadastrados</td>";
+									}
+									while($fetch = $queryad->fetch_array()){
 									?>
 									<tr>
 										<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "7") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
@@ -152,6 +173,30 @@
 							});
 							});
 						</script>
+						<!-- Paginação -->
+						<nav>
+							<ul class="pagination justify-content-center">
+								<?php if ($page > 1) { ?>
+									<li class="page-item">
+										<a class="n-overlay" href="reservlab.php?edituser&page=<?php echo ($page - 1); ?>">Anterior</a>
+									</li>
+								<?php } ?>
+								<?php if (mysqli_num_rows($queryad) == $perPage && $totalPages > 1) { ?>
+									<li class="page-item">
+										<a class="n-overlay" href="reservlab.php?edituser&page=<?php echo ($page + 1); ?>">Próxima</a>
+									</li>
+								<?php } ?>
+								<li>
+								<?php
+									if ($totalPages > 1) {
+										echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
+									} else {
+										echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página 1</p>";
+									}
+								?>
+								</li>
+							</ul>					
+						</nav>
 					</div>
 				</div>
 			<div>

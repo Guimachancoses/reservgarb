@@ -16,9 +16,9 @@
 	?>
 	<div class="row">
 
-		<div class="col-lg-6 col-md-6 col-sm-6">
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
 			<a href="reservlab.php?calender">
-				<div class="card card-stats" style="padding-bottom:6%;positon:relative">
+				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
 						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
 							<div class="gif-container">
@@ -76,24 +76,26 @@
 			</a></div>
 		</div>
 
-		<div class="col-lg-6 col-md-6 col-sm-6">
-			<div class="card card-stats">
-				<div class="card-header">
-					<div class="icon icon-info">
-						<span class="material-icons">fingerprint</span>
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
+			<a href = "reservlab.php?alter-account">
+				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
+					<div class="card-header">
+						<div class="icon icon-info">
+							<span class="material-icons">fingerprint</span>
+						</div>
+					</div>
+					<div class="card-content">
+						<p class="category">Administrador</p>
+						<h3 class="card-title"><?php echo $name?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+						<i class="material-icons text-location">verified_user</i>
+							Usuário logado
+						</div>
 					</div>
 				</div>
-				<div class="card-content">
-					<p class="category">Administrador</p>
-					<h3 class="card-title"><?php echo $name?></h3>
-				</div>
-				<div class="card-footer">
-					<div class="stats">
-					<i class="material-icons text-location">verified_user</i>
-						Usuário logado
-					</div>
-				</div>
-			</div>
+			</a>
 		</div>
 
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
@@ -119,35 +121,34 @@
 		</div>
 			
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $finlab?>"><div class="card card-stats">
-			<div class="card-header">
-					<div class="icon icon-info">
-						<span class="material-icons">real_estate_agent</span>
+			<a href="reservlab.php?<?php echo $finlab?>">
+				<div class="card card-stats">
+					<div class="card-header">
+						<div class="icon icon-info">
+							<span class="material-icons">real_estate_agent</span>
+						</div>
 					</div>
-			</div>
-			<div class="card-content">
-				<p class="category"><strong>Locações</strong></p>
-				<h3 class="card-title"><?php echo $f_lc['total']?></h3>
-			</div>
-				<div class="card-footer">
-					<div class="stats">
-					<i class="material-icons text-location">update</i>
-						Total de locações
+					<div class="card-content">
+						<p class="category"><strong>Locações</strong></p>
+						<h3 class="card-title"><?php echo $f_lc['total']?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+						<i class="material-icons text-location">update</i>
+							Total de locações
+						</div>
 					</div>
 				</div>
-			</div>
-			</a></div>
+			</a>
 		</div>
-
-	
-
+	</div>								
 		
 	
 	<!---row-second----->
 
 	<div class="row">
 		<div class="col-lg-9 col-md-9">
-			<div class="card" style="min-height:485px;">
+			<div class="card" style="min-height:535px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Usuários Cadastrados</h4>
 					<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->

@@ -96,7 +96,7 @@
                                 <input type="text" placeholder="Hora da Devolução" class="event-time-to" />
                             </div>
                         </div>
-                        <div class="add-event-footer">
+                        <div class="add-event-footer div-swing ">
                             <button class="add-event-btn">Salvar</button>
                         </div>
                     </div>

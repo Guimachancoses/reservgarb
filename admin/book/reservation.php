@@ -188,17 +188,16 @@
 						</script>
                 </div>
                 <!-- Paginação -->
-                <!-- Paginação -->
                 <nav>
                     <ul class="pagination justify-content-center">
                         <?php if ($page > 1) { ?>
                             <li class="page-item">
-                                <a class="n-overlay" href="reservlab.php?page=<?php echo ($page - 1); ?>">Anterior</a>
+                                <a class="n-overlay" href="reservlab.php?penlab&page=<?php echo ($page - 1); ?>">Anterior</a>
                             </li>
                         <?php } ?>
                         <?php if (mysqli_num_rows($querypd2) == $perPage && $totalPages > 1) { ?>
                             <li class="page-item">
-                                <a class="n-overlay" href="reservlab.php?page=<?php echo ($page + 1); ?>">Próxima</a>
+                                <a class="n-overlay" href="reservlab.php?penlab&page=<?php echo ($page + 1); ?>">Próxima</a>
                             </li>
                         <?php } ?>
 						<li>

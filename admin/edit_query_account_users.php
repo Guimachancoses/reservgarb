@@ -15,8 +15,8 @@
 		// Gera um hash criptográfico da senha usando o algoritmo bcrypt
 		$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-		$conn->query("UPDATE `users` SET `firstname` = '$firstname', `lastname` = '$lastname', `status` = '$status', `funcao` = '$funcao', `email` = '$email', `contactno` = '$contactno', `cpf` = '$cpf', `password` = '$hashedPassword' WHERE `users_id` = '$_REQUEST[users_id]'") or die(mysqli_error());
-		$conn->query("INSERT INTO `activities` set mensagens_id = 6, users_id = '$_SESSION[users_id]'") or die(mysqli_error());
+		$conn->query("UPDATE `users` SET `firstname` = '$firstname', `lastname` = '$lastname', `status` = '$status', `funcao` = '$funcao', `email` = '$email', `contactno` = '$contactno', `cpf` = '$cpf', `password` = '$hashedPassword' WHERE `users_id` = '$_REQUEST[users_id]'") or die(mysqli_error($conn));
+		$conn->query("INSERT INTO `activities` set mensagens_id = 6, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
 		header("location:reservlab.php?edituser");
 	}
 ?>	

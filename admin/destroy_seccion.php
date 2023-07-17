@@ -2,7 +2,7 @@
     // destrói a sessão atual
     session_start();
     session_destroy();
-
+    echo "<script>alert('Sua sessão foi encerrada por inatividade');</script>";
     // OU
 
     // limpa os cookies de autenticação

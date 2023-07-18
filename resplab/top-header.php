@@ -1,7 +1,7 @@
-<div id="content">
+<div id="content" class="active">
 <?php
     // query for total pending
-    $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error());
+    $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
 
     // query for pending message
@@ -17,25 +17,26 @@
 <!-- top navbar design -->
 <div class="top-navbar">
     <nav class="navbar  navbar-expand-lg">
-        <button type="button" id="sidebar-collapse" class="d-xl-block d-lg-block d-md-none d-none">
-            <span class="material-icons">arrow_back_ios</span>
+        <button id="sidebar-collapse" class="d-xl-block d-lg-block d-md-none d-none" hidden="hidden">
+            <span  class="material-icons">arrow_back_ios</span>
         </button>
         <a class="navbar-brand" href="#">
-            <img class="logoeinstein" src="https://portal.einstein-net.com.br/moodle/pluginfile.php/1/theme_moove/logo/1674527758/logo.png">
+            <img class="logoeinstein2" src="../img/lg_garbuio.png">
         </a>
         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse"
                 data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle">
-                <i style="font-size:35px;padding:10px" class="material-icons">menu</i>
-        </button>
-        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none" id="navbarcollapse">
+                <i style="font-size:35px;padding:10px;color:white" class="material-icons">menu</i>
+        </button>        
+        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none justify-content-end" id="navbarcollapse">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
-                        <span class="material-icons">notifications</span>
+                        <span class="div-link material-icons" >notifications</span>
                             <?php if ($f_p['total'] > 0) { ?>
-                                <span name="notification" class="notification"><?php echo $f_p['total'] ?></span>
-                            <?php } ?>                    </a>
-                    <ul class="dropdown-menu">
+                                <span style="color:white;border-radius:100%" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
+                            <?php } ?> 
+                   </a>
+                    <ul class="dropdown-menu" style="display:flex;align-items:center;justify-content:center;">
                         <li>
                             <?php $penlab = 'penlab'; ?>
                             <a href="reservlab.php?<?php echo $penlab?>" class="text-primary"><?php echo $pendente?></a>
@@ -45,7 +46,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown"><span style="cursor:pointer" class = "material-icons">person</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="logout.php"><span class = "material-icons text-logout">logout</span><strong> LOGOUT</strong></span></a></li>
+                    <li><a class="nav-link" href="logout.php" style="display:flex;align-items:center;justify-content:center;"><span class = "material-icons text-logout" style="color:#5faa4f" >logout</span><strong>&#160SAIR</strong></span></a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -54,7 +55,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href = "reservlab.php?alter-account" class="text-primary">Alterar seu dados</a>
+                        <a href = "reservlab.php?alter-account" style="display:flex;align-items:center;justify-content:center;" class="text-primary">Alterar seu dados</a>
                         </li>
                     </ul>
                 </li>
@@ -62,7 +63,7 @@
         </div>
 			 
 			  </nav>
-		   </div>
+	
 		   
 		   
 		   

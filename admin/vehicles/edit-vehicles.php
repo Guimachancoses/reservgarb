@@ -61,7 +61,7 @@ function validateForm() {
         var description = document.getElementsByName('description');
         var photo = document.getElementsByName('photo');
 
-     if (
+    if (
         name === "" ||
         model === "" ||
         description === "" ||

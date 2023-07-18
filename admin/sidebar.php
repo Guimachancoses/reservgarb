@@ -212,6 +212,20 @@
                             <a href="reservlab.php?<?php echo $dellab?>"><i class="material-icons" style="color:#e91e63" >warning</i><small>Relações da Sala</small></a>
                         </li>
 
+                        
+                        <li>
+                            <?php $delvei = 'delvei';
+                                ?>
+                            <a href="reservlab.php?<?php echo $delvei?>"><i class="material-icons" style="color:#e91e63" >warning</i><small>Relações do Veículo</small></a>
+                        </li>
+
+                        
+                        <li>
+                            <?php $delequi = 'delequi';
+                                ?>
+                            <a href="reservlab.php?<?php echo $delequi?>"><i class="material-icons" style="color:#e91e63" >warning</i><small>Relações do Equipamento</small></a>
+                        </li>
+
                         <li>
                             
                         </li>

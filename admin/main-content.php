@@ -57,7 +57,7 @@
 		</div>
 
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $penlab?>"><div class="card card-stats">
+			<a href="reservlab.php?<?php echo $penlab?>"><div class="card card-stats" >
 				<div class="card-header">
 					<div class="icon icon-rose">
 						<span class="material-icons">pending_actions</span>

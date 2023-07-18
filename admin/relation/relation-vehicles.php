@@ -14,41 +14,41 @@
                     }
                 </script>
                 <div class="card-header card-header-text">
-                    <h4 class="card-title"><strong class="text-primary"> Excluir Dados das Salas</strong></h4>
+                    <h4 class="card-title"><strong class="text-primary"> Excluir Dados dos Veículos</strong></h4>
                     <p class="category" style="display:flex;align-items:center;justify-content:center; background-color: #f4d7d3;  border-radius: 6px;  padding: 5px;  margin-bottom: 8px; color: #000000;">
-                    Essa área é destinada para apagar todas as informações vinculadas a uma sala, caso desejar "Excluir uma sala". Atenção, pois, ao clicar sobre o botão de exclusão, 
-                    todas os dados serão deletados da sala permanentemente, não sendo possível recuperá-los
+                    Essa área é destinada para apagar todas as informações vinculadas a um veículo, caso desejar "Excluir um Veículo". Atenção, pois, ao clicar sobre o botão de exclusão, 
+                    todas os dados serão deletados do veículo permanentemente, não sendo possível recuperá-los
                     </p>
                 </div>
                 <div class="card-content table-responsive"> 
                 <table class="table table-hover">
                     <thead class="text-primary">
                         <tr>
-                            <th>Tipo da Sala</th>
-                            <th>Descrição</th>
+                            <th>Nome</th>
+                            <th>Modelo</th>
                             <th class="text-center">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
                         $query = $conn->query("SELECT * 
-                                                    FROM `laboratorios` lb
+                                                    FROM `vehicles` vs
                                                     WHERE 
                                                     EXISTS (
                                                         SELECT 1
                                                         FROM locacao
-                                                        WHERE room_id = lb.room_id
+                                                        WHERE vehicle_id = vs.vehicle_id
                                                     )") or die(mysqli_error($conn));
                         if (mysqli_num_rows($query) == 0) {
-                            echo "<td>Sem laboratórios com informações em outras tabelas...</td>";
+                            echo "<td>Sem veículos com informações em outras tabelas...</td>";
                         }
                         while($fetch = $query->fetch_array()){
                     ?>	
                         <tr>
-                            <td><?php echo $fetch['room_type']?></td>
+                            <td><?php echo $fetch['name']?></td>
 
-                            <td><?php echo $fetch['room_no']?></td>
-                            <td><center><a class = "btn btn-danger" onclick = "confirmationDeletedbl(this); return false;" href = "delete_relation-room.php?room_id=<?php echo $fetch['room_id']?>"><abbr title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
+                            <td><?php echo $fetch['model']?></td>
+                            <td><center><a class = "btn btn-danger" onclick = "confirmationDeletedbl(this); return false;" href = "delete_relation-vehicle.php?vehicle_id=<?php echo $fetch['vehicle_id']?>"><abbr title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
                         </tr>
                     <?php
                         }

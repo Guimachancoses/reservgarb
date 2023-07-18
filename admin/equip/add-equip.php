@@ -45,7 +45,7 @@
                             </div>
                             <br />
                             <div class="card-foot">
-                                <button name = "add_equip" onclick="addroom()" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
+                                <button name = "add_equip" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                             </div>
                         </form>
                         <?php require_once 'add_query_equip.php'?>
@@ -55,27 +55,25 @@
         </div>
 </div>
 
-<!-- <script>
+<script>
     function validateForm() {
-        var capacityInput = document.getElementById('capacity');
-        var noInput = document.getElementById('no');
-        var capacityError = document.getElementById('capacity-error');
-        var noError = document.getElementById('no-error');
-        var capacityValue = capacityInput.value.trim();
-        var noValue = noInput.value.trim();
+        var equipment = document.getElementById('equipment');
+        var sector = document.getElementById('sector');
+        var description = document.getElementById('description');
 
-        // Verifica se a capacidade é um número
-        if (!/^\d+$/.test(capacityValue)) {
-            capacityError.innerText = 'A capacidade deve ser um número.';
+        if (
+            equipment === "" ||
+            sector === "" ||
+            description === ""
+        ) {
+            // Um ou mais campos estão vazios, não exiba o alerta
             return false;
-        } else {
-            capacityError.innerText = '';
         }
-
-        return true;
-    }
+        alert("Equipamento inserido com sucesso!!!");
+            return true;
+        }
 
     window.onbeforeunload = function() {
         document.querySelector('form').reset();
     };
-</script> -->
+</script>

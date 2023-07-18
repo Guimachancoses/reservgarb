@@ -86,25 +86,24 @@
 							<ul class="pagination justify-content-center">
 								<?php if ($page > 1) { ?>
 									<li class="page-item">
-										<a class="n-overlay" href="reservlab.php?edituser&page=<?php echo ($page - 1); ?>">Anterior</a>
+										<a class="n-overlay" href="reservlab.php?deluser&page=<?php echo ($page - 1); ?>">Anterior</a>
 									</li>
 								<?php } ?>
 								<?php if (mysqli_num_rows($queryad) == $perPage && $totalPages > 1) { ?>
 									<li class="page-item">
-										<a class="n-overlay" href="reservlab.php?edituser&page=<?php echo ($page + 1); ?>">Próxima</a>
+										<a class="n-overlay" href="reservlab.php?deluser&page=<?php echo ($page + 1); ?>">Próxima</a>
 									</li>
 								<?php } ?>
 								<li>
 								<?php
 									if ($totalPages > 1) {
-										echo "<p style=\"margin-left:10px\" class=\"text-primary\"> Página $current_page de $totalPages</p>";
+										echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
 									} else {
-										echo "<p style=\"margin-left:10px;padding:5px\" class=\"text-primary\"> Página 1</p>";
+										echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página 1</p>";
 									}
 								?>
 								</li>
-							</ul>
-					
+							</ul>					
 						</nav>
 					</div>
 				</div>

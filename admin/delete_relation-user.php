@@ -14,11 +14,7 @@ require 'connect.php';
         EXECUTE stmt1;
         DEALLOCATE PREPARE stmt1;
 
-        DELETE rs FROM req_software rs
-        JOIN disciplinas d ON rs.disciplina_id = d.disciplina_id
-        WHERE d.users_id = @user_id;
-
-        DELETE FROM disciplinas WHERE users_id = @user_id;
+        DELETE FROM gp_approver WHERE users_id = @user_id;
 
         DELETE FROM activities WHERE users_id = @user_id;
 

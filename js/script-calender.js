@@ -252,7 +252,7 @@ function updateEvents(date) {
         events += `<div class="event">
             <div class="title">
               <i class="fas fa-circle" ${eventColorStyle}></i>
-              <h3 class="event-title"><small>${eventTitle}</small></h3>
+              <h3 class="event-title">${eventTitle}</h3>
             </div>
             <div class="event-time">
               <span class="event-time">${event.time}</span>
@@ -523,9 +523,7 @@ eventsContainer.addEventListener("click", (e) => {
       // Separa o a segunda parte de eventTitle em duas partes usando a string " *" como separador, para pegar o número da room
       var titleParts = eventTitle.split(" - ");
       var title = titleParts[0]; // A primeira parte contém o título do evento
-      var numString = titleParts[1]; // A segunda parte contém o número da sala
-      var numParts = numString.split(" *");
-      var room_no = numParts[0];
+      var room_no = titleParts[1]; // A segunda parte contém o número da sala
 
       // Envia uma solicitação POST para a API "delete_event.php" para excluir o evento do banco de dados
       const formData = new FormData();
@@ -543,8 +541,10 @@ eventsContainer.addEventListener("click", (e) => {
         .then((response) => response.text())
         .then((result) => {
           if (result === "") {
+            console.log(result);
             alert("Esse evento não pode ser excluído.");
           } else {
+            console.log(result);
             // Remova o evento da matriz "eventsArr" e atualize os eventos no calendário
             eventsArr.forEach((event) => {
               if (
@@ -568,7 +568,7 @@ eventsContainer.addEventListener("click", (e) => {
                 }
               }
             });
-            updateEvents(activeDay);
+            // updateEvents(activeDay);
           }
         })
         .catch((error) => {

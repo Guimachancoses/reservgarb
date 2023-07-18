@@ -16,8 +16,8 @@
                         }
                     </script>
 					<div class="card-header card-header-text">
-					<h4 class="card-title"><strong class="text-primary"> Reservas Pendentes</strong></h4>
-						<p class="category">Clique em aprovar ou excluir o pedido de reserva:</p>
+					<h4 class="card-title"><strong class="text-primary"> Reservados</strong></h4>
+						<p class="category">Caso queira liberar a reserva, clique do botão ao lado:</p>
 					</div>
 					<div class="card-content table-responsive">
 
@@ -89,7 +89,7 @@
                                 $perPage = 10; // Número de resultados por página
                                 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
                                 $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
+                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE status_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 
@@ -101,6 +101,7 @@
                                 
                                 $querypd2 = $conn->query("SELECT
                                     lc.locacao_id,
+                                    lb.room_id,
                                     u.firstname,
                                     u.lastname,
                                     COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
@@ -118,8 +119,7 @@
                                 INNER JOIN `status` st ON st.status_id = lc.status_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
                                 WHERE
-                                    lc.status_id = 1 
-                                    AND ms.mensagens_id = 2
+                                    lc.status_id = 2
                                     AND (
                                         (@groupId = 1) -- Administrador
                                         OR
@@ -133,7 +133,7 @@
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
                                 if (mysqli_num_rows($querypd2) == 0) {
-                                    echo "<td>Sem reservas pendentes...</td>";
+                                    echo "<td>Sem reservas...</td>";
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
                             ?>
@@ -144,14 +144,15 @@
                                 <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#449D44;'><strong>" .$fetch['status']."</strong></label>"?></td>
-                                <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?locacao_id=<?php echo $fetch['locacao_id']."confirm-reserve"?>"><abbr title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pending.php?locacao_id=<?php echo $fetch['locacao_id']?>"><abbr title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
+                                <td><?php echo "<label style = 'color:#0000FF;'><strong>" .$fetch['status']."</strong></label>"?></td>
+                                <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php
-                                }	
+                                }
                             ?>
                         </tbody>
                     </table>
+
                     <script>
 							$(document).ready(function() {
 							// Função para ordenar a tabela
@@ -185,18 +186,19 @@
 							});
 							});
 						</script>
+
                 </div>
                 <!-- Paginação -->
                 <nav>
                     <ul class="pagination justify-content-center">
                         <?php if ($page > 1) { ?>
                             <li class="page-item">
-                                <a class="n-overlay" href="reservlab.php?penlab&page=<?php echo ($page - 1); ?>">Anterior</a>
+                                <a class="n-overlay" href="reservlab.php?reslab&page=<?php echo ($page - 1); ?>">Anterior</a>
                             </li>
                         <?php } ?>
                         <?php if (mysqli_num_rows($querypd2) == $perPage && $totalPages > 1) { ?>
                             <li class="page-item">
-                                <a class="n-overlay" href="reservlab.php?penlab&page=<?php echo ($page + 1); ?>">Próxima</a>
+                                <a class="n-overlay" href="reservlab.php?reslab&page=<?php echo ($page + 1); ?>">Próxima</a>
                             </li>
                         <?php } ?>
 						<li>

@@ -4,9 +4,9 @@ require_once 'connect.php';
 require_once 'validate.php';
 
 	if(ISSET($_POST['add_room'])){
-		$room_type = $_POST['room_type'];
-		$capacity = $_POST['capacity'];
-		$room_no = $_POST['room_no'];
+		$room_type = trim($_POST['room_type']);
+		$capacity = trim($_POST['capacity']);
+		$room_no = trim($_POST['room_no']);
 
 		// Verificar se o laboratório já existe
 		$existingLabQuery = $conn->query("SELECT * FROM laboratorios WHERE room_type = '$room_type' AND room_no = '$room_no'");

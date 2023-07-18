@@ -13,52 +13,54 @@
 
 <?php include_once('top-header.php');?>
 
-<?php
-	// Redirecionamento para adicionar softwares 
+<?php 
+	// Redirecionamento para adicinar usuários
 	$url = $_SERVER["REQUEST_URI"];
-	if(preg_match("~addsof~", $url)) {
-    	$content = 'soft/addsoft-content.php';
+	// Redirecionamento para pedidos de reserva de laboratórios pendentes ou excluir caso desejado
+	if(preg_match("~penlab~", $url)) {
+    	$content = 'book/reservation.php';
 	}
-	// Redirecionamento para listar softwares e alterar ou excluir
-	else if(preg_match("~editsoft~", $url)) {
-    	$content = 'soft/soft-content.php';
-	}
-	// Redirecionamento para editar softwares
-	else if(preg_match("~edit-software~", $url)) {
-    	$content = 'soft/edit-software.php';
-	}
-	// Redirecionamento para escolher qual laboratório adicionar os softwares
-	else if(preg_match("~addrequire~", $url)) {
-    	$content = 'require/add-requirements.php';
-	}
-	// Redirecionamento para adicionar softwares ao laboratório escolhido
-	else if(preg_match("~edit-avail~", $url)) {
-    	$content = 'require/edit-availability.php';
-	}
-	// Redirecionamento para alterar a própria conta, limita ao usuário
-	else if(preg_match("~alter-account~", $url)) {
-    	$content = 'user/alter-account.php';
-	}
-	// Redirecionamento para visualizar chamados pendentes
-	else if(preg_match("~callpen~", $url)) {
-    	$content = 'called/called-pending.php';
-	}
-	// Redirecionamento para listar chamados finalizados
-	else if(preg_match("~callclose~", $url)) {
-    	$content = 'called/callclose.php';
-	}
-	else if(preg_match("~view-called~", $url)) {
-    	$content = 'called/view-called.php';
-	}
+	// Redirecionamento para corfimar reserva de laboratórios pendentes
 	else if(preg_match("~confirm-reserve~", $url)) {
     	$content = 'book/confirm-reserve.php';
 	}
+	// Redirecionamento para mostrar reservas de laboratórios e liberar reserva caso desejado
+	else if(preg_match("~reslab~", $url)) {
+    	$content = 'book/reserved.php';
+	}
+	// Redirecionamento para listar histórico de reserva dos laboratórios
 	else if(preg_match("~finlab~", $url)) {
     	$content = 'book/finalized.php';
 	}
+	// Redirecionamento para calendário
 	else if(preg_match("~calender~", $url)) {
     	$content = 'calender/calender.php';
 	}
+	// Redirecionamento para alterar a própria conta de usuário
+	else if(preg_match("~alter-account~", $url)) {
+    	$content = 'user/alter-account.php';
+	}
+	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
+	else if(preg_match("~page=~", $url)) {
+    	$content = 'main-content.php';
+	}
+	// Redirecionamento para listar veículos
+	else if(preg_match("~editvei~", $url)) {
+    	$content = 'vehicles/vehicles.php';
+	}
+	// Redirecionamento para editar veículos
+	else if(preg_match("~edit-vehicles~", $url)) {
+    	$content = 'vehicles/edit-vehicles.php';
+	}
+	// Redirecionamento para listar equipamentos
+	else if(preg_match("~editequip~", $url)) {
+    	$content = 'equip/equip.php';
+	}
+	// Redirecionamento para editar equipamentos
+	else if(preg_match("~edit-equip~", $url)) {
+    	$content = 'equip/edit-equip.php';
+	}
+	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else
 		$content = 'main-content.php';
 ?>

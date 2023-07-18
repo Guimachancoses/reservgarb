@@ -17,7 +17,7 @@
                             <p class="category">Verifique as informações antes de salvar:</p>
                     <br />
                     <?php
-                        $query = $conn->query("SELECT * FROM `equipment` WHERE `equip_id` = '$_REQUEST[equip_id]'") or die(mysqli_error());
+                        $query = $conn->query("SELECT * FROM `equipment` WHERE `equip_id` = '$_REQUEST[equip_id]'") or die(mysqli_error($conn));
                         $fetch = $query->fetch_array();
                     ?>
                     <div  class = "col-md-10" style="min-height:225px">	
@@ -29,18 +29,18 @@
                             <div class="card-foot">
                                 <label><strong> Setor Responsável:</strong></label>
                                 <select class = "form-control" required = required name = "sector" required>
-                                <option value = "<?php echo $fetch['sector']?>"><?php echo $fetch['sector']?></option>
-                                <option value = "T.I">T.I</option>
-                                <option value = "RH">RH</option>
-                                <option value = "GR">GR</option>
-                                <option value = "Financeiro">Financeiro</option>
-                                <option value = "Compras">Compras</option>
-                                <option value = "CTE">CTE</option>
-                                <option value = "Programação">Programação</option>
-                                <option value = "Jurídico">Jurídico</option>
-                                <option value = "Contabilidade">Contabilidade</option>
-                            </select>
-                                <span id="capacity-error" class="text-danger"></span>
+                                    <option value = "<?php echo $fetch['sector']?>"><?php echo $fetch['sector']?></option>
+                                    <option value = "T.I">T.I</option>
+                                    <option value = "RH">RH</option>
+                                    <option value = "GR">GR</option>
+                                    <option value = "Financeiro">Financeiro</option>
+                                    <option value = "Compras">Compras</option>
+                                    <option value = "CTE">CTE</option>
+                                    <option value = "Programação">Programação</option>
+                                    <option value = "Jurídico">Jurídico</option>
+                                    <option value = "Contabilidade">Contabilidade</option>
+                                    <span id="capacity-error" class="text-danger"></span>
+                                </select>                                
                             </div>
                             <div class="card-foot">
                                 <label><strong> Descrição:</strong></label>
@@ -49,7 +49,7 @@
                             </div>
                             <br />
                             <div class="card-foot">
-                                <button name = "edit-equip" onclick="addroom()" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
+                                <button name = "edit-equip" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                             </div>
                         </form>
                         <?php require_once 'edit_query_equip.php'?>
@@ -59,27 +59,25 @@
         </div>
 </div>
 
-<!-- <script>
+<script>
     function validateForm() {
-        var capacityInput = document.getElementById('capacity');
-        var noInput = document.getElementById('no');
-        var capacityError = document.getElementById('capacity-error');
-        var noError = document.getElementById('no-error');
-        var capacityValue = capacityInput.value.trim();
-        var noValue = noInput.value.trim();
+        var equipment = document.getElementById('equipment');
+        var sector = document.getElementById('sector');
+        var description = document.getElementById('description');
 
-        // Verifica se a capacidade é um número
-        if (!/^\d+$/.test(capacityValue)) {
-            capacityError.innerText = 'A capacidade deve ser um número.';
+        if (
+            equipment === "" ||
+            sector === "" ||
+            description === ""
+        ) {
+            // Um ou mais campos estão vazios, não exiba o alerta
             return false;
-        } else {
-            capacityError.innerText = '';
         }
-
-        return true;
-    }
+        alert("Equipamento inserido com sucesso!!!");
+            return true;
+        }
 
     window.onbeforeunload = function() {
         document.querySelector('form').reset();
     };
-</script> -->
+</script>

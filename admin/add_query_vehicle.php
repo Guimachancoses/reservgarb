@@ -2,12 +2,12 @@
 	require_once 'connect.php';
 	require_once 'validate.php';
 	if(ISSET($_POST['add_vehicles'])){
-		$name = $_POST['name'];
-		$model = $_POST['model'];
-		$description = $_POST['description'];
-		$photo = $_POST['photo'];
+		$name = trim($_POST['name']);
+		$model = trim($_POST['model']);
+		$description = trim($_POST['description']);
+		$photo = trim($_POST['photo']);
 
-		// Verificar se o laboratório já existe
+		// Verificar se o veículo já existe
 		$existingLabQuery = $conn->query("SELECT * FROM vehicles WHERE name = $name and model = $model and description = $description and photo = $photo'");
 		if ($existingLabQuery->num_rows > 0) {
 			// Laboratório já existe, informar ao usuário

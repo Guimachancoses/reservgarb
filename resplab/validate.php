@@ -7,7 +7,7 @@
 
     // Verifica se o usuário é administrador
     $users_id = $_SESSION['users_id'];
-    $stmt = $conn->prepare("SELECT * FROM users WHERE funcao = 'Responsável Laboratório' AND users_id = ?");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE funcao = 'Aprovador' AND users_id = ?");
     $stmt->bind_param("i", $users_id);
     $stmt->execute();
     $result = $stmt->get_result();

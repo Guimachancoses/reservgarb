@@ -75,6 +75,14 @@
 	else if(preg_match("~dellab~", $url)) {
     	$content = 'relation/relation-room.php';
 	}
+	// Redirecionamento para deltetar todas as informações no banco de dados dos veículos
+	else if(preg_match("~delvei~", $url)) {
+    	$content = 'relation/relation-vehicles.php';
+	}
+	// Redirecionamento para deltetar todas as informações no banco de dados dos equipamentos
+	else if(preg_match("~delequi~", $url)) {
+    	$content = 'relation/relation-equip.php';
+	}
 	// Redirecionamento para adicionar veículos
 	else if(preg_match("~addvei~", $url)) {
     	$content = 'vehicles/add-vehicles.php';

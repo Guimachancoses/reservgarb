@@ -14,9 +14,11 @@
         $pendente = "Sem pendências";
     }
 ?>
-            <div class="sidebar-header">
-                <h3><img src="https://production.listennotes.com/podcasts/itens-geniais-do-curso-de-análise-e-sFK9He0Q-Sb-AsjZeX6kxW0.1400x1400.jpg" class="img-fluid"/><span>Rerserve Lab</span></h3>
-            </div>
+             <div class="sidebar-header">
+                <h3 style="font-family: 'Monte Serrat', sans-serif; letter-spacing: 0.1px;">
+                    <img src="../img/logo_title.png" class="img-fluid" />
+                        <span><strong>Reserve Garbuio</strong></span>
+                </h3>
             <ul class="list-unstyled components">
 			    <li>
                     <a href="reservlab.php" class="dashboard"><i class="material-icons">home</i><span>Página Inicial</span></a>

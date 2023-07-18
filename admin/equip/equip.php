@@ -31,7 +31,7 @@
                         </thead>
                         <tbody>
                         <?php
-                            $query = $conn->query("SELECT * FROM `equipment`") or die(mysqli_error());
+                            $query = $conn->query("SELECT * FROM `equipment`") or die(mysqli_error($conn));
                             if (mysqli_num_rows($query) == 0) {
 								echo "<td>Sem equipamento cadastrado</td>";
 							}

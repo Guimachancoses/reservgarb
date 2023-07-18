@@ -1,7 +1,7 @@
 <div id="content" class="active">
 <?php
     // query for total pending
-    $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error());
+    $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
 
     // query for pending message

@@ -15,7 +15,7 @@ $query = $conn->query("SELECT
                             LEFT JOIN `vehicles` AS vs ON vs.vehicle_id = lc.vehicle_id
                             LEFT JOIN `equipment` AS eq ON eq.equip_id = lc.equip_id
                             INNER JOIN `users` AS us ON us.users_id = lc.users_id
-                            WHERE lc.mensagens_id != 4; ") or die(mysqli_error());
+                            WHERE lc.mensagens_id != 4; ") or die(mysqli_error($conn));
 // Cria um array para armazenar os eventos
 $events = array();
 // Adiciona cada evento ao array de eventos

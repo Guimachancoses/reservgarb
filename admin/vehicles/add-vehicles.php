@@ -21,6 +21,7 @@
                         <div class="card-foot">
                             <label><strong> Nome:</strong></label>
                             <input class = "form-control" required = required name = "name" required />
+                            <span id="name-error" class="text-danger"></span>
                         </div>
                         <div class="card-foot">
                             <label><strong> Modelo:</strong></label>
@@ -39,7 +40,7 @@
                         </div>
                         <br />
                         <div class="card-foot">
-                            <button name = "add_vehicles" onclick="addroom()" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
+                            <button name = "add_vehicles" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                         </div>
                     </form>
                     <?php require_once 'add_query_vehicle.php'?>
@@ -50,6 +51,26 @@
 </div>
 
 <script>
+
+function validateForm() {
+        var name = document.getElementsByName('name');
+        var model = document.getElementsByName('model');
+        var description = document.getElementsByName('description');
+        var photo = document.getElementsByName('photo');
+
+     if (
+        name === "" ||
+        model === "" ||
+        description === "" ||
+        photo === ""
+    ) {
+        // Um ou mais campos estão vazios, não exiba o alerta
+        return false;
+    }
+    alert("Veículo inserido com sucesso!!!");
+        return true;
+    }
+
     window.onbeforeunload = function() {
         document.querySelector('form').reset();
     };

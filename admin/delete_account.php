@@ -24,8 +24,7 @@ if ($result1->num_rows > 0 || $result2->num_rows > 0) {
 }
 
 // Não existem informações vinculadas, prosseguir com a exclusão
-$conn->query("DELETE FROM `users` WHERE `users_id` = '$users_id'") or die(mysqli_error());
-$conn->query("INSERT INTO `activities` set mensagens_id = 9, users_id = '$_SESSION[users_id]'") or die(mysqli_error());
-
+$conn->query("DELETE FROM `users` WHERE `users_id` = '$users_id'") or die(mysqli_error($conn));
+$conn->query("INSERT INTO `activities` set mensagens_id = 9, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
 header("location: reservlab.php?edituser");
 ?>

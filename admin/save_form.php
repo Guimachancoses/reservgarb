@@ -5,13 +5,13 @@
 
 	$users_id = $_SESSION['users_id'];
 	if(ISSET($_POST['add_form'])){
-		$query = $conn->query("SELECT * FROM `locacao` as lc WHERE lc.locacao_id = '$_REQUEST[locacao_id]' && lc.status_id = 2 ") or die(mysqli_error());
+		$query = $conn->query("SELECT * FROM `locacao` as lc WHERE lc.locacao_id = '$_REQUEST[locacao_id]' && lc.status_id = 2 ") or die(mysqli_error($conn));
 		$row = $query->num_rows;
 		if($row > 0){
 			echo "<script>alert('Laboratório já reservado')</script>";
 		}else{
-			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3  WHERE `locacao_id` = '$_REQUEST[locacao_id]'") or die(mysqli_error());
-			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error());
+			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3  WHERE `locacao_id` = '$_REQUEST[locacao_id]'") or die(mysqli_error($conn));
+			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error($conn));
 
 			// Busca nome e email para enviar email de chamado aberto
             $admin = 'Administrador';

@@ -17,7 +17,7 @@
                         <p class="category">Verifique as informações antes de salvar:</p>
                         <br />
                 <?php
-                    $query = $conn->query("SELECT * FROM `vehicles` WHERE `vehicle_id` = '$_REQUEST[vehicle_id]'") or die(mysqli_error());
+                    $query = $conn->query("SELECT * FROM `vehicles` WHERE `vehicle_id` = '$_REQUEST[vehicle_id]'") or die(mysqli_error($conn));
                     $fetch = $query->fetch_array();
                 ?>
                 <div  class = "col-md-10" style="min-height:225px">	
@@ -43,7 +43,7 @@
                         </div>
                         <br />
                         <div class="card-foot">
-                            <button name="edit-vehicle" onclick="addroom()" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
+                            <button name="edit-vehicle" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                         </div>
                     </form>
                     <?php require_once 'edit_query_vehicle.php'?>
@@ -54,6 +54,26 @@
 </div>
 
 <script>
+
+function validateForm() {
+        var name = document.getElementsByName('name');
+        var model = document.getElementsByName('model');
+        var description = document.getElementsByName('description');
+        var photo = document.getElementsByName('photo');
+
+     if (
+        name === "" ||
+        model === "" ||
+        description === "" ||
+        photo === ""
+    ) {
+        // Um ou mais campos estão vazios, não exiba o alerta
+        return false;
+    }
+    alert("Veículo inserido com sucesso!!!");
+        return true;
+    }
+
     window.onbeforeunload = function() {
         document.querySelector('form').reset();
     };

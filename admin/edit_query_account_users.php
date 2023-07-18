@@ -2,14 +2,15 @@
 	require_once 'connect.php';
 	require_once 'validate.php';
 	if(ISSET($_POST['edit_account_users'])){
-		$firstname = $_POST['firstname'];
-		$lastname = $_POST['lastname'];
+		$firstname = ucwords(strtolower(trim($_POST['firstname'])));
+		$lastname = ucwords(strtolower(trim($_POST['lastname'])));
 		$status = $_POST['status'];
 		$funcao = $_POST['funcao'];
-		$email = $_POST['email'];
+		$email = trim($_POST['email']);
 		$fone = $_POST['contactno'];
 		$contactno = preg_replace('/[\s()-]+/', '', $fone);
-		$cpf = $_POST['cpf'];
+		$identid = $_POST['cpf'];
+		$cpf = str_replace(array('.', '-'), '', $identid);
 		$password = $_POST['password'];
 
 		// Gera um hash criptográfico da senha usando o algoritmo bcrypt

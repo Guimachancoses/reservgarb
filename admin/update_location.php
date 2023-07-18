@@ -40,7 +40,7 @@ if ($row > 0) {
       $sql->bind_param("s", $locacao_id);
       $sql->execute();
       $sql->close();
-      $conn->query("INSERT INTO `activities` set mensagens_id = 4, users_id = '$_SESSION[users_id]'") or die(mysqli_error()); 
+      $conn->query("INSERT INTO `activities` set mensagens_id = 4, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn)); 
       echo 'Eventos finalizados';
     }
     else {

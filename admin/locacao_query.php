@@ -79,7 +79,7 @@ else {
     $stmt->execute();
     $stmt->close();
 
-    $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error());
+    $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
 
     // Fecha a conexão com o banco de dados
     $conn->close();

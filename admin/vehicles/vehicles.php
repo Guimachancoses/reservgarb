@@ -22,7 +22,7 @@
                         <div class = "panel panel-default" >
                             <?php
                                 require_once 'connect.php';
-                                $query = $conn->query("SELECT * FROM `vehicles`") or die(mysql_error());
+                                $query = $conn->query("SELECT * FROM `vehicles`") or die(mysqli_error($conn));
                                 while($fetch = $query->fetch_array()){
                             ?>
                             <div class="card">

@@ -1,12 +1,10 @@
 <?php
 require_once "connect.php";
-require_once "validate.php";
 // Obtém o título do evento a ser excluído
 $eventTitle = $_POST['title'];
 $room_no = $_POST['room_no'];
 $eventCheckin = $_POST["eventCheckin"];
 $eventTimeFrom = $_POST["eventTimeFrom"];
-$users_id = $_SESSION['users_id'];
 
 // Converte a data para o formato do MySQL
 $checkin_date = DateTime::createFromFormat('d/m/Y', $eventCheckin);
@@ -19,11 +17,6 @@ $timeFromUnix = strtotime($eventTimeFrom);
 $timeFrom = date('H:i:s', $timeFromUnix);
 
 $mensagens_id = 2;
-
-// Verifica se ocorreu algum erro ao conectar ao banco de dados
-if ($conn->connect_error) {
-    die("Erro ao conectar ao banco de dados: " . $conn->connect_error);
-}
 
 // Executa a primeira consulta para obter o room_id
 $stmt = $conn->prepare("SELECT room_id FROM laboratorios WHERE room_type = ?");
@@ -52,20 +45,18 @@ $stmt->close();
 // Executa a segunda consulta para obter o locacao_id
 $stmt = $conn->prepare("SELECT locacao_id
                         FROM locacao
-                        WHERE locacao_id = (
+                        WHERE locacao_id IN (
                                 SELECT locacao_id
                                 FROM locacao 
                                 WHERE room_id = ? AND checkin = ? AND checkin_time = ? AND mensagens_id = ?)
-                        OR locacao_id = (
+                        OR locacao_id IN (
                                 SELECT locacao_id 
                                 FROM locacao 
                                 WHERE vehicle_id = ? AND checkin = ? AND checkin_time = ? AND mensagens_id = ?)
-
-                        OR locacao_id = (
+                        OR locacao_id IN (
                                 SELECT locacao_id 
                                 FROM locacao 
-                                WHERE equip_id = ? AND checkin = ? AND checkin_time = ? AND mensagens_id = ?)
-                        AND users_id = $users_id");
+                                WHERE equip_id = ? AND checkin = ? AND checkin_time = ? AND mensagens_id = ?)");
 $stmt->bind_param("issiissiissi", $room_id, $mysql_date, $timeFrom, $mensagens_id, $vehicle_id, $mysql_date, $timeFrom, $mensagens_id, $equip_id, $mysql_date, $timeFrom, $mensagens_id);
 $stmt->execute();
 $stmt->bind_result($locacao_id);
@@ -92,6 +83,6 @@ if ($stmt->fetch()) {
     $conn->close();
 
 }
-
+echo "Erro ao excluir evento: " . $stmt->error;
 $stmt->close();
 ?>

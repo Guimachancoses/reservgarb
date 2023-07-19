@@ -58,7 +58,6 @@ $stmt = $conn->prepare("SELECT locacao_id
                                 SELECT locacao_id 
                                 FROM locacao 
                                 WHERE vehicle_id = ? AND checkin = ? AND checkin_time = ? AND mensagens_id = ?)
-
                         OR locacao_id IN (
                                 SELECT locacao_id 
                                 FROM locacao 
@@ -89,6 +88,5 @@ if ($stmt->fetch()) {
     $conn->close();
 
 }
-
 $stmt->close();
 ?>

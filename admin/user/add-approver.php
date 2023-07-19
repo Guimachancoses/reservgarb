@@ -19,7 +19,7 @@
 						<h4 class="card-title"><strong class="text-primary"> Adicionar ou Remover - Usuários Aprovadores</strong></h4>
 					
 					<?php
-						$querylb = $conn->query("SELECT * FROM `approver` WHERE approver_id = '$_REQUEST[approver_id]'") or die(mysqli_error());
+						$querylb = $conn->query("SELECT * FROM `approver` WHERE approver_id = '$_REQUEST[approver_id]'") or die(mysqli_error($conn));
 						while($fetchlb = $querylb->fetch_array()){
 							$approver_id = $fetchlb['approver_id'];
                         ?>
@@ -44,7 +44,7 @@
 															WHERE
 																u.funcao IN ('Administrador','Aprovador')
 															ORDER BY 
-																2") or die(mysqli_error());
+																2") or die(mysqli_error($conn));
 									while($fetchsf = $querysf->fetch_array()){
 									$users_id = $fetchsf['users_id'];
 								?>	
@@ -90,7 +90,7 @@
 														FROM gp_approver as gp
 														INNER JOIN users as u
 														ON u.users_id = gp.users_id
-														WHERE gp.approver_id = $approver_id") or die(mysqli_error());
+														WHERE gp.approver_id = $approver_id") or die(mysqli_error($conn));
 								while($fetch = $queryad->fetch_array()){
 							?>
 							<tr>

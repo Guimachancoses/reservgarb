@@ -534,6 +534,10 @@ eventsContainer.addEventListener("click", (e) => {
       formData.append("room_no", room_no);
       formData.append("eventCheckin", checkin);
       formData.append("eventTimeFrom", firstTime);
+
+      // Adiciona o valor da variável de sessão ao formData
+      formData.append("users_id", "<?php echo $_SESSION['users_id']; ?>");
+
       fetch("./delete_cal_query.php", {
         method: "POST",
         body: formData,

@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar" class="active">
 
 <?php
     // query for total pending

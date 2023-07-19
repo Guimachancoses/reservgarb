@@ -306,9 +306,9 @@
 							<li>
 							<?php
 								if ($totalPages > 1) {
-									echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
+									echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
 								} else {
-									echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página 1</p>";
+									echo "<p style=\"margin-left:10px;padding:5px;color:#5faa4f\"> Página 1</p>";
 								}
 							?>
 							</li>

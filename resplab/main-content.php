@@ -146,7 +146,7 @@
 	<!---row-second----->
 
 	<div class="row">
-		<div class="col-lg-9 col-md-9">
+		<div class="col-lg-9 col-md-20">
 			<div class="card" style="min-height:535px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Pedidos de Reservas Aguardando sua Aprovação</h4>
@@ -200,7 +200,6 @@
 
 					</script>
 
-
 					<table class="table table-hover" id="myTable">
 
 						<thead class="text-primary" style="cursor:pointer">
@@ -215,7 +214,7 @@
 
 						<?php  
 							$session_id = $_SESSION['users_id'];
-							$perPage = 10; // Número de resultados por página
+							$perPage = 6; // Número de resultados por página
 							$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
 							$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
 							$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
@@ -247,7 +246,8 @@
 							INNER JOIN `status` st ON st.status_id = lc.status_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 							WHERE
-								lc.status_id = 1 
+								lc.status_id = 1
+								AND lc.users_id != $session_id 
 								AND ms.mensagens_id = 2
 								AND (
 									(@groupId = 1) -- Administrador
@@ -271,7 +271,6 @@
 								<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "1") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';}?></td>
 								<td></div><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 								<td><?php echo $fetch['locacao']?></td>
-								<td><?php echo $fetch['description']?></td>
                                 <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
 							</tr> 
@@ -281,8 +280,7 @@
 						
 						</tbody>
 						
-					</table>
-			
+					</table>		
 
 					<script>
 						$(document).ready(function() {
@@ -317,7 +315,7 @@
 						});
 						});
 					</script>
-
+				
 					<!-- Paginação -->
 					<nav>
 						<ul class="pagination justify-content-center">
@@ -328,15 +326,15 @@
 							<?php } ?>
 							<?php if (mysqli_num_rows($querypd2) == $perPage && $totalPages > 1) { ?>
 								<li class="page-item">
-									<a class="n-overlay" href="reservlab.php?page=<?php echo ($page + 1); ?>">Próxima</a>
+									<a style="margin-left:10px" class="n-overlay" href="reservlab.php?page=<?php echo ($page + 1); ?>">Próxima</a>
 								</li>
 							<?php } ?>
 							<li>
 							<?php
 								if ($totalPages > 1) {
-									echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
+									echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
 								} else {
-									echo "<p style=\"margin-left:10px;padding:10px;color:#5faa4f\"> Página 1</p>";
+									echo "<p style=\"margin-left:10px;padding:5px;color:#5faa4f\"> Página 1</p>";
 								}
 							?>
 							</li>

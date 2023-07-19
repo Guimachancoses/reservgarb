@@ -80,7 +80,7 @@
                                 <select class="event-disc select-box" >
                                 <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
                                 <?php  
-									$queryad = $conn->query("SELECT * FROM `users` WHERE users_id != $_SESSION[users_id]") or die(mysqli_error($conn));
+									$queryad = $conn->query("SELECT * FROM `users`") or die(mysqli_error($conn));
 									while($fetch = $queryad->fetch_array()){
 								?>
                                     <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"><?php echo $fetch['firstname']." ".$fetch['lastname'];?></option>

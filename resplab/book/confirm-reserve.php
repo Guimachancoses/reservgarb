@@ -14,9 +14,9 @@
                     </script>
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Confimar Reserva</strong></h4>
-						<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
+						    <p class="category">Verifique todas as informações antes de confimar a reserva:</p>
                     <br />
-                    <div class = "col-md-12"style="min-height:625px">
+                    <div class = "col-md-12"style="min-height:490px">
                     <?php $query = $conn->query("SELECT
                                                     u.firstname
                                                     ,u.lastname

@@ -5,6 +5,7 @@ $eventTitle = $_POST['title'];
 $room_no = $_POST['room_no'];
 $eventCheckin = $_POST["eventCheckin"];
 $eventTimeFrom = $_POST["eventTimeFrom"];
+$users_id = $_POST["users_id"];
 
 // Converte a data para o formato do MySQL
 $checkin_date = DateTime::createFromFormat('d/m/Y', $eventCheckin);
@@ -61,8 +62,9 @@ $stmt = $conn->prepare("SELECT locacao_id
                         OR locacao_id IN (
                                 SELECT locacao_id 
                                 FROM locacao 
-                                WHERE equip_id = ? AND checkin = ? AND checkin_time = ? AND mensagens_id = ?)");
-$stmt->bind_param("issiissiissi", $room_id, $mysql_date, $timeFrom, $mensagens_id, $vehicle_id, $mysql_date, $timeFrom, $mensagens_id, $equip_id, $mysql_date, $timeFrom, $mensagens_id);
+                                WHERE equip_id = ? AND checkin = ? AND checkin_time = ? AND mensagens_id = ?)
+                        AND users_id = ?");
+$stmt->bind_param("issiissiissii", $room_id, $mysql_date, $timeFrom, $mensagens_id, $vehicle_id, $mysql_date, $timeFrom, $mensagens_id, $equip_id, $mysql_date, $timeFrom, $mensagens_id, $users_id);
 $stmt->execute();
 $stmt->bind_result($locacao_id);
 

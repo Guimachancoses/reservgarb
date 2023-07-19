@@ -538,17 +538,15 @@ eventsContainer.addEventListener("click", (e) => {
       // Adiciona o valor da variável de sessão ao formData
       formData.append("users_id", "<?php echo $_SESSION['users_id']; ?>");
 
-      fetch("./delete_cal_query.php", {
+      fetch("../admin/delete_cal_query.php", {
         method: "POST",
         body: formData,
       })
         .then((response) => response.text())
         .then((result) => {
           if (result === "") {
-            console.log(result);
             alert("Esse evento não pode ser excluído.");
           } else {
-            console.log(result);
             // Remova o evento da matriz "eventsArr" e atualize os eventos no calendário
             eventsArr.forEach((event) => {
               if (
@@ -572,7 +570,7 @@ eventsContainer.addEventListener("click", (e) => {
                 }
               }
             });
-            // updateEvents(activeDay);
+            updateEvents(activeDay);
           }
         })
         .catch((error) => {
@@ -598,7 +596,7 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
     var firstname = nameParts[0]; // A primeira parte contém o primeiro nome
     var lastname = nameParts[1]; // A segunda parte contém o segundo nome
 
-    console.log(firstname, lastname);
+    console.log(checkin);
 
     // Envia uma solicitação POST para a API "locacao_query.php" para inserir o evento do banco de dados
     var inser = new FormData();

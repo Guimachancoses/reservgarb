@@ -25,7 +25,7 @@
                 </li>		
 		      <div class="small-screen navbar-display">
                 <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
-                    <a href="#homeSubmenu0" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <a href="#homeSubmenu0" data-toggle="collapse" aria-expanded="false">
 					    <i class="material-icons">notifications</i>
                             <?php if ($f_p['total'] > 0) { ?>
                                 <span name="notification" class="notification"><?php echo $f_p['total'] ?></span>
@@ -41,7 +41,7 @@
 				
 				 <li  class="d-lg-none d-md-block d-xl-none d-sm-block">
                     <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
-                        <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
                             <i class="material-icons">person</i><span><?php echo $name;?></span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                                 <li>
@@ -53,7 +53,7 @@
 				
 				<li  class="d-lg-none d-md-block d-xl-none d-sm-block">
                     <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
-                        <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false">
                             <i class="material-icons">settings</i>
                                 <span>Configuração</span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu2">
@@ -64,49 +64,29 @@
                     </li>
                 </li>
 				</div>			
-			
-                <li class="dropdown">
-                    <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >
-					<i class="material-icons">api</i><span>Salas</span></a>
-                    <ul class="collapse list-unstyled menu" id="pageSubmenu1">
-                            
-                        <li>
-                            <?php $addsof = 'addsof';
-                                ?>
-                            <a href="reservlab.php?<?php echo $addsof?>"><i class="material-icons" style="color:red">add</i>Litar</a>
-                        </li>
 
-                        <li>
-                            <?php $editsoft = 'editsoft';
-                            ?>
-                            <a href="reservlab.php?<?php echo $editsoft?>"><i class="material-icons" style="color:orange">edit</i>Editar Softwares</a>
-                        </li>
-
-                        <li>
-                            <a></a>
-                        </li>
-                    </ul>
+                <li>
+                    <?php $editsoft = 'editsoft';
+                    ?>
+                    <a href="reservlab.php?<?php echo $editsoft?>"><i class="material-icons">add_home_work</i><span>Salas</span></a>
                 </li>
-				
-				 <li class="dropdown">
-                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-					<i class="material-icons searching">add_home_work</i><span>Laboratórios</span></a>
-                    <ul class="collapse list-unstyled menu" id="pageSubmenu2">
 
-                        <li>
-                            <?php $addrequire = 'addrequire';
-                                ?>
-                            <a href="reservlab.php?<?php echo $addrequire?>"><i class="material-icons" style="color:red">add</i>Softwares Disponíveis</a>
-                        </li>
 
-                        <li>
-                            <a></a>
-                        </li>
-                    </ul>
+
+                <li>
+                    <?php $editvei = 'editvei';
+                        ?>
+                    <a href="reservlab.php?<?php echo $editvei?>"><i class="material-icons">directions_car_filled</i><span>Veículos</span></a>
+                </li>
+
+                <li>
+                    <?php $addrequire = 'addrequire';
+                        ?>
+                    <a href="reservlab.php?<?php echo $addrequire?>"><i class="material-icons">api</i><span>Equipamentos</span></a>
                 </li>
 
                 <li class="dropdown">
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
 					<i class="material-icons">pending</i><span>Solicitações</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu3">
 
@@ -128,7 +108,7 @@
                 </li>
 				
                 <li class="dropdown">
-                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
                    <i class="material-icons searching">edit_calendar</i><span>Aprovar Reservas</span></a>
                    <ul class="collapse list-unstyled menu" id="pageSubmenu4">
 

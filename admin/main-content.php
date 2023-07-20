@@ -16,19 +16,23 @@
 	?>
 	<div class="row">
 
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
-			<a href="reservlab.php?calender">
-				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+	<div class="div-swing col-lg-6 col-md-6 col-sm-6">
+			<a href = "reservlab.php?alter-account">
+				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
-						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
-							<div class="gif-container">
-								<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-							</div>
+						<div class="icon icon-info icon-animation">
+							<span class="material-icons">fingerprint</span>
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category">Agendar Locação</p>
-						<h3 class="card-title">Calendário</h3>
+						<p class="category-animation">Administrador</p>
+						<h3 class="name-animation"><?php echo $name?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+						<i class="material-icons text-location">verified_user</i>
+							Usuário logado
+						</div>
 					</div>
 				</div>
 			</a>
@@ -77,22 +81,18 @@
 		</div>
 
 		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
-			<a href = "reservlab.php?alter-account">
-				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
+			<a href="reservlab.php?calender">
+				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
-						<div class="icon icon-info">
-							<span class="material-icons">fingerprint</span>
+						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
+							<div class="gif-container">
+								<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+							</div>
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category">Administrador</p>
-						<h3 class="card-title"><?php echo $name?></h3>
-					</div>
-					<div class="card-footer">
-						<div class="stats">
-						<i class="material-icons text-location">verified_user</i>
-							Usuário logado
-						</div>
+						<p class="category">Agendar Locação</p>
+						<h3 class="card-title">Calendário</h3>
 					</div>
 				</div>
 			</a>

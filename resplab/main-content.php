@@ -17,19 +17,23 @@
 	?>
 	<div class="row">
 
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
-			<a href="reservlab.php?calender">
-				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+	<div class="div-swing col-lg-6 col-md-6 col-sm-6">
+			<a href = "reservlab.php?alter-account">
+				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
-						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
-							<div class="gif-container">
-								<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-							</div>
+						<div class="icon icon-info icon-animation">
+							<span class="material-icons">fingerprint</span>
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category">Agendar Locação</p>
-						<h3 class="card-title">Calendário</h3>
+						<p class="category-animation">Aprovador</p>
+						<h3 class="name-animation"><?php echo $name?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+						<i class="material-icons text-location">verified_user</i>
+							Usuário logado
+						</div>
 					</div>
 				</div>
 			</a>
@@ -78,22 +82,18 @@
 		</div>
 
 		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
-			<a href = "reservlab.php?alter-account">
-				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
+			<a href="reservlab.php?calender">
+				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
-						<div class="icon icon-info">
-							<span class="material-icons">fingerprint</span>
+						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
+							<div class="gif-container">
+								<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+							</div>
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category">Aprovador</p>
-						<h3 class="card-title"><?php echo $name?></h3>
-					</div>
-					<div class="card-footer">
-						<div class="stats">
-						<i class="material-icons text-location">verified_user</i>
-							Usuário logado
-						</div>
+						<p class="category">Agendar Locação</p>
+						<h3 class="card-title">Calendário</h3>
 					</div>
 				</div>
 			</a>
@@ -146,7 +146,7 @@
 	<!---row-second----->
 
 	<div class="row">
-		<div class="col-lg-9 col-md-20">
+		<div class="col-lg-9 col-md-9">
 			<div class="card" style="min-height:535px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Pedidos de Reservas Aguardando sua Aprovação</h4>
@@ -213,18 +213,18 @@
 						</thead>
 
 						<?php  
-							$session_id = $_SESSION['users_id'];
+							
 							$perPage = 6; // Número de resultados por página
 							$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
 							$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-							$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
+							$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 AND users_id != '$_SESSION[users_id]'")->fetch_assoc()['total']; // Total de resultados no banco de dados
 							$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
 							$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 
 							$querypd = $conn->query("SET @groupId = (
 								SELECT approver_id
 								FROM gp_approver
-								WHERE users_id = $session_id
+								WHERE users_id = '$_SESSION[users_id]'
 							)");
 							
 							$querypd2 = $conn->query("SELECT
@@ -247,7 +247,7 @@
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 							WHERE
 								lc.status_id = 1
-								AND lc.users_id != $session_id 
+								AND lc.users_id != '$_SESSION[users_id]' 
 								AND ms.mensagens_id = 2
 								AND (
 									(@groupId = 1) -- Administrador

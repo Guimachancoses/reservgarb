@@ -39,7 +39,7 @@
                         </div>
                         <div class="add-event-body">
                             <div class="add-event-input">
-                                <select class="event-name select-box" >
+                                <select class="event-name select-box">
                                     <!-- query para trazer as salas -->
                                     <option value="" disabled selected>Escolha o que você deseja locar</option>
                                     <optgroup label="Salas">

@@ -1107,3 +1107,82 @@ a.btn.btn-success:focus {
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
 }
+
+/* ----------------------------------------------- */
+
+/* 
+/* ----------------------------------------------- */
+
+/* Definir a animação de entrada para o nome */
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Definir a animação para o local fixo após a entrada do nome */
+@keyframes move-to-fixed {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+/* Definir a animação de entrada com atraso para a categoria */
+@keyframes slide-in-delayed {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Definir a animação de entrada com atraso para o ícone */
+@keyframes slide-in-icon {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Definir a animação de entrada da direita para a esquerda para "Usuário logado" */
+@keyframes slide-in-stats {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Aplicar as animações */
+.name-animation {
+  animation: slide-in 1s ease forwards, move-to-fixed 2s ease-in-out 2s forwards;
+}
+
+.category-animation {
+  animation: slide-in-delayed 2s ease, move-to-fixed 2s ease-in-out 2s forwards;
+}
+
+.icon-animation {
+  animation: slide-in-icon 1.5s ease, move-to-fixed 2s ease-in-out 2s forwards;
+}
+
+/* Ajustar a propriedade transform para o ícone */
+.icon-info .material-icons {
+  transform: translateY(0); /* Posição inicial do ícone */
+}
+
+.stats {
+  animation: slide-in-stats 1s ease, move-to-fixed 2s ease-in-out 2s forwards;
+}

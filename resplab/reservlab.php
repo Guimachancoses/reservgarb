@@ -48,17 +48,9 @@
 	else if(preg_match("~editvei~", $url)) {
     	$content = 'vehicles/vehicles.php';
 	}
-	// Redirecionamento para editar veículos
-	else if(preg_match("~edit-vehicles~", $url)) {
-    	$content = 'vehicles/edit-vehicles.php';
-	}
 	// Redirecionamento para listar equipamentos
 	else if(preg_match("~editequip~", $url)) {
     	$content = 'equip/equip.php';
-	}
-	// Redirecionamento para editar equipamentos
-	else if(preg_match("~edit-equip~", $url)) {
-    	$content = 'equip/edit-equip.php';
 	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else

@@ -55,7 +55,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                        <a href = "reservlab.php?alter-account" style="display:flex;align-items:center;justify-content:center;" class="text-primary">Alterar seu dados</a>
+                        <a href = "reservlab.php?alter-account" style="display:flex;align-items:center;justify-content:center;" class="text-primary">Alterar sua senha</a>
                         </li>
                     </ul>
                 </li>

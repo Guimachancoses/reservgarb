@@ -40,7 +40,7 @@
 		</div>
 
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $edituser?>">
+			<a href="reservlab.php?<?php echo $mybookp?>">
 				<div class="card card-stats">
 					<div class="card-header">
 						<div class="icon icon-warning">
@@ -62,7 +62,7 @@
 		</div>
 
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $penlab?>"><div class="card card-stats" >
+			<a href="reservlab.php?<?php echo $mybookr?>"><div class="card card-stats" >
 				<div class="card-header">
 					<div class="icon icon-rose">
 						<span class="material-icons">thumb_up_alt</span>
@@ -82,7 +82,7 @@
 		</div>
 
 		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
-			<a href="reservlab.php?calender">
+			<a href="reservlab.php?rscalender">
 				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
 						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
@@ -347,7 +347,7 @@
 </div>
 								
 		    <div class="col-lg-3 col-md-12">
-		        <div class="card" style="min-height:485px">
+		        <div class="card" style="min-height:535px">
 			        <div class="card-header card-header-text">
                   		<h4 class="card-title">Atividade</h4>
                     </div>

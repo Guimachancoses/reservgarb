@@ -32,7 +32,7 @@
 
         // Verificar se locação por periodo já existe
 
-        $query = $conn->query("SELECT * FROM lc_periodo WHERE users_id = $users_id && room_id = $room_id && checkin =   $checkin && checkout = $checkout") or die(mysqli_error());
+        $query = $conn->query("SELECT * FROM lc_periodo WHERE users_id = $users_id && room_id = $room_id && checkin =  $checkin && checkout = $checkout") or die(mysqli_error());
 
         // Loop através de cada dia no período
         for ($data = $checkin; $data <= $checkout; $data->modify('+1 day')) {

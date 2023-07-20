@@ -89,7 +89,7 @@
                                 $perPage = 10; // Número de resultados por página
                                 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
                                 $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
+                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 && users_id != $session_id")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 
@@ -118,7 +118,8 @@
                                 INNER JOIN `status` st ON st.status_id = lc.status_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
                                 WHERE
-                                    lc.status_id = 1 
+                                    lc.status_id = 1
+                                    AND lc.users_id != $session_id 
                                     AND ms.mensagens_id = 2
                                     AND (
                                         (@groupId = 1) -- Administrador

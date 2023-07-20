@@ -16,7 +16,7 @@
                         }
                     </script>
 					<div class="card-header card-header-text">
-					<h4 class="card-title"><strong class="text-primary"> Reservados</strong></h4>
+					<h4 class="card-title"><strong class="text-primary">Pedidos Reservados</strong></h4>
 						<p class="category">Caso queira liberar a reserva, clique do botão ao lado:</p>
 					</div>
 					<div class="card-content table-responsive">

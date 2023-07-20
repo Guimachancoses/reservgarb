@@ -27,26 +27,26 @@ if ($conn->connect_error) {
 }
 
 // Executa a primeira consulta para obter o room_id
-$stmt = $conn->prepare("SELECT room_id FROM laboratorios WHERE room_type = ?");
+$stmt = $conn->prepare("SELECT room_id, approver_id FROM laboratorios WHERE room_type = ?");
 $stmt->bind_param("s", $eventTitle);
 $stmt->execute();
-$stmt->bind_result($room_id);
+$stmt->bind_result($room_id, $approver_id);
 $stmt->fetch();
 $stmt->close();
 
 // Executa a primeira consulta para obter o vehicle_id
-$stmt = $conn->prepare("SELECT vehicle_id FROM vehicles WHERE name = ?");
+$stmt = $conn->prepare("SELECT vehicle_id, approver_id FROM vehicles WHERE name = ?");
 $stmt->bind_param("s", $eventTitle);
 $stmt->execute();
-$stmt->bind_result($vehicle_id);
+$stmt->bind_result($vehicle_id, $approver_id);
 $stmt->fetch();
 $stmt->close();
 
 // Executa a primeira consulta para obter o equip_id
-$stmt = $conn->prepare("SELECT equip_id FROM equipment WHERE equipment = ?");
+$stmt = $conn->prepare("SELECT equip_id, approver_id FROM equipment WHERE equipment = ?");
 $stmt->bind_param("s", $eventTitle);
 $stmt->execute();
-$stmt->bind_result($equip_id);
+$stmt->bind_result($equip_id, $approver_id);
 $stmt->fetch();
 $stmt->close();
 
@@ -59,8 +59,21 @@ $stmt->fetch();
 $stmt->close();
 
 // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
-$verif = $conn->prepare("SELECT * FROM locacao WHERE room_id = ? AND vehicle_id = ? AND equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? AND mensagens_id != 4");
-$verif->bind_param("iiisss", $room_id, $vehicle_id, $equip_id, $mysql_date, $timeFrom, $timeTo);
+$verif = $conn->prepare("SELECT locacao_id
+                            FROM locacao
+                            WHERE locacao_id IN (
+                                    SELECT locacao_id
+                                    FROM locacao 
+                                    WHERE room_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
+                            OR locacao_id IN (
+                                    SELECT locacao_id 
+                                    FROM locacao 
+                                    WHERE vehicle_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
+                            OR locacao_id IN (
+                                    SELECT locacao_id 
+                                    FROM locacao 
+                                    WHERE equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)");
+$verif->bind_param("isssisssisss", $room_id, $mysql_date, $timeFrom, $timeTo, $vehicle_id, $mysql_date, $timeFrom, $timeTo, $equip_id, $mysql_date, $timeFrom, $timeTo);
 $verif->execute();
 $verif->store_result();
 $valid = $verif->num_rows();
@@ -74,8 +87,8 @@ else {
     $status_id = 1;
 
     // Realiza o INSERT no banco de dados usando as variáveis `room_id` e `disciplina_id`
-    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiiiiisss", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo);
+    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iiiiiisssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id);
     $stmt->execute();
     $stmt->close();
 

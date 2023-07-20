@@ -14,15 +14,15 @@
                         }
                     </script>
                 <div class="card-header card-header-text">
-                    <h4 class="card-title"><strong class="text-primary">Veículos</strong></h4>
-                    <p class="category">Escolha qual veículo você deseja reservar e verifique a sua disponibilidade:</p>
+                    <h4 class="card-title"><strong class="text-primary">Equipamentos</strong></h4>
+                    <p class="category">Escolha qual equipamento você deseja reservar e verifique a sua disponibilidade:</p>
                 </div>
                 <div class="card-content table-responsive" style="padding:2">
                     <div style = "background-color:white;" class = "container">
                         <div class = "panel panel-default" >
                             <?php
                                 require_once 'connect.php';
-                                $query = $conn->query("SELECT * FROM `vehicles` ORDER BY vehicle_id Desc") or die(mysqli_error($conn));
+                                $query = $conn->query("SELECT * FROM `equipment` ORDER BY equip_id Desc") or die(mysqli_error($conn));
                                 while($fetch = $query->fetch_array()){
                             ?>
                             <div class="card">
@@ -31,9 +31,8 @@
                                         <img class="image" src="../photo/<?php echo $fetch['photo']?>" alt="../photo/gar.jpg" height="250" width="70%" onmouseover="changeImage(this)" onmouseout="restoreImage(this)">
                                     </div>
                                     <div style = "float:left; margin-top:120px;margin-bottom:10px">
-                                        <h3 class="category"><?php echo '<strong class="text-primary">Nome: </strong>'.$fetch['name']?></h3>
-                                        <h3 class="category"><?php echo '<strong class="text-primary">Modelo: </strong>'.$fetch['model']?></h3>
-                                        <h3 class="category"><?php echo '<strong class="text-primary">Descrição: </strong>'.$fetch['description']?></h3>
+                                        <h3 class="category"><?php echo '<strong class="text-primary">Nome: </strong>'.$fetch['equipment']?></h3>
+                                        <h3 class="category"><?php echo '<strong class="text-primary">Decrição: </strong>'.$fetch['description']?></h3>
                                         </br>
                                         <a class="btn btn-info" href="reservlab.php?rscalender" style="display: flex; align-items: center; text-decoration: none;justify-content:center;">
                                             <span style="margin-right: 5px;color:white">Reservar</span>

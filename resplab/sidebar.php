@@ -20,9 +20,11 @@
                         <span><strong>Reserve Garbuio</strong></span>
                 </h3>
             <ul class="list-unstyled components">
+
 			    <li>
                     <a href="reservlab.php" class="dashboard"><i class="material-icons">home</i><span>Página Inicial</span></a>
-                </li>		
+                </li>
+
 		      <div class="small-screen navbar-display">
                 <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
                     <a href="#homeSubmenu0" data-toggle="collapse" aria-expanded="false">
@@ -66,9 +68,9 @@
 				</div>			
 
                 <li>
-                    <?php $editsoft = 'editsoft';
+                    <?php $listroom = 'listroom';
                     ?>
-                    <a href="reservlab.php?<?php echo $editsoft?>"><i class="material-icons">add_home_work</i><span>Salas</span></a>
+                    <a href="reservlab.php?<?php echo $listroom?>"><i class="material-icons">add_home_work</i><span>Salas</span></a>
                 </li>
 
 
@@ -80,9 +82,9 @@
                 </li>
 
                 <li>
-                    <?php $addrequire = 'addrequire';
+                    <?php $listequip = 'listequip';
                         ?>
-                    <a href="reservlab.php?<?php echo $addrequire?>"><i class="material-icons">api</i><span>Equipamentos</span></a>
+                    <a href="reservlab.php?<?php echo $listequip?>"><i class="material-icons">api</i><span>Equipamentos</span></a>
                 </li>
 
                 <li class="dropdown">
@@ -91,15 +93,21 @@
                     <ul class="collapse list-unstyled menu" id="pageSubmenu3">
 
                         <li>
-                            <?php $callpen = 'callpen';
+                            <?php $mybookp = 'mybookp';
                                 ?>
-                            <a href="reservlab.php?<?php echo $callpen?>"><i class="material-icons" style="color:#ff9800" >hourglass_empty</i><small>Meus Pedidos Pendentes</small></a>
+                            <a href="reservlab.php?<?php echo $mybookp?>"><i class="material-icons" style="color:#ff9800" >hourglass_empty</i><small>Meus Pedidos Pendentes</small></a>
                         </li>
 
                         <li>
-                            <?php $minres = 'minres';
+                            <?php $mybookr = 'mybookr';
                                 ?>
-                            <a href="reservlab.php?<?php echo $minres?>"><i class="material-icons" style="color:#e91e63" >thumb_up_alt</i><small>Minhas Reservas</small></a>
+                            <a href="reservlab.php?<?php echo $mybookr?>"><i class="material-icons" style="color:#e91e63" >thumb_up_alt</i><small>Minhas Reservas</small></a>
+                        </li>
+
+                        <li>
+                            <?php $mybookf = 'mybookf';
+                                ?>
+                            <a href="reservlab.php?<?php echo $mybookf?>"><i class="material-icons" style="color:#00bcd4" >real_estate_agent</i><small>Meus Pedidos Finalizados</small></a>
                         </li>
 
                         <li>
@@ -133,9 +141,15 @@
                 </li>
 				
 				 <li>
-                    <?php $calender = 'calender';
+                    <?php $calender = 'rscalender';
                         ?>
                     <a href="reservlab.php?<?php echo $calender?>"><i class="material-icons" >calendar_month</i><span>Calendário</span></a>
+                </li>
+
+                </br>
+
+                <li>
+                <a href="https://central.tiflux.com.br/r/externals/tickets/new/3aa2d6da09887613520201a9e460c267016c8c15"><span class="btn btn-info form-control" style="color:white">Abrir ticket</span></a>                   
                 </li>
                
                

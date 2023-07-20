@@ -16,25 +16,37 @@
 <?php 
 	// Redirecionamento para adicinar usuários
 	$url = $_SERVER["REQUEST_URI"];
-	// Redirecionamento para pedidos de reserva de laboratórios pendentes ou excluir caso desejado
+	// Redirecionamento para pedidos de reserva de salas pendentes ou excluir caso desejado
 	if(preg_match("~penlab~", $url)) {
     	$content = 'book/reservation.php';
 	}
-	// Redirecionamento para corfimar reserva de laboratórios pendentes
+	// Redirecionamento para corfimar reserva de salas pendentes
 	else if(preg_match("~confirm-reserve~", $url)) {
     	$content = 'book/confirm-reserve.php';
 	}
-	// Redirecionamento para mostrar reservas de laboratórios e liberar reserva caso desejado
+	// Redirecionamento para mostrar reservas de salas e liberar reserva caso desejado
 	else if(preg_match("~reslab~", $url)) {
     	$content = 'book/reserved.php';
 	}
-	// Redirecionamento para listar histórico de reserva dos laboratórios
+	// Redirecionamento para pedidos de reserva de salas pendentes
+	else if(preg_match("~mybookp~", $url)) {
+    	$content = 'mybook/my_reservation.php';
+	}
+	// Redirecionamento para listar histórico de reserva dos salas
+	else if(preg_match("~mybookf~", $url)) {
+    	$content = 'mybook/my_finalized.php';
+	}
+	// Redirecionamento para mostrar reservas de salas e liberar reserva caso desejado
+	else if(preg_match("~mybookr~", $url)) {
+    	$content = 'mybook/my_reserved.php';
+	}
+	// Redirecionamento para listar histórico de reserva dos salas
 	else if(preg_match("~finlab~", $url)) {
     	$content = 'book/finalized.php';
 	}
 	// Redirecionamento para calendário
-	else if(preg_match("~calender~", $url)) {
-    	$content = 'calender/calender.php';
+	else if(preg_match("~rscalender~", $url)) {
+    	$content = 'rscalender/rscalender.php';
 	}
 	// Redirecionamento para alterar a própria conta de usuário
 	else if(preg_match("~alter-account~", $url)) {
@@ -47,6 +59,14 @@
 	// Redirecionamento para listar veículos
 	else if(preg_match("~editvei~", $url)) {
     	$content = 'vehicles/vehicles.php';
+	}
+	// Redirecionamento para listar salas
+	else if(preg_match("~listroom~", $url)) {
+    	$content = 'labs/room_list.php';
+	}
+	// Redirecionamento para listar equipamentos
+	else if(preg_match("~listequip~", $url)) {
+    	$content = 'equips/equip_list.php';
 	}
 	// Redirecionamento para listar equipamentos
 	else if(preg_match("~editequip~", $url)) {

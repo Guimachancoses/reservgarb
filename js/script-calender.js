@@ -535,10 +535,7 @@ eventsContainer.addEventListener("click", (e) => {
       formData.append("eventCheckin", checkin);
       formData.append("eventTimeFrom", firstTime);
 
-      // Adiciona o valor da variável de sessão ao formData
-      formData.append("users_id", "<?php echo $_SESSION['users_id']; ?>");
-
-      fetch("../admin/delete_cal_query.php", {
+      fetch("./delete_cal_query.php", {
         method: "POST",
         body: formData,
       })
@@ -570,7 +567,6 @@ eventsContainer.addEventListener("click", (e) => {
                 }
               }
             });
-            updateEvents(activeDay);
           }
         })
         .catch((error) => {
@@ -596,8 +592,6 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
     var firstname = nameParts[0]; // A primeira parte contém o primeiro nome
     var lastname = nameParts[1]; // A segunda parte contém o segundo nome
 
-    console.log(checkin);
-
     // Envia uma solicitação POST para a API "locacao_query.php" para inserir o evento do banco de dados
     var inser = new FormData();
     inser.append("firstname", firstname);
@@ -614,12 +608,10 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
       .then((response) => response.text())
       .then((result) => {
         if (result == "") {
-          console.log(result);
           reject(
             " - ERRO -\n \n * Verifique se já existe uma reserva nesse horário. *"
           );
         } else {
-          console.log(result);
           // Caso a API retorne evento cadastrado, set true
           resolve(true);
         }

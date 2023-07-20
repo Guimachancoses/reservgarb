@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/07/2023 às 05:05
+-- Tempo de geração: 18-Jul-2023 às 23:10
 -- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,10 +26,10 @@ USE `locationlab_db`;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `activities`
+-- Estrutura da tabela `activities`
 --
--- Criação: 14/07/2023 às 20:41
--- Última atualização: 16/07/2023 às 17:44
+-- Criação: 18-Jul-2023 às 13:30
+-- Última actualização: 18-Jul-2023 às 20:23
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -49,181 +49,30 @@ CREATE TABLE `activities` (
 --
 
 --
--- Despejando dados para a tabela `activities`
+-- Extraindo dados da tabela `activities`
 --
 
 INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
-(2, 28, 1, '2023-06-05 13:13:24'),
-(3, 1, 1, '2023-06-05 13:23:42'),
-(4, 1, 1, '2023-06-05 13:27:17'),
-(5, 6, 1, '2023-06-05 13:35:49'),
-(6, 1, 1, '2023-06-05 13:41:09'),
-(7, 1, 1, '2023-06-05 14:16:49'),
-(8, 1, 1, '2023-06-05 14:17:55'),
-(9, 5, 1, '2023-06-05 14:18:24'),
-(10, 5, 1, '2023-06-05 14:18:53'),
-(11, 5, 1, '2023-06-05 14:19:06'),
-(12, 5, 1, '2023-06-05 14:19:19'),
-(13, 5, 1, '2023-06-05 14:19:35'),
-(14, 5, 1, '2023-06-05 14:19:53'),
-(15, 1, 1, '2023-06-05 15:07:35'),
-(19, 11, NULL, '2023-06-05 15:30:46'),
-(21, 11, NULL, '2023-06-05 15:33:09'),
-(22, 11, NULL, '2023-06-05 16:19:43'),
-(24, 11, NULL, '2023-06-05 16:24:16'),
-(25, 13, NULL, '2023-06-05 16:25:05'),
-(26, 13, NULL, '2023-06-05 16:25:08'),
-(27, 13, NULL, '2023-06-05 16:25:14'),
-(28, 13, NULL, '2023-06-05 16:25:20'),
-(29, 13, NULL, '2023-06-05 16:25:52'),
-(30, 13, NULL, '2023-06-05 16:25:56'),
-(31, 13, NULL, '2023-06-05 16:26:12'),
-(32, 13, NULL, '2023-06-05 16:26:17'),
-(33, 13, NULL, '2023-06-05 16:26:33'),
-(41, 7, 1, '2023-06-05 16:37:58'),
-(46, 11, NULL, '2023-06-05 16:59:37'),
-(49, 11, NULL, '2023-06-05 17:06:37'),
-(50, 13, NULL, '2023-06-05 17:07:01'),
-(51, 13, NULL, '2023-06-05 17:07:12'),
-(86, 4, 1, '2023-06-14 12:18:31'),
-(87, 4, 1, '2023-06-14 12:18:31'),
-(88, 4, 1, '2023-06-14 12:18:31'),
-(89, 4, 1, '2023-06-14 12:18:31'),
-(90, 4, 1, '2023-06-14 12:18:31'),
-(91, 4, 1, '2023-06-14 12:18:31'),
-(92, 4, 1, '2023-06-14 12:18:31'),
-(93, 4, 1, '2023-06-14 12:18:31'),
-(94, 4, 1, '2023-06-15 12:41:45'),
-(95, 4, 1, '2023-06-16 13:25:04'),
-(96, 1, 1, '2023-06-16 19:28:31'),
-(97, 6, 1, '2023-06-16 19:48:34'),
-(98, 9, 1, '2023-06-16 19:58:33'),
-(99, 9, 1, '2023-06-16 19:58:40'),
-(100, 9, 1, '2023-06-16 19:58:45'),
-(101, 9, 1, '2023-06-16 19:59:45'),
-(102, 9, 1, '2023-06-16 19:59:48'),
-(103, 9, 1, '2023-06-16 19:59:48'),
-(104, 9, 1, '2023-06-16 19:59:49'),
-(105, 9, 1, '2023-06-16 19:59:50'),
-(106, 9, 1, '2023-06-16 20:00:04'),
-(107, 9, 1, '2023-06-16 20:00:06'),
-(108, 9, 1, '2023-06-16 20:00:07'),
-(109, 9, 1, '2023-06-16 20:00:07'),
-(110, 9, 1, '2023-06-16 20:00:09'),
-(111, 9, 1, '2023-06-16 20:00:11'),
-(112, 9, 1, '2023-06-16 20:00:12'),
-(113, 9, 1, '2023-06-16 20:00:15'),
-(114, 9, 1, '2023-06-16 20:00:15'),
-(115, 9, 1, '2023-06-16 20:00:16'),
-(116, 9, 1, '2023-06-16 20:00:17'),
-(117, 9, 1, '2023-06-16 20:00:45'),
-(118, 9, 1, '2023-06-16 20:00:45'),
-(119, 9, 1, '2023-06-16 20:00:46'),
-(120, 9, 1, '2023-06-16 20:00:47'),
-(121, 9, 1, '2023-06-16 20:00:48'),
-(122, 9, 1, '2023-06-16 22:25:02'),
-(123, 6, 1, '2023-06-16 22:34:02'),
-(124, 9, 1, '2023-06-16 22:35:43'),
-(125, 9, 1, '2023-06-16 22:35:45'),
-(126, 9, 1, '2023-06-16 22:35:46'),
-(127, 9, 1, '2023-06-16 22:35:47'),
-(128, 9, 1, '2023-06-16 22:35:51'),
-(129, 9, 1, '2023-06-16 22:35:52'),
-(130, 1, 1, '2023-06-16 23:31:49'),
-(131, 9, 1, '2023-06-16 23:35:51'),
-(132, 1, 1, '2023-06-16 23:36:46'),
-(133, 9, 1, '2023-06-17 00:48:30'),
-(134, 1, 1, '2023-06-17 00:49:34'),
-(135, 6, 1, '2023-06-17 01:04:33'),
-(136, 6, 1, '2023-06-17 01:08:23'),
-(137, 9, 1, '2023-06-17 01:45:01'),
-(138, 9, 1, '2023-06-17 01:45:03'),
-(139, 9, 1, '2023-06-17 01:45:06'),
-(140, 9, 1, '2023-06-17 01:45:07'),
-(141, 4, 1, '2023-06-17 02:33:59'),
-(142, 4, 1, '2023-06-23 13:07:51'),
-(143, 6, 1, '2023-06-23 13:09:22'),
-(144, 4, 1, '2023-06-29 15:12:24'),
-(145, 5, 1, '2023-07-10 19:30:53'),
-(146, 5, 1, '2023-07-10 20:44:00'),
-(147, 5, 1, '2023-07-10 20:44:53'),
-(148, 10, 1, '2023-07-12 17:37:33'),
-(149, 10, 1, '2023-07-12 17:37:41'),
-(150, 10, 1, '2023-07-12 17:37:55'),
-(151, 10, 1, '2023-07-12 17:48:20'),
-(152, 10, 1, '2023-07-12 17:48:28'),
-(153, 10, 1, '2023-07-12 17:48:33'),
-(154, 7, 1, '2023-07-12 18:20:45'),
-(155, 29, 1, '2023-07-12 20:35:04'),
-(156, 29, 1, '2023-07-12 20:41:27'),
-(157, 29, 1, '2023-07-12 20:43:01'),
-(158, 29, 1, '2023-07-12 20:45:40'),
-(159, 29, 1, '2023-07-12 20:46:28'),
-(160, 29, 1, '2023-07-13 15:24:18'),
-(161, 31, 1, '2023-07-13 15:37:54'),
-(162, 30, 1, '2023-07-13 15:43:03'),
-(163, 9, 1, '2023-07-13 17:57:51'),
-(164, 6, 1, '2023-07-13 17:59:44'),
-(165, 9, 1, '2023-07-13 18:00:51'),
-(166, 6, 1, '2023-07-13 18:02:03'),
-(167, 6, 1, '2023-07-13 18:02:18'),
-(168, 6, 1, '2023-07-13 18:02:37'),
-(169, 9, 1, '2023-07-13 18:03:16'),
-(170, 9, 1, '2023-07-13 18:03:19'),
-(171, 9, 1, '2023-07-13 18:03:21'),
-(172, 6, 1, '2023-07-13 18:04:14'),
-(173, 9, 1, '2023-07-13 18:04:18'),
-(174, 32, 1, '2023-07-13 18:46:07'),
-(175, 32, 1, '2023-07-13 18:54:29'),
-(176, 30, 1, '2023-07-13 19:47:05'),
-(177, 1, 1, '2023-07-13 20:34:11'),
-(178, 1, 1, '2023-07-13 20:38:24'),
-(179, 2, 1, '2023-07-13 23:53:08'),
-(180, 2, 1, '2023-07-14 00:00:36'),
-(181, 2, 1, '2023-07-14 00:09:37'),
-(182, 2, 1, '2023-07-14 00:17:51'),
-(183, 2, 1, '2023-07-14 00:18:35'),
-(184, 2, 1, '2023-07-14 00:26:34'),
-(185, 2, 1, '2023-07-14 00:28:05'),
-(186, 2, 1, '2023-07-14 00:30:23'),
-(187, 2, 1, '2023-07-14 00:34:25'),
-(188, 2, 1, '2023-07-14 00:38:26'),
-(189, 2, 1, '2023-07-14 00:39:45'),
-(190, 2, 1, '2023-07-14 00:40:29'),
-(191, 2, 1, '2023-07-14 14:55:42'),
-(192, 2, 1, '2023-07-14 14:56:02'),
-(193, 2, 1, '2023-07-14 16:25:23'),
-(194, 2, 1, '2023-07-14 16:28:20'),
-(195, 2, 1, '2023-07-14 16:30:28'),
-(196, 2, 1, '2023-07-14 16:48:56'),
-(197, 2, 1, '2023-07-14 16:50:15'),
-(198, 2, 1, '2023-07-14 16:52:48'),
-(199, 2, 1, '2023-07-14 16:55:38'),
-(200, 2, 1, '2023-07-14 16:57:12'),
-(201, 2, 1, '2023-07-14 17:39:33'),
-(202, 2, 1, '2023-07-14 21:26:13'),
-(203, 3, 1, '2023-07-14 21:46:09'),
-(204, 4, 1, '2023-07-15 18:10:40'),
-(205, 1, 1, '2023-07-15 18:13:03'),
-(206, 35, 1, '2023-07-16 01:29:00'),
-(207, 36, 1, '2023-07-16 01:29:08'),
-(208, 36, 1, '2023-07-16 01:29:16'),
-(209, 35, 1, '2023-07-16 01:29:22'),
-(210, 35, 1, '2023-07-16 02:08:10'),
-(211, 36, 1, '2023-07-16 02:08:14'),
-(212, 3, 1, '2023-07-16 15:55:12'),
-(213, 36, 1, '2023-07-16 17:05:41'),
-(214, 35, 1, '2023-07-16 17:42:00'),
-(215, 6, 1, '2023-07-16 17:44:46'),
-(216, 35, 1, '2023-07-16 17:44:58');
+(1, 2, 1, '2023-07-18 17:53:40'),
+(2, 2, 1, '2023-07-18 20:19:13'),
+(3, 2, 1, '2023-07-18 20:19:48'),
+(4, 2, 1, '2023-07-18 20:20:03'),
+(5, 2, 1, '2023-07-18 20:20:18'),
+(6, 2, 1, '2023-07-18 20:20:33'),
+(7, 2, 1, '2023-07-18 20:20:55'),
+(8, 2, 1, '2023-07-18 20:21:28'),
+(9, 3, 1, '2023-07-18 20:21:44'),
+(10, 3, 1, '2023-07-18 20:21:55'),
+(11, 3, 1, '2023-07-18 20:22:13'),
+(12, 3, 1, '2023-07-18 20:22:45'),
+(13, 2, 1, '2023-07-18 20:23:25');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `approver`
+-- Estrutura da tabela `approver`
 --
--- Criação: 14/07/2023 às 22:16
--- Última atualização: 14/07/2023 às 22:19
+-- Criação: 17-Jul-2023 às 11:40
 --
 
 DROP TABLE IF EXISTS `approver`;
@@ -237,7 +86,7 @@ CREATE TABLE `approver` (
 --
 
 --
--- Despejando dados para a tabela `approver`
+-- Extraindo dados da tabela `approver`
 --
 
 INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
@@ -249,9 +98,9 @@ INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `equipment`
+-- Estrutura da tabela `equipment`
 --
--- Criação: 14/07/2023 às 20:41
+-- Criação: 17-Jul-2023 às 11:40
 --
 
 DROP TABLE IF EXISTS `equipment`;
@@ -267,7 +116,7 @@ CREATE TABLE `equipment` (
 --
 
 --
--- Despejando dados para a tabela `equipment`
+-- Extraindo dados da tabela `equipment`
 --
 
 INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUES
@@ -277,10 +126,10 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `gp_approver`
+-- Estrutura da tabela `gp_approver`
 --
--- Criação: 14/07/2023 às 22:20
--- Última atualização: 16/07/2023 às 17:44
+-- Criação: 17-Jul-2023 às 11:40
+-- Última actualização: 17-Jul-2023 às 11:57
 --
 
 DROP TABLE IF EXISTS `gp_approver`;
@@ -299,21 +148,22 @@ CREATE TABLE `gp_approver` (
 --
 
 --
--- Despejando dados para a tabela `gp_approver`
+-- Extraindo dados da tabela `gp_approver`
 --
 
 INSERT INTO `gp_approver` (`gp_approver_id`, `users_id`, `approver_id`) VALUES
 (1, 1, 1),
 (5, 17, 2),
 (8, 11, 1),
-(9, 15, 1);
+(9, 15, 1),
+(10, 18, 3);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `laboratorios`
+-- Estrutura da tabela `laboratorios`
 --
--- Criação: 14/07/2023 às 20:41
+-- Criação: 17-Jul-2023 às 11:40
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -329,7 +179,7 @@ CREATE TABLE `laboratorios` (
 --
 
 --
--- Despejando dados para a tabela `laboratorios`
+-- Extraindo dados da tabela `laboratorios`
 --
 
 INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUES
@@ -340,10 +190,10 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `locacao`
+-- Estrutura da tabela `locacao`
 --
--- Criação: 16/07/2023 às 01:36
--- Última atualização: 16/07/2023 às 15:55
+-- Criação: 17-Jul-2023 às 11:40
+-- Última actualização: 18-Jul-2023 às 20:23
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -380,23 +230,27 @@ CREATE TABLE `locacao` (
 --
 
 --
--- Despejando dados para a tabela `locacao`
+-- Extraindo dados da tabela `locacao`
 --
 
 INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
-(20, 15, 9, NULL, NULL, 4, 4, '2023-07-14', '20:00:00', '23:00:00', 4),
-(28, 15, 7, NULL, NULL, 3, 2, '2023-07-17', '20:00:00', '23:00:00', 4),
-(38, 11, NULL, 1, NULL, 3, 2, '2023-07-18', '20:00:00', '23:00:00', 2),
-(39, 16, NULL, NULL, 1, 2, 1, '2023-07-19', '10:00:00', '23:00:00', 3),
-(40, 15, NULL, 1, NULL, 2, 1, '2023-07-20', '20:00:00', '23:00:00', 2);
+(28, 15, 7, NULL, NULL, 4, 4, '2023-07-17', '20:00:00', '23:00:00', 4),
+(38, 11, NULL, 1, NULL, 4, 4, '2023-07-18', '20:00:00', '23:00:00', 2),
+(42, 11, NULL, 5, NULL, 3, 2, '2023-07-18', '20:00:00', '23:00:00', NULL),
+(43, 15, 7, NULL, NULL, 3, 2, '2023-07-19', '12:00:00', '13:00:00', NULL),
+(44, 15, NULL, 1, NULL, 3, 2, '2023-07-20', '18:00:00', '00:00:00', NULL),
+(46, 18, NULL, NULL, 2, 3, 2, '2023-07-23', '13:00:00', '16:00:00', NULL),
+(47, 16, NULL, 3, NULL, 2, 1, '2023-07-24', '12:00:00', '23:00:00', NULL),
+(48, 17, 8, NULL, NULL, 2, 1, '2023-07-25', '16:00:00', '19:00:00', NULL),
+(49, 16, NULL, NULL, 1, 2, 1, '2023-07-21', '20:00:00', '23:00:00', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `mensagens`
+-- Estrutura da tabela `mensagens`
 --
--- Criação: 14/07/2023 às 20:41
--- Última atualização: 16/07/2023 às 01:11
+-- Criação: 17-Jul-2023 às 11:40
+-- Última actualização: 18-Jul-2023 às 13:31
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -410,35 +264,20 @@ CREATE TABLE `mensagens` (
 --
 
 --
--- Despejando dados para a tabela `mensagens`
+-- Extraindo dados da tabela `mensagens`
 --
 
 INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 (1, 'Usuário Inserido com sucesso!'),
 (2, 'Solicitações pendentes!'),
-(3, 'Laboratório reservado!!'),
-(4, 'Evento finalizado!!'),
-(5, 'Laboratório inserido com sucesso!!'),
+(3, 'Reserva realizada!'),
+(4, 'Reserva finalizada!!'),
+(5, 'Sala inserida com sucesso!'),
 (6, 'Usuário editado com sucesso!'),
-(7, 'Laboratório editado com sucesso!!'),
-(8, 'Pendências excluídas!!'),
-(9, 'Usuário excluído com sucesso!!'),
-(10, 'Laboratório excluído com sucesso!!'),
-(11, 'Software inserido com sucesso!!'),
-(12, 'Software editado com sucesso!!'),
-(13, 'Requisitos do lab. inseridos!!'),
-(14, 'Requisitos do lab. editados!!'),
-(15, 'Requisições pendentes!!'),
-(16, 'Software excluído com sucesso!!'),
-(17, 'Requisitos do lab. excluídos!!'),
-(18, 'Disciplina inserida com sucesso!!'),
-(19, 'Disciplina editada com sucesso!!'),
-(20, 'Disciplina excluída com sucesso!!'),
-(21, 'Requisito inserido à disciplina!!'),
-(22, 'Requisito excluído da disciplina!!'),
-(23, 'Chamado aberto!'),
-(24, 'Chamado alterado!'),
-(25, 'Chamado excluído!'),
+(7, 'Sala editada com sucesso!'),
+(8, 'Pendências excluídas!'),
+(9, 'Usuário excluído com sucesso!'),
+(10, 'Sala excluída com sucesso!'),
 (26, 'Senha alterada!'),
 (27, 'Senha alterada!'),
 (28, 'Seus dados foram alterados!'),
@@ -454,9 +293,9 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pwdtemp`
+-- Estrutura da tabela `pwdtemp`
 --
--- Criação: 14/07/2023 às 20:41
+-- Criação: 17-Jul-2023 às 11:40
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
@@ -475,9 +314,9 @@ CREATE TABLE `pwdtemp` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `status`
+-- Estrutura da tabela `status`
 --
--- Criação: 14/07/2023 às 20:41
+-- Criação: 17-Jul-2023 às 11:40
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -491,7 +330,7 @@ CREATE TABLE `status` (
 --
 
 --
--- Despejando dados para a tabela `status`
+-- Extraindo dados da tabela `status`
 --
 
 INSERT INTO `status` (`status_id`, `status`) VALUES
@@ -506,10 +345,10 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
+-- Estrutura da tabela `users`
 --
--- Criação: 14/07/2023 às 22:25
--- Última atualização: 16/07/2023 às 17:44
+-- Criação: 17-Jul-2023 às 11:40
+-- Última actualização: 17-Jul-2023 às 21:05
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -532,22 +371,23 @@ CREATE TABLE `users` (
 --
 
 --
--- Despejando dados para a tabela `users`
+-- Extraindo dados da tabela `users`
 --
 
 INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
-(1, 'Guilherme', 'Machancoses', 'Administrador', 'guilherme.machancoses@gmail.com', '19981955602', '37565229890', '$2y$10$RylogYa9uphx/65rXnElnuGBldU24osOcYLt6mcyVqyq4UYcMGw3W', 5),
+(1, 'Guilherme', 'Machancoses', 'Administrador', 'guilherme.machancoses@gmail.com', '19981955602', '37565229890', '$2y$10$ei1w1VFlynqxNSGVlJKPsOy67BZ9/rzSDu6Olu0cJC9nzkvAccp/q', 5),
 (11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '375.652.298-90', '$2y$10$dJAcS5q4pvq522.HVHpLmeZN6jI4E.6uzPr.qwGkb9SAgRjEMpCB6', 5),
-(15, 'Orlando', 'Bagni', 'Aprovador', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$AK6U0VFfZs5L9pyo4TCLb.OL08zDvgrJSUj.hdt7HdOjrswsBtCNm', 5),
+(15, 'Orlando', 'Bagni', 'Aprovador', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$Am450jjp2.nHHs8ZsyBB4u3DOJVHuYvQgD4rX/CJZgjM6c/mrKKTW', 5),
 (16, 'Cesar', 'Monção', 'Usuário', 'cesarmoncao@garbuio.com.br', '19998068077', '286.430.488-01', '$2y$10$rFic2iVN3XhJKEuKORVQNeUUhbHUc6PvXXaIzB32jh.YR0EPKrkvO', 5),
-(17, 'Fernanda', 'Rochel', 'Aprovador', 'fernandarochel@garbuio.com.br', '19981955602', '375.652.298-90', '$2y$10$NtMqr2RtDs19z0THswbiSeHUnjY2U5gO7RdUwnenqxPA4Mo2bRPpK', 5);
+(17, 'Fernanda', 'Rochel', 'Aprovador', 'fernandarochel@garbuio.com.br', '19981971509', '460.748.888-76', '$2y$10$BKNAQwIVQK382iIF3kDPfuoPLEMxhzmgqpcBbmYZRekykdx.8eQjK', 5),
+(18, 'Janaina', 'Campos', 'Aprovador', 'janainacampos@garbuio.com.br', '19997411896', '343.524.098-98', '$2y$10$YZMyfdMPPkHagKZMAxyY6uImu80vsb7YscC6IwNdojRsZ4pc3LC.K', 5);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `vehicles`
+-- Estrutura da tabela `vehicles`
 --
--- Criação: 14/07/2023 às 20:41
+-- Criação: 17-Jul-2023 às 11:40
 --
 
 DROP TABLE IF EXISTS `vehicles`;
@@ -564,7 +404,7 @@ CREATE TABLE `vehicles` (
 --
 
 --
--- Despejando dados para a tabela `vehicles`
+-- Extraindo dados da tabela `vehicles`
 --
 
 INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) VALUES
@@ -579,7 +419,7 @@ INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) V
 --
 
 --
--- Índices de tabela `activities`
+-- Índices para tabela `activities`
 --
 ALTER TABLE `activities`
   ADD PRIMARY KEY (`atctive_id`),
@@ -587,19 +427,19 @@ ALTER TABLE `activities`
   ADD KEY `users_id` (`users_id`);
 
 --
--- Índices de tabela `approver`
+-- Índices para tabela `approver`
 --
 ALTER TABLE `approver`
   ADD PRIMARY KEY (`approver_id`);
 
 --
--- Índices de tabela `equipment`
+-- Índices para tabela `equipment`
 --
 ALTER TABLE `equipment`
   ADD PRIMARY KEY (`equip_id`);
 
 --
--- Índices de tabela `gp_approver`
+-- Índices para tabela `gp_approver`
 --
 ALTER TABLE `gp_approver`
   ADD PRIMARY KEY (`gp_approver_id`),
@@ -607,13 +447,13 @@ ALTER TABLE `gp_approver`
   ADD KEY `users_id` (`users_id`);
 
 --
--- Índices de tabela `laboratorios`
+-- Índices para tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
   ADD PRIMARY KEY (`room_id`);
 
 --
--- Índices de tabela `locacao`
+-- Índices para tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD PRIMARY KEY (`locacao_id`),
@@ -626,45 +466,45 @@ ALTER TABLE `locacao`
   ADD KEY `approver_id` (`approver_id`);
 
 --
--- Índices de tabela `mensagens`
+-- Índices para tabela `mensagens`
 --
 ALTER TABLE `mensagens`
   ADD PRIMARY KEY (`mensagens_id`);
 
 --
--- Índices de tabela `pwdtemp`
+-- Índices para tabela `pwdtemp`
 --
 ALTER TABLE `pwdtemp`
   ADD PRIMARY KEY (`pwd_temp`);
 
 --
--- Índices de tabela `status`
+-- Índices para tabela `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`status_id`);
 
 --
--- Índices de tabela `users`
+-- Índices para tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`users_id`),
   ADD KEY `status` (`status`);
 
 --
--- Índices de tabela `vehicles`
+-- Índices para tabela `vehicles`
 --
 ALTER TABLE `vehicles`
   ADD PRIMARY KEY (`vehicle_id`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `approver`
@@ -682,7 +522,7 @@ ALTER TABLE `equipment`
 -- AUTO_INCREMENT de tabela `gp_approver`
 --
 ALTER TABLE `gp_approver`
-  MODIFY `gp_approver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `gp_approver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `laboratorios`
@@ -694,7 +534,7 @@ ALTER TABLE `laboratorios`
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`
@@ -712,7 +552,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `vehicles`
@@ -721,25 +561,25 @@ ALTER TABLE `vehicles`
   MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `activities`
+-- Limitadores para a tabela `activities`
 --
 ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_1` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Restrições para tabelas `gp_approver`
+-- Limitadores para a tabela `gp_approver`
 --
 ALTER TABLE `gp_approver`
   ADD CONSTRAINT `gp_approver_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`),
   ADD CONSTRAINT `gp_approver_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Restrições para tabelas `locacao`
+-- Limitadores para a tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -751,7 +591,7 @@ ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_8` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 
 --
--- Restrições para tabelas `users`
+-- Limitadores para a tabela `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);

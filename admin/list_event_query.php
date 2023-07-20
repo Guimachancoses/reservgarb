@@ -6,7 +6,7 @@ $query = $conn->query("SELECT
                             lc.checkin_time,
                             lc.checkout_time,
                             COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
-                            COALESCE(lb.room_no, vs.model) AS description,
+                            COALESCE(lb.room_no, vs.model, LEFT(eq.description, 9)) AS description,
                             us.firstname,
                             us.lastname,
                             IF(lc.status_id = 1, 'Pend.', 'Reserv.') AS status

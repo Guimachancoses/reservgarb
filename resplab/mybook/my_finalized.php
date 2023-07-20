@@ -16,7 +16,7 @@
                         }
                     </script>
 					<div class="card-header card-header-text">
-					<h4 class="card-title"><strong class="text-primary">Histórico de Reservas Finalizadas</strong></h4>
+					<h4 class="card-title"><strong class="text-primary">Meu Histórico de Reservas Finalizadas</strong></h4>
 						<p class="category">Histórico de reservas finalizadas:</p>
 					</div>
 					<div class="card-content table-responsive">
@@ -89,7 +89,7 @@
                             $perPage = 10; // Número de resultados por página
                             $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
                             $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-                            $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE users_id != $session_id AND mensagens_id = 4 && users_id != $session_id")->fetch_assoc()['total']; // Total de resultados no banco de dados
+                            $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE users_id != $session_id AND mensagens_id = 4 && users_id = $session_id")->fetch_assoc()['total']; // Total de resultados no banco de dados
                             $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                             $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
                                
@@ -119,7 +119,7 @@
                             INNER JOIN `status` st ON st.status_id = lc.status_id
                             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
                             WHERE ms.mensagens_id = 4
-                                AND lc.users_id != $session_id
+                                AND lc.users_id = $session_id
                                 AND (
                                     (@groupId = 1) -- Administrador
                                     OR

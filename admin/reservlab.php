@@ -115,6 +115,10 @@
 	else if(preg_match("~add-approver~", $url)) {
     	$content = 'user/add-approver.php';
 	}
+	// Redirecionamento para locar laboratório por periodo
+	else if(preg_match("~period~", $url)) {
+    	$content = 'period/add-period.php';
+	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else
 		$content = 'main-content.php';

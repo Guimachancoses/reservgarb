@@ -500,6 +500,8 @@ addEventSubmit.addEventListener("click", () => {
       if (!activeDayEl.classList.contains("event")) {
         activeDayEl.classList.add("event");
       }
+      // Recarrega a página automaticamente
+      window.location.reload();
     })
     .catch((error) => {
       console.log(error);
@@ -534,7 +536,6 @@ eventsContainer.addEventListener("click", (e) => {
       formData.append("room_no", room_no);
       formData.append("eventCheckin", checkin);
       formData.append("eventTimeFrom", firstTime);
-
       fetch("./delete_cal_query.php", {
         method: "POST",
         body: formData,
@@ -567,6 +568,9 @@ eventsContainer.addEventListener("click", (e) => {
                 }
               }
             });
+            updateEvents(activeDay);
+            // Recarrega a página automaticamente
+            window.location.reload();
           }
         })
         .catch((error) => {

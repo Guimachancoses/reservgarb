@@ -21,11 +21,6 @@ $timeToUnix = strtotime($eventTimeTo);
 $timeFrom = date('H:i:s', $timeFromUnix);
 $timeTo = date('H:i:s', $timeToUnix);
 
-// Verifica se ocorreu algum erro ao conectar ao banco de dados
-if ($conn->connect_error) {
-    die("Erro ao conectar ao banco de dados: " . $conn->connect_error);
-}
-
 // Executa a primeira consulta para obter o room_id
 $stmt = $conn->prepare("SELECT room_id, approver_id FROM laboratorios WHERE room_type = ?");
 $stmt->bind_param("s", $eventTitle);
@@ -80,19 +75,20 @@ $valid = $verif->num_rows();
 
 if ($valid > 0) {
      // Se a locação existe retorne nada
-     echo '';
+     $verif->close();
+     exit;
     }
 else {
     $mensagens_id = 2;
     $status_id = 1;
 
-    // Realiza o INSERT no banco de dados usando as variáveis `room_id` e `disciplina_id`
+    // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
     $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("iiiiiisssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id);
     $stmt->execute();
     $stmt->close();
 
-    $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
+    $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'");
 
     // Fecha a conexão com o banco de dados
     $conn->close();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Jul-2023 às 23:10
+-- Tempo de geração: 20-Jul-2023 às 22:53
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -29,7 +29,7 @@ USE `locationlab_db`;
 -- Estrutura da tabela `activities`
 --
 -- Criação: 18-Jul-2023 às 13:30
--- Última actualização: 18-Jul-2023 às 20:23
+-- Última actualização: 20-Jul-2023 às 19:30
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -65,7 +65,52 @@ INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`)
 (10, 3, 1, '2023-07-18 20:21:55'),
 (11, 3, 1, '2023-07-18 20:22:13'),
 (12, 3, 1, '2023-07-18 20:22:45'),
-(13, 2, 1, '2023-07-18 20:23:25');
+(13, 2, 1, '2023-07-18 20:23:25'),
+(14, 4, 15, '2023-07-19 11:46:21'),
+(15, 2, 15, '2023-07-19 12:50:17'),
+(16, 2, 15, '2023-07-19 12:57:32'),
+(17, 2, 15, '2023-07-19 12:57:49'),
+(18, 2, 15, '2023-07-19 13:00:57'),
+(19, 2, 15, '2023-07-19 13:02:24'),
+(20, 2, 1, '2023-07-19 13:05:44'),
+(21, 2, 15, '2023-07-19 13:07:38'),
+(22, 2, 15, '2023-07-19 13:09:47'),
+(23, 1, 1, '2023-07-19 13:22:26'),
+(24, 2, 1, '2023-07-19 13:57:22'),
+(25, 2, 1, '2023-07-19 13:59:02'),
+(26, 2, 1, '2023-07-19 14:01:57'),
+(27, 2, 15, '2023-07-19 14:03:02'),
+(28, 2, 1, '2023-07-19 14:04:21'),
+(29, 2, 1, '2023-07-19 14:08:49'),
+(30, 2, 1, '2023-07-19 14:13:38'),
+(31, 2, 1, '2023-07-19 14:16:44'),
+(32, 2, 1, '2023-07-19 14:38:51'),
+(33, 2, 1, '2023-07-19 14:44:18'),
+(34, 2, 1, '2023-07-19 14:51:55'),
+(35, 2, 1, '2023-07-19 14:55:31'),
+(36, 2, 1, '2023-07-19 14:57:36'),
+(37, 4, 1, '2023-07-19 18:49:08'),
+(38, 4, 15, '2023-07-20 10:15:10'),
+(39, 2, 15, '2023-07-20 14:36:49'),
+(40, 2, 1, '2023-07-20 14:38:21'),
+(41, 2, 15, '2023-07-20 14:39:25'),
+(42, 3, 15, '2023-07-20 14:40:23'),
+(43, 2, 15, '2023-07-20 14:57:22'),
+(44, 2, 15, '2023-07-20 15:01:09'),
+(45, 2, 1, '2023-07-20 15:26:05'),
+(46, 2, 1, '2023-07-20 15:26:37'),
+(47, 2, 1, '2023-07-20 15:26:50'),
+(48, 2, 1, '2023-07-20 15:27:02'),
+(49, 2, 1, '2023-07-20 17:49:54'),
+(50, 2, 1, '2023-07-20 17:50:06'),
+(51, 2, 1, '2023-07-20 17:50:31'),
+(52, 2, 1, '2023-07-20 18:19:23'),
+(53, 2, 1, '2023-07-20 18:20:03'),
+(54, 3, 1, '2023-07-20 18:56:35'),
+(55, 4, 15, '2023-07-20 18:59:03'),
+(56, 2, 1, '2023-07-20 19:10:47'),
+(57, 2, 1, '2023-07-20 19:20:28'),
+(58, 2, 1, '2023-07-20 19:30:56');
 
 -- --------------------------------------------------------
 
@@ -100,7 +145,8 @@ INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
 --
 -- Estrutura da tabela `equipment`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 20-Jul-2023 às 19:29
+-- Última actualização: 20-Jul-2023 às 19:29
 --
 
 DROP TABLE IF EXISTS `equipment`;
@@ -108,20 +154,24 @@ CREATE TABLE `equipment` (
   `equip_id` int(11) NOT NULL,
   `equipment` varchar(50) NOT NULL,
   `description` varchar(50) NOT NULL,
-  `sector` varchar(26) NOT NULL
+  `sector` varchar(26) NOT NULL,
+  `photo` varchar(24) DEFAULT NULL,
+  `approver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `equipment`:
+--   `approver_id`
+--       `approver` -> `approver_id`
 --
 
 --
 -- Extraindo dados da tabela `equipment`
 --
 
-INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUES
-(1, 'Caixa de Som', 'Bluetooth, Sem fio, com microfone - 300 wats', 'RH'),
-(2, 'Projetor Portátil Multimidia', 'Pequeno', 'RH');
+INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`, `photo`, `approver_id`) VALUES
+(1, 'Caixa de Som', 'Bluetooth, Sem fio, com microfone - 300 wats', 'RH', 'CxPolyvox.jpg', 3),
+(2, 'Projetor Portátil Multimidia', 'Pequeno', 'RH', '720PTheater.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -129,7 +179,6 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`) VALUE
 -- Estrutura da tabela `gp_approver`
 --
 -- Criação: 17-Jul-2023 às 11:40
--- Última actualização: 17-Jul-2023 às 11:57
 --
 
 DROP TABLE IF EXISTS `gp_approver`;
@@ -163,7 +212,8 @@ INSERT INTO `gp_approver` (`gp_approver_id`, `users_id`, `approver_id`) VALUES
 --
 -- Estrutura da tabela `laboratorios`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 20-Jul-2023 às 19:26
+-- Última actualização: 20-Jul-2023 às 19:27
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -171,29 +221,33 @@ CREATE TABLE `laboratorios` (
   `room_id` int(11) NOT NULL,
   `room_type` varchar(50) NOT NULL,
   `capacity` varchar(11) NOT NULL,
-  `room_no` varchar(50) NOT NULL
+  `room_no` varchar(50) NOT NULL,
+  `photo` varchar(24) DEFAULT NULL,
+  `approver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `laboratorios`:
+--   `approver_id`
+--       `approver` -> `approver_id`
 --
 
 --
 -- Extraindo dados da tabela `laboratorios`
 --
 
-INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`) VALUES
-(7, 'Sala de treinamento', '20', 'Ao lado da oficina'),
-(8, 'Sala de reunião', '10', 'Segundo piso'),
-(9, 'Sala de atendimento', '5', 'Ao lado do RH');
+INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`, `photo`, `approver_id`) VALUES
+(7, 'Sala de treinamento', '20', 'Ao lado da oficina', 'SalaT.jpg', 4),
+(8, 'Sala de reunião', '10', 'Segundo piso', 'SalaR.jpg', 4),
+(9, 'Sala de atendimento', '5', 'Ao lado do RH', 'SalaA.jpg', 4);
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `locacao`
 --
--- Criação: 17-Jul-2023 às 11:40
--- Última actualização: 18-Jul-2023 às 20:23
+-- Criação: 20-Jul-2023 às 15:21
+-- Última actualização: 20-Jul-2023 às 19:35
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -234,15 +288,8 @@ CREATE TABLE `locacao` (
 --
 
 INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
-(28, 15, 7, NULL, NULL, 4, 4, '2023-07-17', '20:00:00', '23:00:00', 4),
-(38, 11, NULL, 1, NULL, 4, 4, '2023-07-18', '20:00:00', '23:00:00', 2),
-(42, 11, NULL, 5, NULL, 3, 2, '2023-07-18', '20:00:00', '23:00:00', NULL),
-(43, 15, 7, NULL, NULL, 3, 2, '2023-07-19', '12:00:00', '13:00:00', NULL),
-(44, 15, NULL, 1, NULL, 3, 2, '2023-07-20', '18:00:00', '00:00:00', NULL),
-(46, 18, NULL, NULL, 2, 3, 2, '2023-07-23', '13:00:00', '16:00:00', NULL),
-(47, 16, NULL, 3, NULL, 2, 1, '2023-07-24', '12:00:00', '23:00:00', NULL),
-(48, 17, 8, NULL, NULL, 2, 1, '2023-07-25', '16:00:00', '19:00:00', NULL),
-(49, 16, NULL, NULL, 1, 2, 1, '2023-07-21', '20:00:00', '23:00:00', NULL);
+(7, 15, 7, NULL, NULL, 4, 4, '2023-07-21', '20:00:00', '23:00:00', 4),
+(12, 11, 7, NULL, NULL, 2, 1, '2023-07-20', '20:00:00', '23:00:00', 4);
 
 -- --------------------------------------------------------
 
@@ -250,7 +297,6 @@ INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip
 -- Estrutura da tabela `mensagens`
 --
 -- Criação: 17-Jul-2023 às 11:40
--- Última actualização: 18-Jul-2023 às 13:31
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -348,7 +394,7 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 -- Estrutura da tabela `users`
 --
 -- Criação: 17-Jul-2023 às 11:40
--- Última actualização: 17-Jul-2023 às 21:05
+-- Última actualização: 19-Jul-2023 às 13:22
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -380,14 +426,16 @@ INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `co
 (15, 'Orlando', 'Bagni', 'Aprovador', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$Am450jjp2.nHHs8ZsyBB4u3DOJVHuYvQgD4rX/CJZgjM6c/mrKKTW', 5),
 (16, 'Cesar', 'Monção', 'Usuário', 'cesarmoncao@garbuio.com.br', '19998068077', '286.430.488-01', '$2y$10$rFic2iVN3XhJKEuKORVQNeUUhbHUc6PvXXaIzB32jh.YR0EPKrkvO', 5),
 (17, 'Fernanda', 'Rochel', 'Aprovador', 'fernandarochel@garbuio.com.br', '19981971509', '460.748.888-76', '$2y$10$BKNAQwIVQK382iIF3kDPfuoPLEMxhzmgqpcBbmYZRekykdx.8eQjK', 5),
-(18, 'Janaina', 'Campos', 'Aprovador', 'janainacampos@garbuio.com.br', '19997411896', '343.524.098-98', '$2y$10$YZMyfdMPPkHagKZMAxyY6uImu80vsb7YscC6IwNdojRsZ4pc3LC.K', 5);
+(18, 'Janaina', 'Campos', 'Aprovador', 'janainacampos@garbuio.com.br', '19997411896', '343.524.098-98', '$2y$10$YZMyfdMPPkHagKZMAxyY6uImu80vsb7YscC6IwNdojRsZ4pc3LC.K', 5),
+(19, 'Lucas', 'Barros', 'Usuário', 'lucasbarros@garbuio.com.br', '19992630596', '39824231803', '$2y$10$1hsecwTCf2NJmvfw1hu8EO7qVFJhdhe39Ih8vZ8CCi3Fzu5h5gvV2', 5);
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `vehicles`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 20-Jul-2023 às 19:28
+-- Última actualização: 20-Jul-2023 às 19:28
 --
 
 DROP TABLE IF EXISTS `vehicles`;
@@ -396,23 +444,26 @@ CREATE TABLE `vehicles` (
   `name` varchar(26) NOT NULL,
   `model` varchar(26) NOT NULL,
   `description` varchar(50) NOT NULL,
-  `photo` varchar(24) NOT NULL
+  `photo` varchar(24) NOT NULL,
+  `approver_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONAMENTOS PARA TABELAS `vehicles`:
+--   `approver_id`
+--       `approver` -> `approver_id`
 --
 
 --
 -- Extraindo dados da tabela `vehicles`
 --
 
-INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`) VALUES
-(1, 'Nivus', 'Comfortline 1.0 TS', 'Automático, Flex', '1.jpg'),
-(2, 'Virtus', 'Virtus 1.6 MSI MT', 'Automático', '2.jpg'),
-(3, 'Polo', 'Comfortline 200 TSI', 'Automático', '3.jpg'),
-(4, 'T-Cross', ' Comfortline 250 TSI', 'Automático', '4.jpg'),
-(5, 'Gol', 'Total Flex 1.0', 'Manual', '5.jpg');
+INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`, `approver_id`) VALUES
+(1, 'Nivus', 'Comfortline 1.0 TS', 'Automático, Flex', '1.jpg', 2),
+(2, 'Virtus', 'Virtus 1.6 MSI MT', 'Automático', '2.jpg', 2),
+(3, 'Polo', 'Comfortline 200 TSI', 'Automático', '3.jpg', 2),
+(4, 'T-Cross', ' Comfortline 250 TSI', 'Automático', '4.jpg', 2),
+(5, 'Gol', 'Total Flex 1.0', 'Manual', '5.jpg', 2);
 
 --
 -- Índices para tabelas despejadas
@@ -436,7 +487,8 @@ ALTER TABLE `approver`
 -- Índices para tabela `equipment`
 --
 ALTER TABLE `equipment`
-  ADD PRIMARY KEY (`equip_id`);
+  ADD PRIMARY KEY (`equip_id`),
+  ADD KEY `approver_id` (`approver_id`);
 
 --
 -- Índices para tabela `gp_approver`
@@ -450,7 +502,8 @@ ALTER TABLE `gp_approver`
 -- Índices para tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
-  ADD PRIMARY KEY (`room_id`);
+  ADD PRIMARY KEY (`room_id`),
+  ADD KEY `approver_id` (`approver_id`);
 
 --
 -- Índices para tabela `locacao`
@@ -494,7 +547,8 @@ ALTER TABLE `users`
 -- Índices para tabela `vehicles`
 --
 ALTER TABLE `vehicles`
-  ADD PRIMARY KEY (`vehicle_id`);
+  ADD PRIMARY KEY (`vehicle_id`),
+  ADD KEY `approver_id` (`approver_id`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -504,7 +558,7 @@ ALTER TABLE `vehicles`
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de tabela `approver`
@@ -534,7 +588,7 @@ ALTER TABLE `laboratorios`
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`
@@ -552,7 +606,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `vehicles`
@@ -572,11 +626,23 @@ ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
+-- Limitadores para a tabela `equipment`
+--
+ALTER TABLE `equipment`
+  ADD CONSTRAINT `equipment_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
+
+--
 -- Limitadores para a tabela `gp_approver`
 --
 ALTER TABLE `gp_approver`
   ADD CONSTRAINT `gp_approver_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`),
   ADD CONSTRAINT `gp_approver_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
+
+--
+-- Limitadores para a tabela `laboratorios`
+--
+ALTER TABLE `laboratorios`
+  ADD CONSTRAINT `laboratorios_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 
 --
 -- Limitadores para a tabela `locacao`
@@ -595,6 +661,12 @@ ALTER TABLE `locacao`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);
+
+--
+-- Limitadores para a tabela `vehicles`
+--
+ALTER TABLE `vehicles`
+  ADD CONSTRAINT `vehicles_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

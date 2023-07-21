@@ -3,7 +3,7 @@
 	<?php
 		$session = $_SESSION['users_id'];
 		// query for total pendding
-		$q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 1 ") or die(mysqli_error($conn));
+		$q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 1 && lc_period_id IS NULL") or die(mysqli_error($conn));
 		$f_p = $q_p->fetch_array();
 		// query for total location
 		$q_ci = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 2 ") or die(mysqli_error($conn));
@@ -15,6 +15,7 @@
 		$q_lc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 2") or die(mysqli_error($conn));
 		$f_lc = $q_lc->fetch_array();
 	?>
+	
 	<div class="row">
 
 	<div class="div-swing col-lg-6 col-md-6 col-sm-6">
@@ -217,7 +218,7 @@
 							$perPage = 6; // Número de resultados por página
 							$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
 							$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-							$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 AND users_id != '$_SESSION[users_id]'")->fetch_assoc()['total']; // Total de resultados no banco de dados
+							$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 && lc.users_id != '$_SESSION[users_id]' && lc.lc_period_id IS NULL")->fetch_assoc()['total']; // Total de resultados no banco de dados
 							$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
 							$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 
@@ -249,6 +250,7 @@
 								lc.status_id = 1
 								AND lc.users_id != '$_SESSION[users_id]' 
 								AND ms.mensagens_id = 2
+								AND lc.lc_period_id IS NULL
 								AND (
 									(@groupId = 1) -- Administrador
 									OR

@@ -187,18 +187,42 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">timeline</i><span>Reservar por Período</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu6">
+
+                        <li>
+                            <?php $period = 'period';
+                                ?>
+                            <a href="reservlab.php?<?php echo $period?>"><i class="material-icons" style="color:red">add</i><span>Add. Reserva</span></a>
+                        </li> 
+
+                        <li>
+                            <?php $perpen = 'perpen';
+                                ?>
+                            <a href="reservlab.php?<?php echo $perpen?>"><i class="material-icons" style="color:#4caf50" >lock_clock</i><small>Reservas Pendentes</small></a>
+                        </li>
+
+                        <li>
+                            <?php $perres = 'perres';
+                                ?>
+                            <a href="reservlab.php?<?php echo $perres?>"><i class="material-icons" style="color:#00bcd4">history</i><small>Reservados</small></a>
+                        </li>
+                    </ul>
+                </li>
 				
 				 <li>
                     <?php $calender = 'calender';
                         ?>
                     <a href="reservlab.php?<?php echo $calender?>"><i class="material-icons" >calendar_month</i><span>Calendário</span></a>
-                </li>
-               
+                </li>              
 
                 <li class="dropdown">
-                    <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu7" data-toggle="collapse" aria-expanded="false">
                     <i class="material-icons">storage</i><span>Banco de Dados</span></a>
-                    <ul class="collapse list-unstyled menu" id="pageSubmenu6">
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu7">
 
                         <li>
                             <?php $deluser = 'deluser';

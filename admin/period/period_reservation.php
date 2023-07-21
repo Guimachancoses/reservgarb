@@ -16,7 +16,7 @@
                         }
                     </script>
 					<div class="card-header card-header-text">
-					<h4 class="card-title"><strong class="text-primary"> Reservas Pendentes</strong></h4>
+					<h4 class="card-title"><strong class="text-primary"> Reservas por Período Pendentes</strong></h4>
 						<p class="category">Clique em aprovar ou excluir o pedido de reserva:</p>
 					</div>
 					<div class="card-content table-responsive">

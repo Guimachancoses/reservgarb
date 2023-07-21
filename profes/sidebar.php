@@ -148,11 +148,11 @@
                             <a href="reservlab.php?<?php echo $calender?>"><i class="material-icons" style="color:#b38add">event</i>Reservar Dia</a>
                         </li>
                        
-                        <li>
+                        <!-- <li>
                             <?php $period = 'period';
                                 ?>
                             <a href="reservlab.php?<?php echo $period?>"><i class="material-icons" style="color:#5d0f8a">timeline</i>Reservar por Período</a>
-                        </li>
+                        </li> -->
 
                         <li>
                             <?php $labscontent = 'labscontent';

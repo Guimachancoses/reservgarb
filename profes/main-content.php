@@ -1,7 +1,7 @@
 <div class="main-content">
 	<?php
 		// query for total locacao pendente do usuário
-		$q_so = $conn->query("SELECT COUNT(locacao_id) as total FROM `locacao` WHERE `users_id` = '$_SESSION[users_id]' && `status_id` = 1") or die(mysqli_error());
+		$q_so = $conn->query("SELECT COUNT(locacao_id) as total FROM `locacao` WHERE `users_id` = '$_SESSION[users_id]' && `status_id` = 1 ") or die(mysqli_error());
 		$f_pd = $q_so->fetch_array();
 		// query for total locações reservadas aprovadas
 		$q_ci = $conn->query("SELECT COUNT(locacao_id) as total FROM `locacao` WHERE `users_id` = '$_SESSION[users_id]' &&  `status_id` = 2 ") or die(mysqli_error());

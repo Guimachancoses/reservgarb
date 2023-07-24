@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Jul-2023 às 22:53
+-- Tempo de geração: 21-Jul-2023 às 21:54
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -29,7 +29,7 @@ USE `locationlab_db`;
 -- Estrutura da tabela `activities`
 --
 -- Criação: 18-Jul-2023 às 13:30
--- Última actualização: 20-Jul-2023 às 19:30
+-- Última actualização: 21-Jul-2023 às 18:39
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -110,7 +110,36 @@ INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`)
 (55, 4, 15, '2023-07-20 18:59:03'),
 (56, 2, 1, '2023-07-20 19:10:47'),
 (57, 2, 1, '2023-07-20 19:20:28'),
-(58, 2, 1, '2023-07-20 19:30:56');
+(58, 2, 1, '2023-07-20 19:30:56'),
+(59, 4, 15, '2023-07-21 11:31:20'),
+(60, 2, 1, '2023-07-21 15:26:56'),
+(61, 2, 1, '2023-07-21 15:32:29'),
+(62, 2, 1, '2023-07-21 16:36:02'),
+(63, 2, 1, '2023-07-21 16:36:56'),
+(64, 2, 1, '2023-07-21 16:39:35'),
+(65, 2, 1, '2023-07-21 17:02:50'),
+(66, 2, 1, '2023-07-21 17:19:53'),
+(67, 2, 1, '2023-07-21 17:22:31'),
+(68, 2, 1, '2023-07-21 17:25:03'),
+(69, 2, 1, '2023-07-21 17:26:31'),
+(70, 2, 1, '2023-07-21 17:27:31'),
+(71, 2, 1, '2023-07-21 17:27:31'),
+(72, 2, 1, '2023-07-21 17:30:17'),
+(73, 2, 1, '2023-07-21 17:30:17'),
+(74, 2, 1, '2023-07-21 17:36:18'),
+(75, 2, 1, '2023-07-21 17:36:18'),
+(76, 2, 1, '2023-07-21 17:36:18'),
+(77, 2, 1, '2023-07-21 17:36:18'),
+(78, 2, 1, '2023-07-21 17:36:18'),
+(79, 2, 1, '2023-07-21 17:36:18'),
+(80, 2, 1, '2023-07-21 17:47:38'),
+(81, 2, 1, '2023-07-21 17:47:38'),
+(82, 2, 1, '2023-07-21 17:47:38'),
+(83, 2, 1, '2023-07-21 17:47:38'),
+(84, 2, 1, '2023-07-21 17:47:38'),
+(85, 2, 1, '2023-07-21 17:47:38'),
+(86, 2, 1, '2023-07-21 17:59:48'),
+(87, 2, 15, '2023-07-21 18:39:15');
 
 -- --------------------------------------------------------
 
@@ -244,10 +273,59 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`, `phot
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `lc_period`
+--
+-- Criação: 21-Jul-2023 às 15:47
+-- Última actualização: 21-Jul-2023 às 17:47
+--
+
+DROP TABLE IF EXISTS `lc_period`;
+CREATE TABLE `lc_period` (
+  `lc_period_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `equip_id` int(11) DEFAULT NULL,
+  `mensagens_id` int(11) NOT NULL,
+  `weekday` varchar(24) NOT NULL,
+  `checkin` date NOT NULL,
+  `checkout` date NOT NULL,
+  `checkin_time` time NOT NULL,
+  `checkout_time` time NOT NULL,
+  `approver_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `lc_period`:
+--   `users_id`
+--       `users` -> `users_id`
+--   `room_id`
+--       `laboratorios` -> `room_id`
+--   `vehicle_id`
+--       `vehicles` -> `vehicle_id`
+--   `equip_id`
+--       `equipment` -> `equip_id`
+--   `mensagens_id`
+--       `mensagens` -> `mensagens_id`
+--   `approver_id`
+--       `approver` -> `approver_id`
+--
+
+--
+-- Extraindo dados da tabela `lc_period`
+--
+
+INSERT INTO `lc_period` (`lc_period_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `weekday`, `checkin`, `checkout`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
+(13, 1, 7, NULL, NULL, 2, 'Monday', '2023-08-28', '2023-09-28', '20:00:00', '23:00:00', 4),
+(14, 1, 7, NULL, NULL, 2, 'Tuesday', '2023-08-29', '2023-09-29', '20:00:00', '23:00:00', 4);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `locacao`
 --
--- Criação: 20-Jul-2023 às 15:21
--- Última actualização: 20-Jul-2023 às 19:35
+-- Criação: 21-Jul-2023 às 17:18
+-- Última actualização: 21-Jul-2023 às 18:39
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -262,7 +340,8 @@ CREATE TABLE `locacao` (
   `checkin` date NOT NULL,
   `checkin_time` time NOT NULL,
   `checkout_time` time NOT NULL,
-  `approver_id` int(11) DEFAULT NULL
+  `approver_id` int(11) DEFAULT NULL,
+  `lc_period_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -281,15 +360,26 @@ CREATE TABLE `locacao` (
 --       `equipment` -> `equip_id`
 --   `approver_id`
 --       `approver` -> `approver_id`
+--   `lc_period_id`
+--       `lc_period` -> `lc_period_id`
 --
 
 --
 -- Extraindo dados da tabela `locacao`
 --
 
-INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
-(7, 15, 7, NULL, NULL, 4, 4, '2023-07-21', '20:00:00', '23:00:00', 4),
-(12, 11, 7, NULL, NULL, 2, 1, '2023-07-20', '20:00:00', '23:00:00', 4);
+INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`, `lc_period_id`) VALUES
+(15, 1, 7, NULL, NULL, 2, 1, '2023-08-28', '20:00:00', '23:00:00', 4, 13),
+(16, 1, 7, NULL, NULL, 2, 1, '2023-09-04', '20:00:00', '23:00:00', 4, 13),
+(17, 1, 7, NULL, NULL, 2, 1, '2023-09-11', '20:00:00', '23:00:00', 4, 13),
+(18, 1, 7, NULL, NULL, 2, 1, '2023-09-18', '20:00:00', '23:00:00', 4, 13),
+(19, 1, 7, NULL, NULL, 2, 1, '2023-09-25', '20:00:00', '23:00:00', 4, 13),
+(20, 1, 7, NULL, NULL, 2, 1, '2023-08-29', '20:00:00', '23:00:00', 4, 14),
+(21, 1, 7, NULL, NULL, 2, 1, '2023-09-05', '20:00:00', '23:00:00', 4, 14),
+(22, 1, 7, NULL, NULL, 2, 1, '2023-09-12', '20:00:00', '23:00:00', 4, 14),
+(23, 1, 7, NULL, NULL, 2, 1, '2023-09-19', '20:00:00', '23:00:00', 4, 14),
+(24, 1, 7, NULL, NULL, 2, 1, '2023-09-26', '20:00:00', '23:00:00', 4, 14),
+(25, 1, 7, NULL, NULL, 2, 1, '2023-07-22', '20:00:00', '23:00:00', 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -506,6 +596,18 @@ ALTER TABLE `laboratorios`
   ADD KEY `approver_id` (`approver_id`);
 
 --
+-- Índices para tabela `lc_period`
+--
+ALTER TABLE `lc_period`
+  ADD PRIMARY KEY (`lc_period_id`),
+  ADD KEY `users_id` (`users_id`),
+  ADD KEY `room_id` (`room_id`),
+  ADD KEY `vehicle_id` (`vehicle_id`),
+  ADD KEY `equip_id` (`equip_id`),
+  ADD KEY `mensagens_id` (`mensagens_id`),
+  ADD KEY `approver_id` (`approver_id`);
+
+--
 -- Índices para tabela `locacao`
 --
 ALTER TABLE `locacao`
@@ -516,7 +618,8 @@ ALTER TABLE `locacao`
   ADD KEY `status_id` (`status_id`),
   ADD KEY `vehicle_id` (`vehicle_id`),
   ADD KEY `equip_id` (`equip_id`),
-  ADD KEY `approver_id` (`approver_id`);
+  ADD KEY `approver_id` (`approver_id`),
+  ADD KEY `lc_period_id` (`lc_period_id`);
 
 --
 -- Índices para tabela `mensagens`
@@ -558,7 +661,7 @@ ALTER TABLE `vehicles`
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT de tabela `approver`
@@ -585,10 +688,16 @@ ALTER TABLE `laboratorios`
   MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de tabela `lc_period`
+--
+ALTER TABLE `lc_period`
+  MODIFY `lc_period_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`
@@ -645,6 +754,17 @@ ALTER TABLE `laboratorios`
   ADD CONSTRAINT `laboratorios_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 
 --
+-- Limitadores para a tabela `lc_period`
+--
+ALTER TABLE `lc_period`
+  ADD CONSTRAINT `lc_period_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
+  ADD CONSTRAINT `lc_period_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `laboratorios` (`room_id`),
+  ADD CONSTRAINT `lc_period_ibfk_3` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`vehicle_id`),
+  ADD CONSTRAINT `lc_period_ibfk_4` FOREIGN KEY (`equip_id`) REFERENCES `equipment` (`equip_id`),
+  ADD CONSTRAINT `lc_period_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
+  ADD CONSTRAINT `lc_period_ibfk_6` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
+
+--
 -- Limitadores para a tabela `locacao`
 --
 ALTER TABLE `locacao`
@@ -654,7 +774,8 @@ ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_5` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `locacao_ibfk_6` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`vehicle_id`),
   ADD CONSTRAINT `locacao_ibfk_7` FOREIGN KEY (`equip_id`) REFERENCES `equipment` (`equip_id`),
-  ADD CONSTRAINT `locacao_ibfk_8` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
+  ADD CONSTRAINT `locacao_ibfk_8` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`),
+  ADD CONSTRAINT `locacao_ibfk_9` FOREIGN KEY (`lc_period_id`) REFERENCES `lc_period` (`lc_period_id`);
 
 --
 -- Limitadores para a tabela `users`

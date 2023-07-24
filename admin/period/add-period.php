@@ -15,7 +15,7 @@
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Locação por Período</strong></h4>
 						    <p class="category">Escolha o que você deseja reservar e o período que você deseja:</p>
-                    <div class = "col-md-10"style="min-height:650px">	
+                    <div class = "col-md-10"style="min-height:720px">	
                         <form method = "POST" action="locacao_periodo.php" enctype = "multipart/form-data" autocomplete="off">
                             <div class="card-foot">
                                 <label><strong> Reservar:</strong></label>
@@ -63,11 +63,13 @@
                             </div>
                             <div class="card-foot">
                                 <label><strong> Data de Início:</strong></label>
-                                <input type="date" class = "form-control" name = "checkin" required = required/>
+                                <input type="date" class="form-control" name="checkin" id="checkin" required />
+                                <span id="checkin-error" style="color: red; font-size: smaller;"></span>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Data Fim:</strong></label>
-                                <input type="date" class = "form-control" name = "checkout" required = required/>
+                                <input type="date" class = "form-control" name = "checkout" id="checkout" required = required/>
+                                <span id="checkout-error" style="color: red; font-size: smaller;"></span>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Dia da Semana:</strong></label>
@@ -85,7 +87,8 @@
                             </div>
                             <div class="card-foot">
                                 <label><strong> Hora de Início:</strong></label>
-                                <input type="time" class = "form-control" name = "checkin_time" required = required/>
+                                <input type="time" class = "form-control" name = "checkin_time" id="checkin_time" required = required/>
+                                <span id="time-error" style="color: red; font-size: smaller;"></span>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Hora Fim:</strong></label>
@@ -93,7 +96,7 @@
                             </div>
                             <br />
                             <div class="card-foot">
-                                <button type="submit" name = "locacao_periodo" onclick="success()" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
+                                <button id="periodSubmit" type="submit" name = "locacao_periodo" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                             </div>
                         </form>
                         <?php require_once 'locacao_periodo.php'?>
@@ -103,3 +106,188 @@
         </div>
 </div>
 </div>
+
+<!-- Função responsavel por tratar o recebimento de data de inicio e data fim ------------------------------------------------------------------------------->
+<script>
+    function getBrasiliaDateWithoutTime() {
+        const dataAtual = new Date();
+
+        // Ajustar o fuso horário para "America/Sao_Paulo" (Brasília)
+        const fusoHorarioBrasilia = 0; // O horário de Brasília é UTC-3
+        dataAtual.setHours(dataAtual.getHours() - fusoHorarioBrasilia);
+
+        return dataAtual;
+        }
+
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+    const checkinErrorSpan = document.getElementById('checkin-error');
+    const checkoutErrorSpan = document.getElementById('checkout-error');
+
+    checkinInput.addEventListener('blur', function () {
+        const checkinDateStr = (checkinInput.value);
+        const [day, month, year] = checkinDateStr.split('/'); // Separar o dia, mês e ano
+        const checkinDate = new Date(`${year}/${month}/${day}`); // Criar o objeto Date com a data no formato "yyyy/mm/dd"
+
+        const currentDate = getBrasiliaDateWithoutTime();
+
+        checkinDate.setHours(currentDate.getHours());
+        checkinDate.setMinutes(currentDate.getMinutes() + 1);
+        checkinDate.setSeconds(currentDate.getSeconds());
+
+        const timeDifference = Math.abs(checkinDate - currentDate);
+        const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+        const maxDay = 30;
+
+        // Add a check for "Invalid Date" before creating the Date object
+        if (checkinDate == 'Invalid Date') {
+            checkinErrorSpan.textContent = 'Data inválida.';
+            return;
+        }
+
+        if (checkinDate < currentDate) {
+                checkinErrorSpan.textContent = 'A data de início não pode ser menor que a data atual ou ser maior que 30 dias.';
+            } else if (daysDifference > maxDay) {
+                checkinErrorSpan.textContent = 'A data de início não pode ser menor que a data atual ou ser maior que 30 dias.'; 
+            }else {
+                checkinErrorSpan.textContent = ''; // Limpa a mensagem de erro se a data for válida
+            }
+        });
+
+    function isDateValid(selectedDate, maxDaysDifference) {
+        const currentDate = getBrasiliaDateWithoutTime();
+        const [year, month, day] = selectedDate.split('-'); // Extrai ano, mês e dia
+        const formattedDate = `${year}/${month}/ ${day}`; // Formata para "yyyy/mm/dd"
+        const selectedDateObj = new Date(formattedDate);
+
+         // Subtrai um dia do objeto Date
+        selectedDateObj.setDate(selectedDateObj.getDate() - 1);
+
+        const timeDifference = Math.abs(selectedDateObj - currentDate);
+        const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+        return selectedDateObj >= currentDate && daysDifference <= maxDaysDifference;
+    }
+
+    checkoutInput.addEventListener('blur', function () {
+        const checkinDate = new Date(checkinInput.value);
+        const checkoutDate = new Date(checkoutInput.value);
+        const maxDate = new Date(checkinDate);
+        maxDate.setMonth(maxDate.getMonth() + 6);
+
+        if ((checkoutDate <= checkinDate) || checkoutDate >= maxDate) {
+            checkoutErrorSpan.textContent = 'A data final não pode ser igual a data de início ou superior a 6 meses.';
+        } else {
+            checkoutErrorSpan.textContent = ''; // Limpa a mensagem de erro se a data for válida
+        }
+    });
+</script>
+
+<!-- Função responsavelação pelo select ---------------------------------------------------------------------------------------------------------------------->
+<script>
+  function getDaysOfWeekBetweenDates(startDate, endDate) {
+    const daysOfWeek = ["- Segunda-feira -", "- Terça-feira -", "- Quarta-feira -", "- Quinta-feira -", "- Sexta-feira -", "- Sábado -", "- Domingo -"];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    // Adiciona uma hora à data final para corrigir o fuso horário
+    end.setHours(end.getHours() + 1);
+    
+    let selectedDays = [];
+
+    // Itera sobre o intervalo de datas
+    while (start <= end) {
+      const dayOfWeek = daysOfWeek[start.getDay()]; // Obtém o dia da semana em formato string
+      if (!selectedDays.includes(dayOfWeek)) {
+        selectedDays.push(dayOfWeek);
+      }
+      start.setDate(start.getDate() + 1); // Avança para o próximo dia
+    }
+
+    return selectedDays;
+  }
+
+  // Função para atualizar o select com os dias da semana selecionados
+  function updateSelectOptions() {
+    const startDate = document.getElementById("checkin").value;
+    const endDate = document.getElementById("checkout").value;
+
+    if (startDate && endDate) {
+      const daysOfWeek = getDaysOfWeekBetweenDates(startDate, endDate);
+      const select = document.getElementsByName("dia_semana")[0];
+      select.innerHTML = ""; // Limpa as opções atuais
+
+      // Sempre adicione a opção "Todos os dias"
+      select.options.add(new Option(" -- Todos os dias -- ", "AllDays"));
+
+      // Adicione todos os dias da semana individualmente
+      daysOfWeek.forEach((day) => {
+        select.options.add(new Option(day, day));
+      });
+    }
+  }
+
+  // Event listener para chamar a função sempre que as datas forem alteradas
+  document.getElementById("checkin").addEventListener("change", updateSelectOptions);
+  document.getElementById("checkout").addEventListener("change", updateSelectOptions);
+</script>
+
+
+<!-- Função responsavel pelo tratamento da hora de início------------------------------------------------------------------------------------------ -->
+
+<script>
+    const timeErrorSpan = document.getElementById('time-error');
+  // Função para verificar o horário de início
+  function checkTimeInput() {
+    const checkinTimeInput = document.getElementById('checkin_time');
+    const startTime = checkinTimeInput.value.trim(); // Remove espaços em branco no início e fim
+
+    if (!startTime) {
+      timeErrorSpan.textContent = 'Campo obrigatório. Insira o horário de check-in.';
+    } else {
+      // Pega o valor do campo de data de início
+      const checkinDateInput = document.getElementById('checkin');
+      const checkinDateValue = checkinDateInput.value.trim(); // Remove espaços em branco no início e fim
+
+      // Formata a data para criar o objeto Date no formato "AAAA/MM/DD"
+      const [day, month, year] = checkinDateValue.split('/');
+      const formattedDate = `${year}/${month}/${day}`;
+      const startDateTime = new Date(`${formattedDate} ${startTime}`);
+
+      // Pega a data atual de Brasília
+      const currentDate = getBrasiliaDateWithoutTime();
+
+        // Verificar se a hora de início não é menor que a hora atual
+        if (startDateTime < currentDate) {
+            timeErrorSpan.textContent = 'A hora inicial não pode ser menor que a hora atual de Brasília.';
+        } else {
+            timeErrorSpan.textContent = '';    
+        }
+    }
+  }
+  const checkinTimeInput = document.getElementById('checkin_time');
+  checkinTimeInput.addEventListener('blur', checkTimeInput);
+</script>
+
+<script>
+function hasErrors() {
+    const checkinErrorSpan = document.getElementById('checkin-error');
+    const checkoutErrorSpan = document.getElementById('checkout-error');
+    const timeErrorSpan = document.getElementById('time-error');
+
+    return (
+      checkinErrorSpan.textContent.trim() !== '' ||
+      checkoutErrorSpan.textContent.trim() !== '' ||
+      timeErrorSpan.textContent.trim() !== ''
+    );
+  }
+
+  // Interceptando o envio do formulário (submit)
+  const form = document.querySelector('form'); // Seleciona o formulário
+  form.addEventListener('submit', function(event) {
+    if (hasErrors()) {
+      event.preventDefault(); // Cancela o envio do formulário caso haja mensagens de erro
+    }
+  });
+
+</script>

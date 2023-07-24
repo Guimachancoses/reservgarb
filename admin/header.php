@@ -11,6 +11,9 @@
 <html lang="pt-br">
   <head>
 
+    <!-- timezone -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.1/build/global/luxon.min.js"></script>
+ 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,3 +64,12 @@
 <div class="wrapper">
 
   <div class="body-overlay"></div>
+  <script>
+        // Função para limpar o console
+        function limparConsole() {
+            console.clear();
+        }
+
+        // Chamando a função de limpeza ao carregar a página
+        window.onload = limparConsole;
+    </script>

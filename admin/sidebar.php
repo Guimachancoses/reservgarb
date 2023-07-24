@@ -2,8 +2,21 @@
 
 <?php
     // query for total pending
-    $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error($conn));
+    $q_p = $conn->query("SELECT SUM(total) AS total FROM (
+                                                    SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
+                                                    UNION ALL
+                                                    SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
+                                                ) AS subquery; ") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
+
+    // query for total pendding for locacao
+		$q_loc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 1 && lc_period_id IS NULL") or die(mysqli_error($conn));
+		$f_loc = $q_loc->fetch_array();
+
+    // query for total pendding for lc_period
+		$q_period = $conn->query("SELECT COUNT(*) as total FROM `lc_period` WHERE mensagens_id = 2") or die(mysqli_error($conn));
+		$f_period = $q_period->fetch_array();
+
 
     // query for pending message
     $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error());
@@ -30,7 +43,7 @@
                             <?php if ($f_p['total'] > 0) { ?>
                                 <span name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?>
-                    </a>
+                    <span>Notificações</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu0">
                         <li>
                             <?php $penlab = 'penlab'; ?>
@@ -57,7 +70,7 @@
                             <i class="material-icons">settings</i><span>Configuração</span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu2">
                                 <li>
-                                    <a class="nav-link" href="reservlab.php?alter-account"><span class="text-primary">Alterar Seu Dados</span></a>
+                                    <a class="nav-link" href="reservlab.php?alter-account"><span class="text-primary"><small>Alterar Seu Dados</small></span></a>
                                 </li>
                             </ul>
                     </li>
@@ -165,7 +178,11 @@
 
                 <li class="dropdown">
                     <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
-					<i class="material-icons">edit_calendar</i><span>Reservas</span></a>
+					    <i class="material-icons">pending</i>
+                             <?php if ($f_loc['total'] > 0) { ?>
+                                <span name="notification" class="notification"><?php echo $f_loc['total'] ?></span>
+                            <?php } ?>
+                        <span>Solicitações</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu5">
 
                         <li>
@@ -187,37 +204,41 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class="dropdown">
-                    <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false">
-					<i class="material-icons">timeline</i><span>Reservar por Período</span></a>
-                    <ul class="collapse list-unstyled menu" id="pageSubmenu6">
-
-                        <li>
-                            <?php $period = 'period';
-                                ?>
-                            <a href="reservlab.php?<?php echo $period?>"><i class="material-icons" style="color:red">add</i><span>Add. Reserva</span></a>
-                        </li> 
-
-                        <li>
-                            <?php $perpen = 'perpen';
-                                ?>
-                            <a href="reservlab.php?<?php echo $perpen?>"><i class="material-icons" style="color:#4caf50" >lock_clock</i><small>Reservas Pendentes</small></a>
-                        </li>
-
-                        <li>
-                            <?php $perres = 'perres';
-                                ?>
-                            <a href="reservlab.php?<?php echo $perres?>"><i class="material-icons" style="color:#00bcd4">history</i><small>Reservados</small></a>
-                        </li>
-                    </ul>
-                </li>
 				
 				 <li>
                     <?php $calender = 'calender';
                         ?>
                     <a href="reservlab.php?<?php echo $calender?>"><i class="material-icons" >calendar_month</i><span>Calendário</span></a>
-                </li>              
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">timeline</i>
+                        <?php if ($f_period['total'] > 0) { ?>
+                            <span name="notification" class="notification"><?php echo $f_period['total'] ?></span>
+                        <?php } ?>
+                    <span>Reservar por Período</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu6">
+
+                        <li>
+                            <?php $period = 'period';
+                                ?>
+                            <a href="reservlab.php?<?php echo $period?>"><i class="material-icons" style="color:red">add</i><span><small>Add. Reserva</small></span></a>
+                        </li> 
+
+                        <li>
+                            <?php $perpen = 'perpen';
+                                ?>
+                            <a href="reservlab.php?<?php echo $perpen?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i><small>Reservas Pendentes</small></a>
+                        </li>
+
+                        <li>
+                            <?php $perres = 'perres';
+                                ?>
+                            <a href="reservlab.php?<?php echo $perres?>"><i class="material-icons" style="color:#4caf50">lock_clock</i><small>Reservados</small></a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="dropdown">
                     <a href="#pageSubmenu7" data-toggle="collapse" aria-expanded="false">

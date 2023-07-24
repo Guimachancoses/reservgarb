@@ -59,16 +59,16 @@ $verif = $conn->prepare("SELECT locacao_id
                             WHERE locacao_id IN (
                                     SELECT locacao_id
                                     FROM locacao 
-                                    WHERE room_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
+                                    WHERE room_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
                             OR locacao_id IN (
                                     SELECT locacao_id 
                                     FROM locacao 
-                                    WHERE vehicle_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
+                                    WHERE vehicle_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
                             OR locacao_id IN (
                                     SELECT locacao_id 
                                     FROM locacao 
-                                    WHERE equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)");
-$verif->bind_param("isssisssisss", $room_id, $mysql_date, $timeFrom, $timeTo, $vehicle_id, $mysql_date, $timeFrom, $timeTo, $equip_id, $mysql_date, $timeFrom, $timeTo);
+                                    WHERE equip_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)");
+$verif->bind_param("issssissssissss", $room_id, $mysql_date, $timeFrom, $timeTo, $timeTo, $vehicle_id, $mysql_date, $timeFrom, $timeTo, $timeTo, $equip_id, $mysql_date, $timeFrom, $timeTo, $timeTo);
 $verif->execute();
 $verif->store_result();
 $valid = $verif->num_rows();

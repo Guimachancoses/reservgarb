@@ -60,7 +60,7 @@
                                 <span>Configuração</span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu2">
                                 <li>
-                                    <a class="nav-link" href="reservlab.php?alter-account"><span>Alterar Sua Senha</span></a>
+                                    <a class="nav-link" href="reservlab.php?alter-account"><span><small>Alterar Sua Senha</small></span></a>
                                 </li>
                             </ul>
                     </li>

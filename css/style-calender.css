@@ -311,6 +311,7 @@
   font-size: 1rem;
   font-weight: 400;
   margin-left: 20px;
+  margin-bottom: 0px;
 }
 .events .event i {
   color: var(--primary-clr);

@@ -252,7 +252,7 @@ function updateEvents(date) {
         events += `<div class="event">
             <div class="title">
               <i class="fas fa-circle" ${eventColorStyle}></i>
-              <h3 class="event-title">${eventTitle}</h3>
+              <h3 class="event-title" style="margin-bottom:0px">${eventTitle}</h3>
             </div>
             <div class="event-time">
               <span class="event-time">${event.time}</span>

@@ -1,7 +1,11 @@
 <div id="content" class="active">
 <?php
     // query for total pending
-    $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error($conn));
+    $q_p = $conn->query("SELECT SUM(total) AS total FROM (
+                                                        SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
+                                                        UNION ALL
+                                                        SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
+                                                    ) AS subquery; ") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
 
     // query for pending message
@@ -31,7 +35,7 @@
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
-                        <span class="div-link material-icons" >notifications</span>
+                        <span class="material-icons" >notifications</span>
                             <?php if ($f_p['total'] > 0) { ?>
                                 <span style="color:white;border-radius:100%" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?> 

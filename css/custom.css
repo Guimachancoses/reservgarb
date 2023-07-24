@@ -1186,3 +1186,24 @@ a.btn.btn-success:focus {
 .stats {
   animation: slide-in-stats 1s ease, move-to-fixed 2s ease-in-out 2s forwards;
 }
+
+/* Estilos para a notificação sobre os ícones "notification" e "edit_calendar" */
+.notification {
+  position: absolute;
+  top: -10px; /* Ajuste a posição vertical conforme necessário */
+  right: -10px; /* Ajuste a posição horizontal conforme necessário */
+  min-width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.notification-icon-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}

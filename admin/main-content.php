@@ -2,7 +2,11 @@
 <div class="main-content" >
 	<?php
 		// query for total pendding
-		$q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error($conn));
+		$q_p = $conn->query("SELECT SUM(total) AS total FROM (
+															SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
+															UNION ALL
+															SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
+														) AS subquery;") or die(mysqli_error($conn));
 		$f_p = $q_p->fetch_array();
 		// query for total labs
 		$q_ci = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 2 ") or die(mysqli_error($conn));

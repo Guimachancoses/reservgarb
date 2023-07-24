@@ -28,7 +28,7 @@ while ($row = $query->fetch_assoc()) {
     'day'=> intval($day),
     'month'=> intval($month),
     'year'=> intval($year),
-    'title' => $row['locacao']." - ".$row["description"]." * ".$row['status']." - ".$row['firstname']." ".substr($row['lastname'], 0, 2).".",
+    'title' => $row['locacao']." - ".substr($row["description"], 0, 15)." * ".$row['status']." - ".$row['firstname']." ".substr($row['lastname'], 0, 2).".",
     'time' => $checkin_time . " - " . $checkout_time,
   );
   array_push($events, $date);

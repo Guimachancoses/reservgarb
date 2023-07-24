@@ -19,7 +19,7 @@
 
 
     // query for pending message
-    $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error());
+    $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error($conn));
     if (mysqli_num_rows($q_msg) > 0) {
         $f_msg = $q_msg->fetch_array();
         $pendente = $f_msg['pendente'];

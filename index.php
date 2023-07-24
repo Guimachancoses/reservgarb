@@ -48,12 +48,11 @@
                               type="text"
                               name="ra"                              
                               class="form-style"
-                              placeholder="Insira seu usuário"
-                              id="usuario"
+                              placeholder="Digite seu e-mail"
                               autocomplete="on"
                               required
                             />
-                            <i class="input-icon uil uil-user"></i>
+                            <i class="input-icon uil uil-at"></i>
                           </div>
                           <div class="form-group mt-2">
                             <input
@@ -92,37 +91,28 @@
                         <div class="form-group">
                           <input
                               type="text"
-                              name="ra"
-                              maxlength="7"
+                              name="cpf"
                               class="form-style"
-                              placeholder="Insira seu usuário"
-                              id="usuario"
-                              autocomplete="on"
+                              placeholder="Digite seu CPF"
+                              id="cpf"
+                              onblur="validateCPF()"
+                              autocomplete="off"
                             />
                           <i class="input-icon uil uil-user"></i>
+                          <span id="cpf-error" style="color: red; font-size: smaller;"></span>
                         </div>
                         <div class="form-group mt-2">
                           <input
                             type="email"
                             name="logemail"
                             class="form-style"
-                            placeholder="Digite seu email"
-                            id="logemail"
-                            autocomplete="on"
+                            placeholder="Digite seu e-mail"
+                            id="email"
+                            autocomplete="off"
                           />
                           <i class="input-icon uil uil-at"></i>
                         </div>
                         <div class="form-group mt-2">
-                          <input
-                            type="text"
-                            name="cpf"
-                            class="form-style"
-                            placeholder="Digite seu CPF"
-                            id="cpf"
-                            autocomplete="off"
-                          />
-                          <i class="input-icon uil uil-lock-alt"></i>
-                        </div>
                         <a href="#" style="color:black" class="btn mt-4">Enviar</a>
                         <div id='msgError'></div>
                         <p class="mb-0 mt-3 text-center" >
@@ -142,7 +132,7 @@
   </body>
 <script src = "./js/jquery.js"></script>
 <script src = "./js/bootstrap.js"></script>
-<script src="./js/send_register.js"></script>
+<script src = "./js/validateCpf.js"></script>
 
 <script>
 

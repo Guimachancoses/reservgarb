@@ -1,0 +1,32 @@
+# Desabilita acesso as subpastas do programa
+Options -Indexes
+
+RewriteEngine On
+
+# Redirecionar para a página 404.php se encontrar um erro 403, 404 ou 500
+ErrorDocument 403 /reservgarb/error/404.php
+ErrorDocument 404 /reservgarb/error/404.php
+ErrorDocument 500 /reservgarb/error/404.php
+
+# Redirecionar para a página inicial se o arquivo não existir
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.\*)$ /index.php [L]
+
+# Verifica se a solicitação é para a pasta admin
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^admin/(.\*)$ /admin/index.php [L]
+
+# Verifica se a solicitação é para a pasta resplab
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^resplab/(.\*)$ /resplab/index.php [L]
+
+# Verifica se a solicitação é para a pasta profes
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^profes/(.\*)$ /profes/index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

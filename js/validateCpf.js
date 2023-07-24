@@ -7,7 +7,7 @@ function validateCPF() {
 
   // verifica se o valor contém apenas números
   if (!/^\d+$/.test(s)) {
-    alert("Por favor, digite apenas números no campo.");
+    alert("Por favor, digite apenas números no campo do CPF.");
     this.value = "";
   }
 
@@ -38,7 +38,7 @@ function validateCPF() {
   if (!(tam == 11 || tam == 14 || tam == 0)) {
     // validando o tamanho
     obj.style.background = "lightyellow";
-    cpfError.textContent = "Não é um CPF ou um CNPJ válido!";
+    cpfError.textContent = "Não é um CPF válido!";
     return false;
   }
 

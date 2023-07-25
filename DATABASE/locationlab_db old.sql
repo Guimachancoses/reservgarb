@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Jul-2023 às 21:54
+-- Tempo de geração: 24/07/2023 às 05:23
 -- Versão do servidor: 10.4.28-MariaDB
--- versão do PHP: 8.2.4
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,10 +26,10 @@ USE `locationlab_db`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `activities`
+-- Estrutura para tabela `activities`
 --
--- Criação: 18-Jul-2023 às 13:30
--- Última actualização: 21-Jul-2023 às 18:39
+-- Criação: 23/07/2023 às 18:41
+-- Última atualização: 23/07/2023 às 18:41
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -48,105 +48,12 @@ CREATE TABLE `activities` (
 --       `users` -> `users_id`
 --
 
---
--- Extraindo dados da tabela `activities`
---
-
-INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
-(1, 2, 1, '2023-07-18 17:53:40'),
-(2, 2, 1, '2023-07-18 20:19:13'),
-(3, 2, 1, '2023-07-18 20:19:48'),
-(4, 2, 1, '2023-07-18 20:20:03'),
-(5, 2, 1, '2023-07-18 20:20:18'),
-(6, 2, 1, '2023-07-18 20:20:33'),
-(7, 2, 1, '2023-07-18 20:20:55'),
-(8, 2, 1, '2023-07-18 20:21:28'),
-(9, 3, 1, '2023-07-18 20:21:44'),
-(10, 3, 1, '2023-07-18 20:21:55'),
-(11, 3, 1, '2023-07-18 20:22:13'),
-(12, 3, 1, '2023-07-18 20:22:45'),
-(13, 2, 1, '2023-07-18 20:23:25'),
-(14, 4, 15, '2023-07-19 11:46:21'),
-(15, 2, 15, '2023-07-19 12:50:17'),
-(16, 2, 15, '2023-07-19 12:57:32'),
-(17, 2, 15, '2023-07-19 12:57:49'),
-(18, 2, 15, '2023-07-19 13:00:57'),
-(19, 2, 15, '2023-07-19 13:02:24'),
-(20, 2, 1, '2023-07-19 13:05:44'),
-(21, 2, 15, '2023-07-19 13:07:38'),
-(22, 2, 15, '2023-07-19 13:09:47'),
-(23, 1, 1, '2023-07-19 13:22:26'),
-(24, 2, 1, '2023-07-19 13:57:22'),
-(25, 2, 1, '2023-07-19 13:59:02'),
-(26, 2, 1, '2023-07-19 14:01:57'),
-(27, 2, 15, '2023-07-19 14:03:02'),
-(28, 2, 1, '2023-07-19 14:04:21'),
-(29, 2, 1, '2023-07-19 14:08:49'),
-(30, 2, 1, '2023-07-19 14:13:38'),
-(31, 2, 1, '2023-07-19 14:16:44'),
-(32, 2, 1, '2023-07-19 14:38:51'),
-(33, 2, 1, '2023-07-19 14:44:18'),
-(34, 2, 1, '2023-07-19 14:51:55'),
-(35, 2, 1, '2023-07-19 14:55:31'),
-(36, 2, 1, '2023-07-19 14:57:36'),
-(37, 4, 1, '2023-07-19 18:49:08'),
-(38, 4, 15, '2023-07-20 10:15:10'),
-(39, 2, 15, '2023-07-20 14:36:49'),
-(40, 2, 1, '2023-07-20 14:38:21'),
-(41, 2, 15, '2023-07-20 14:39:25'),
-(42, 3, 15, '2023-07-20 14:40:23'),
-(43, 2, 15, '2023-07-20 14:57:22'),
-(44, 2, 15, '2023-07-20 15:01:09'),
-(45, 2, 1, '2023-07-20 15:26:05'),
-(46, 2, 1, '2023-07-20 15:26:37'),
-(47, 2, 1, '2023-07-20 15:26:50'),
-(48, 2, 1, '2023-07-20 15:27:02'),
-(49, 2, 1, '2023-07-20 17:49:54'),
-(50, 2, 1, '2023-07-20 17:50:06'),
-(51, 2, 1, '2023-07-20 17:50:31'),
-(52, 2, 1, '2023-07-20 18:19:23'),
-(53, 2, 1, '2023-07-20 18:20:03'),
-(54, 3, 1, '2023-07-20 18:56:35'),
-(55, 4, 15, '2023-07-20 18:59:03'),
-(56, 2, 1, '2023-07-20 19:10:47'),
-(57, 2, 1, '2023-07-20 19:20:28'),
-(58, 2, 1, '2023-07-20 19:30:56'),
-(59, 4, 15, '2023-07-21 11:31:20'),
-(60, 2, 1, '2023-07-21 15:26:56'),
-(61, 2, 1, '2023-07-21 15:32:29'),
-(62, 2, 1, '2023-07-21 16:36:02'),
-(63, 2, 1, '2023-07-21 16:36:56'),
-(64, 2, 1, '2023-07-21 16:39:35'),
-(65, 2, 1, '2023-07-21 17:02:50'),
-(66, 2, 1, '2023-07-21 17:19:53'),
-(67, 2, 1, '2023-07-21 17:22:31'),
-(68, 2, 1, '2023-07-21 17:25:03'),
-(69, 2, 1, '2023-07-21 17:26:31'),
-(70, 2, 1, '2023-07-21 17:27:31'),
-(71, 2, 1, '2023-07-21 17:27:31'),
-(72, 2, 1, '2023-07-21 17:30:17'),
-(73, 2, 1, '2023-07-21 17:30:17'),
-(74, 2, 1, '2023-07-21 17:36:18'),
-(75, 2, 1, '2023-07-21 17:36:18'),
-(76, 2, 1, '2023-07-21 17:36:18'),
-(77, 2, 1, '2023-07-21 17:36:18'),
-(78, 2, 1, '2023-07-21 17:36:18'),
-(79, 2, 1, '2023-07-21 17:36:18'),
-(80, 2, 1, '2023-07-21 17:47:38'),
-(81, 2, 1, '2023-07-21 17:47:38'),
-(82, 2, 1, '2023-07-21 17:47:38'),
-(83, 2, 1, '2023-07-21 17:47:38'),
-(84, 2, 1, '2023-07-21 17:47:38'),
-(85, 2, 1, '2023-07-21 17:47:38'),
-(86, 2, 1, '2023-07-21 17:59:48'),
-(87, 2, 15, '2023-07-21 18:39:15');
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `approver`
+-- Estrutura para tabela `approver`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `approver`;
@@ -160,7 +67,7 @@ CREATE TABLE `approver` (
 --
 
 --
--- Extraindo dados da tabela `approver`
+-- Despejando dados para a tabela `approver`
 --
 
 INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
@@ -172,10 +79,9 @@ INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `equipment`
+-- Estrutura para tabela `equipment`
 --
--- Criação: 20-Jul-2023 às 19:29
--- Última actualização: 20-Jul-2023 às 19:29
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `equipment`;
@@ -195,7 +101,7 @@ CREATE TABLE `equipment` (
 --
 
 --
--- Extraindo dados da tabela `equipment`
+-- Despejando dados para a tabela `equipment`
 --
 
 INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`, `photo`, `approver_id`) VALUES
@@ -205,9 +111,9 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`, `phot
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `gp_approver`
+-- Estrutura para tabela `gp_approver`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `gp_approver`;
@@ -226,7 +132,7 @@ CREATE TABLE `gp_approver` (
 --
 
 --
--- Extraindo dados da tabela `gp_approver`
+-- Despejando dados para a tabela `gp_approver`
 --
 
 INSERT INTO `gp_approver` (`gp_approver_id`, `users_id`, `approver_id`) VALUES
@@ -239,10 +145,9 @@ INSERT INTO `gp_approver` (`gp_approver_id`, `users_id`, `approver_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `laboratorios`
+-- Estrutura para tabela `laboratorios`
 --
--- Criação: 20-Jul-2023 às 19:26
--- Última actualização: 20-Jul-2023 às 19:27
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -262,7 +167,7 @@ CREATE TABLE `laboratorios` (
 --
 
 --
--- Extraindo dados da tabela `laboratorios`
+-- Despejando dados para a tabela `laboratorios`
 --
 
 INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`, `photo`, `approver_id`) VALUES
@@ -273,10 +178,10 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`, `phot
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `lc_period`
+-- Estrutura para tabela `lc_period`
 --
--- Criação: 21-Jul-2023 às 15:47
--- Última actualização: 21-Jul-2023 às 17:47
+-- Criação: 23/07/2023 às 17:30
+-- Última atualização: 23/07/2023 às 17:30
 --
 
 DROP TABLE IF EXISTS `lc_period`;
@@ -311,21 +216,13 @@ CREATE TABLE `lc_period` (
 --       `approver` -> `approver_id`
 --
 
---
--- Extraindo dados da tabela `lc_period`
---
-
-INSERT INTO `lc_period` (`lc_period_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `weekday`, `checkin`, `checkout`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
-(13, 1, 7, NULL, NULL, 2, 'Monday', '2023-08-28', '2023-09-28', '20:00:00', '23:00:00', 4),
-(14, 1, 7, NULL, NULL, 2, 'Tuesday', '2023-08-29', '2023-09-29', '20:00:00', '23:00:00', 4);
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `locacao`
+-- Estrutura para tabela `locacao`
 --
--- Criação: 21-Jul-2023 às 17:18
--- Última actualização: 21-Jul-2023 às 18:39
+-- Criação: 23/07/2023 às 17:30
+-- Última atualização: 23/07/2023 às 17:21
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -364,29 +261,12 @@ CREATE TABLE `locacao` (
 --       `lc_period` -> `lc_period_id`
 --
 
---
--- Extraindo dados da tabela `locacao`
---
-
-INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`, `lc_period_id`) VALUES
-(15, 1, 7, NULL, NULL, 2, 1, '2023-08-28', '20:00:00', '23:00:00', 4, 13),
-(16, 1, 7, NULL, NULL, 2, 1, '2023-09-04', '20:00:00', '23:00:00', 4, 13),
-(17, 1, 7, NULL, NULL, 2, 1, '2023-09-11', '20:00:00', '23:00:00', 4, 13),
-(18, 1, 7, NULL, NULL, 2, 1, '2023-09-18', '20:00:00', '23:00:00', 4, 13),
-(19, 1, 7, NULL, NULL, 2, 1, '2023-09-25', '20:00:00', '23:00:00', 4, 13),
-(20, 1, 7, NULL, NULL, 2, 1, '2023-08-29', '20:00:00', '23:00:00', 4, 14),
-(21, 1, 7, NULL, NULL, 2, 1, '2023-09-05', '20:00:00', '23:00:00', 4, 14),
-(22, 1, 7, NULL, NULL, 2, 1, '2023-09-12', '20:00:00', '23:00:00', 4, 14),
-(23, 1, 7, NULL, NULL, 2, 1, '2023-09-19', '20:00:00', '23:00:00', 4, 14),
-(24, 1, 7, NULL, NULL, 2, 1, '2023-09-26', '20:00:00', '23:00:00', 4, 14),
-(25, 1, 7, NULL, NULL, 2, 1, '2023-07-22', '20:00:00', '23:00:00', 4, NULL);
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `mensagens`
+-- Estrutura para tabela `mensagens`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -400,7 +280,7 @@ CREATE TABLE `mensagens` (
 --
 
 --
--- Extraindo dados da tabela `mensagens`
+-- Despejando dados para a tabela `mensagens`
 --
 
 INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
@@ -429,9 +309,9 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pwdtemp`
+-- Estrutura para tabela `pwdtemp`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
@@ -450,9 +330,9 @@ CREATE TABLE `pwdtemp` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `status`
+-- Estrutura para tabela `status`
 --
--- Criação: 17-Jul-2023 às 11:40
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -466,7 +346,7 @@ CREATE TABLE `status` (
 --
 
 --
--- Extraindo dados da tabela `status`
+-- Despejando dados para a tabela `status`
 --
 
 INSERT INTO `status` (`status_id`, `status`) VALUES
@@ -481,10 +361,9 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `users`
+-- Estrutura para tabela `users`
 --
--- Criação: 17-Jul-2023 às 11:40
--- Última actualização: 19-Jul-2023 às 13:22
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -507,7 +386,7 @@ CREATE TABLE `users` (
 --
 
 --
--- Extraindo dados da tabela `users`
+-- Despejando dados para a tabela `users`
 --
 
 INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
@@ -522,10 +401,9 @@ INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `co
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `vehicles`
+-- Estrutura para tabela `vehicles`
 --
--- Criação: 20-Jul-2023 às 19:28
--- Última actualização: 20-Jul-2023 às 19:28
+-- Criação: 21/07/2023 às 21:10
 --
 
 DROP TABLE IF EXISTS `vehicles`;
@@ -545,7 +423,7 @@ CREATE TABLE `vehicles` (
 --
 
 --
--- Extraindo dados da tabela `vehicles`
+-- Despejando dados para a tabela `vehicles`
 --
 
 INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`, `approver_id`) VALUES
@@ -560,7 +438,7 @@ INSERT INTO `vehicles` (`vehicle_id`, `name`, `model`, `description`, `photo`, `
 --
 
 --
--- Índices para tabela `activities`
+-- Índices de tabela `activities`
 --
 ALTER TABLE `activities`
   ADD PRIMARY KEY (`atctive_id`),
@@ -568,20 +446,20 @@ ALTER TABLE `activities`
   ADD KEY `users_id` (`users_id`);
 
 --
--- Índices para tabela `approver`
+-- Índices de tabela `approver`
 --
 ALTER TABLE `approver`
   ADD PRIMARY KEY (`approver_id`);
 
 --
--- Índices para tabela `equipment`
+-- Índices de tabela `equipment`
 --
 ALTER TABLE `equipment`
   ADD PRIMARY KEY (`equip_id`),
   ADD KEY `approver_id` (`approver_id`);
 
 --
--- Índices para tabela `gp_approver`
+-- Índices de tabela `gp_approver`
 --
 ALTER TABLE `gp_approver`
   ADD PRIMARY KEY (`gp_approver_id`),
@@ -589,14 +467,14 @@ ALTER TABLE `gp_approver`
   ADD KEY `users_id` (`users_id`);
 
 --
--- Índices para tabela `laboratorios`
+-- Índices de tabela `laboratorios`
 --
 ALTER TABLE `laboratorios`
   ADD PRIMARY KEY (`room_id`),
   ADD KEY `approver_id` (`approver_id`);
 
 --
--- Índices para tabela `lc_period`
+-- Índices de tabela `lc_period`
 --
 ALTER TABLE `lc_period`
   ADD PRIMARY KEY (`lc_period_id`),
@@ -608,7 +486,7 @@ ALTER TABLE `lc_period`
   ADD KEY `approver_id` (`approver_id`);
 
 --
--- Índices para tabela `locacao`
+-- Índices de tabela `locacao`
 --
 ALTER TABLE `locacao`
   ADD PRIMARY KEY (`locacao_id`),
@@ -622,46 +500,46 @@ ALTER TABLE `locacao`
   ADD KEY `lc_period_id` (`lc_period_id`);
 
 --
--- Índices para tabela `mensagens`
+-- Índices de tabela `mensagens`
 --
 ALTER TABLE `mensagens`
   ADD PRIMARY KEY (`mensagens_id`);
 
 --
--- Índices para tabela `pwdtemp`
+-- Índices de tabela `pwdtemp`
 --
 ALTER TABLE `pwdtemp`
   ADD PRIMARY KEY (`pwd_temp`);
 
 --
--- Índices para tabela `status`
+-- Índices de tabela `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`status_id`);
 
 --
--- Índices para tabela `users`
+-- Índices de tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`users_id`),
   ADD KEY `status` (`status`);
 
 --
--- Índices para tabela `vehicles`
+-- Índices de tabela `vehicles`
 --
 ALTER TABLE `vehicles`
   ADD PRIMARY KEY (`vehicle_id`),
   ADD KEY `approver_id` (`approver_id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `approver`
@@ -691,13 +569,13 @@ ALTER TABLE `laboratorios`
 -- AUTO_INCREMENT de tabela `lc_period`
 --
 ALTER TABLE `lc_period`
-  MODIFY `lc_period_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `lc_period_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`
@@ -724,37 +602,37 @@ ALTER TABLE `vehicles`
   MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `activities`
+-- Restrições para tabelas `activities`
 --
 ALTER TABLE `activities`
   ADD CONSTRAINT `activities_ibfk_1` FOREIGN KEY (`mensagens_id`) REFERENCES `mensagens` (`mensagens_id`),
   ADD CONSTRAINT `activities_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Limitadores para a tabela `equipment`
+-- Restrições para tabelas `equipment`
 --
 ALTER TABLE `equipment`
   ADD CONSTRAINT `equipment_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 
 --
--- Limitadores para a tabela `gp_approver`
+-- Restrições para tabelas `gp_approver`
 --
 ALTER TABLE `gp_approver`
   ADD CONSTRAINT `gp_approver_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`),
   ADD CONSTRAINT `gp_approver_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
 
 --
--- Limitadores para a tabela `laboratorios`
+-- Restrições para tabelas `laboratorios`
 --
 ALTER TABLE `laboratorios`
   ADD CONSTRAINT `laboratorios_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 
 --
--- Limitadores para a tabela `lc_period`
+-- Restrições para tabelas `lc_period`
 --
 ALTER TABLE `lc_period`
   ADD CONSTRAINT `lc_period_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -765,7 +643,7 @@ ALTER TABLE `lc_period`
   ADD CONSTRAINT `lc_period_ibfk_6` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);
 
 --
--- Limitadores para a tabela `locacao`
+-- Restrições para tabelas `locacao`
 --
 ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`),
@@ -778,13 +656,13 @@ ALTER TABLE `locacao`
   ADD CONSTRAINT `locacao_ibfk_9` FOREIGN KEY (`lc_period_id`) REFERENCES `lc_period` (`lc_period_id`);
 
 --
--- Limitadores para a tabela `users`
+-- Restrições para tabelas `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status_id`);
 
 --
--- Limitadores para a tabela `vehicles`
+-- Restrições para tabelas `vehicles`
 --
 ALTER TABLE `vehicles`
   ADD CONSTRAINT `vehicles_ibfk_1` FOREIGN KEY (`approver_id`) REFERENCES `approver` (`approver_id`);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/07/2023 às 05:23
+-- Tempo de geração: 25/07/2023 às 04:04
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -29,7 +29,7 @@ USE `locationlab_db`;
 -- Estrutura para tabela `activities`
 --
 -- Criação: 23/07/2023 às 18:41
--- Última atualização: 23/07/2023 às 18:41
+-- Última atualização: 24/07/2023 às 12:38
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -47,6 +47,13 @@ CREATE TABLE `activities` (
 --   `users_id`
 --       `users` -> `users_id`
 --
+
+--
+-- Despejando dados para a tabela `activities`
+--
+
+INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
+(1, 2, 1, '2023-07-24 12:38:19');
 
 -- --------------------------------------------------------
 
@@ -222,7 +229,7 @@ CREATE TABLE `lc_period` (
 -- Estrutura para tabela `locacao`
 --
 -- Criação: 23/07/2023 às 17:30
--- Última atualização: 23/07/2023 às 17:21
+-- Última atualização: 24/07/2023 às 12:38
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -260,6 +267,13 @@ CREATE TABLE `locacao` (
 --   `lc_period_id`
 --       `lc_period` -> `lc_period_id`
 --
+
+--
+-- Despejando dados para a tabela `locacao`
+--
+
+INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`, `lc_period_id`) VALUES
+(1, 1, 7, NULL, NULL, 2, 1, '2023-07-25', '20:00:00', '23:00:00', 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -311,14 +325,14 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 --
 -- Estrutura para tabela `pwdtemp`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 01:53
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
 CREATE TABLE `pwdtemp` (
   `pwd_temp` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
-  `username` varchar(26) NOT NULL,
+  `email` varchar(26) NOT NULL,
   `codigo` varchar(26) NOT NULL,
   `timestp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -539,7 +553,7 @@ ALTER TABLE `vehicles`
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `approver`
@@ -575,7 +589,7 @@ ALTER TABLE `lc_period`
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`

@@ -4,6 +4,10 @@
 		$email = $_POST['email'];
 		$codigo = $_POST['codigo'];
 		$password = $_POST['password'];
+
+		// Gera um hash criptográfico da senha usando o algoritmo bcrypt
+		$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
 		$query = $conn->query("SELECT * FROM `pwdtemp` WHERE `email` = '$email' && `codigo` = '$codigo'") or die(mysqli_error());
 		$valid = $query->num_rows;
 		if($valid > 0){

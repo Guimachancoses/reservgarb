@@ -32,8 +32,8 @@
 
             // Configurações do email
             $mail->CharSet = 'UTF-8';
-            $mail->setFrom($email, $nome);
-            $mail->addAddress($dtemail, $dtname);
+            $mail->setFrom($email, $nome); // email administrator, responsável por enviar
+            $mail->addAddress($dtemail, $dtname); // dados do destinatário
             $mail->Subject = $assunto;
             $mail->Body = $message;
 

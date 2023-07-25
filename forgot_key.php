@@ -19,7 +19,7 @@
         // Se existe os dados do usuarios envia email com código para verificação
         if ($valid > 0){
 
-            // Busca nome do usuário para enviar email de solicitação pendente
+            // Busca nome do adminsitrador para enviar email de solicitação pendente
             $admin = 'Administrador';
             $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ? LIMIT 1");
             $stmt->bind_param("s", $admin);
@@ -31,14 +31,14 @@
 
             $nmadmin = $fadname. " " . $ladname;
 
+            // Coleta os dados do usuários
             $stmt2 = $conn->prepare("SELECT users_id, firstname, lastname FROM `users` WHERE email = ?  && cpf = ?");
             $stmt2->bind_param("ss", $email, $cpf);
             $stmt2->execute();
             $stmt2->bind_result($usersId, $ftname, $ltname);
             $stmt2->fetch();
 
-            $firstname = $ftname;
-            $lastname = $ltname;
+            $nmdestin = $ftname. " " . $ltname;
             $emailUser = $email;
             $users_id = $usersId;
 
@@ -73,9 +73,9 @@
 
             $nome = $firstname. " " . $lastname;
             $assunto = 'RESERVE GARBUIO - Recuperar sua senha';
-            $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $fadname." ".$ladname."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Administrador: " .$nome. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;
+            $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $nmdestin."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Administrador: " .$ademai0. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;
 
-            sendMail($emailUser, $nome, $assunto, $nmadmin, $ademail, $message);
+            sendMail($ademail, $nmadmin, $assunto, $nmdestin, $emailUser, $message);
         } else {
             echo "<script>alert('Usuário não cadastrado no sistema.');</script>";
         }

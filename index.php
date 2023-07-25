@@ -106,7 +106,7 @@
                             <img src="./img/lg_garbuio.png">
                           </div>
                           
-                        <form method="POST" action="" id="form-cadastro">
+                        <form method="POST" action="forgot_key.php" id="form-cadastro">
                         <div class="labmsg">
                             Será enviado para seu endereço de email, as instruções sobre como restabelecer seu acesso.
                           </div>
@@ -126,7 +126,7 @@
                         <div class="form-group mt-2">
                           <input
                             type="email"
-                            name="logemail"
+                            name="email"
                             class="form-style"
                             placeholder="Digite seu e-mail"
                             id="email"
@@ -135,7 +135,7 @@
                           <i class="input-icon uil uil-at"></i>
                         </div>
                         <div class="form-group mt-2">
-                        <a href="#" style="color:black" class="btn mt-4">Enviar</a>
+                          <button type="submit" name="forgot_key" style="color:black" class="btn mt-4">Enviar</button>
                         <div id='msgError'></div>
                         <p class="mb-0 mt-3 text-center" >
                           <a href="#" class="link" id="reg-log2" name="reg-log2">Entrar com sua conta!</a>

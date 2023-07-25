@@ -1,16 +1,14 @@
 <?php
 	require_once 'connect.php';
 	if(ISSET($_POST['alter_query_pwd'])){
-		$ra = $_POST['ra'];
-		// remove a barra e o traço e deixa apenas os números
-		$username = str_replace(array('/', '-'), '', $ra);
+		$email = $_POST['email'];
 		$codigo = $_POST['codigo'];
 		$password = $_POST['password'];
-		$query = $conn->query("SELECT * FROM `pwdtemp` WHERE `username` = '$username' && `codigo` = '$codigo'") or die(mysqli_error());
+		$query = $conn->query("SELECT * FROM `pwdtemp` WHERE `email` = '$email' && `codigo` = '$codigo'") or die(mysqli_error());
 		$valid = $query->num_rows;
 		if($valid > 0){
 			// Atulaiza na tabela users a nova senha para acesso do usuário
-			$conn->query("UPDATE `users` SET `password` = '$password' WHERE `username` = '$username'") or die(mysqli_error());
+			$conn->query("UPDATE `users` SET `password` = '$password' WHERE `email` = '$email'") or die(mysqli_error());
 			// Atulaiza na tabela pwdtemp o coluna 'codigo' em NULL, para não ser ultilizada mais de uma vez pelo usuário.
 
 			// Gera um novoo código aleatório com 8 dígitos para não ser posivel usuário acertar
@@ -35,15 +33,15 @@
 			$newCodigo = str_shuffle($hash);
 
 			// Executa a consulta para obter o users_id
-			$stmt = $conn->prepare("SELECT users_id FROM users WHERE username = ?");
-			$stmt->bind_param("s", $username);
+			$stmt = $conn->prepare("SELECT users_id FROM users WHERE email = ?");
+			$stmt->bind_param("s", $email);
 			$stmt->execute();
 			$stmt->bind_result($users_id);
 			$stmt->fetch();
 			$stmt->close();
 			
 			// Atulaiza na tabela users a nova senha para acesso do usuário
-			$conn->query("UPDATE `pwdtemp` SET `codigo` = '$newCodigo' WHERE `username` = '$username' && `codigo` = '$codigo'") or die(mysqli_error());
+			$conn->query("UPDATE `pwdtemp` SET `codigo` = '$newCodigo' WHERE `email` = '$email' && `codigo` = '$codigo'") or die(mysqli_error());
 			
 			// Inserir atividade 
 			$stmt = $conn->prepare("INSERT INTO `activities` set mensagens_id = 27, users_id = ?") or die(mysqli_error());
@@ -53,7 +51,7 @@
 			
 			echo "<script>alert('Sua senha foi alterada com sucesso!\\nVolte para a página de login e entre com sua nova senha.'); window.location.href = 'index.php';</script>";
 		}else{
-			echo "<script>alert('Código de verificação expirado, ou verifique seu RA.\\nCaso o erro persiste contacte o administrador.'); window.location.href = 'index.php'</script>";
+			echo "<script>alert('Código de verificação expirado.\\nCaso o erro persiste contacte o administrador.'); window.location.href = 'index.php'</script>";
 		}
 	}
 ?>

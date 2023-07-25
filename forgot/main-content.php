@@ -6,7 +6,7 @@
 						<h4 class="card-title"><strong class="text-primary"> Recuperar Acesso</strong></h4>
                         <p class="category" style="display:flex;align-items:center;justify-content:center; background-color: #f4d7d3;  border-radius: 6px;  padding: 5px;  margin-bottom: 8px; color: #000000;">
                            Insira o seu endereço de e-mail, o "Código de verificação", sua nova senha e confirme. Após salvar as alterações volte ao "Login" e acesse com sua nova senha.
-                           Depois de ultizar o "Código de verificação" ele espirará não sendo possível utiliza-lo novamente. 
+                           Depois de ultizar o "Código de verificação" ele espirará não sendo possível utilizá-lo novamente. 
                         </p>
                     <div class = "col-md-10"style="min-height:510px">	
                         <form method = "POST" action = "alter_query_pwd.php" autocomplete="off">

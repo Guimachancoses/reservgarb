@@ -11,8 +11,8 @@
 		$cpf = str_replace(array('.', '-'), '', $identid);
                 
         // Consulta no banco se existe os dados do usuário
-        $queryad = $conn->prepare("SELECT * FROM `users` WHERE username = ? && email = ? && cpf = ?") or die(mysqli_error());
-        $queryad->bind_param('sss', $username, $email, $cpf);
+        $queryad = $conn->prepare("SELECT * FROM `users` WHERE email = ? && cpf = ?") or die(mysqli_error());
+        $queryad->bind_param('ss', $email, $cpf);
         $queryad->execute();
         $queryad->store_result();
         $valid = $queryad->num_rows();
@@ -21,7 +21,7 @@
 
             // Busca nome do usuário para enviar email de solicitação pendente
             $admin = 'Administrador';
-            $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ?");
+            $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ? LIMIT 1");
             $stmt->bind_param("s", $admin);
             $stmt->execute();
             $stmt->bind_result($fadname, $ladname, $ademail);
@@ -66,14 +66,14 @@
             $codigo = str_shuffle($hash);
 
             // Insere no banco de dados em uma tabela unica para código gerado e ID de usuário, para mudar a senha de acesso.
-            $stmt = $conn->prepare("INSERT INTO pwdtemp (users_id, username, codigo) VALUES (?, ?, ?)") or die(mysqli_error());
-            $stmt->bind_param("sss", $users_id, $username, $codigo);
+            $stmt = $conn->prepare("INSERT INTO pwdtemp (users_id, email, codigo) VALUES (?, ?, ?)") or die(mysqli_error());
+            $stmt->bind_param("sss", $users_id, $email, $codigo);
 			$stmt->execute();
 			$stmt->close();
 
             $nome = $firstname. " " . $lastname;
             $assunto = 'RESERVE GARBUIO - Recuperar sua senha';
-            $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $fadname." ".$ladname."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Usuário: " .$nome. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;
+            $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $fadname." ".$ladname."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Administrador: " .$nome. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;
 
             sendMail($emailUser, $nome, $assunto, $nmadmin, $ademail, $message);
         } else {

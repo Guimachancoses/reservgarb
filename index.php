@@ -20,6 +20,24 @@
       href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css"
     />
     <link rel="stylesheet" type = "text/css" href="css/stylelg.css" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <style>
+      /* Estilo para posicionar o ícone do olho à direita */
+      .input-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+
+      .olho-wrapper {
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <!-- partial:index.partial.html -->
@@ -55,16 +73,20 @@
                             <i class="input-icon uil uil-at"></i>
                           </div>
                           <div class="form-group mt-2">
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
                             <input
                               type="password"
                               name="password"
                               class="form-style"
                               placeholder="Digite sua senha"
-                              id="senha"
+                              id="pwd"
                               autocomplete="off"
                               required
                             />
                             <i class="input-icon uil uil-lock-alt"></i>
+                            <span class="olho-wrapper">
+                              <img class="form-inline" style="padding: 5px;" id="olho" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDUlEQVQ4jd2SvW3DMBBGbwQVKlyo4BGC4FKFS4+TATKCNxAggkeoSpHSRQbwAB7AA7hQoUKFLH6E2qQQHfgHdpo0yQHX8T3exyPR/ytlQ8kOhgV7FvSx9+xglA3lM3DBgh0LPn/onbJhcQ0bv2SHlgVgQa/suFHVkCg7bm5gzB2OyvjlDFdDcoa19etZMN8Qp7oUDPEM2KFV1ZAQO2zPMBERO7Ra4JQNpRa4K4FDS0R0IdneCbQLb4/zh/c7QdH4NL40tPXrovFpjHQr6PJ6yr5hQV80PiUiIm1OKxZ0LICS8TWvpyyOf2DBQQtcXk8Zi3+JcKfNafVsjZ0WfGgJlZZQxZjdwzX+ykf6u/UF0Fwo5Apfcq8AAAAASUVORK5CYII=" />
+                            </span>                          
                           </div>
                           <button name="login" style="color:black"class="btn mt-4">Acessar</button>
                           <div id='msgError'></div>
@@ -128,11 +150,25 @@
           </div>
         </div>
       </div>
+<script>
+  // Função para alternar a visibilidade da senha no input
+  $("#olho").click(function () {
+    var input = $("#pwd");
+    var tipo = input.attr("type");
+
+    if (tipo === "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
+</script>
     <!-- partial -->
   </body>
 <script src = "./js/jquery.js"></script>
 <script src = "./js/bootstrap.js"></script>
 <script src = "./js/validateCpf.js"></script>
+<script src="./js/eyesPwd.js"></script>
 
 <script>
 

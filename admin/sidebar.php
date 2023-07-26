@@ -221,9 +221,9 @@
                     <ul class="collapse list-unstyled menu" id="pageSubmenu6">
 
                         <li>
-                            <?php $period = 'period';
+                            <?php $addpd = 'addpd';
                                 ?>
-                            <a href="reservlab.php?<?php echo $period?>"><i class="material-icons" style="color:red">add</i><span><small>Add. Reserva</small></span></a>
+                            <a href="reservlab.php?<?php echo $addpd?>"><i class="material-icons" style="color:red">add</i><span><small>Add. Reserva</small></span></a>
                         </li> 
 
                         <li>

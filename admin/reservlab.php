@@ -116,7 +116,7 @@
     	$content = 'user/add-approver.php';
 	}
 	// Redirecionamento para locar por periodo
-	else if(preg_match("~period~", $url)) {
+	else if(preg_match("~addpd~", $url)) {
     	$content = 'period/add-period.php';
 	}
 	// Redirecionamento para lista reservas por periodo pendente
@@ -126,6 +126,10 @@
 	// Redirecionamento para lista reservas por periodo reservadas
 	else if(preg_match("~perres~", $url)) {
     	$content = 'period/period_reserved.php';
+	}
+	// Redirecionamento para corfimar reserva de locações por periodo pendentes
+	else if(preg_match("~confirm-locp~", $url)) {
+    	$content = 'period/confirm-locp.php';
 	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else

@@ -113,7 +113,7 @@
                                     WHEN 'Friday' THEN 'Sexta-feira'
                                     WHEN 'Saturday' THEN 'Sábado'
                                     WHEN 'Sunday' THEN 'Domingo'
-                                    ELSE 'Dia inválido' END AS dia_semana,
+                                    ELSE 'Todos os dias' END AS dia_semana,
                                     lc.checkin,
                                     lc.checkout,
                                     lc.checkin_time,

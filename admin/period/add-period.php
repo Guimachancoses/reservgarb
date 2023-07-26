@@ -19,6 +19,23 @@
                         <form method = "POST" action="locacao_periodo.php" enctype = "multipart/form-data" autocomplete="off">
                             <div class="card-foot">
                                 <label><strong> Reservar:</strong></label>
+                                <select class = "form-control" name = "users_id" required = required>
+                                                                                                                       
+                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
+                                <?php  
+									$queryad = $conn->query("SELECT * FROM `users`") or die(mysqli_error($conn));
+									while($fetch = $queryad->fetch_array()){
+                                    $users_id = $fetch['users_id'];
+								?>
+                                    <option class="select-box" value="<?php echo $users_id?>"><?php echo $fetch['firstname']." ".$fetch['lastname'];?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                            <div class="card-foot">
+                                <label><strong> Usuário:</strong></label>
                                 <select class = "form-control" name = "eventTitle" required = required>
                                                                                                                        
                                     <!-- query para trazer as salas -->
@@ -29,7 +46,7 @@
                                         while($fetch = $queryad->fetch_array()){
                                         $room_type = $fetch['room_type'];
                                     ?>     
-                                        <option value="<?php echo $room_type?>"><?php echo $fetch['room_type']." - ".$fetch['room_no']?></option>
+                                        <option class="select-box" value="<?php echo $room_type?>"><?php echo $fetch['room_type']." - ".$fetch['room_no']?></option>
                                         <?php
                                         }
                                         ?>
@@ -41,7 +58,7 @@
                                         while($fetch = $queryad->fetch_array()){
                                         $name = $fetch['name'];
                                     ?>     
-                                        <option value="<?php echo $name?>"><?php echo $fetch['name']." - ".$fetch['model']?></option>
+                                        <option class="select-box" value="<?php echo $name?>"><?php echo $fetch['name']." - ".$fetch['model']?></option>
                                         <?php
                                         }
                                         ?>
@@ -53,7 +70,7 @@
                                         while($fetch = $queryad->fetch_array()){
                                         $equip = $fetch['equipment'];
                                     ?>     
-                                        <option value="<?php echo $equip?>"><?php echo $fetch['equipment']?></option>
+                                        <option class="select-box" value="<?php echo $equip?>"><?php echo $fetch['equipment']?></option>
                                         <?php
                                         }
                                         ?>
@@ -74,15 +91,15 @@
                             <div class="card-foot">
                                 <label><strong> Dia da Semana:</strong></label>
                                 <select class="form-control" name="dia_semana"required = required>
-                                    <option value="" disabled selected>Escolha o dia da semana</option>
-                                    <option value="Monday">- Segunda-feira -</option>
-                                    <option value="Tuesday">- Terça-feira -</option>
-                                    <option value="Wednesday">- Quarta-feira -</option>
-                                    <option value="Thursday">- Quinta-feira -</option>
-                                    <option value="Friday">- Sexta-feira -</option>
-                                    <option value="Saturday">- Sábado -</option>
-                                    <option value="Sunday">- Domingo -</option>
-                                    <option value="AllDays"> - Todos os dias - </option>
+                                    <option class="select-box" value="" disabled selected>Escolha o dia da semana</option>
+                                    <option class="select-box" value="Monday">- Segunda-feira -</option>
+                                    <option class="select-box" value="Tuesday">- Terça-feira -</option>
+                                    <option class="select-box" value="Wednesday">- Quarta-feira -</option>
+                                    <option class="select-box" value="Thursday">- Quinta-feira -</option>
+                                    <option class="select-box" value="Friday">- Sexta-feira -</option>
+                                    <option class="select-box" value="Saturday">- Sábado -</option>
+                                    <option class="select-box" value="Sunday">- Domingo -</option>
+                                    <option class="select-box" value="AllDays"> - Todos os dias - </option>
                                 </select>
                             </div>
                             <div class="card-foot">

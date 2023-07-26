@@ -10,7 +10,7 @@
         $dia_semana = $_POST['dia_semana'];
         $eventTimeFrom = $_POST['checkin_time'];
         $eventTimeTo = $_POST['checkout_time'];
-        $users_id = $_SESSION['users_id'];
+        $users_id = $_POST['users_id'];
 
         // Converte a data de checkin para o formato do MySQL
         $checkin_dateIn = new DateTime($checkin);
@@ -123,6 +123,17 @@
 
                 if ($timeTo > $timeFrom) {
 
+                    // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
+                    $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
+                    $stmt->execute();
+
+                    $lc_period_id = $stmt->insert_id;
+
+                    $stmt->close();
+
+                    $stmt = $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
+
                     // Se a hora fim for maior que a hora de inicio percorre o Loop através de cada dia no período
                     for ($data = $checkin_dateIn; $data <= $checkin_dateOut; $data->modify('+1 day')) {
                         // Verificar se o usuário escolheu "Todos os dias" ou se a data é do dia da semana escolhido pelo usuário
@@ -170,23 +181,22 @@
                         } 
                     
                     }
-
-                    // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
-                    $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
-                    $stmt->execute();
-
-                    $lc_period_id = $stmt->insert_id;
-
-                    $stmt->close();
-
-                    $stmt = $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
-           
                 } 
                 else {
                 // Se a hora fim for mneor que a hora de inicio percorre o Loop através de cada dia no período, para fazer dois INSERT na tabela locação
                 $timeFrom_seg = '00:00:00';
                 $timeTo_seg = '23:59:00';
+
+                // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
+                $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
+                $stmt->execute();
+
+                $lc_period_id = $stmt->insert_id;
+
+                $stmt->close();
+
+                $stmt = $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
                 
                 for ($data = $checkin_dateIn; $data <= $checkin_dateOut; $data->modify('+1 day')) {
                     // Verificar se o usuário escolheu "Todos os dias" ou se a data é do dia da semana escolhido pelo usuário
@@ -281,17 +291,6 @@
                 $penLocacao_id = ($locacao_id -1);
                 
                 $conn->query("DELETE FROM `locacao` WHERE `locacao_id` = '$penLocacao_id'") or die(mysqli_error($conn));
-
-                // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
-                $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
-                $stmt->execute();
-
-                $lc_period_id = $stmt->insert_id;
-
-                $stmt->close();
-
-                $stmt = $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
 
             }
 

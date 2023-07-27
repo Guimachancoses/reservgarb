@@ -19,7 +19,9 @@ if (isset($_SESSION['users_id'])) {
 // Se o usuário não estiver logado, exibe a página de login
 // Seu código de login continua abaixo desta linha...
 ?>
-<?php
+
+<?php	 
+	 
 	ob_start();
 	if(ISSET ($_POST['login'])){
 		

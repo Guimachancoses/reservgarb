@@ -27,6 +27,7 @@ RewriteRule ^resplab/(.\*)$ /resplab/index.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^profes/(.\*)$ /profes/index.php [L]
 
+# Adicionar extensão .php automaticamente
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]

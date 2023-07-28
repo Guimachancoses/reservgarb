@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25/07/2023 às 04:04
+-- Tempo de geração: 28/07/2023 às 22:03
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -28,8 +28,8 @@ USE `locationlab_db`;
 --
 -- Estrutura para tabela `activities`
 --
--- Criação: 23/07/2023 às 18:41
--- Última atualização: 24/07/2023 às 12:38
+-- Criação: 25/07/2023 às 14:14
+-- Última atualização: 28/07/2023 às 17:55
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -53,14 +53,36 @@ CREATE TABLE `activities` (
 --
 
 INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`) VALUES
-(1, 2, 1, '2023-07-24 12:38:19');
+(1, 2, 1, '2023-07-24 12:38:19'),
+(2, 3, 1, '2023-07-25 15:12:31'),
+(3, 4, 1, '2023-07-26 12:36:19'),
+(4, 2, 1, '2023-07-26 13:10:19'),
+(5, 4, 1, '2023-07-26 13:10:21'),
+(6, 2, 1, '2023-07-26 13:27:04'),
+(7, 2, 1, '2023-07-26 13:27:04'),
+(8, 4, 1, '2023-07-26 13:27:07'),
+(9, 2, 1, '2023-07-26 13:30:48'),
+(10, 2, 1, '2023-07-26 13:30:48'),
+(11, 4, 1, '2023-07-26 13:30:51'),
+(12, 2, 1, '2023-07-26 13:34:21'),
+(13, 3, 1, '2023-07-26 17:08:21'),
+(14, 3, 1, '2023-07-26 18:45:41'),
+(15, 3, 1, '2023-07-26 18:55:28'),
+(16, 3, 1, '2023-07-26 19:15:37'),
+(17, 3, 1, '2023-07-26 19:21:48'),
+(18, 3, 1, '2023-07-26 19:23:07'),
+(19, 3, 1, '2023-07-26 20:07:55'),
+(20, 3, 1, '2023-07-26 20:09:49'),
+(21, 4, 1, '2023-07-28 12:27:38'),
+(22, 2, 15, '2023-07-28 17:53:14'),
+(23, 2, 15, '2023-07-28 17:55:19');
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `approver`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
 --
 
 DROP TABLE IF EXISTS `approver`;
@@ -88,7 +110,7 @@ INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
 --
 -- Estrutura para tabela `equipment`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
 --
 
 DROP TABLE IF EXISTS `equipment`;
@@ -120,7 +142,7 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`, `phot
 --
 -- Estrutura para tabela `gp_approver`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
 --
 
 DROP TABLE IF EXISTS `gp_approver`;
@@ -154,7 +176,7 @@ INSERT INTO `gp_approver` (`gp_approver_id`, `users_id`, `approver_id`) VALUES
 --
 -- Estrutura para tabela `laboratorios`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -187,8 +209,8 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`, `phot
 --
 -- Estrutura para tabela `lc_period`
 --
--- Criação: 23/07/2023 às 17:30
--- Última atualização: 23/07/2023 às 17:30
+-- Criação: 26/07/2023 às 13:33
+-- Última atualização: 26/07/2023 às 20:09
 --
 
 DROP TABLE IF EXISTS `lc_period`;
@@ -223,13 +245,20 @@ CREATE TABLE `lc_period` (
 --       `approver` -> `approver_id`
 --
 
+--
+-- Despejando dados para a tabela `lc_period`
+--
+
+INSERT INTO `lc_period` (`lc_period_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `weekday`, `checkin`, `checkout`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
+(1, 11, 7, NULL, NULL, 3, 'AllDays', '2023-07-27', '2023-07-30', '20:00:00', '23:00:00', 4);
+
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `locacao`
 --
--- Criação: 23/07/2023 às 17:30
--- Última atualização: 24/07/2023 às 12:38
+-- Criação: 26/07/2023 às 13:33
+-- Última atualização: 28/07/2023 às 17:55
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -273,14 +302,50 @@ CREATE TABLE `locacao` (
 --
 
 INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`, `lc_period_id`) VALUES
-(1, 1, 7, NULL, NULL, 2, 1, '2023-07-25', '20:00:00', '23:00:00', 4, NULL);
+(1, 11, 7, NULL, NULL, 4, 4, '2023-07-27', '20:00:00', '23:00:00', 4, 1),
+(2, 11, 7, NULL, NULL, 3, 2, '2023-07-28', '20:00:00', '23:00:00', 4, 1),
+(3, 11, 7, NULL, NULL, 3, 2, '2023-07-29', '20:00:00', '23:00:00', 4, 1),
+(4, 11, 7, NULL, NULL, 3, 2, '2023-07-30', '20:00:00', '23:00:00', 4, 1),
+(5, 15, 7, NULL, NULL, 2, 1, '2023-07-31', '12:00:00', '16:00:00', 4, NULL),
+(6, 15, 7, NULL, NULL, 2, 1, '2023-07-29', '12:00:00', '13:00:00', 4, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `login_attempts`
+--
+-- Criação: 28/07/2023 às 14:46
+-- Última atualização: 28/07/2023 às 19:47
+--
+
+DROP TABLE IF EXISTS `login_attempts`;
+CREATE TABLE `login_attempts` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `attempt_time` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `login_attempts`:
+--
+
+--
+-- Despejando dados para a tabela `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`id`, `email`, `attempt_time`) VALUES
+(42, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:37'),
+(43, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:44'),
+(44, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:50'),
+(45, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:57'),
+(46, 'guilherme.machancoses@gmail.com', '2023-07-28 19:47:14');
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `mensagens`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -325,7 +390,8 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 --
 -- Estrutura para tabela `pwdtemp`
 --
--- Criação: 25/07/2023 às 01:53
+-- Criação: 25/07/2023 às 15:11
+-- Última atualização: 25/07/2023 às 15:11
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
@@ -346,7 +412,7 @@ CREATE TABLE `pwdtemp` (
 --
 -- Estrutura para tabela `status`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -377,7 +443,8 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 --
 -- Estrutura para tabela `users`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
+-- Última atualização: 25/07/2023 às 14:37
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -405,11 +472,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `contactno`, `cpf`, `password`, `status`) VALUES
 (1, 'Guilherme', 'Machancoses', 'Administrador', 'guilherme.machancoses@gmail.com', '19981955602', '37565229890', '$2y$10$ei1w1VFlynqxNSGVlJKPsOy67BZ9/rzSDu6Olu0cJC9nzkvAccp/q', 5),
-(11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '375.652.298-90', '$2y$10$dJAcS5q4pvq522.HVHpLmeZN6jI4E.6uzPr.qwGkb9SAgRjEMpCB6', 5),
-(15, 'Orlando', 'Bagni', 'Aprovador', 'bagnijr@garbuio.com.br', '19997293396', '027.877.648-51', '$2y$10$Am450jjp2.nHHs8ZsyBB4u3DOJVHuYvQgD4rX/CJZgjM6c/mrKKTW', 5),
-(16, 'Cesar', 'Monção', 'Usuário', 'cesarmoncao@garbuio.com.br', '19998068077', '286.430.488-01', '$2y$10$rFic2iVN3XhJKEuKORVQNeUUhbHUc6PvXXaIzB32jh.YR0EPKrkvO', 5),
-(17, 'Fernanda', 'Rochel', 'Aprovador', 'fernandarochel@garbuio.com.br', '19981971509', '460.748.888-76', '$2y$10$BKNAQwIVQK382iIF3kDPfuoPLEMxhzmgqpcBbmYZRekykdx.8eQjK', 5),
-(18, 'Janaina', 'Campos', 'Aprovador', 'janainacampos@garbuio.com.br', '19997411896', '343.524.098-98', '$2y$10$YZMyfdMPPkHagKZMAxyY6uImu80vsb7YscC6IwNdojRsZ4pc3LC.K', 5),
+(11, 'Bruno', 'Rissio', 'Administrador', 'brunorissio@garbuio.com.br', '19981955602', '35152066807', '$2y$10$dJAcS5q4pvq522.HVHpLmeZN6jI4E.6uzPr.qwGkb9SAgRjEMpCB6', 5),
+(15, 'Orlando', 'Bagni', 'Aprovador', 'bagnijr@garbuio.com.br', '19997293396', '02787764851', '$2y$10$Am450jjp2.nHHs8ZsyBB4u3DOJVHuYvQgD4rX/CJZgjM6c/mrKKTW', 5),
+(16, 'Cesar', 'Monção', 'Usuário', 'cesarmoncao@garbuio.com.br', '19998068077', '28643048801', '$2y$10$rFic2iVN3XhJKEuKORVQNeUUhbHUc6PvXXaIzB32jh.YR0EPKrkvO', 5),
+(17, 'Fernanda', 'Rochel', 'Aprovador', 'fernandarochel@garbuio.com.br', '19981971509', '46074888876', '$2y$10$BKNAQwIVQK382iIF3kDPfuoPLEMxhzmgqpcBbmYZRekykdx.8eQjK', 5),
+(18, 'Janaina', 'Campos', 'Aprovador', 'janainacampos@garbuio.com.br', '19997411896', '343524.09898', '$2y$10$YZMyfdMPPkHagKZMAxyY6uImu80vsb7YscC6IwNdojRsZ4pc3LC.K', 5),
 (19, 'Lucas', 'Barros', 'Usuário', 'lucasbarros@garbuio.com.br', '19992630596', '39824231803', '$2y$10$1hsecwTCf2NJmvfw1hu8EO7qVFJhdhe39Ih8vZ8CCi3Fzu5h5gvV2', 5);
 
 -- --------------------------------------------------------
@@ -417,7 +484,7 @@ INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `co
 --
 -- Estrutura para tabela `vehicles`
 --
--- Criação: 21/07/2023 às 21:10
+-- Criação: 25/07/2023 às 14:14
 --
 
 DROP TABLE IF EXISTS `vehicles`;
@@ -514,6 +581,12 @@ ALTER TABLE `locacao`
   ADD KEY `lc_period_id` (`lc_period_id`);
 
 --
+-- Índices de tabela `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `mensagens`
 --
 ALTER TABLE `mensagens`
@@ -553,7 +626,7 @@ ALTER TABLE `vehicles`
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `approver`
@@ -583,13 +656,19 @@ ALTER TABLE `laboratorios`
 -- AUTO_INCREMENT de tabela `lc_period`
 --
 ALTER TABLE `lc_period`
-  MODIFY `lc_period_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `lc_period_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `locacao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`

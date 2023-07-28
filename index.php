@@ -56,7 +56,7 @@
                 <div class="card-3d-wrapper">
                   <div class="card-front">
                     <div class="center-wrap">
-                      <form method="POST" action="">
+                      <form id="meuFormulario" method="POST" action="" enctype = "multipart/form-data">
                         <div class="section text-center">
                           <div class="logoeinstein" align="left">
                           <img src="./img/lg_garbuio.png">
@@ -106,7 +106,7 @@
                             <img src="./img/lg_garbuio.png">
                           </div>
                           
-                        <form method="POST" action="forgot_key.php" id="form-cadastro">
+                        <form id="meuFormulario" method="POST" action="forgot_key.php" id="form-cadastro" enctype = "multipart/form-data">
                         <div class="labmsg">
                             Será enviado para seu endereço de email, as instruções sobre como restabelecer seu acesso.
                           </div>
@@ -189,7 +189,18 @@ forgotPasswordLink2.addEventListener('click', function(e) {
   checkbox2.checked = false;
   checkbox2.dispatchEvent(new Event('change'));
 });
+</script>
 
+<script>
+    // Limpar os campos do formulário ao ser carregada a página de confirmação
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('meuFormulario').reset();
+    });
+</script>
 
+<script>
+    window.onbeforeunload = function() {
+        document.querySelector('form').reset();
+    };
 </script>
 </html>

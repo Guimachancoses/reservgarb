@@ -1,5 +1,5 @@
 
-<div class="main-content" >
+<div class="main-content">
 	<?php
 		// query for total pendding
 		$q_p = $conn->query("SELECT SUM(total) AS total FROM (
@@ -243,6 +243,8 @@
 							while($fetch = $queryad->fetch_array()){
 							$editLink = "reservlab.php?users_id=".$fetch['users_id']."edit-account";		
 						?>
+						<tbody>
+
 							<tr onclick="window.location='<?php echo $editLink; ?>'">
 								<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "7") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
 								<td></div><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>

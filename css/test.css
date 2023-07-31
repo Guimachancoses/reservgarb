@@ -1,0 +1,81 @@
+.main-content {
+  padding: 10px 20px 0px 20px;
+  position: relative;
+  width: 100%;
+  background-color: #000000;
+}
+
+.card {
+  display: inline-block;
+  position: relative;
+  border: none;
+  width: 100%;
+  margin: 15px 0;
+  /* box-shadow: 0 1px 2px rgb(0 0 0 / 8%); */
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #2d383a;
+  box-shadow: 10px 10px 10px #fff9f949;
+}
+
+.card .card-header {
+  padding: 15px 20px 0;
+  z-index: 3;
+  border-bottom: 0px !important;
+  background-color: #2d383a;
+  border-radius: none;
+}
+
+.footer {
+  border-radius: 10px 10px 0px 0px;
+  border-top: 1px solid #2d383a;
+  background-color: #2d383a;
+}
+
+.card .category:not([class="text-"]) {
+  color: #050505;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.card .card-header-text h4 {
+  margin-top: 0;
+  margin-bottom: 3px;
+  font-size: 19px;
+  font-weight: 400;
+  color: #000000;
+  text-decoration: none;
+}
+
+.card .card-title:not(.card-calender .card-title) {
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+/* Aplicar as animações */
+.name-animation {
+  color: white;
+  animation: slide-in 1s ease forwards, move-to-fixed 2s ease-in-out 2s forwards;
+}
+
+.category-animation {
+  color: white;
+  animation: slide-in-delayed 2s ease, move-to-fixed 2s ease-in-out 2s forwards;
+}
+
+.table > thead > tr > th {
+  border-bottom: 1px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.table > tbody > tr > td {
+  color: #fffcfc;
+}
+
+.steamline .sl-item p {
+  font-size: 14px;
+  color: #ffffff;
+}

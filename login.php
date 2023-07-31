@@ -80,10 +80,27 @@ function AntiSqlInjection($str, $conn) {
 				$queryDeleteAttempt->execute();
 				$queryDeleteAttempt->close();
 
-				echo "<script>alert('Seua conta foi desbloqueada, tente acessar novamente!'); window.location.href = 'index.php';</script>";
+				// echo "<script>alert('Seu conta foi desbloqueada, tente acessar novamente!'); window.location.href = 'index.php';</script>";
+				$mensagem = "Seu conta foi desbloqueada, tente acessar novamente!";
+				header("Location: {$_SERVER['HTTP_REFERER']}?mensagem=".urlencode($mensagem));
 			} else {
+
 				// Se o usuário excedeu o número máximo de tentativas, bloqueie a nova tentativa
-				echo "<script>alert('hora atual: $dataHoraAtualBrasilia, ultima hora do banco: $attempt_New Você excedeu o limite de tentativas. Tente novamente após $waitTime minutos.');</script>";
+				// Verifica se a URL contém "index.php"
+				if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+					// Remove tudo que está a frente de "index.php" na URL
+					$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+
+					// Acrescenta a mensagem na URL
+					$mensagem = "Você excedeu o limite de tentativas. Tente novamente após $waitTime minutos.";
+					$urlFinal = $urlBase . "?mensagem=" . urlencode($mensagem);
+
+					// Redireciona para a URL com a mensagem
+					header("Location: " . $urlFinal);
+				} else {
+					// Caso "index.php" não esteja presente na URL, redireciona para a URL original sem mensagem
+					header("Location: " . $_SERVER['HTTP_REFERER']);
+				}
 			}
 		} else {
 
@@ -132,7 +149,6 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header("HTTP/1.1 303 See Other");
 					header('location:admin/reservlab.php');
 				} else {
 
@@ -141,8 +157,22 @@ function AntiSqlInjection($str, $conn) {
 					$queryInsertAttempt->bind_param("s", $email);
 					$queryInsertAttempt->execute();
 					$queryInsertAttempt->close();
-					header("HTTP/1.1 303 See Other");
-					echo "<script>alert('Nome de usuário ou senha errados. Por favor tente outra vez.');</script>";
+
+					// Verifica se a URL contém "index.php"
+					if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+						// Remove tudo que está a frente de "index.php" na URL
+						$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+
+						// Acrescenta a mensagem na URL
+						$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
+						$urlFinal = $urlBase . "?mensagem=" . urlencode($mensagem);
+
+						// Redireciona para a URL com a mensagem
+						header("Location: " . $urlFinal);
+					} else {
+						// Caso "index.php" não esteja presente na URL, redireciona para a URL original sem mensagem
+						header("Location: " . $_SERVER['HTTP_REFERER']);
+					}
 				}
 
 			} elseif ($fetchus) {
@@ -165,7 +195,22 @@ function AntiSqlInjection($str, $conn) {
 					$queryInsertAttempt->bind_param("s", $email);
 					$queryInsertAttempt->execute();
 					$queryInsertAttempt->close();
-					echo "<script>alert('Nome de usuário ou senha errados. Por favor tente outra vez.');</script>";
+
+					// Verifica se a URL contém "index.php"
+					if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+						// Remove tudo que está a frente de "index.php" na URL
+						$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+
+						// Acrescenta a mensagem na URL
+						$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
+						$urlFinal = $urlBase . "?mensagem=" . urlencode($mensagem);
+
+						// Redireciona para a URL com a mensagem
+						header("Location: " . $urlFinal);
+					} else {
+						// Caso "index.php" não esteja presente na URL, redireciona para a URL original sem mensagem
+						header("Location: " . $_SERVER['HTTP_REFERER']);
+					}
 				}
 
 			} elseif ($fetchap) {
@@ -188,12 +233,28 @@ function AntiSqlInjection($str, $conn) {
 					$queryInsertAttempt->bind_param("s", $email);
 					$queryInsertAttempt->execute();
 					$queryInsertAttempt->close();
-					echo "<script>alert('Nome de usuário ou senha errados. Por favor tente outra vez.');</script>";
+
+					// Verifica se a URL contém "index.php"
+					if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+						// Remove tudo que está a frente de "index.php" na URL
+						$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+
+						// Acrescenta a mensagem na URL
+						$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
+						$urlFinal = $urlBase . "?mensagem=" . urlencode($mensagem);
+
+						// Redireciona para a URL com a mensagem
+						header("Location: " . $urlFinal);
+					} else {
+						// Caso "index.php" não esteja presente na URL, redireciona para a URL original sem mensagem
+						header("Location: " . $_SERVER['HTTP_REFERER']);
+					}
 				}
 
 			} else {
 
-				echo "<script>alert('Nome de usuário ou senha errados. Por favor tente outra vez.');</script>";
+				$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
+				header("Location: {$_SERVER['HTTP_REFERER']}?mensagem=".urlencode($mensagem));
 				
 			}
 						

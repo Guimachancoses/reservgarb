@@ -33,6 +33,12 @@
         </button>        
         <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none justify-content-end" id="navbarcollapse">
             <ul class="nav navbar-nav ml-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" id="ligthbtn" data-toggle="dropdown">
+                        <span style="cursor:pointer" class = "material-icons">lightbulb</span>
+                    </a>                    
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
                         <span class="material-icons" >notifications</span>

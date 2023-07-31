@@ -198,5 +198,37 @@
 			}
 		}
 	</script>
+
+<!-- Seu JavaScript -->
+<!-- Adicione um script para lidar com o clique no botão -->
+<script>
+$(document).ready(function() {
+  // Quando o botão for clicado
+  $('#ligthbtn').on('click', function() {
+    // Seleciona o elemento com a classe .main-content
+    var mainContent = $('.main-content');
+    // Seleciona o elemento com a classe .card
+    var card = $('.card');
+
+	// Seleciona o elemento com a classe .card
+    var cardHeader = $('.card-header');
+
+	// Seleciona o elemento com a classe .card
+    var fooTer = $('.footer');
+
+    // Alterna a classe para .main-content
+    mainContent.toggleClass('dark-mode').css('background-color', mainContent.hasClass('dark-mode') ? 'black' : '');
+    // Alterna a classe para .card
+    card.toggleClass('dark-mode');
+	// Alterna a classe para .card-header
+    cardHeader.toggleClass('dark-mode');
+	// Alterna a classe para .footer
+    fooTer.toggleClass('dark-mode');
+  });
+});
+</script>
+
+
+
   </body>
 </html>

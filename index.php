@@ -199,8 +199,19 @@ forgotPasswordLink2.addEventListener('click', function(e) {
 </script>
 
 <script>
-    window.onbeforeunload = function() {
+    window.location.reload = function() {
+        // Clear form data
         document.querySelector('form').reset();
+        
+        // Clear cookies
+        const cookies = document.cookie.split("; ");
+        for (const cookie of cookies) {
+            const [name, _] = cookie.split("=");
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+
+        // Reload the page
+        window.location.reload();
     };
 </script>
 </html>

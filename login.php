@@ -39,11 +39,16 @@ function AntiSqlInjection($str, $conn) {
 		$waitTime = 5;
 
 		// Verifica se o usuário já fez 5 tentativas de login sem sucesso nos últimos 5 minutos
-		$failedAttempts = 5;
-		$blockTime = date('Y-m-d H:i:s', strtotime("-$waitTime minutes"));
+		$failedAttempts = 5; 
+
+		// Definindo o fuso horário de Brasília
+		date_default_timezone_set('America/Sao_Paulo');
+
+		// Obtendo a data e hora atual em Brasília
+		$dataHoraAtualBrasilia = date('Y-m-d H:i:s');
 
 		$queryAttempts = $conn->prepare("SELECT COUNT(*) FROM login_attempts WHERE email = ? AND attempt_time < ?");
-		$queryAttempts->bind_param("ss", $email, $blockTime);
+		$queryAttempts->bind_param("ss", $email, $dataHoraAtualBrasilia);
 		$queryAttempts->execute();
 		$queryAttempts->bind_result($numAttempts);
 		$queryAttempts->fetch();
@@ -68,17 +73,17 @@ function AntiSqlInjection($str, $conn) {
 			$attempt_New = $attempt_DateTime->format('Y-m-d H:i:s');
 
 			// Verifica se passou o tempor dos 5 minutos
-			if ($blockTime <= $attempt_New) {
+			if ($dataHoraAtualBrasilia > $attempt_New) {
 				// Se o passou os 5 minutos, delete a tentativa mal sucedida no banco de dados
 				$queryDeleteAttempt = $conn->prepare("DELETE FROM login_attempts WHERE email = ?");
 				$queryDeleteAttempt->bind_param("s", $email);
 				$queryDeleteAttempt->execute();
 				$queryDeleteAttempt->close();
 
-				echo "<script>alert('Sua conta foi desbloqueada, tente novamente. \nCaso contrário contate o administrador do sistema.');</script>";
+				echo "<script>alert('Seua conta foi desbloqueada, tente acessar novamente!'); window.location.href = 'index.php';</script>";
 			} else {
 				// Se o usuário excedeu o número máximo de tentativas, bloqueie a nova tentativa
-				echo "<script>alert('Você excedeu o limite de tentativas. Tente novamente após $waitTime minutos.');</script>";
+				echo "<script>alert('hora atual: $dataHoraAtualBrasilia, ultima hora do banco: $attempt_New Você excedeu o limite de tentativas. Tente novamente após $waitTime minutos.');</script>";
 			}
 		} else {
 
@@ -127,6 +132,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
+					header("HTTP/1.1 303 See Other");
 					header('location:admin/reservlab.php');
 				} else {
 
@@ -135,6 +141,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryInsertAttempt->bind_param("s", $email);
 					$queryInsertAttempt->execute();
 					$queryInsertAttempt->close();
+					header("HTTP/1.1 303 See Other");
 					echo "<script>alert('Nome de usuário ou senha errados. Por favor tente outra vez.');</script>";
 				}
 

@@ -1,7 +1,7 @@
 <div class="main-content">  
     <div class="row">
 			<div class="col-lg-6">
-				<div class="card" style="min-height:625px">
+				<div class="card" style="min-height:645px">
                 <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
                         <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
                             <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>

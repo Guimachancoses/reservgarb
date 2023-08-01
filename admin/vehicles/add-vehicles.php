@@ -1,7 +1,7 @@
 <div class="main-content">  
     <div class="row">
         <div class="col-lg-6">
-            <div class="card" style="min-height:625px">
+            <div class="card" style="min-height:645px">
             <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
                         <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
                             <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
@@ -16,7 +16,7 @@
                     <h4 class="card-title"><strong class="text-primary"> Adicionar Veículo</strong></h4>
                         <p class="category">Verifique as informações antes de salvar:</p>
                 <br />
-                <div  class = "col-md-10" style="min-height:225px">	
+                <div  class = "col-md-10" style="min-height:325px">	
                     <form method = "POST" enctype = "multipart/form-data" autocomplete="off" onsubmit="return validateForm()">
                         <div class="card-foot">
                             <label><strong> Nome:</strong></label>

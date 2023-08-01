@@ -207,7 +207,9 @@ $(document).ready(function() {
     var mainContent = $('.main-content');
     var card = $('.card');
     var cardHeader = $('.card-header');
+	var cardFoot = $('.card-foot');
     var footer = $('.footer');
+	var formControl = $('.form-control');
 	var navbar = $('.navbar');
     var darkModeBtn = $('.dark-btn');
     var lightModeBtn = $('.light-btn');
@@ -219,7 +221,9 @@ $(document).ready(function() {
     mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-color', !isDarkModeActive ? 'black' : '');
     card.toggleClass('dark-mode', !isDarkModeActive);
     cardHeader.toggleClass('dark-mode', !isDarkModeActive);
+	cardFoot.toggleClass('dark-mode', !isDarkModeActive);
     footer.toggleClass('dark-mode', !isDarkModeActive);
+	formControl.toggleClass('dark-mode', !isDarkModeActive);
     navbar.toggleClass('dark-mode', !isDarkModeActive);
 
     if (!isDarkModeActive) {

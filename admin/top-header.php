@@ -1,13 +1,18 @@
 <div id="content" class="active">
 <?php
     // Query for mode color page
-    $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $_SESSION[users_id]");
+    $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $_SESSION[users_id]") or die(mysqli_error($conn));
 
     // Assuming $modeColor is a valid result set
     if (mysqli_num_rows($modeColor) > 0) {
         $c_color = $modeColor->fetch_array();
         $colorMode = $c_color['colorMode'];
-
+    
+        // Check if $colorMode is not set or is NULL, then set it to "0"
+        if (!isset($colorMode) || $colorMode === NULL) {
+            $colorMode = 0;
+        }
+    
         // Check the value of $colorMode and set the corresponding variable
         if ($colorMode == 0) {
             $darkMode = true;
@@ -18,6 +23,7 @@
         // If no results found, assume dark mode as default
         $darkMode = true;
     }
+    
 
     // query for total pending
     $q_p = $conn->query("SELECT SUM(total) AS total FROM (
@@ -28,7 +34,7 @@
     $f_p = $q_p->fetch_array();
 
     // query for pending message
-    $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error());
+    $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error($conn));
     if (mysqli_num_rows($q_msg) > 0) {
         $f_msg = $q_msg->fetch_array();
         $pendente = $f_msg['pendente'];
@@ -39,7 +45,7 @@
 
 <!-- top navbar design -->
 <div class="top-navbar">
-    <nav class="navbar  navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
         <button id="sidebar-collapse" class="d-xl-block d-lg-block d-md-none d-none" hidden="hidden">
             <span  class="material-icons">arrow_back_ios</span>
         </button>

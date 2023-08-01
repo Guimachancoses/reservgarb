@@ -1290,3 +1290,73 @@ a.btn.btn-success:focus {
   font-size: 14px;
   color: #ffffff;
 }
+
+@media (min-width: 1981px) and (max-width: 10000px) {
+  .dark-mode .navbar {
+    height: 260px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_2.jpg");
+    background-size: cover;
+    background-position: center bottom 655px;
+  }
+}
+
+@media (min-width: 1551px) and (max-width: 1980px) {
+  .dark-mode .navbar {
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_2.jpg");
+    background-size: cover;
+    background-position: center bottom 480px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1550px) {
+  .dark-mode .navbar {
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_2.jpg");
+    background-size: cover;
+    background-position: center bottom 380px;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 1024px) {
+  .dark-mode .navbar {
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_2.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .dark-mode .navbar {
+    height: 200px;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url("../img/background_2.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}

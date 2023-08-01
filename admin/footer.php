@@ -208,6 +208,7 @@ $(document).ready(function() {
     var card = $('.card');
     var cardHeader = $('.card-header');
     var footer = $('.footer');
+	var navbar = $('.navbar');
     var darkModeBtn = $('.dark-btn');
     var lightModeBtn = $('.light-btn');
 
@@ -219,6 +220,7 @@ $(document).ready(function() {
     card.toggleClass('dark-mode', !isDarkModeActive);
     cardHeader.toggleClass('dark-mode', !isDarkModeActive);
     footer.toggleClass('dark-mode', !isDarkModeActive);
+    navbar.toggleClass('dark-mode', !isDarkModeActive);
 
     if (!isDarkModeActive) {
         darkModeBtn.data('value', '0');
@@ -239,11 +241,18 @@ $(document).ready(function() {
 		darkModeBtn.find('small').text('Modo Escuro');
 		lightModeBtn.find('small').text('Modo Claro');
     }
-}
 
-    // Get the initial value from the database (Assuming $mode is the value retrieved from the database)
+	// Set the background image based on the dark mode status
+    if (isDarkModeActive) {
+      navbar.css("background-image", 'linear-gradient(to right, rgba(240, 230, 200, 0.5), rgba(0.1, 0.2, 0.3, 0.5)), url("../img/background_1.jpg")');
+    } else {
+		navbar.css("background-image", 'linear-gradient(to right, rgba(240, 230, 200, 0.5), rgba(0.1, 0.2, 0.3, 0.5)), url("../img/background_2.jpg")');
+    }
+}	
+
+	// Get the initial value from the database (Assuming $mode is the value retrieved from the database)
     var initialMode = <?php echo $colorMode ?>;
-    
+   
     // Check the initial mode and apply the appropriate class to the main content
     var mainContent = $('.main-content');
     if (initialMode === 1) {

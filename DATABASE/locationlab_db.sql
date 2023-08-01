@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28/07/2023 às 22:03
+-- Tempo de geração: 01/08/2023 às 04:19
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -28,8 +28,8 @@ USE `locationlab_db`;
 --
 -- Estrutura para tabela `activities`
 --
--- Criação: 25/07/2023 às 14:14
--- Última atualização: 28/07/2023 às 17:55
+-- Criação: 30/07/2023 às 14:11
+-- Última atualização: 31/07/2023 às 22:26
 --
 
 DROP TABLE IF EXISTS `activities`;
@@ -75,14 +75,20 @@ INSERT INTO `activities` (`atctive_id`, `mensagens_id`, `users_id`, `timestamp`)
 (20, 3, 1, '2023-07-26 20:09:49'),
 (21, 4, 1, '2023-07-28 12:27:38'),
 (22, 2, 15, '2023-07-28 17:53:14'),
-(23, 2, 15, '2023-07-28 17:55:19');
+(23, 2, 15, '2023-07-28 17:55:19'),
+(24, 4, 1, '2023-07-30 14:18:12'),
+(25, 4, 1, '2023-07-30 14:18:12'),
+(26, 4, 1, '2023-07-30 14:18:12'),
+(27, 4, 1, '2023-07-31 22:26:50'),
+(28, 4, 1, '2023-07-31 22:26:50'),
+(29, 4, 1, '2023-07-31 22:26:50');
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `approver`
 --
--- Criação: 25/07/2023 às 14:14
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `approver`;
@@ -110,7 +116,7 @@ INSERT INTO `approver` (`approver_id`, `approvers`) VALUES
 --
 -- Estrutura para tabela `equipment`
 --
--- Criação: 25/07/2023 às 14:14
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `equipment`;
@@ -142,7 +148,7 @@ INSERT INTO `equipment` (`equip_id`, `equipment`, `description`, `sector`, `phot
 --
 -- Estrutura para tabela `gp_approver`
 --
--- Criação: 25/07/2023 às 14:14
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `gp_approver`;
@@ -176,7 +182,7 @@ INSERT INTO `gp_approver` (`gp_approver_id`, `users_id`, `approver_id`) VALUES
 --
 -- Estrutura para tabela `laboratorios`
 --
--- Criação: 25/07/2023 às 14:14
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `laboratorios`;
@@ -209,8 +215,8 @@ INSERT INTO `laboratorios` (`room_id`, `room_type`, `capacity`, `room_no`, `phot
 --
 -- Estrutura para tabela `lc_period`
 --
--- Criação: 26/07/2023 às 13:33
--- Última atualização: 26/07/2023 às 20:09
+-- Criação: 30/07/2023 às 14:11
+-- Última atualização: 31/07/2023 às 22:26
 --
 
 DROP TABLE IF EXISTS `lc_period`;
@@ -250,15 +256,15 @@ CREATE TABLE `lc_period` (
 --
 
 INSERT INTO `lc_period` (`lc_period_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `weekday`, `checkin`, `checkout`, `checkin_time`, `checkout_time`, `approver_id`) VALUES
-(1, 11, 7, NULL, NULL, 3, 'AllDays', '2023-07-27', '2023-07-30', '20:00:00', '23:00:00', 4);
+(1, 11, 7, NULL, NULL, 4, 'AllDays', '2023-07-27', '2023-07-30', '20:00:00', '23:00:00', 4);
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `locacao`
 --
--- Criação: 26/07/2023 às 13:33
--- Última atualização: 28/07/2023 às 17:55
+-- Criação: 30/07/2023 às 14:11
+-- Última atualização: 31/07/2023 às 22:26
 --
 
 DROP TABLE IF EXISTS `locacao`;
@@ -303,19 +309,19 @@ CREATE TABLE `locacao` (
 
 INSERT INTO `locacao` (`locacao_id`, `users_id`, `room_id`, `vehicle_id`, `equip_id`, `mensagens_id`, `status_id`, `checkin`, `checkin_time`, `checkout_time`, `approver_id`, `lc_period_id`) VALUES
 (1, 11, 7, NULL, NULL, 4, 4, '2023-07-27', '20:00:00', '23:00:00', 4, 1),
-(2, 11, 7, NULL, NULL, 3, 2, '2023-07-28', '20:00:00', '23:00:00', 4, 1),
-(3, 11, 7, NULL, NULL, 3, 2, '2023-07-29', '20:00:00', '23:00:00', 4, 1),
-(4, 11, 7, NULL, NULL, 3, 2, '2023-07-30', '20:00:00', '23:00:00', 4, 1),
-(5, 15, 7, NULL, NULL, 2, 1, '2023-07-31', '12:00:00', '16:00:00', 4, NULL),
-(6, 15, 7, NULL, NULL, 2, 1, '2023-07-29', '12:00:00', '13:00:00', 4, NULL);
+(2, 11, 7, NULL, NULL, 4, 4, '2023-07-28', '20:00:00', '23:00:00', 4, 1),
+(3, 11, 7, NULL, NULL, 4, 4, '2023-07-29', '20:00:00', '23:00:00', 4, 1),
+(4, 11, 7, NULL, NULL, 4, 4, '2023-07-30', '20:00:00', '23:00:00', 4, 1),
+(5, 15, 7, NULL, NULL, 4, 4, '2023-07-31', '12:00:00', '16:00:00', 4, NULL),
+(6, 15, 7, NULL, NULL, 4, 4, '2023-07-29', '12:00:00', '13:00:00', 4, NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `login_attempts`
 --
--- Criação: 28/07/2023 às 14:46
--- Última atualização: 28/07/2023 às 19:47
+-- Criação: 30/07/2023 às 14:11
+-- Última atualização: 01/08/2023 às 01:56
 --
 
 DROP TABLE IF EXISTS `login_attempts`;
@@ -329,23 +335,12 @@ CREATE TABLE `login_attempts` (
 -- RELACIONAMENTOS PARA TABELAS `login_attempts`:
 --
 
---
--- Despejando dados para a tabela `login_attempts`
---
-
-INSERT INTO `login_attempts` (`id`, `email`, `attempt_time`) VALUES
-(42, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:37'),
-(43, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:44'),
-(44, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:50'),
-(45, 'guilherme.machancoses@gmail.com', '2023-07-28 19:46:57'),
-(46, 'guilherme.machancoses@gmail.com', '2023-07-28 19:47:14');
-
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `mensagens`
 --
--- Criação: 25/07/2023 às 14:14
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `mensagens`;
@@ -390,8 +385,7 @@ INSERT INTO `mensagens` (`mensagens_id`, `assunto`) VALUES
 --
 -- Estrutura para tabela `pwdtemp`
 --
--- Criação: 25/07/2023 às 15:11
--- Última atualização: 25/07/2023 às 15:11
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `pwdtemp`;
@@ -410,9 +404,36 @@ CREATE TABLE `pwdtemp` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `set_color`
+--
+-- Criação: 31/07/2023 às 22:33
+-- Última atualização: 01/08/2023 às 02:18
+--
+
+DROP TABLE IF EXISTS `set_color`;
+CREATE TABLE `set_color` (
+  `color_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `colorMode` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `set_color`:
+--
+
+--
+-- Despejando dados para a tabela `set_color`
+--
+
+INSERT INTO `set_color` (`color_id`, `users_id`, `colorMode`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `status`
 --
--- Criação: 25/07/2023 às 14:14
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -443,8 +464,7 @@ INSERT INTO `status` (`status_id`, `status`) VALUES
 --
 -- Estrutura para tabela `users`
 --
--- Criação: 25/07/2023 às 14:14
--- Última atualização: 25/07/2023 às 14:37
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -484,7 +504,7 @@ INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `funcao`, `email`, `co
 --
 -- Estrutura para tabela `vehicles`
 --
--- Criação: 25/07/2023 às 14:14
+-- Criação: 30/07/2023 às 14:11
 --
 
 DROP TABLE IF EXISTS `vehicles`;
@@ -599,6 +619,12 @@ ALTER TABLE `pwdtemp`
   ADD PRIMARY KEY (`pwd_temp`);
 
 --
+-- Índices de tabela `set_color`
+--
+ALTER TABLE `set_color`
+  ADD PRIMARY KEY (`color_id`);
+
+--
 -- Índices de tabela `status`
 --
 ALTER TABLE `status`
@@ -626,7 +652,7 @@ ALTER TABLE `vehicles`
 -- AUTO_INCREMENT de tabela `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `atctive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de tabela `approver`
@@ -668,13 +694,19 @@ ALTER TABLE `locacao`
 -- AUTO_INCREMENT de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT de tabela `pwdtemp`
 --
 ALTER TABLE `pwdtemp`
   MODIFY `pwd_temp` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `set_color`
+--
+ALTER TABLE `set_color`
+  MODIFY `color_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `status`

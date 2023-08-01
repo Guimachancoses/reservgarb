@@ -40,6 +40,7 @@
   </style>
 </head>
 <body>
+
 <!-- partial:index.partial.html -->
   <div class="container">
     <div class="row full-height justify-content-center">
@@ -56,6 +57,7 @@
                       <div class="logoeinstein" align="left">
                         <img src="./img/lg_garbuio.png">
                       </div>
+                      </br>
                       <div class="form-group">
                         <input type="text" name="ra" class="form-style" placeholder="Digite seu e-mail" autocomplete="on" required/>
                         <i class="input-icon uil uil-at"></i>
@@ -84,7 +86,8 @@
                   <div class="section text-center">
                     <div class="logoeinstein" align="left">
                         <img src="./img/lg_garbuio.png">
-                      </div>                          
+                      </div>
+                      </br>                          
                     <form id="meuFormulario2" method="POST" action="forgot_key.php" id="form-cadastro" enctype = "multipart/form-data">
                       <div class="labmsg">
                         Será enviado para seu endereço de email, as instruções sobre como restabelecer seu acesso.

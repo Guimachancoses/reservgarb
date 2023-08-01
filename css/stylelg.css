@@ -65,7 +65,7 @@ body {
       rgba(255, 255, 255, 0.5),
       rgba(0, 0, 0, 0.5)
     ),
-    url("../img/background_login.jpg");
+    url("../img/background_2.jpg");
   /* background-image: url(https://www.garbuio.com.br/wp-content/uploads/2021/08/slider3_tgservice_home.jpg); */
   background-size: cover;
   background-position: center;
@@ -184,7 +184,7 @@ h6 span {
 .card-front {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background-color: #2d383a;
   background-position: bottom center;
   background-repeat: no-repeat;
   background-size: 300%;
@@ -204,7 +204,7 @@ h6 span {
 .card-back {
   width: 100%;
   height: 500px;
-  background-color: #ffffff;
+  background-color: #2d383a;
   background-position: bottom center;
   background-repeat: no-repeat;
   background-size: 300%;
@@ -436,4 +436,64 @@ h6 span {
   align-items: center;
   z-index: 999;
   display: none;
+}
+
+/* Configurações para o modo dark-mode */
+
+.dark-mode .card-front {
+  width: 100%;
+  height: 100%;
+  background-color: #2d383a;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 300%;
+  position: absolute;
+  border-radius: 4%;
+  box-shadow: 3px 3px 1px 0px #00000060;
+  left: 0;
+  top: 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.dark-mode .card-back {
+  width: 100%;
+  height: 500px;
+  background-color: #2d383a;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 300%;
+  position: absolute;
+  border-radius: 4%;
+  box-shadow: 3px 3px 1px 0px #00000060;
+  left: 0;
+  top: 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.dark-mode body {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url("../img/background_2.jpg");
+  /* background-image: url(https://www.garbuio.com.br/wp-content/uploads/2021/08/slider3_tgservice_home.jpg); */
+  background-size: cover;
+  background-position: center;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #50d18e;
+  /* background-image: linear-gradient(to right, #ffffff, #a1a1a1a4); */
+  overflow-x: hidden;
 }

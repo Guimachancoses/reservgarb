@@ -199,79 +199,78 @@
 		}
 	</script>
 
-<!-- Script para lidar com o clique no botão -->
-<script>
-$(document).ready(function() {
-    // Function to toggle dark mode
-    function toggleDarkMode() {
-    var mainContent = $('.main-content');
-    var card = $('.card');
-    var cardHeader = $('.card-header');
-	var cardFoot = $('.card-foot');
-    var footer = $('.footer');
-	var formControl = $('.form-control');
-	var navbar = $('.navbar');
-    var darkModeBtn = $('.dark-btn');
-    var lightModeBtn = $('.light-btn');
+	<!-- Script para lidar com o clique no botão -->
+	<script>
+		$(document).ready(function() {
+			// Function to toggle dark mode
+			function toggleDarkMode() {
+			var mainContent = $('.main-content');
+			var card = $('.card');
+			var cardHeader = $('.card-header');
+			var cardFoot = $('.card-foot');
+			var footer = $('.footer');
+			var formControl = $('.form-control');
+			var navbar = $('.navbar');
+			var darkModeBtn = $('.dark-btn');
+			var lightModeBtn = $('.light-btn');
 
-    // Check if dark mode is currently active
-    var isDarkModeActive = mainContent.hasClass('dark-mode');
+			// Check if dark mode is currently active
+			var isDarkModeActive = mainContent.hasClass('dark-mode');
 
-    // Toggle dark mode classes
-    mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-color', !isDarkModeActive ? 'black' : '');
-    card.toggleClass('dark-mode', !isDarkModeActive);
-    cardHeader.toggleClass('dark-mode', !isDarkModeActive);
-	cardFoot.toggleClass('dark-mode', !isDarkModeActive);
-    footer.toggleClass('dark-mode', !isDarkModeActive);
-	formControl.toggleClass('dark-mode', !isDarkModeActive);
-    navbar.toggleClass('dark-mode', !isDarkModeActive);
+			// Toggle dark mode classes
+			mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-color', !isDarkModeActive ? 'black' : '');
+			card.toggleClass('dark-mode', !isDarkModeActive);
+			cardHeader.toggleClass('dark-mode', !isDarkModeActive);
+			cardFoot.toggleClass('dark-mode', !isDarkModeActive);
+			footer.toggleClass('dark-mode', !isDarkModeActive);
+			formControl.toggleClass('dark-mode', !isDarkModeActive);
+			navbar.toggleClass('dark-mode', !isDarkModeActive);
 
-    if (!isDarkModeActive) {
-        darkModeBtn.data('value', '0');
-		lightModeBtn.data('value', '1');
-		darkModeBtn.find('span').text('light_mode');
-		lightModeBtn.find('span').text('dark_mode');
-		darkModeBtn.find('i').text('light_mode').css('color', 'yellow');
-		lightModeBtn.find('i').text('dark_mode').css('color', 'black');
-		darkModeBtn.find('small').text('Modo Claro');
-		lightModeBtn.find('small').text('Modo Escuro');
-    } else {
-        darkModeBtn.data('value', '0');
-		lightModeBtn.data('value', '1');
-		darkModeBtn.find('span').text('dark_mode');
-		lightModeBtn.find('span').text('light_mode');
-		darkModeBtn.find('i').text('dark_mode').css('color', 'black');
-		lightModeBtn.find('i').text('light_mode').css('color', 'yellow');
-		darkModeBtn.find('small').text('Modo Escuro');
-		lightModeBtn.find('small').text('Modo Claro');
-    }
+			if (!isDarkModeActive) {
+				darkModeBtn.data('value', '0');
+				lightModeBtn.data('value', '1');
+				darkModeBtn.find('span').text('light_mode');
+				lightModeBtn.find('span').text('dark_mode');
+				darkModeBtn.find('i').text('light_mode').css('color', 'yellow');
+				lightModeBtn.find('i').text('dark_mode').css('color', 'black');
+				darkModeBtn.find('small').text('Modo Claro');
+				lightModeBtn.find('small').text('Modo Escuro');
+			} else {
+				darkModeBtn.data('value', '0');
+				lightModeBtn.data('value', '1');
+				darkModeBtn.find('span').text('dark_mode');
+				lightModeBtn.find('span').text('light_mode');
+				darkModeBtn.find('i').text('dark_mode').css('color', 'black');
+				lightModeBtn.find('i').text('light_mode').css('color', 'yellow');
+				darkModeBtn.find('small').text('Modo Escuro');
+				lightModeBtn.find('small').text('Modo Claro');
+			}
 
-	// Set the background image based on the dark mode status
-    if (isDarkModeActive) {
-      navbar.css("background-image", 'linear-gradient(to right, rgba(240, 230, 200, 0.5), rgba(0.1, 0.2, 0.3, 0.5)), url("../img/background_1.jpg")');
-    } else {
-		navbar.css("background-image", 'linear-gradient(to right, rgba(240, 230, 200, 0.5), rgba(0.1, 0.2, 0.3, 0.5)), url("../img/background_2.jpg")');
-    }
-}	
+			// Set the background image based on the dark mode status
+			if (isDarkModeActive) {
+			navbar.css("background-image", 'linear-gradient(to right, rgba(240, 230, 200, 0.5), rgba(0.1, 0.2, 0.3, 0.5)), url("../img/background_1.jpg")');
+			} else {
+				navbar.css("background-image", 'linear-gradient(to right, rgba(240, 230, 200, 0.5), rgba(0.1, 0.2, 0.3, 0.5)), url("../img/background_2.jpg")');
+			}
+		}	
 
-	// Get the initial value from the database (Assuming $mode is the value retrieved from the database)
-    var initialMode = <?php echo $colorMode ?>;
-   
-    // Check the initial mode and apply the appropriate class to the main content
-    var mainContent = $('.main-content');
-    if (initialMode === 1) {
-        toggleDarkMode();
-    }
+			// Get the initial value from the database (Assuming $mode is the value retrieved from the database)
+			var initialMode = <?php echo $colorMode ?>;
+		
+			// Check the initial mode and apply the appropriate class to the main content
+			var mainContent = $('.main-content');
+			if (initialMode === 1) {
+				toggleDarkMode();
+			}
 
-    // Click event handler for toggling the mode
-    $('.toggle-mode').on('click', function() {
-        toggleDarkMode();
-		// Reload the page to apply the changes
-		location.reload();
-    });
-
-});
-</script>
+			// Click event handler for toggling the mode
+			$('.toggle-mode').on('click', function() {
+				toggleDarkMode();
+				// Reload the page to apply the changes
+				location.reload();
+			});
+		});
+	</script>
 
   </body>
 </html>

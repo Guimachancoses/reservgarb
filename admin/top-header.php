@@ -1,5 +1,24 @@
 <div id="content" class="active">
 <?php
+    // Query for mode color page
+    $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $_SESSION[users_id]");
+
+    // Assuming $modeColor is a valid result set
+    if (mysqli_num_rows($modeColor) > 0) {
+        $c_color = $modeColor->fetch_array();
+        $colorMode = $c_color['colorMode'];
+
+        // Check the value of $colorMode and set the corresponding variable
+        if ($colorMode == 0) {
+            $darkMode = true;
+        } else {
+            $lightMode = true;
+        }
+    } else {
+        // If no results found, assume dark mode as default
+        $darkMode = true;
+    }
+
     // query for total pending
     $q_p = $conn->query("SELECT SUM(total) AS total FROM (
                                                         SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
@@ -33,11 +52,16 @@
         </button>        
         <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none justify-content-end" id="navbarcollapse">
             <ul class="nav navbar-nav ml-auto">
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link" id="ligthbtn" data-toggle="dropdown">
-                        <span style="cursor:pointer" class = "material-icons">lightbulb</span>
-                    </a>                    
+                <li>
+                    <?php if (isset($lightMode)) { ?>
+                        <a class="nav-link toggle-mode dark-btn" id="darkbtn" name="color" data-toggle="dropdown" data-value="0">
+                            <span style="cursor:pointer" class="material-icons">light_mode</span>
+                        </a>
+                    <?php } elseif (isset($darkMode)) { ?>
+                        <a class="nav-link toggle-mode light-btn" id="lightbtn" name="color" data-toggle="dropdown" data-value="1">
+                            <span style="cursor:pointer" class="material-icons">dark_mode</span>
+                        </a>
+                    <?php } ?>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
@@ -74,6 +98,34 @@
 			 
 			  </nav>
 	
+<script>
+    $(document).ready(function() {
+        // Função para lidar com o clique nas linhas
+        $('.toggle-mode').on('click', function() {
+            // Obtém o valor do atributo data-value
+            var modeValue = $(this).data('value');
+
+            // Exibir o valor no console para verificar se está correto
+            console.log("Valor capturado pelo GET: " + modeValue);
+
+            // Faz a chamada à API usando fetch
+            fetch('change_color_query.php?color=' + modeValue, {
+                method: 'GET'
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Ação após o sucesso, se necessário
+                console.log(data);
+            })
+            .catch(error => {
+                // Tratar erros, se necessário
+                console.log(error);
+            });
+        });
+    });
+</script>
+
+
 		   
 		   
 		   

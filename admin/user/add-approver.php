@@ -32,7 +32,7 @@
 					</div>
 					<div class="card-header card-header-text">
 						<form method="GET" action="add_approver_query.php">
-							<select class="select-soft" name="users_id"required>
+							<select class="select-soft" name="users_id" required>
 								<option value="" disabled selected>- Clique aqui -</option>
 								<?php  
 									$querysf = $conn->query("SELECT

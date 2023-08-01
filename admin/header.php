@@ -64,7 +64,7 @@
 <div class="wrapper">
 
   <div class="body-overlay"></div>
-  <script>
+  <!-- <script>
         // Função para limpar o console
         function limparConsole() {
             console.clear();
@@ -72,4 +72,4 @@
 
         // Chamando a função de limpeza ao carregar a página
         window.onload = limparConsole;
-    </script>
+    </script> -->

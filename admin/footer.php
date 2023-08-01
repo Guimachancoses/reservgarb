@@ -199,36 +199,66 @@
 		}
 	</script>
 
-<!-- Seu JavaScript -->
-<!-- Adicione um script para lidar com o clique no botão -->
+<!-- Script para lidar com o clique no botão -->
 <script>
 $(document).ready(function() {
-  // Quando o botão for clicado
-  $('#ligthbtn').on('click', function() {
-    // Seleciona o elemento com a classe .main-content
+    // Function to toggle dark mode
+    function toggleDarkMode() {
     var mainContent = $('.main-content');
-    // Seleciona o elemento com a classe .card
     var card = $('.card');
-
-	// Seleciona o elemento com a classe .card
     var cardHeader = $('.card-header');
+    var footer = $('.footer');
+    var darkModeBtn = $('.dark-btn');
+    var lightModeBtn = $('.light-btn');
 
-	// Seleciona o elemento com a classe .card
-    var fooTer = $('.footer');
+    // Check if dark mode is currently active
+    var isDarkModeActive = mainContent.hasClass('dark-mode');
 
-    // Alterna a classe para .main-content
-    mainContent.toggleClass('dark-mode').css('background-color', mainContent.hasClass('dark-mode') ? 'black' : '');
-    // Alterna a classe para .card
-    card.toggleClass('dark-mode');
-	// Alterna a classe para .card-header
-    cardHeader.toggleClass('dark-mode');
-	// Alterna a classe para .footer
-    fooTer.toggleClass('dark-mode');
-  });
+    // Toggle dark mode classes
+    mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-color', !isDarkModeActive ? 'black' : '');
+    card.toggleClass('dark-mode', !isDarkModeActive);
+    cardHeader.toggleClass('dark-mode', !isDarkModeActive);
+    footer.toggleClass('dark-mode', !isDarkModeActive);
+
+    if (!isDarkModeActive) {
+        darkModeBtn.data('value', '0');
+		lightModeBtn.data('value', '1');
+		darkModeBtn.find('span').text('light_mode');
+		lightModeBtn.find('span').text('dark_mode');
+		darkModeBtn.find('i').text('light_mode').css('color', 'yellow');
+		lightModeBtn.find('i').text('dark_mode').css('color', 'black');
+		darkModeBtn.find('small').text('Modo Claro');
+		lightModeBtn.find('small').text('Modo Escuro');
+    } else {
+        darkModeBtn.data('value', '0');
+		lightModeBtn.data('value', '1');
+		darkModeBtn.find('span').text('dark_mode');
+		lightModeBtn.find('span').text('light_mode');
+		darkModeBtn.find('i').text('dark_mode').css('color', 'black');
+		lightModeBtn.find('i').text('light_mode').css('color', 'yellow');
+		darkModeBtn.find('small').text('Modo Escuro');
+		lightModeBtn.find('small').text('Modo Claro');
+    }
+}
+
+    // Get the initial value from the database (Assuming $mode is the value retrieved from the database)
+    var initialMode = <?php echo $colorMode ?>;
+    
+    // Check the initial mode and apply the appropriate class to the main content
+    var mainContent = $('.main-content');
+    if (initialMode === 1) {
+        toggleDarkMode();
+    }
+
+    // Click event handler for toggling the mode
+    $('.toggle-mode').on('click', function() {
+        toggleDarkMode();
+		// Reload the page to apply the changes
+		location.reload();
+    });
+
 });
 </script>
-
-
 
   </body>
 </html>

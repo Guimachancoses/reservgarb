@@ -1,6 +1,26 @@
 <nav id="sidebar" class="active">
 
 <?php
+
+    // Query for mode color page
+    $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $_SESSION[users_id]");
+
+    // Assuming $modeColor is a valid result set
+    if (mysqli_num_rows($modeColor) > 0) {
+        $c_color = $modeColor->fetch_array();
+        $colorMode = $c_color['colorMode'];
+
+        // Check the value of $colorMode and set the corresponding variable
+        if ($colorMode == 0) {
+            $darkMode = true;
+        } else {
+            $lightMode = true;
+        }
+    } else {
+        // If no results found, assume dark mode as default
+        $darkMode = true;
+    }
+
     // query for total pending
     $q_p = $conn->query("SELECT SUM(total) AS total FROM (
                                                     SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
@@ -70,7 +90,17 @@
                             <i class="material-icons">settings</i><span>Configuração</span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu2">
                                 <li>
-                                    <a class="nav-link" href="reservlab.php?alter-account"><span class="text-primary"><small>Alterar Seu Dados</small></span></a>
+                                    <a class="nav-link" href="reservlab.php?alter-account">
+                                    <i  class="material-icons" style="color:orange">auto_fix_normal</i><span class="text-primary"><small>Alterar Seu Dados</small></span></a>
+                                </li>
+                                <li>
+                                    <?php if (isset($lightMode)) { ?>
+                                        <a class="nav-link toggle-mode dark-btn" id="darkbtn" name="color" data-value="0">
+                                        <i  class="material-icons" style="color:yellow">light_mode</i><small class="text-primary">Modo Claro</small></a>
+                                    <?php } elseif (isset($darkMode)) { ?>
+                                        <a class="nav-link toggle-mode light-btn" id="lightbtn" name="color" data-value="1">
+                                        <i class="material-icons" style="color:black">dark_mode</i><small class="text-primary">Modo Escuro</small></a>
+                                    <?php } ?>
                                 </li>
                             </ul>
                     </li>

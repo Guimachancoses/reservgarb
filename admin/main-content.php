@@ -84,23 +84,27 @@
 			</a></div>
 		</div>
 
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
-			<a href="reservlab.php?calender">
-				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
-					<div class="card-header">
-						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
-							<div class="gif-container">
-								<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-							</div>
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6" onclick="redirectToCalendar()">
+			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+				<div class="card-header">
+					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
+						<div class="gif-container">
+							<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 						</div>
 					</div>
-					<div class="card-content">
-						<p class="category">Agendar Locação</p>
-						<h3 class="card-title">Calendário</h3>
-					</div>
 				</div>
-			</a>
+				<div class="card-content">
+					<p class="category">Agendar Locação</p>
+					<h3 class="card-title">Calendário</h3>
+				</div>
+			</div>
 		</div>
+
+		<script>
+		function redirectToCalendar() {
+		window.location.href = "reservlab.php?calender";
+		}
+		</script>
 
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
 			<a href="reservlab.php?<?php echo $reslab?>">
@@ -208,13 +212,13 @@
 
 					<table class="table table-hover" id="myTable">
 
-						<thead class="text-primary" style="cursor:pointer">
+						<thead class="" style="cursor:pointer;color:#5faa4f">
 							<tr>
 								<th></th>
-								<th>Nome</th>
-								<th>Função</th>
-								<th>E-mail</th>
-								<th>Telefone</th>
+								<th><strong>Nome</strong></th>
+								<th><strong>Função</strong></th>
+								<th><strong>E-mail</strong></th>
+								<th><strong>Telefone</strong></th>
 							</tr>
 						</thead>
 
@@ -245,9 +249,9 @@
 						?>
 						<tbody>
 
-							<tr onclick="window.location='<?php echo $editLink; ?>'">
+							<tr onclick="window.location='<?php echo $editLink ?>'">
 								<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "7") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
-								<td></div><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
+								<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 								<td><?php echo $fetch['funcao']?></td>
 								<td><?php echo $fetch['email']?></td>
 								<?php $contactno = $fetch['contactno'];	$formatted_contactno = '(' . substr($contactno, 0, 2) . ') ' . substr($contactno, 2, 5) . '-' . substr($contactno, 7);?>

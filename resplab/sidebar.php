@@ -1,9 +1,41 @@
 <nav id="sidebar" class="active">
 
 <?php
+
+    // Query for mode color page
+    $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $_SESSION[users_id]");
+
+    // Assuming $modeColor is a valid result set
+    if (mysqli_num_rows($modeColor) > 0) {
+        $c_color = $modeColor->fetch_array();
+        $colorMode = $c_color['colorMode'];
+
+        // Check the value of $colorMode and set the corresponding variable
+        if ($colorMode == 0) {
+            $darkMode = true;
+        } else {
+            $lightMode = true;
+        }
+    } else {
+        // If no results found, assume dark mode as default
+        $darkMode = true;
+    }
+
     // query for total pending
-    $q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 1 ") or die(mysqli_error($conn));
+    $q_p = $conn->query("SELECT SUM(total) AS total FROM (
+                                                    SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
+                                                    UNION ALL
+                                                    SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
+                                                ) AS subquery; ") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
+
+    // query for total pendding for locacao
+		$q_loc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 1 && lc_period_id IS NULL && users_id != $_SESSION[users_id]") or die(mysqli_error($conn));
+		$f_loc = $q_loc->fetch_array();
+
+    // query for total pendding for lc_period
+		$q_period = $conn->query("SELECT COUNT(*) as total FROM `lc_period` WHERE mensagens_id = 2") or die(mysqli_error($conn));
+		$f_period = $q_period->fetch_array();
 
     // query for pending message
     $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error($conn));
@@ -62,6 +94,15 @@
                                 <li>
                                     <a class="nav-link" href="reservlab.php?alter-account"><span><small>Alterar Sua Senha</small></span></a>
                                 </li>
+                                <li>
+                                    <?php if (isset($lightMode)) { ?>
+                                        <a class="nav-link toggle-mode dark-btn" id="darkbtn" name="color" data-value="0">
+                                        <i  class="material-icons" style="color:yellow">light_mode</i><small class="text-primary">Modo Claro</small></a>
+                                    <?php } elseif (isset($darkMode)) { ?>
+                                        <a class="nav-link toggle-mode light-btn" id="lightbtn" name="color" data-value="1">
+                                        <i class="material-icons" style="color:black">dark_mode</i><small class="text-primary">Modo Escuro</small></a>
+                                    <?php } ?>
+                                </li>
                             </ul>
                     </li>
                 </li>
@@ -89,7 +130,7 @@
 
                 <li class="dropdown">
                     <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
-					<i class="material-icons">pending</i><span>Solicitações</span></a>
+					<i class="material-icons">pending</i><span>Meus Pedidos</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu3">
 
                         <li>
@@ -117,7 +158,11 @@
 				
                 <li class="dropdown">
                     <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
-                   <i class="material-icons searching">edit_calendar</i><span>Aprovar Reservas</span></a>
+                        <i class="material-icons">edit_calendar</i>
+                                <?php if ($f_loc['total'] > 0) { ?>
+                                    <span name="notification" class="notification"><?php echo $f_loc['total'] ?></span>
+                                <?php } ?>
+                            <span>Aprovar Reservas</span></a>
                    <ul class="collapse list-unstyled menu" id="pageSubmenu4">
 
                        <li>
@@ -144,6 +189,35 @@
                     <?php $calender = 'rscalender';
                         ?>
                     <a href="reservlab.php?<?php echo $calender?>"><i class="material-icons" >calendar_month</i><span>Calendário</span></a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">timeline</i>
+                        <?php if ($f_period['total'] > 0) { ?>
+                            <span name="notification" class="notification"><?php echo $f_period['total'] ?></span>
+                        <?php } ?>
+                    <span>Reservar por Período</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu6">
+
+                        <li>
+                            <?php $addpd = 'addpd';
+                                ?>
+                            <a href="reservlab.php?<?php echo $addpd?>"><i class="material-icons" style="color:red">add</i><span><small>Add. Reserva</small></span></a>
+                        </li> 
+
+                        <li>
+                            <?php $perpen = 'perpen';
+                                ?>
+                            <a href="reservlab.php?<?php echo $perpen?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i><small>Reservas Pendentes</small></a>
+                        </li>
+
+                        <li>
+                            <?php $perres = 'perres';
+                                ?>
+                            <a href="reservlab.php?<?php echo $perres?>"><i class="material-icons" style="color:#4caf50">lock_clock</i><small>Reservados</small></a>
+                        </li>
+                    </ul>
                 </li>
 
                 </br>

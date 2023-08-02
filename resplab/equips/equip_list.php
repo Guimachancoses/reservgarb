@@ -18,7 +18,6 @@
                     <p class="category">Escolha qual equipamento você deseja reservar e verifique a sua disponibilidade:</p>
                 </div>
                 <div class="card-content table-responsive" style="padding:2">
-                    <div style = "background-color:white;" class = "container">
                         <div class = "panel panel-default" >
                             <?php
                                 require_once 'connect.php';
@@ -60,7 +59,6 @@
                             }
                         </script>
                     </div>
-                </div>
             </div>
         </div>
     </div>

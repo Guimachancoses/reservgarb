@@ -22,8 +22,7 @@
     } else {
         // If no results found, assume dark mode as default
         $darkMode = true;
-    }
-    
+    }    
 
     // query for total pending
     $q_p = $conn->query("SELECT SUM(total) AS total FROM (
@@ -47,9 +46,9 @@
 <div class="top-navbar">
     <nav class="navbar navbar-expand-lg">
         <button id="sidebar-collapse" class="d-xl-block d-lg-block d-md-none d-none" hidden="hidden">
-            <span  class="material-icons">arrow_back_ios</span>
+            <span hidden="hidden" class="material-icons">arrow_back_ios</span>
         </button>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="reservlab.php">
             <img class="logoeinstein2" src="../img/lg_garbuio.png">
         </a>
         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse"

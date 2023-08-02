@@ -149,7 +149,7 @@
 
   if (mensagem) {
     // Adiciona a mensagem na div com ID "mensagem"
-    document.getElementById("mensagem").innerHTML = `<label style="color:red;">${mensagem}</label>`;
+    document.getElementById("mensagem").innerHTML = `<label>${mensagem}</label>`;
   }
 
   function limparURL() {

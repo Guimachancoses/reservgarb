@@ -3,22 +3,21 @@
     <div class="row">
         <div class="col-lg-9">
             <div class="card" style="min-height:625px">
-            <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
-                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
-                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
-                        </button>
+                <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+                            <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+                            </button>
+                        </div>
+                        <script>
+                            function goBack() {
+                                window.history.back();
+                            }
+                        </script>
+                    <div class="card-header card-header-text">
+                        <h4 class="card-title"><strong class="text-primary">Veículos</strong></h4>
+                        <p class="category">Escolha qual veículo você deseja reservar e verifique a sua disponibilidade:</p>
                     </div>
-                    <script>
-                        function goBack() {
-                            window.history.back();
-                        }
-                    </script>
-                <div class="card-header card-header-text">
-                    <h4 class="card-title"><strong class="text-primary">Veículos</strong></h4>
-                    <p class="category">Escolha qual veículo você deseja reservar e verifique a sua disponibilidade:</p>
-                </div>
-                <div class="card-content table-responsive" style="padding:2">
-                    <div style = "background-color:white;" class = "container">
+                    <div class="card-content table-responsive" style="padding:2">
                         <div class = "panel panel-default" >
                             <?php
                                 require_once 'connect.php';
@@ -39,7 +38,6 @@
                                             <span style="margin-right: 5px;color:white">Reservar</span>
                                             <i class="material-icons" style="margin-left: 5px;">schedule</i>
                                         </a>
-
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +62,8 @@
                 </div>
             </div>
         </div>
-    </div>
+
+
 
         
     

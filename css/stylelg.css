@@ -223,6 +223,10 @@ h6 span {
   backface-visibility: hidden;
 }
 
+.light-mode #mensagem {
+  color: red;
+}
+
 .card-back {
   transform: rotateY(180deg);
 }
@@ -518,4 +522,8 @@ h6 span {
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 1;
+}
+
+.dark-mode #mensagem {
+  color: yellow;
 }

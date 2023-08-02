@@ -3,7 +3,7 @@
 	<?php
 		$session = $_SESSION['users_id'];
 		// query for total pendding
-		$q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 1 && lc_period_id IS NULL") or die(mysqli_error($conn));
+		$q_p = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 1 && lc_period_id IS NULL && users_id != '$session'") or die(mysqli_error($conn));
 		$f_p = $q_p->fetch_array();
 		// query for total location
 		$q_ci = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 2 ") or die(mysqli_error($conn));
@@ -18,7 +18,7 @@
 	
 	<div class="row">
 
-	<div class="div-swing col-lg-6 col-md-6 col-sm-6">
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
 			<a href = "reservlab.php?alter-account">
 				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
@@ -63,61 +63,77 @@
 		</div>
 
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $mybookr?>"><div class="card card-stats" >
-				<div class="card-header">
-					<div class="icon icon-rose">
-						<span class="material-icons">thumb_up_alt</span>
-					</div>
-				</div>
-				<div class="card-content">
-					<p class="category"><strong>Minhas Reservas Aprovadas</strong></p>
-					<h3 class="card-title"><?php echo $f_lc['total']?></h3>
-				</div>
-				<div class="card-footer">
-					<div class="stats">
-						<i class="material-icons text-status">check_box</i>
-						Solicitação aprovada
-					</div>
-				</div>
-			</a></div>
-		</div>
-
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
-			<a href="reservlab.php?rscalender">
-				<div class="card card-stats" style="padding-bottom:6%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+			<a href="reservlab.php?<?php echo $mybookr?>">
+				<div class="card card-stats" >
 					<div class="card-header">
-						<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
-							<div class="gif-container">
-								<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-							</div>
+						<div class="icon icon-rose">
+							<span class="material-icons">thumb_up_alt</span>
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category">Agendar Locação</p>
-						<h3 class="card-title">Calendário</h3>
+						<p class="category"><strong>Minhas Reservas Aprovadas</strong></p>
+						<h3 class="card-title"><?php echo $f_lc['total']?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+							<i class="material-icons text-status">check_box</i>
+							Solicitação aprovada
+						</div>
 					</div>
 				</div>
 			</a>
 		</div>
 
-		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $penlab?>"><div class="card card-stats" >
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
-					<div class="icon icon-rose">
-						<span class="material-icons">pending_actions</span>
+					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
+						<div class="gif-container">
+							<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
+						</div>
 					</div>
 				</div>
 				<div class="card-content">
-					<p class="category"><strong>Total de Solicitações Pendentes</strong></p>
-					<h3 class="card-title"><?php echo $f_p['total']?></h3>
+					<p class="category">Agendar Locação</p>
+					<h3 class="card-title">Calendário</h3>
 				</div>
-				<div class="card-footer">
-					<div class="stats">
-						<i class="material-icons text-status">rotate_right</i>
-						Aguardando sua aprovação
+			</div>
+		</div>
+
+		<script>
+			const calendarCard = document.getElementById('calendarCard');
+			const gifContainer = calendarCard.querySelector('.gif-container');
+
+			gifContainer.addEventListener('click', function(event) {
+				event.stopPropagation();
+			});
+
+			calendarCard.addEventListener('click', function() {
+				window.location.href = "reservlab.php?rscalender";
+			});
+		</script>
+
+
+		<div class="div-link col-lg-3 col-md-6 col-sm-6">
+			<a href="reservlab.php?<?php echo $penlab?>">
+				<div class="card card-stats" >
+					<div class="card-header">
+						<div class="icon icon-rose">
+							<span class="material-icons">pending_actions</span>
+						</div>
+					</div>
+					<div class="card-content">
+						<p class="category"><strong>Total de Solicitações Pendentes</strong></p>
+						<h3 class="card-title"><?php echo $f_p['total']?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+							<i class="material-icons text-status">rotate_right</i>
+							Aguardando sua aprovação
+						</div>
 					</div>
 				</div>
-			</a></div>
+			</a>
 		</div>
 			
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
@@ -141,13 +157,14 @@
 				</div>
 			</a>
 		</div>
+
 	</div>								
 		
 	
 	<!---row-second----->
 
 	<div class="row">
-		<div class="col-lg-9 col-md-9">
+		<div class="col-lg-9 col-md-20">
 			<div class="card" style="min-height:535px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Pedidos de Reservas Aguardando sua Aprovação</h4>
@@ -203,79 +220,83 @@
 
 					<table class="table table-hover" id="myTable">
 
-						<thead class="text-primary" style="cursor:pointer">
+						<thead class="" style="cursor:pointer;color:#5faa4f">
 							<tr>
 								<th></th>
-								<th>Nome</th>
-								<th>Locação</th>
-								<th>Dt. Reserva</th>
-								<th>Hr. Reserva</th>
+								<th><strong>Nome</strong></th>
+								<th><strong>Locação</strong></th>
+								<th><strong>Dt. Reserva</strong></th>
+								<th><strong>Hr. Reserva</strong></th>
 							</tr>
 						</thead>
 
-						<?php  
-							
-							$perPage = 6; // Número de resultados por página
-							$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
-							$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-							$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 && lc.users_id != '$_SESSION[users_id]' && lc.lc_period_id IS NULL")->fetch_assoc()['total']; // Total de resultados no banco de dados
-							$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
-							$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+							<?php  
+								
+								$perPage = 6; // Número de resultados por página
+								$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
+								$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
+								$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 && lc.users_id != '$_SESSION[users_id]' && lc.lc_period_id IS NULL")->fetch_assoc()['total']; // Total de resultados no banco de dados
+								$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
+								$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 
-							$querypd = $conn->query("SET @groupId = (
-								SELECT approver_id
-								FROM gp_approver
-								WHERE users_id = '$_SESSION[users_id]'
-							)");
-							
-							$querypd2 = $conn->query("SELECT
-								lc.locacao_id,
-								u.firstname,
-								u.lastname,
-								COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-								COALESCE(lb.room_no, vs.model) as description,
-								lc.checkin,
-								lc.checkin_time,
-								lc.checkout_time,
-								lc.approver_id,
-								st.status
-							FROM `locacao` as lc
-							LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
-							INNER JOIN `users` as u ON u.users_id = lc.users_id
-							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
-							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
-							INNER JOIN `status` st ON st.status_id = lc.status_id
-							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE
-								lc.status_id = 1
-								AND lc.users_id != '$_SESSION[users_id]' 
-								AND ms.mensagens_id = 2
-								AND lc.lc_period_id IS NULL
-								AND (
-									(@groupId = 1) -- Administrador
-									OR
-									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-									OR
-									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-									OR
-									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-								)
-							ORDER BY  lc.checkin ASC
-							LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
-							
-							if (mysqli_num_rows($querypd2) == 0) {
-								echo "<td>Sem reservas pendentes...</td>";
-							}                        
-							while ($fetch = $querypd2->fetch_array()) {
-								$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."confirm-reserve";
-						?>		
-							<tr onclick="window.location='<?php echo $editLink; ?>'">
-								<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "1") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';}?></td>
-								<td></div><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
-								<td><?php echo $fetch['locacao']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-							</tr> 
+								$querypd = $conn->query("SET @groupId = (
+									SELECT approver_id
+									FROM gp_approver
+									WHERE users_id = '$_SESSION[users_id]'
+								)") or die(mysqli_error($conn));
+								
+								$querypd2 = $conn->query("SELECT
+															lc.locacao_id,
+															u.firstname,
+															u.lastname,
+															COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+															COALESCE(lb.room_no, vs.model) as description,
+															lc.checkin,
+															lc.checkin_time,
+															lc.checkout_time,
+															lc.approver_id,
+															st.status
+														FROM `locacao` as lc
+														LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+														INNER JOIN `users` as u ON u.users_id = lc.users_id
+														LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+														LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+														INNER JOIN `status` st ON st.status_id = lc.status_id
+														INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+														WHERE
+															lc.status_id = 1
+															AND lc.users_id != '$_SESSION[users_id]' 
+															AND ms.mensagens_id = 2
+															AND lc.lc_period_id IS NULL
+															AND (
+																(@groupId = 1) -- Administrador
+																OR
+																(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+																OR
+																(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+																OR
+																(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+															)
+														ORDER BY  lc.checkin ASC
+														LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
+								if (mysqli_num_rows($querypd2) == 0) {
+									echo "<td></td>";
+									echo "<td>Sem reservas pendentes...</td>";
+									echo "<td></td>";
+									echo "<td></td>";
+									echo "<td></td>";
+								}                        
+								while ($fetch = $querypd2->fetch_array()) {
+									$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."confirm-reserve";
+							?>
+						<tbody>		
+								<tr onclick="window.location='<?php echo $editLink ?>'">
+									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
+									<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
+									<td><?php echo $fetch['locacao']?></td>
+									<td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+									<td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+								</tr> 
 							<?php
 								}
 							?>
@@ -332,13 +353,13 @@
 								</li>
 							<?php } ?>
 							<li>
-							<?php
-								if ($totalPages > 1) {
-									echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
-								} else {
-									echo "<p style=\"margin-left:10px;padding:5px;color:#5faa4f\"> Página 1</p>";
-								}
-							?>
+								<?php
+									if ($totalPages > 1) {
+										echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
+									} else {
+										echo "<p style=\"margin-left:10px;padding:5px;color:#5faa4f\"> Página 1</p>";
+									}
+								?>
 							</li>
 						</ul>					
 					</nav>

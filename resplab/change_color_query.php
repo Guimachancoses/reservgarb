@@ -15,7 +15,7 @@
 		}else{
 			// Se não insere uma prefenrência de cor
 			$conn->query("INSERT INTO `set_color` (users_id, colorMode) VALUES('$_SESSION[users_id]', '$colorMode')") or die(mysqli_error($conn));
-			echo "<script>window.location.reload();</script>";
+            echo "<script>window.location.reload();</script>";
 		}
 	}
 ?>

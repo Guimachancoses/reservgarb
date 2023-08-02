@@ -359,7 +359,7 @@ a:focus {
   margin-left: 20px;
   border: none;
   color: #000000;
-  background-color: rgba(0, 0, 0, 0.09);
+  /* background-color: rgba(0, 0, 0, 0.09); */
 }
 
 #sidebar-collapse span {
@@ -965,7 +965,7 @@ a.btn.btn-success:focus {
 
 .select-soft:focus {
   border-bottom: 1px solid var(--primary-clr);
-  color: rgb(0, 128, 255);
+  color: rgb(31, 103, 37);
 }
 
 .select-soft::placeholder {
@@ -1282,7 +1282,7 @@ a.btn.btn-success:focus {
   animation: slide-in-delayed 2s ease, move-to-fixed 2s ease-in-out 2s forwards;
 }
 
-.dark-mode .table > thead > tr > th {
+.dark-mode .table > thead {
   border-bottom: 1px;
   font-size: 16px;
   font-weight: 400;
@@ -1370,4 +1370,8 @@ a.btn.btn-success:focus {
 
 .logoeinstein2-dark {
   content: url("../img/lg_garbuio2.png");
+}
+
+.gif-container {
+  pointer-events: none;
 }

@@ -217,6 +217,8 @@
 			// Check if dark mode is currently active
 			var isDarkModeActive = mainContent.hasClass('dark-mode');
 
+			var logotipo = $('.logoeinstein2');
+
 			// Toggle dark mode classes
 			mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-color', !isDarkModeActive ? 'black' : '');
 			card.toggleClass('dark-mode', !isDarkModeActive);
@@ -225,6 +227,7 @@
 			footer.toggleClass('dark-mode', !isDarkModeActive);
 			formControl.toggleClass('dark-mode', !isDarkModeActive);
 			navbar.toggleClass('dark-mode', !isDarkModeActive);
+			logotipo.toggleClass('logoeinstein2-dark', !isDarkModeActive);
 
 			if (!isDarkModeActive) {
 				darkModeBtn.data('value', '0');

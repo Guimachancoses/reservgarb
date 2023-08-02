@@ -1367,3 +1367,7 @@ a.btn.btn-success:focus {
     background-position: center;
   }
 }
+
+.logoeinstein2-dark {
+  content: url("../img/lg_garbuio2.png");
+}

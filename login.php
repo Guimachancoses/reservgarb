@@ -31,7 +31,7 @@ function AntiSqlInjection($str, $conn) {
 	ob_start();
 	if(ISSET ($_POST['login'])){
 		
-		$email = AntiSqlInjection($_POST['ra'], $conn);
+		$email = AntiSqlInjection(trim(strtolower($_POST['ra'])), $conn);
 
 		$password = AntiSqlInjection($_POST['password'], $conn);
 		$status = "5";

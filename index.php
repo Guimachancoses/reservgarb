@@ -51,11 +51,18 @@
           <div class="card-3d-wrap mx-auto">
             <div class="card-3d-wrapper">
               <div class="card-front">
+                <div style="float: right;">
+                    <a class="nav-link toggle-mode dark-btn" id="lightbtn" name="color" data-value="0">
+                        <span style="cursor:pointer" class="uil uil-moon"></span>
+                    </a>
+                    <a class="nav-link toggle-mode dark-btn" id="darkbtn" name="color" data-value="0">
+                        <span style="cursor:pointer" class="uil uil-sun"></span>
+                    </a>
+                </div>
                 <div class="center-wrap">
                   <form id="meuFormulario" method="POST" action="login.php" enctype = "multipart/form-data">
                     <div class="section text-center">
                       <div class="logoeinstein" align="left">
-                        <img src="./img/lg_garbuio.png">
                       </div>
                       </br>
                       <div class="form-group">
@@ -70,7 +77,7 @@
                           <img class="form-inline" style="padding: 5px;" id="olho" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDUlEQVQ4jd2SvW3DMBBGbwQVKlyo4BGC4FKFS4+TATKCNxAggkeoSpHSRQbwAB7AA7hQoUKFLH6E2qQQHfgHdpo0yQHX8T3exyPR/ytlQ8kOhgV7FvSx9+xglA3lM3DBgh0LPn/onbJhcQ0bv2SHlgVgQa/suFHVkCg7bm5gzB2OyvjlDFdDcoa19etZMN8Qp7oUDPEM2KFV1ZAQO2zPMBERO7Ra4JQNpRa4K4FDS0R0IdneCbQLb4/zh/c7QdH4NL40tPXrovFpjHQr6PJ6yr5hQV80PiUiIm1OKxZ0LICS8TWvpyyOf2DBQQtcXk8Zi3+JcKfNafVsjZ0WfGgJlZZQxZjdwzX+ykf6u/UF0Fwo5Apfcq8AAAAASUVORK5CYII=" />
                         </span>                          
                       </div>
-                        <button type="submit" name="login" style="color:black"class="btn mt-4" onclick="limparURL()">Acessar</button>
+                        <button type="submit" name="login" id="submitBtn" style="color:black"class="btn mt-4" onclick="limparURL()">Acessar</button>
                       <div id='mensagem'></div>
                         <p class="mb-2 mt-4 text-center">
                         <a href="#" class="link" id="reg-log" name="reg-log">Esqueceu sua senha?</a>
@@ -84,21 +91,19 @@
               <div class="card-back">
                 <div class="center-wrap">
                   <div class="section text-center">
-                    <div class="logoeinstein" align="left">
-                        <img src="./img/lg_garbuio.png">
-                      </div>
+                    <div class="logoeinstein" align="left"></div>
                       </br>                          
                     <form id="meuFormulario2" method="POST" action="forgot_key.php" id="form-cadastro" enctype = "multipart/form-data">
                       <div class="labmsg">
                         Será enviado para seu endereço de email, as instruções sobre como restabelecer seu acesso.
                       </div>
                     <div class="form-group">
-                      <input type="text" name="cpf" class="form-style" placeholder="Digite seu CPF" id="cpf" onblur="validateCPF()" autocomplete="off"/>
+                      <input type="text" name="cpf" class="form-style" placeholder="Digite seu CPF" id="cpf" onblur="validateCPF()" autocomplete="off" required/>
                       <i class="input-icon uil uil-user"></i>
                       <span id="cpf-error" style="color: red; font-size: smaller;"></span>
                     </div>
                     <div class="form-group mt-2">
-                      <input type="email" name="email" class="form-style" placeholder="Digite seu e-mail" id="email" autocomplete="off"/>
+                      <input type="email" name="email" class="form-style" placeholder="Digite seu e-mail" id="email" autocomplete="off" required/>
                       <i class="input-icon uil uil-at"></i>
                     </div>
                     <div class="form-group mt-2">
@@ -230,5 +235,52 @@
     // Chamando a função quando o usuário clica no botão de atualizar o navegador
     window.onbeforeunload = clearUrlAndReload;
   </script>
+
+<script>
+    // Função para alternar entre os modos
+    function toggleMode() {
+        const body = document.body;
+        const currentMode = body.classList.contains("dark-mode") ? "dark-mode" : "light-mode";
+        const lightbtn = document.getElementById("lightbtn");
+        const darkbtn = document.getElementById("darkbtn");
+
+        if (currentMode === "dark-mode") {
+            body.classList.remove("dark-mode");
+            body.classList.add("light-mode");
+            localStorage.setItem("preferredMode", "light-mode");
+            darkbtn.style.display = "none";
+            lightbtn.style.display = "block";
+        } else {
+            body.classList.remove("light-mode");
+            body.classList.add("dark-mode");
+            localStorage.setItem("preferredMode", "dark-mode");            
+            darkbtn.style.display = "block";
+            lightbtn.style.display = "none";
+        }
+    }
+
+    // Listener para os botões de alternar modo
+    document.getElementById("lightbtn").addEventListener("click", toggleMode);
+    document.getElementById("darkbtn").addEventListener("click", toggleMode);
+
+    // Verificar a preferência salva na memória do navegador e aplicar o modo carregado
+    document.addEventListener("DOMContentLoaded", function () {
+        const preferredMode = localStorage.getItem("preferredMode");
+        const isValidMode = preferredMode === "dark-mode" || preferredMode === "light-mode";
+        const defaultMode = isValidMode ? preferredMode : "light-mode";
+        const lightbtn = document.getElementById("lightbtn");
+        const darkbtn = document.getElementById("darkbtn");
+
+        document.body.classList.add(defaultMode);
+
+        if (defaultMode === "dark-mode") {
+            darkbtn.style.display = "block";
+            lightbtn.style.display = "none";
+        } else {
+            darkbtn.style.display = "none";
+            lightbtn.style.display = "block";
+        }
+    });
+</script>
 
 </html>

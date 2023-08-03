@@ -23,7 +23,7 @@
 
     // query for total pending
     $q_p = $conn->query("SELECT SUM(total) AS total FROM (
-                                                    SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
+                                                    SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 37
                                                     UNION ALL
                                                     SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
                                                 ) AS subquery; ") or die(mysqli_error($conn));
@@ -34,18 +34,8 @@
 		$f_loc = $q_loc->fetch_array();
 
     // query for total pendding for lc_period
-		$q_period = $conn->query("SELECT COUNT(*) as total FROM `lc_period` WHERE mensagens_id = 2") or die(mysqli_error($conn));
+		$q_period = $conn->query("SELECT COUNT(*) as total FROM `lc_period` WHERE mensagens_id = 37") or die(mysqli_error($conn));
 		$f_period = $q_period->fetch_array();
-
-
-    // query for pending message
-    $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error($conn));
-    if (mysqli_num_rows($q_msg) > 0) {
-        $f_msg = $q_msg->fetch_array();
-        $pendente = $f_msg['pendente'];
-    } else {
-        $pendente = "Sem pendências";
-    }
 ?>
             <div class="sidebar-header">
                 <h3 style="font-family: 'Monte Serrat', sans-serif; letter-spacing: 0.1px;">
@@ -65,10 +55,46 @@
                             <?php } ?>
                     <span>Notificações</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu0">
-                        <li>
-                            <?php $penlab = 'penlab'; ?>
-                            <a href="reservlab.php?<?php echo $penlab?>" class="text-primary"><?php echo $pendente?></a>
-                        </li>                                    
+                        <?php
+                            // query for pending message
+                            $q_msg = $conn->query("SELECT pendente FROM (
+                                                    SELECT 
+                                                        ms.assunto as pendente
+                                                    FROM mensagens as ms 
+                                                    LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
+                                                    WHERE lc.mensagens_id = 2
+                                                    UNION ALL
+                                                    SELECT 
+                                                        ms.assunto as pendente
+                                                    FROM mensagens as ms
+                                                    LEFT JOIN lc_period as lp ON lp.mensagens_id = ms.mensagens_id
+                                                    WHERE lp.mensagens_id = 37
+                                                ) AS subquery
+                                                ORDER BY pendente
+                                                LIMIT 2") or die(mysqli_error($conn));
+                            if (mysqli_num_rows($q_msg) > 0) {
+                                while ($f_msg = $q_msg->fetch_array()) {
+                                    $pendente = $f_msg['pendente'];
+                                    ?>
+                                    <?php if ($pendente === "Solicitações pendentes!") { ?>
+                                        <li>
+                                            <?php $penlab = 'penlab'; ?>
+                                            <a href="reservlab.php?<?php echo $penlab ?>" class="text-primary"><small><?php echo $pendente ?></small></a>
+                                        </li>
+                                    <?php } elseif ($pendente === "Reserva Por Período Pendente!") { ?>
+                                        <li>
+                                            <?php $perpen = 'perpen'; ?>
+                                            <a href="reservlab.php?<?php echo $perpen ?>" class="text-primary"><small><?php echo $pendente ?></small></a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php
+                                }
+                            } else {
+                        ?>
+                            <li><small>Sem pendências</small></li>
+                        <?php
+                            }
+                        ?>                                    
                     </ul>
                 </li>
 				

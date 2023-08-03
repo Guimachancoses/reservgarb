@@ -1375,3 +1375,7 @@ a.btn.btn-success:focus {
 .gif-container {
   pointer-events: none;
 }
+
+.dropdown-menu li a:hover {
+  background-color: #f1f1f1;
+}

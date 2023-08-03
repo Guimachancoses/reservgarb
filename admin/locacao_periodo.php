@@ -119,13 +119,22 @@
         }
         else {
 
-                $mensagens_id = 2;
+                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                $valid = $query->num_rows;
+                if($valid > 0){
+                    $mensagens_idPe = 3;
+                    $mensagens_id = 3;
+                }else{
+                    $mensagens_idPe = 37;
+                    $mensagens_id = 2;
+                }
 
                 if ($timeTo > $timeFrom) {
 
                     // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
                     $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
+                    $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
                     $stmt->execute();
 
                     $lc_period_id = $stmt->insert_id;
@@ -169,7 +178,14 @@
                             }
                             else {
 
-                                $status_id = 1;
+                                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                                $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                                $valid = $query->num_rows;
+                                if($valid > 0){
+                                    $status_id = 2;
+                                }else{
+                                    $status_id = 1;
+                                }
                             
                             // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
                                 $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -189,7 +205,7 @@
 
                 // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
                 $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
+                $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
                 $stmt->execute();
 
                 $lc_period_id = $stmt->insert_id;
@@ -234,7 +250,14 @@
                         }
                         else {
 
-                            $status_id = 1;
+                            // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                            $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                            $valid = $query->num_rows;
+                            if($valid > 0){
+                                $status_id = 2;
+                            }else{
+                                $status_id = 1;
+                            }
                         
                         // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
                             $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -272,7 +295,14 @@
                         }
                         else {
 
-                            $status_id = 1;
+                            // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                            $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                            $valid = $query->num_rows;
+                            if($valid > 0){
+                                $status_id = 2;
+                            }else{
+                                $status_id = 1;
+                            }
                         
                         // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
                             $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

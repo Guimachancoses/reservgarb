@@ -1,9 +1,9 @@
 <nav id="sidebar" class="active">
 
 <?php
-
+    $session_id = $_SESSION['users_id'];
     // Query for mode color page
-    $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $_SESSION[users_id]");
+    $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $session_id");
 
     // Assuming $modeColor is a valid result set
     if (mysqli_num_rows($modeColor) > 0) {
@@ -30,12 +30,63 @@
     $f_p = $q_p->fetch_array();
 
     // query for total pendding for locacao
-		$q_loc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 1 && lc_period_id IS NULL && users_id != $_SESSION[users_id]") or die(mysqli_error($conn));
-		$f_loc = $q_loc->fetch_array();
+    $q_loc2 = $conn->query("SET @groupId = (
+                            SELECT approver_id
+                            FROM gp_approver
+                            WHERE users_id = $session_id
+                        )");
+    
+    $q_loc = $conn->query("SELECT
+                            COUNT(*) AS total
+                            FROM `locacao` as lc
+                            LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                            INNER JOIN `users` as u ON u.users_id = lc.users_id
+                            LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                            LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                            INNER JOIN `status` st ON st.status_id = lc.status_id
+                            INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+                            WHERE
+                                lc.status_id = 1
+                                AND lc.users_id != $session_id
+                                AND ms.mensagens_id = 2
+                                AND lc.lc_period_id IS NULL
+                                AND (
+                                    (@groupId = 1) -- Administrador
+                                    OR
+                                    (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+                                    OR
+                                    (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+                                    OR
+                                    (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+                                )") or die(mysqli_error($conn));
+    $f_loc = $q_loc->fetch_array();
 
     // query for total pendding for lc_period
-		$q_period = $conn->query("SELECT COUNT(*) as total FROM `lc_period` WHERE mensagens_id = 2") or die(mysqli_error($conn));
-		$f_period = $q_period->fetch_array();
+    $q_period2 = $conn->query("SET @groupId = (
+                            SELECT approver_id
+                            FROM gp_approver
+                            WHERE users_id = $session_id
+                        )");
+                        
+    $q_period = $conn->query("SELECT
+                            COUNT(*) AS total
+                            FROM `lc_period` as lc
+                            LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                            INNER JOIN `users` as u ON u.users_id = lc.users_id
+                            LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                            LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                            INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+                            WHERE ms.mensagens_id = 37
+                                AND (
+                                    (@groupId = 1) -- Administrador
+                                    OR
+                                    (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+                                    OR
+                                    (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+                                    OR
+                                    (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+                                )") or die(mysqli_error($conn));
+	$f_period = $q_period->fetch_array();
 
     // query for pending message
     $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error($conn));
@@ -64,12 +115,48 @@
                             <?php if ($f_p['total'] > 0) { ?>
                                 <span name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?>
-                    </a>
+                    <span>Notificações</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu0">
-                        <li>
-                            <?php $penlab = 'penlab'; ?>
-                            <a href="reservlab.php?<?php echo $penlab?>" class="text-primary"><?php echo $pendente?></a>
-                        </li>                  
+                        <?php
+                            // query for pending message
+                            $q_msg = $conn->query("SELECT pendente FROM (
+                                                    SELECT 
+                                                        ms.assunto as pendente
+                                                    FROM mensagens as ms 
+                                                    LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
+                                                    WHERE lc.mensagens_id = 2
+                                                    UNION ALL
+                                                    SELECT 
+                                                        ms.assunto as pendente
+                                                    FROM mensagens as ms
+                                                    LEFT JOIN lc_period as lp ON lp.mensagens_id = ms.mensagens_id
+                                                    WHERE lp.mensagens_id = 37
+                                                ) AS subquery
+                                                ORDER BY pendente
+                                                LIMIT 2") or die(mysqli_error($conn));
+                            if (mysqli_num_rows($q_msg) > 0) {
+                                while ($f_msg = $q_msg->fetch_array()) {
+                                    $pendente = $f_msg['pendente'];
+                                    ?>
+                                    <?php if ($pendente === "Solicitações pendentes!") { ?>
+                                        <li>
+                                            <?php $penlab = 'penlab'; ?>
+                                            <a href="reservlab.php?<?php echo $penlab ?>" class="text-primary"><small><?php echo $pendente ?></small></a>
+                                        </li>
+                                    <?php } elseif ($pendente === "Reserva Por Período Pendente!") { ?>
+                                        <li>
+                                            <?php $perpen = 'perpen'; ?>
+                                            <a href="reservlab.php?<?php echo $perpen ?>" class="text-primary"><small><?php echo $pendente ?></small></a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php
+                                }
+                            } else {
+                        ?>
+                            <li><small>Sem pendências</small></li>
+                        <?php
+                            }
+                        ?>                                    
                     </ul>
                 </li>
 				
@@ -133,11 +220,19 @@
 					<i class="material-icons">pending</i><span>Meus Pedidos</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu3">
 
-                        <li>
-                            <?php $mybookp = 'mybookp';
-                                ?>
-                            <a href="reservlab.php?<?php echo $mybookp?>"><i class="material-icons" style="color:#ff9800" >hourglass_empty</i><small>Meus Pedidos Pendentes</small></a>
-                        </li>
+                    <?php
+                        $except = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$_SESSION[users_id]'");
+                        ?>
+
+                    <?php if ($except->num_rows > 0): ?>
+                            <!-- Oculte a <li> se houver alguma linha retornada pela consulta -->
+                    <?php else: ?>
+                            <li>
+                                <?php $mybookp = 'mybookp'; ?>
+                                <a href="reservlab.php?<?php echo $mybookp ?>"><i class="material-icons" style="color:#ff9800" >hourglass_empty</i><small>Meus Pedidos Pendentes</small></a>
+                            </li>
+                    <?php endif; ?>
+
 
                         <li>
                             <?php $mybookr = 'mybookr';

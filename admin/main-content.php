@@ -3,7 +3,7 @@
 	<?php
 		// query for total pendding
 		$q_p = $conn->query("SELECT SUM(total) AS total FROM (
-															SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
+															SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 37
 															UNION ALL
 															SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
 														) AS subquery;") or die(mysqli_error($conn));

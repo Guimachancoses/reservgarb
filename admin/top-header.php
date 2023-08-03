@@ -26,20 +26,11 @@
 
     // query for total pending
     $q_p = $conn->query("SELECT SUM(total) AS total FROM (
-                                                        SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 2
+                                                        SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 37
                                                         UNION ALL
                                                         SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
                                                     ) AS subquery; ") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
-
-    // query for pending message
-    $q_msg = $conn->query("SELECT ms.assunto as pendente FROM mensagens as ms INNER JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id	WHERE lc.mensagens_id = 2") or die(mysqli_error($conn));
-    if (mysqli_num_rows($q_msg) > 0) {
-        $f_msg = $q_msg->fetch_array();
-        $pendente = $f_msg['pendente'];
-    } else {
-        $pendente = "Sem pendências";
-    }
 ?>
 
 <!-- top navbar design -->
@@ -75,11 +66,48 @@
                                 <span style="color:white;border-radius:100%" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?> 
                    </a>
-                    <ul class="dropdown-menu" style="display:flex;align-items:center;justify-content:center;">
-                        <li>
-                            <?php $penlab = 'penlab'; ?>
-                            <a href="reservlab.php?<?php echo $penlab?>" class="text-primary"><?php echo $pendente?></a>
-                        </li>
+                   <ul class="dropdown-menu" style="display:flex;align-items:center;justify-content:center;flex-direction: column;">
+                        <?php
+                        // query for pending message
+                        $q_msg = $conn->query("SELECT pendente FROM (
+                                                SELECT 
+                                                    ms.assunto as pendente
+                                                FROM mensagens as ms 
+                                                LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
+                                                WHERE lc.mensagens_id = 2
+                                                UNION ALL
+                                                SELECT 
+                                                    ms.assunto as pendente
+                                                FROM mensagens as ms
+                                                LEFT JOIN lc_period as lp ON lp.mensagens_id = ms.mensagens_id
+                                                WHERE lp.mensagens_id = 37
+                                            ) AS subquery
+                                            ORDER BY pendente
+                                            LIMIT 2") or die(mysqli_error($conn));
+
+                        if (mysqli_num_rows($q_msg) > 0) {
+                            while ($f_msg = $q_msg->fetch_array()) {
+                                $pendente = $f_msg['pendente'];
+                                ?>
+                                <?php if ($pendente === "Solicitações pendentes!") { ?>
+                                    <li>
+                                        <?php $penlab = 'penlab'; ?>
+                                        <a href="reservlab.php?<?php echo $penlab ?>" class="text-primary"><?php echo $pendente ?></a>
+                                    </li>
+                                <?php } elseif ($pendente === "Reserva Por Período Pendente!") { ?>
+                                    <li>
+                                        <?php $perpen = 'perpen'; ?>
+                                        <a href="reservlab.php?<?php echo $perpen ?>" class="text-primary"><?php echo $pendente ?></a>
+                                    </li>
+                                <?php } ?>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                                <li class="text-primary"><small>Sem pendências</small></li>
+                            <?php
+                        }
+                        ?>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

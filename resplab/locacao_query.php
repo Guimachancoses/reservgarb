@@ -59,36 +59,44 @@ $verif = $conn->prepare("SELECT locacao_id
                             WHERE locacao_id IN (
                                     SELECT locacao_id
                                     FROM locacao 
-                                    WHERE room_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
+                                    WHERE room_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
                             OR locacao_id IN (
                                     SELECT locacao_id 
                                     FROM locacao 
-                                    WHERE vehicle_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
+                                    WHERE vehicle_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
                             OR locacao_id IN (
                                     SELECT locacao_id 
                                     FROM locacao 
-                                    WHERE equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)");
-$verif->bind_param("isssisssisss", $room_id, $mysql_date, $timeFrom, $timeTo, $vehicle_id, $mysql_date, $timeFrom, $timeTo, $equip_id, $mysql_date, $timeFrom, $timeTo);
+                                    WHERE equip_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)");
+$verif->bind_param("issssissssissss", $room_id, $mysql_date, $timeFrom, $timeTo, $timeTo, $vehicle_id, $mysql_date, $timeFrom, $timeTo, $timeTo, $equip_id, $mysql_date, $timeFrom, $timeTo, $timeTo);
 $verif->execute();
 $verif->store_result();
 $valid = $verif->num_rows();
 
 if ($valid > 0) {
      // Se a locação existe retorne nada
-     $verif->close();
-     exit;
+     echo '';
     }
 else {
-    $mensagens_id = 2;
-    $status_id = 1;
 
+    // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+    $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+    $valid = $query->num_rows;
+    if($valid > 0){
+        $mensagens_id = 3;
+        $status_id = 2;
+    }else{
+        $mensagens_id = 2;
+        $status_id = 1;
+    } 
+       
     // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
     $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("iiiiiisssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id);
     $stmt->execute();
     $stmt->close();
 
-    $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'");
+    $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
 
     // Fecha a conexão com o banco de dados
     $conn->close();

@@ -10,7 +10,7 @@
         $dia_semana = $_POST['dia_semana'];
         $eventTimeFrom = $_POST['checkin_time'];
         $eventTimeTo = $_POST['checkout_time'];
-        $users_id = $_POST['users_id'];
+        $users_id = $_SESSION['users_id'];
 
         // Converte a data de checkin para o formato do MySQL
         $checkin_dateIn = new DateTime($checkin);
@@ -287,7 +287,7 @@
                     } 
                 
                 }
-                
+
                 // Verifica qual o primeiro id da tabela de locação que foi inserido do range por período
                 $stmt = $conn->prepare("SELECT locacao_id FROM locacao as lc WHERE lc.lc_period_id = ? LIMIT 1");
                 $stmt->bind_param("i", $lc_period_id);
@@ -311,7 +311,7 @@
             // Fecha a conexão com o banco de dados
             $conn->close();
 
-            // Define a resposta
+            //Define a resposta
             echo "<script>alert('Solicitação de reserva enviada com sucesso!'); window.location.href = 'reservlab.php?perpen';</script>";
         }
     }

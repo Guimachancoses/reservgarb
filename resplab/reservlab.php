@@ -72,6 +72,22 @@
 	else if(preg_match("~editequip~", $url)) {
     	$content = 'equip/equip.php';
 	}
+	// Redirecionamento para locar por periodo
+	else if(preg_match("~addpd~", $url)) {
+    	$content = 'periodus/addus-period.php';
+	}
+	// Redirecionamento para lista reservas por periodo pendente
+	else if(preg_match("~perpen~", $url)) {
+    	$content = 'periodus/periodus_reservation.php';
+	}
+	// Redirecionamento para lista reservas por periodo reservadas
+	else if(preg_match("~perres~", $url)) {
+    	$content = 'periodus/periodus_reserved.php';
+	}
+	// Redirecionamento para corfimar reserva de locações por periodo pendentes
+	else if(preg_match("~confirm-locp~", $url)) {
+    	$content = 'periodus/confirmus-locp.php';
+	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else
 		$content = 'main-content.php';

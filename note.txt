@@ -1,56 +1,91 @@
 7 AND checkin = '2023-08-13' AND checkin_time <= '11:00:00' AND (checkout_time <= '12:59:00' OR checkout_time > '12:59:00') AND mensagens_id != 4 
 
 
-11:00:00
+------- hora da locação ------ 12:00:00 até 14:00
+
+
+11:00:00     --- deu certo, está livre ---
 
 11:59:00
 
 
 ---------------
 
-11:00:00
+11:00:00     --- deu certo, encontrou sobreposição ---    
 
 12:01:00
 
 ---------------
 
-12:01:00
+12:01:00     --- deu certo, encontrou sobreposição ---  
 
 13:59:00
 
----------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-12:01:00
+12:01:00     --- deu certo, encontrou sobreposição ---   
 
 14:01:00
 
 --------------
 
-11:59:00   ---------- foi pego por essa SELECT locacao_id
-                                        FROM locacao
-14:01:00                                WHERE room_id = 7 AND checkin = '2023-08-13' AND checkin_time >= '14:01:00' AND checkin_time <= '14:02:00' AND mensagens_id != 4 AND room_id IS NOT NULL
+11:59:00     --- deu certo, encontrou sobreposição ---     
+          
+14:01:00 
 
 --------------
 
-14:01:00   ----------- não deu
+14:01:00     --- deu certo, está livre ---    
 
 14:02:00
 
 
+-- Variáveis para data e horários
+SET @data_locacao = '2023-08-13';
+SET @hora_inicio = '14:01:00';
+SET @hora_fim = '14:02:00';
+
+-- Consulta SQL para verificar disponibilidade
 SELECT locacao_id
 FROM locacao
-WHERE room_id IS NOT NULL 
-	AND checkin = '2023-08-13' AND (
-                                    SELECT locacao_id
-                                    FROM locacao
-                                    WHERE room_id = 7 AND checkin = '2023-08-13' AND (checkin_time <= '12:01:00' OR checkin_time >= '12:01:00') AND checkout_time <= '14:01:00' AND mensagens_id != 4 AND room_id IS NOT NULL) -- H. livre
-    OR room_id IS NOT NULL 
-    AND checkin = '2023-08-13' AND (
-                                    SELECT locacao_id
-                                    FROM locacao
-                                    WHERE room_id = 7 AND checkin = '2023-08-13' AND checkin_time >= '12:01:00' AND checkin_time <= '14:01:00' AND mensagens_id != 4 AND room_id IS NOT NULL) -- verifica se o horário de inicio nas duas
-    OR room_id IS NOT NULL 
-    AND checkin = '2023-08-13' AND (
-                                    SELECT locacao_id
-                                    FROM locacao
-                                    WHERE room_id = 7 AND checkin = '2023-08-13' AND checkin_time <= '12:01:00' AND checkout_time >= '14:01:00' AND mensagens_id != 4 AND room_id IS NOT NULL) -- verifica as horas entre incio e fim
+WHERE room_id = 7
+  AND checkin = @data_locacao
+  AND (
+    -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação
+    (checkin_time < @hora_inicio AND checkout_time > @hora_inicio) OR
+    -- Verifica se há uma locação que começa depois do início da nova e termina antes do fim da nova locação
+    (checkin_time >= @hora_inicio AND checkout_time <= @hora_fim) OR
+    -- Verifica se há uma locação que começa antes do fim da nova locação e termina depois do fim da nova locação
+    (checkin_time < @hora_fim AND checkout_time > @hora_fim)
+  )
+  AND mensagens_id != 4;
+  
+  SELECT locacao_id
+FROM locacao
+WHERE vehicle_id = 7
+  AND checkin = @data_locacao
+  AND (
+    -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação
+    (checkin_time < @hora_inicio AND checkout_time > @hora_inicio) OR
+    -- Verifica se há uma locação que começa depois do início da nova e termina antes do fim da nova locação
+    (checkin_time >= @hora_inicio AND checkout_time <= @hora_fim) OR
+    -- Verifica se há uma locação que começa antes do fim da nova locação e termina depois do fim da nova locação
+    (checkin_time < @hora_fim AND checkout_time > @hora_fim)
+  )
+  AND mensagens_id != 4;
+
+SELECT locacao_id
+FROM locacao
+WHERE equip_id = 7
+  AND checkin = @data_locacao
+  AND (
+    -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação
+    (checkin_time < @hora_inicio AND checkout_time > @hora_inicio) OR
+    -- Verifica se há uma locação que começa depois do início da nova e termina antes do fim da nova locação
+    (checkin_time >= @hora_inicio AND checkout_time <= @hora_fim) OR
+    -- Verifica se há uma locação que começa antes do fim da nova locação e termina depois do fim da nova locação
+    (checkin_time < @hora_fim AND checkout_time > @hora_fim)
+  )
+  AND mensagens_id != 4
+  
+                                    

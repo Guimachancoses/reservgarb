@@ -98,8 +98,10 @@ SET @hora_inicio = '14:01:00';
 SET @hora_fim = '14:02:00';
 
 -- Variáveis para o tipo de locação e seu valor
-SET @location_id = 7;
-SET @location_value = 'room_id = @location_id OR vehicle_id = @location_id OR equip_id = @location_id';
+SET @room_id = ;
+SET @vehicle_id = ;
+SET @equip_id = ;
+
 
 -- Consulta SQL para verificar disponibilidade
 SELECT locacao_id
@@ -107,7 +109,7 @@ FROM locacao
 WHERE 
   (
     -- Verifica a disponibilidade para cada tipo de locação (room, vehicle, equip)
-    (@location_value)                    ---- ou  ------ (room_id = 7 OR vehicle_id = 7 OR equip_id = 7)
+    (room_id = @room_id OR vehicle_id = @vehicle_id OR equip_id = @equip_id)
     AND checkin = @data_locacao
     AND (
       -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação

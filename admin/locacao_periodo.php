@@ -153,30 +153,45 @@
                             $dataFormat = $data->format('Y-m-d');
 
                             // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
-                            $verif1 = $conn->prepare("SELECT locacao_id
-                            FROM locacao
-                            WHERE locacao_id IN (
-                                    SELECT locacao_id
-                                    FROM locacao 
-                                    WHERE room_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
-                            OR locacao_id IN (
-                                    SELECT locacao_id 
-                                    FROM locacao 
-                                    WHERE vehicle_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)
-                            OR locacao_id IN (
-                                    SELECT locacao_id 
-                                    FROM locacao 
-                                    WHERE equip_id = ? AND checkin = ? AND checkin_time >= ? AND checkout_time <= ? and mensagens_id != 4)");
-                            $verif1->bind_param("isssisssisss", $room_id, $dataFormat, $timeFrom, $timeTo, $vehicle_id, $dataFormat, $timeFrom, $timeTo, $equip_id, $dataFormat, $timeFrom, $timeTo);
-                            $verif1->execute();
-                            $verif1->store_result();
-                            $valid2 = $verif->num_rows();
+                            $set_variables_query =( "
+                                SET @data_locacao = '$dataFormat'; 
+                                SET @hora_inicio = '$timeFrom'; 
+                                SET @hora_fim = '$timeTo'; 
+                                SET @room_id = $room_id; 
+                                SET @vehicle_id = $vehicle_id; 
+                                SET @equip_id = $equip_id;
+                                ");
 
-                            if ($valid2 > 0) {
-                            // Se a locação existe retorne nada
-                            echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
-                            }
-                            else {
+                            $select_query =( "
+                                SELECT locacao_id
+                                FROM locacao
+                                WHERE 
+                                (
+                                    -- Verifica a disponibilidade para cada tipo de locação (room, vehicle, equip)
+                                    (room_id = @room_id OR vehicle_id = @vehicle_id OR equip_id = @equip_id)
+                                    AND checkin = @data_locacao
+                                    AND (
+                                        -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação
+                                        (checkin_time < @hora_inicio AND checkout_time > @hora_inicio) OR
+                                        -- Verifica se há uma locação que começa depois do início da nova e termina antes do fim da nova locação
+                                        (checkin_time >= @hora_inicio AND checkout_time <= @hora_fim) OR
+                                        -- Verifica se há uma locação que começa antes do fim da nova locação e termina depois do fim da nova locação
+                                        (checkin_time < @hora_fim AND checkout_time > @hora_fim)
+                                    )
+                                    AND mensagens_id != 4
+                                );
+                            ");
+
+                            $result = $conn->query($select_query);
+                            if ($result === false) {
+                                echo ''; // Trate o erro aqui, se necessário
+                            } else {
+                                $valid = $result->num_rows;
+                                if ($valid > 0) {
+                                    // Se a locação existe retorne nada
+                                    echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
+                                }
+                                else {
 
                                 // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
                                 $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
@@ -187,13 +202,14 @@
                                     $status_id = 1;
                                 }
                             
-                            // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
+                                // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
                                 $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                                 $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom, $timeTo, $approver_id, $lc_period_id);
                                 $stmt->execute();
                                 $stmt->close();
                                 
-                            }
+                                }
+                            }                            
                         } 
                     
                     }
@@ -222,97 +238,129 @@
                         
                         $dataFormat = $data->format('Y-m-d');
 
-                        // FAZ O PRIMEIRO INSERT E A PRIMEIRA VERIFICAÇÃO
+                    // FAZ O PRIMEIRO INSERT E A PRIMEIRA VERIFICAÇÃO
 
                         // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
-                        $verif1 = $conn->prepare("SELECT locacao_id
-                        FROM locacao
-                        WHERE locacao_id IN (
-                                SELECT locacao_id
-                                FROM locacao 
-                                WHERE room_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
-                        OR locacao_id IN (
-                                SELECT locacao_id 
-                                FROM locacao 
-                                WHERE vehicle_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
-                        OR locacao_id IN (
-                                SELECT locacao_id 
-                                FROM locacao 
-                                WHERE equip_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)");
-                        $verif1->bind_param("issssissssissss", $room_id, $dataFormat, $timeFrom, $timeTo_seg, $timeTo_seg, $vehicle_id, $dataFormat, $timeFrom, $timeTo_seg, $timeTo_seg, $equip_id, $dataFormat, $timeFrom, $timeTo_seg, $timeTo_seg);
-                        $verif1->execute();
-                        $verif1->store_result();
-                        $valid2 = $verif->num_rows();
+                        $set_variables_query =( "
+                            SET @data_locacao = '$dataFormat'; 
+                            SET @hora_inicio = '$timeFrom'; 
+                            SET @hora_fim = '$timeTo_seg'; 
+                            SET @room_id = $room_id; 
+                            SET @vehicle_id = $vehicle_id; 
+                            SET @equip_id = $equip_id;
+                            ");
 
-                        if ($valid2 > 0) {
-                        // Se a locação existe retorne nada
-                        echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
-                        }
-                        else {
+                        $select_query =( "
+                            SELECT locacao_id
+                            FROM locacao
+                            WHERE 
+                            (
+                                -- Verifica a disponibilidade para cada tipo de locação (room, vehicle, equip)
+                                (room_id = @room_id OR vehicle_id = @vehicle_id OR equip_id = @equip_id)
+                                AND checkin = @data_locacao
+                                AND (
+                                    -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação
+                                    (checkin_time < @hora_inicio AND checkout_time > @hora_inicio) OR
+                                    -- Verifica se há uma locação que começa depois do início da nova e termina antes do fim da nova locação
+                                    (checkin_time >= @hora_inicio AND checkout_time <= @hora_fim) OR
+                                    -- Verifica se há uma locação que começa antes do fim da nova locação e termina depois do fim da nova locação
+                                    (checkin_time < @hora_fim AND checkout_time > @hora_fim)
+                                )
+                                AND mensagens_id != 4
+                            );
+                        ");
 
-                            // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
-                            $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
-                            $valid = $query->num_rows;
-                            if($valid > 0){
-                                $status_id = 2;
-                            }else{
-                                $status_id = 1;
+                        $result = $conn->query($select_query);
+                        if ($result === false) {
+                            echo ''; // Trate o erro aqui, se necessário
+                        } else {
+                            $valid = $result->num_rows;
+                            if ($valid > 0) {
+                                // Se a locação existe retorne nada
+                                echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
                             }
-                        
-                        // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                            $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom, $timeTo_seg, $approver_id, $lc_period_id);
-                            $stmt->execute();
-                            $stmt->close();                       
+                            else {
+
+                                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                                $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                                $valid = $query->num_rows;
+                                if($valid > 0){
+                                    $status_id = 2;
+                                }else{
+                                    $status_id = 1;
+                                }
                             
+                            // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
+                                $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom, $timeTo_seg, $approver_id, $lc_period_id);
+                                $stmt->execute();
+                                $stmt->close();                       
+                                
+                            }
                         }
 
-                        // FAZ O SEGUNDO INSERT E A SEGUNDA VERIFICAÇÃO
+                    // FAZ O SEGUNDO INSERT E A SEGUNDA VERIFICAÇÃO
 
                         // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
-                        $verif1 = $conn->prepare("SELECT locacao_id
-                        FROM locacao
-                        WHERE locacao_id IN (
-                                SELECT locacao_id
-                                FROM locacao 
-                                WHERE room_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
-                        OR locacao_id IN (
-                                SELECT locacao_id 
-                                FROM locacao 
-                                WHERE vehicle_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)
-                        OR locacao_id IN (
-                                SELECT locacao_id 
-                                FROM locacao 
-                                WHERE equip_id = ? AND checkin = ? AND checkin_time <= ? AND (checkout_time <= ? OR checkout_time > ?) AND mensagens_id != 4)");
-                        $verif1->bind_param("issssissssissss", $room_id, $dataFormat, $timeFrom_seg, $timeTo, $timeTo, $vehicle_id, $dataFormat, $timeFrom_seg, $timeTo, $timeTo, $equip_id, $dataFormat, $timeFrom_seg, $timeTo, $timeTo);
-                        $verif1->execute();
-                        $verif1->store_result();
-                        $valid2 = $verif->num_rows();
+                        $set_variables_query =( "
+                            SET @data_locacao = '$dataFormat'; 
+                            SET @hora_inicio = '$timeFrom_seg'; 
+                            SET @hora_fim = '$timeTo'; 
+                            SET @room_id = $room_id; 
+                            SET @vehicle_id = $vehicle_id; 
+                            SET @equip_id = $equip_id;
+                        ");
 
-                        if ($valid2 > 0) {
-                        // Se a locação existe retorne nada
-                        echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
-                        }
-                        else {
+                        $select_query =( "
+                            SELECT locacao_id
+                            FROM locacao
+                            WHERE 
+                            (
+                                -- Verifica a disponibilidade para cada tipo de locação (room, vehicle, equip)
+                                (room_id = @room_id OR vehicle_id = @vehicle_id OR equip_id = @equip_id)
+                                AND checkin = @data_locacao
+                                AND (
+                                    -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação
+                                    (checkin_time < @hora_inicio AND checkout_time > @hora_inicio) OR
+                                    -- Verifica se há uma locação que começa depois do início da nova e termina antes do fim da nova locação
+                                    (checkin_time >= @hora_inicio AND checkout_time <= @hora_fim) OR
+                                    -- Verifica se há uma locação que começa antes do fim da nova locação e termina depois do fim da nova locação
+                                    (checkin_time < @hora_fim AND checkout_time > @hora_fim)
+                                )
+                                AND mensagens_id != 4
+                            );
+                        ");
 
-                            // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
-                            $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
-                            $valid = $query->num_rows;
-                            if($valid > 0){
-                                $status_id = 2;
-                            }else{
-                                $status_id = 1;
+                        $result = $conn->query($select_query);
+                        if ($result === false) {
+                            echo ''; // Trate o erro aqui, se necessário
+                        } else {
+                            $valid = $result->num_rows;
+                            if ($valid > 0) {
+                                // Se a locação existe retorne nada
+                                echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
                             }
-                        
-                        // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                            $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom_seg, $timeTo, $approver_id, $lc_period_id);
-                            $stmt->execute();
+                            else {
 
-                            $locacao_id = $stmt->insert_id;
-
-                            $stmt->close();                       
+                                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                                $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                                $valid = $query->num_rows;
+                                if($valid > 0){
+                                    $status_id = 2;
+                                }else{
+                                    $status_id = 1;
+                                }
                             
+                            // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
+                                $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom_seg, $timeTo, $approver_id, $lc_period_id);
+                                $stmt->execute();
+
+                                $locacao_id = $stmt->insert_id;
+
+                                $stmt->close();                       
+                                
+                            }
                         }
                     } 
                 

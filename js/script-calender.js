@@ -501,7 +501,7 @@ addEventSubmit.addEventListener("click", () => {
         activeDayEl.classList.add("event");
       }
       // Recarrega a página automaticamente
-      window.location.reload();
+      // window.location.reload();
     })
     .catch((error) => {
       console.log(error);
@@ -612,10 +612,12 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
       .then((response) => response.text())
       .then((result) => {
         if (result == "") {
+          console.log(result);
           reject(
             " - ERRO -\n \n * Verifique se já existe uma reserva nesse horário. *"
           );
         } else {
+          console.log(result);
           // Caso a API retorne evento cadastrado, set true
           resolve(true);
         }

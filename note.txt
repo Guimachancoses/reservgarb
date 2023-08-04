@@ -87,5 +87,76 @@ WHERE equip_id = 7
     (checkin_time < @hora_fim AND checkout_time > @hora_fim)
   )
   AND mensagens_id != 4
-  
+
+  ---------------------------------
+
+  locacao por dia refatorado
+
+  -- Variáveis para data e horários
+SET @data_locacao = '2023-08-13';
+SET @hora_inicio = '14:01:00';
+SET @hora_fim = '14:02:00';
+
+-- Variáveis para o tipo de locação e seu valor
+SET @location_id = 7;
+SET @location_value = 'room_id = @location_id OR vehicle_id = @location_id OR equip_id = @location_id';
+
+-- Consulta SQL para verificar disponibilidade
+SELECT locacao_id
+FROM locacao
+WHERE 
+  (
+    -- Verifica a disponibilidade para cada tipo de locação (room, vehicle, equip)
+    (@location_value)                    ---- ou  ------ (room_id = 7 OR vehicle_id = 7 OR equip_id = 7)
+    AND checkin = @data_locacao
+    AND (
+      -- Verifica se há uma locação que começa antes da nova e termina depois do início da nova locação
+      (checkin_time < @hora_inicio AND checkout_time > @hora_inicio) OR
+      -- Verifica se há uma locação que começa depois do início da nova e termina antes do fim da nova locação
+      (checkin_time >= @hora_inicio AND checkout_time <= @hora_fim) OR
+      -- Verifica se há uma locação que começa antes do fim da nova locação e termina depois do fim da nova locação
+      (checkin_time < @hora_fim AND checkout_time > @hora_fim)
+    )
+    AND mensagens_id != 4
+  );
+
+
+
+
+
+  ---------------------------------------------------------------------------------------------------------------------------
+
+  locação por periodo
+
+-- Defina as variáveis para as datas e horas que você deseja verificar
+SET @start_date = '2023-08-13';
+SET @end_date = '2023-08-13';
+SET @start_time = '18:00:00';
+SET @end_time = '06:00:00';
+SET @room_id = 7;
+SET @vehicle_id = 7;
+SET @equip_id = 7;
+
+-- Verifique a disponibilidade para cada tipo de locação
+SELECT lc_period_id
+FROM lc_period
+WHERE (
+        -- Verifique o tipo de locação específica e a disponibilidade das datas e horas
+        (room_id = @room_id OR vehicle_id = @vehicle_id OR equip_id = @equip_id)
+        AND (
+            -- Verifique se a data de checkin ou checkout está dentro do intervalo da nova locação
+            (checkin >= @start_date AND checkin < @end_date)
+            OR (checkout > @start_date AND checkout <= @end_date)
+            OR (checkin <= @start_date AND checkout >= @end_date)
+        )
+        AND (
+            -- Verifique se a hora de checkin ou checkout está dentro do intervalo da nova locação
+            (checkin_time >= @start_time AND checkin_time < @end_time)
+            OR (checkout_time > @start_time AND checkout_time <= @end_time)
+            OR (checkin_time <= @start_time AND checkout_time >= @end_time)
+        )
+    )
+    AND mensagens_id != 4;
+
+
                                     

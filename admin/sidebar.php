@@ -58,13 +58,13 @@
                         <?php
                             // query for pending message
                             $q_msg = $conn->query("SELECT pendente FROM (
-                                                    SELECT 
+                                                    SELECT DISTINCT
                                                         ms.assunto as pendente
                                                     FROM mensagens as ms 
                                                     LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
                                                     WHERE lc.mensagens_id = 2
                                                     UNION ALL
-                                                    SELECT 
+                                                    SELECT DISTINCT
                                                         ms.assunto as pendente
                                                     FROM mensagens as ms
                                                     LEFT JOIN lc_period as lp ON lp.mensagens_id = ms.mensagens_id

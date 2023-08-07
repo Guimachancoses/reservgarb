@@ -41,7 +41,7 @@
             LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
             LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-            WHERE ms.mensagens_id = 37
+            WHERE ms.mensagens_id = 37 AND lc.users_id != $session_id
                 AND (
                     (@groupId = 1) -- Administrador
                     OR
@@ -120,13 +120,13 @@
                                                     ms.assunto as pendente
                                                 FROM mensagens as ms 
                                                 LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
-                                                WHERE lc.mensagens_id = 2
+                                                WHERE lc.mensagens_id = 2 && lc.lc_period_id IS NULL && lc.users_id != $session_id
                                                 UNION ALL
                                                 SELECT DISTINCT
                                                     ms.assunto as pendente
                                                 FROM mensagens as ms
                                                 LEFT JOIN lc_period as lp ON lp.mensagens_id = ms.mensagens_id
-                                                WHERE lp.mensagens_id = 37
+                                                WHERE lp.mensagens_id = 37 && lp.users_id != $session_id
                                             ) AS subquery
                                             ORDER BY pendente
                                             LIMIT 2") or die(mysqli_error($conn));

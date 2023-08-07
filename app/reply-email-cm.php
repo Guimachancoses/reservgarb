@@ -243,7 +243,7 @@
         }
 
         .main-content {
-          padding: 2px 30px;
+          padding: 30px;
         }
       }
       .page-item .n-overlay {
@@ -309,7 +309,7 @@
       <h1>Reserve Garbuio</h1>
     </div>
     <div class="main-content">
-      <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://localhost/reservgarb/app/fg/reply-email-fg.php"
+      <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://localhost/reservgarb/app/reply-email-cm.php"
       target="_blank">visualizar no navegador</a>
       <div class="card">
         <h5

@@ -288,22 +288,22 @@
                 /* Media query para telas menores, como celulares */
                 @media (max-width: 480px) {
                     .header {
-                    min-height: 150px;
+                    height: 100%;
                     }
 
                     .logo {
-                    width: 60px;
+                    width: 40px;
                     }
 
                     .main-content {
-                    padding: 20px;
+                    padding: 2px 15px;
                     }
                 }
 
                 /* Media query para telas menores, como celulares */
                 @media (min-width: 481px) and (max-width: 768px) {
                     .header {
-                    min-height: 150px;
+                    height: 100%;
                     }
 
                     .logo {
@@ -311,14 +311,14 @@
                     }
 
                     .main-content {
-                    padding: 20px;
+                    padding: 2px 20px;
                     }
                 }
 
                 /* Media query para telas médias, como tablets */
                 @media (min-width: 769px) and (max-width: 1200px) {
                     .header {
-                        min-height: 200px;
+                    min-height: 200px;
                     }
 
                     .logo {
@@ -326,15 +326,16 @@
                     }
 
                     .main-content {
-                    padding: 25px;
+                    padding: 2px 25px;
                     }
                 }
 
+                /* Media query para telas grandes, como monitores maiores */
                 @media (min-width: 1201px) {
                     .header {
-                        min-height: 200px;
+                    min-height: 200px;
                     }
-                    
+
                     .logo {
                     width: 90px;
                     }
@@ -381,85 +382,100 @@
                     font-size: 12px; /* Tamanho da fonte igual ao de <h5> */
                     margin: 10px 0px; /* Margem igual à de <h5> */
                 }
+
+                .page {
+                    display: fixed;
+                    width: 65%;
+                    margin: 0 auto;
+                    border-radius: 6px;
+                    background-color: #fff;
+                    box-shadow: 10px 10px 10px #00000049;
+                    padding: 20px;
+                }
+
                 </style>
             </head>
             <body>
-                <div class="header">
-                    <img
-                        style="padding-top: 50px"
-                        align="left"
-                        class="logo"
-                        src="cid:logoimg"
-                    />
-                    <h1 style="padding-top: 50px;padding-right:15   0px">Reserve Garbuio</h1>
-                </div>
-                <div class="main-content">
-                    <div class="card">
-                        <h5
-                        style="
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: red;
-                        "
-                        >
-                        <strong>ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.</strong>
-                        </h5>
-                        <br />
-                        <h5><strong>Olá, '.$dtname.'.</strong></h5>
-                        <h5><strong>Você tem uma mensagem enviada de:</strong></h5>
-                        <h5><strong>Nome: '.$nome.'.</strong></h5>
-                        <h5><strong>Email: '.$email.'</strong></h5>
-                        <br />
-                        <h5>
-                        <strong>Seu pedido de reserva foi confimado.</strong>
-                        </h5>
-                        <br />
-                        <h5>
-                        <strong>Informações da reserva:</strong>
-                        </h5>
-                        <li><strong>Locação: </strong> '.$locacao.'</li>
-                        <li><strong>Descrição: </strong> '.$description.'</li>
-                        <li><strong>Data: </strong> '.$checkin.'</li>
-                        <li><strong>Hora de Início: </strong> '.$checkin_time.' horas</li>
-                        <li><strong>Hora Final: </strong> '.$checkout_time.' horas</li>
+                <div class="page">
+                    <div class="header">
+                        <img
+                            style="padding-top: 50px"
+                            align="left"
+                            class="logo"
+                            src="cid:logoimg"
+                        />
+                        <h1 style="padding-top: 50px;padding-right:15   0px">Reserve Garbuio</h1>
                     </div>
-                    <div class="card">
-                        <h5><strong>Acesse o portal para visualizar sua reserva.</strong></h5>
-                        <div
-                            class="page-item"
-                            style="display: flex; align-items: center; justify-content: center"
+                    <div class="main-content">
+                    <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://localhost/reservgarb/app/reply-email-cm.php"
+                        target="_blank">visualizar no navegador</a>
+                        <div class="card">
+                            <h5
+                            style="
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: red;
+                            "
                             >
-                            <a
-                            style="border-radius: 10px 10px 10px 10px; text-decoration: none"
-                            class="n-overlay"
-                            href="http://localhost/reservgarb/index.php"
-                            target="_blank"
-                            >Página Inicial</a>
+                            <strong>ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.</strong>
+                            </h5>
+                            <br />
+                            <h5><strong>Olá, '.$dtname.'.</strong></h5>
+                            <h5><strong>Você tem uma mensagem enviada de:</strong></h5>
+                            <h5><strong>Nome: '.$nome.'.</strong></h5>
+                            <h5><strong>Email: '.$email.'</strong></h5>
+                            <br />
+                            <h5>
+                            <strong>Seu pedido de reserva foi confimado.</strong>
+                            </h5>
+                            <br />
+                            <h5>
+                            <strong>Informações da reserva:</strong>
+                            </h5>
+                            <li><strong>Locação: </strong> '.$locacao.'</li>
+                            <li><strong>Descrição: </strong> '.$description.'</li>
+                            <li><strong>Data: </strong> '.$checkin.'</li>
+                            <li><strong>Hora de Início: </strong> '.$checkin_time.' horas</li>
+                            <li><strong>Hora Final: </strong> '.$checkout_time.' horas</li>
                         </div>
-                    </div>
-                    <div style="padding-top: 50px">
-                        <img src="cid:logogarb"/>
-                    </div>
-                </div>
-                <footer class="footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <p class="copyright">
-                                    &copy;
-                                    <a
-                                        style="color: white; text-decoration: none"
-                                        href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
-                                        target="blank"
-                                        >GuiMac</a
-                                    >&#160; &#10084;&#65039; 2023
-                                </p>
+                        <div class="card">
+                            <h5><strong>Acesse o portal para visualizar sua reserva.</strong></h5>
+                            <div
+                                class="page-item"
+                                style="display: flex; align-items: center; justify-content: center"
+                                >
+                                <a
+                                style="border-radius: 10px 10px 10px 10px; text-decoration: none"
+                                class="n-overlay"
+                                href="http://localhost/reservgarb/index.php"
+                                target="_blank"
+                                >Página Inicial</a>
                             </div>
                         </div>
+                        <div style="padding-top: 50px">
+                            <img src="cid:logogarb"/>
+                        </div>
                     </div>
-                </footer>
+                    <footer class="footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <p class="copyright">
+                                        &copy;
+                                        <a
+                                            style="color: white; text-decoration: none"
+                                            href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
+                                            target="blank"
+                                            >GuiMac</a
+                                        >&#160; &#10084;&#65039; 2023
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
             </body>
             </html>
             ';

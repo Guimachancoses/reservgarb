@@ -250,22 +250,22 @@
                 /* Media query para telas menores, como celulares */
                 @media (max-width: 480px) {
                     .header {
-                    min-height: 150px;
+                    height: 100%;
                     }
 
                     .logo {
-                    width: 60px;
+                    width: 40px;
                     }
 
                     .main-content {
-                    padding: 20px;
+                    padding: 2px 15px;
                     }
                 }
 
                 /* Media query para telas menores, como celulares */
                 @media (min-width: 481px) and (max-width: 768px) {
                     .header {
-                    min-height: 150px;
+                    height: 100%;
                     }
 
                     .logo {
@@ -273,14 +273,14 @@
                     }
 
                     .main-content {
-                    padding: 20px;
+                    padding: 2px 20px;
                     }
                 }
 
                 /* Media query para telas médias, como tablets */
                 @media (min-width: 769px) and (max-width: 1200px) {
                     .header {
-                        min-height: 200px;
+                    min-height: 200px;
                     }
 
                     .logo {
@@ -288,21 +288,22 @@
                     }
 
                     .main-content {
-                    padding: 25px;
+                    padding: 2px 25px;
                     }
                 }
 
+                /* Media query para telas grandes, como monitores maiores */
                 @media (min-width: 1201px) {
                     .header {
-                        min-height: 200px;
+                    min-height: 200px;
                     }
-                    
+
                     .logo {
                     width: 90px;
                     }
 
                     .main-content {
-                    padding: 30px;
+                    padding: 2px 30px;
                     }
                 }
                 .page-item .n-overlay {
@@ -343,9 +344,19 @@
                     font-size: 12px; /* Tamanho da fonte igual ao de <h5> */
                     margin: 10px 0px; /* Margem igual à de <h5> */
                 }
+                .page {
+                    display: fixed;
+                    width: 65%;
+                    margin: 0 auto;
+                    border-radius: 6px;
+                    background-color: #fff;
+                    box-shadow: 10px 10px 10px #00000049;
+                    padding: 20px;
+                  }
                 </style>
             </head>
             <body>
+            <div class="page">
                 <div class="header">
                     <img
                         style="padding-top: 50px"
@@ -356,6 +367,8 @@
                     <h1 style="padding-top: 50px;padding-right:15   0px">Reserve Garbuio</h1>
                 </div>
                 <div class="main-content">
+                <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://localhost/reservgarb/app/reply-email-fg.php"
+                    target="_blank">visualizar no navegador</a>
                     <div class="card">
                         <h5
                         style="
@@ -408,9 +421,9 @@
                             >
                         </div>
                     </div>
-                </div>
-                <div style="padding-top: 50px">
-                    <img src="cid:logogarb" />
+                    <div style="padding-top: 50px">
+                        <img src="cid:logogarb" />
+                    </div>
                 </div>
                 <footer class="footer">
                     <div class="container">
@@ -430,6 +443,7 @@
                         </div>
                     </div>
                 </footer>
+            </div>
             </body>
             </html>
             ';

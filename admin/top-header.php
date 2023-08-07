@@ -74,7 +74,7 @@
                                                     ms.assunto as pendente
                                                 FROM mensagens as ms 
                                                 LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
-                                                WHERE lc.mensagens_id = 2
+                                                WHERE lc.mensagens_id = 2 && lc.lc_period_id IS NULL
                                                 UNION ALL
                                                 SELECT DISTINCT
                                                     ms.assunto as pendente

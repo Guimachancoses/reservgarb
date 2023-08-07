@@ -48,7 +48,7 @@
                                                 ON eq.equip_id = lc.equip_id
                                                 INNER JOIN `mensagens` as st
                                                 ON st.mensagens_id = lc.mensagens_id
-                                                WHERE lc.mensagens_id = 2 && lc.lc_period_id = '$_REQUEST[lc_period_id]'") or die(mysqli_error());
+                                                WHERE lc.mensagens_id = 37 && lc.lc_period_id = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
                         $fetch = $query->fetch_array();
                     ?>
                     <form method="POST" name="save_period" action="./save_period.php?lc_period_id=<?php echo $fetch['lc_period_id']?>" enctype="multipart/form-data">
@@ -115,7 +115,7 @@
                                     } else {
                                         echo $assunto;
                                     }
-                                    ?>" name = "status" class = "form-control text-center" size = "15" disabled = "disabled"/>
+                                    ?>" name = "status" class = "form-control text-center" size = "28" disabled = "disabled"/>
                             </div>
                         <br style = "clear:both;"/>
                         <br />

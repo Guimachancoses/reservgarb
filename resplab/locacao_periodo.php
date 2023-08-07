@@ -202,7 +202,7 @@
                                         WHERE lc.lc_period_id = ?");
                 $stmt2->bind_param("i", $lc_period_id);
                 $stmt2->execute();
-                $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
+                $stmt2->bind_result($description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
                 $stmt2->fetch();
                 $stmt2->close();
 
@@ -220,7 +220,7 @@
 
                 $nome = $firstname . " " . $lastname;
                 $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
-                $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+                // $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
                 $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
             
@@ -434,7 +434,7 @@
                                         WHERE lc.lc_period_id = ?");
                 $stmt2->bind_param("i", $lc_period_id);
                 $stmt2->execute();
-                $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
+                $stmt2->bind_result($description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
                 $stmt2->fetch();
                 $stmt2->close();
 
@@ -452,7 +452,7 @@
 
                 $nome = $firstname . " " . $lastname;
                 $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
-                $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+                // $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
                 $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
             

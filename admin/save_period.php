@@ -65,12 +65,12 @@
 
             // Mensagem
             $assunto = 'Confirmação de Reserva - Reserve Garbuio';
-            $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+            $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
             $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
             
             // Chama função para enviar email
-            sendMailPer ($email, $nmadmin, $assunto, $dtnome, $dtemail, $message, $dadosLocacao);
+            sendMailPer ($email, $nome, $assunto, $dtnome, $dtemail, $message, $dadosLocacao);
 
 			// Fecha a conexão com o banco de dados
             $stmt2->close();

@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+  
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    
+    <link rel="icon" 
+      type="image/jpg"
+      href="../img/logo_title.png" />
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Monte+Serrat&display=swap"
-      rel="stylesheet"
-    />
-    <title>Assunto do Email</title>
+    <title>Reserve Garbuio</title>
     <style>
-      html {
+    html {
         line-height: 1.8;
         font-family: "Roboto", sans-serif;
         color: #555e58;
@@ -25,11 +26,10 @@
         margin: 0px;
         padding: 0px;
         background-color: #f0f0f0;
-      }
+    }
 
-      @media (min-width: 1981px) and (max-width: 10000px) {
+    @media (min-width: 1981px) and (max-width: 10000px) {
         .header {
-          display: flex;
           position: relative;
           height: 100px;
           background-image: linear-gradient(
@@ -37,7 +37,7 @@
               rgba(255, 255, 255, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("./img/background_1.jpg");
+            url("../img/background_1.jpg");
           background-size: cover;
           background-position: center;
           padding: 20px;
@@ -54,7 +54,6 @@
 
       @media (min-width: 1551px) and (max-width: 1980px) {
         .header {
-          display: flex;
           position: relative;
           height: 100px;
           background-image: linear-gradient(
@@ -62,7 +61,7 @@
               rgba(255, 255, 255, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("./img/background_1.jpg");
+            url("../img/background_1.jpg");
           background-size: cover;
           background-position: center;
           text-align: center;
@@ -78,7 +77,6 @@
 
       @media (min-width: 1025px) and (max-width: 1550px) {
         .header {
-          display: flex;
           position: relative;
           height: 100px;
           background-image: linear-gradient(
@@ -86,7 +84,7 @@
               rgba(255, 255, 255, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("./img/background_1.jpg");
+            url("../img/background_1.jpg");
           background-size: cover;
           background-position: center;
           text-align: center;
@@ -100,9 +98,8 @@
         }
       }
 
-      @media (min-width: 481px) and (max-width: 1024px) {
+      @media (min-width: 426px) and (max-width: 1024px) {
         .header {
-          display: flex;
           position: relative;
           height: 100px;
           background-image: linear-gradient(
@@ -110,7 +107,7 @@
               rgba(255, 255, 255, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("./img/background_1.jpg");
+            url("../img/background_1.jpg");
           background-size: cover;
           background-position: center;
           text-align: center;
@@ -126,7 +123,6 @@
 
       @media (max-width: 480px) {
         .header {
-          display: flex;
           position: relative;
           height: 100px;
           background-image: linear-gradient(
@@ -134,7 +130,7 @@
               rgba(255, 255, 255, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("./img/background_1.jpg");
+            url("../img/background_1.jpg");
           background-size: cover;
           background-position: center;
           text-align: center;
@@ -144,126 +140,128 @@
           letter-spacing: 2px;
           font-family: Monte Serrat;
           font: sans-serif;
-          font-size: 14px;
+          font-size: 10px;
         }
       }
-      
-      .logo {
+
+    .logo {
         width: 80px;
         margin-right: 10px;
         position: absolute;
         left: 20px;
         top: 50%;
         transform: translateY(-50%);
-      }
+        text-align: center;
+        align-items: center;
+    }
 
-      .main-content {
+    .main-content {
         background-image: linear-gradient(
-          to right,
-          rgba(255, 255, 255, 0.5),
-          rgba(104, 193, 66, 0.5)
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(104, 193, 66, 0.5)
         );
         background-size: cover;
         padding: 5% 10%; /* Adapta o padding internamente */
         color: #000000;
         text-align: center;
         min-height: 50vh; /* Define a altura em 100% da altura da viewport (tela) */
-      }
+    }
 
-      .footer {
+    .footer {
         border-radius: 10px 10px 0px 0px;
         border-top: 1px solid #000000;
         background-color: #000000;
         padding: 10px 0;
         position: relative;
         width: 100%;
-      }
+    }
 
-      .footer .copyright {
+    .footer .copyright {
         color: white;
         padding: 15px;
         font-size: 14px;
         margin: 0;
         text-align: right; /* Alinha o texto à direita */
-      }
+    }
 
-      /* Media query para telas menores, como celulares */
-      @media (max-width: 480px) {
+    /* Media query para telas menores, como celulares */
+    @media (max-width: 480px) {
         .header {
-          height: 100%;
+        height: 100%;
         }
 
         .logo {
-          width: 40px;
+        width: 40px;
         }
 
         .main-content {
-          padding: 2px 15px;
+        padding: 2px 15px;
         }
-      }
+    }
 
-      /* Media query para telas menores, como celulares */
-      @media (min-width: 481px) and (max-width: 768px) {
+    /* Media query para telas menores, como celulares */
+    @media (min-width: 481px) and (max-width: 768px) {
         .header {
-          height: 100%;
+        height: 100%;
         }
 
         .logo {
-          width: 60px;
+        width: 60px;
         }
 
         .main-content {
-          padding: 2px 20px;
+        padding: 2px 20px;
         }
-      }
+    }
 
-      /* Media query para telas médias, como tablets */
-      @media (min-width: 769px) and (max-width: 1200px) {
+    /* Media query para telas médias, como tablets */
+    @media (min-width: 769px) and (max-width: 1200px) {
         .header {
-          min-height: 200px;
+        min-height: 200px;
         }
 
         .logo {
-          width: 70px;
+        width: 70px;
         }
 
         .main-content {
-          padding: 2px 25px;
+        padding: 2px 25px;
         }
-      }
+    }
 
-      /* Media query para telas grandes, como monitores maiores */
-      @media (min-width: 1201px) {
+    /* Media query para telas grandes, como monitores maiores */
+    @media (min-width: 1201px) {
         .header {
-          min-height: 200px;
+        min-height: 200px;
         }
 
         .logo {
-          width: 90px;
+        width: 90px;
         }
 
         .main-content {
-          padding: 2px 30px;
+        padding: 2px 30px;
         }
-      }
-      .page-item .n-overlay {
+    }
+    .page-item .n-overlay {
         padding: 10px;
         color: white;
         background: #5faa4f;
         border: 2px solid white;
         border: 3px solid transparent;
         cursor: pointer;
-      }
+    }
 
-      .page-item .n-overlay:hover {
+    .page-item .n-overlay:hover {
         color: #5faa4f;
         background-color: white;
         box-shadow: 5px 3px 10px #5faa4f;
         border: 3px solid transparent;
         cursor: pointer;
-      }
+    }
 
-      .card {
+    .card {
         display: inline-block;
         position: relative;
         width: 75%;
@@ -274,18 +272,17 @@
         text-align: left;
         align-items: left;
         padding: 20px;
-      }
+    }
 
-      .card h5 {
+    .card h5 {
         margin: 10px 0px;
-      }
-
-      .card li {
-        font-size: 12px; 
-        margin: 10px 0px; 
-      }
-
-      .page {
+    }
+    /* Estilo para as tags <li> dentro da classe .card com a mesma fonte de <h5> */
+    .card li {
+        font-size: 12px; /* Tamanho da fonte igual ao de <h5> */
+        margin: 10px 0px; /* Margem igual à de <h5> */
+    }
+    .page {
         display: fixed;
         width: 65%;
         margin: 0 auto;
@@ -294,89 +291,96 @@
         box-shadow: 10px 10px 10px #00000049;
         padding: 20px;
       }
-
     </style>
-  </head>
-  <body>
-    <div class="page">
+</head>
+<body>
+<div class="page">
     <div class="header">
-      <img
-        style="padding-top: 10px"
-        align="left"
-        class="logo"
-        src="cid:logoimg"
-      />
-      <h1>Reserve Garbuio</h1>
+        <img
+            style="padding-top: 50px"
+            align="left"
+            class="logo"
+            src="../img/logo_title.png"
+        />
+        <h1 style="padding-top: 50px;padding-right:15   0px">Reserve Garbuio</h1>
     </div>
     <div class="main-content">
-      <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://localhost/reservgarb/app/fg/reply-email-fg.php"
-      target="_blank">visualizar no navegador</a>
-      <div class="card">
-        <h5
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: red;
-          "
-        >
-          <strong>ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.</strong>
-        </h5>
-        <br />
-        <h5><strong>Olá, '.$dtname.'.</strong></h5>
-        <h5><strong>Você tem uma mensagem enviada de:</strong></h5>
-        <h5><strong>Administrador: '.$nome.'.</strong></h5>
-        <h5><strong>Email: '.$email.'</strong></h5>
-        <br />
-        <h5>
-          <strong>Seu pedido de reserva foi confimado.</strong>
-        </h5>
-        <br />
-        <h5>
-          <strong>Informações da reserva:</strong>
-        </h5>
-        <li><strong>Locação: </strong> $locacao</li>
-        <li><strong>Descrição: </strong> $description</li>
-        <li><strong>Data: </strong> $checkin</li>
-        <li><strong>Hora de Início: </strong> $checkin_time</li>
-        <li><strong>Hora Final: </strong> $checkout_time</li>
-      </div>
-      <div class="card">
-        <h5><strong>Acesse o portal para visualizar sua reserva</strong></h5>
-        <div
-          class="page-item"
-          style="display: flex; align-items: center; justify-content: center"
-        >
-          <a
-            style="border-radius: 10px 10px 10px 10px; text-decoration: none"
-            class="n-overlay"
-            href="http://localhost/reservgarb/forgot/validateuser.php"
-            target="_blank"
-            >Página Inicial</a
-          >
+    <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://localhost/reservgarb/app/fg/reply-email-fg.php"
+        target="_blank">visualizar no navegador</a>
+        <div class="card">
+            <h5
+            style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: red;
+            "
+            >
+            <strong>ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.</strong>
+            </h5>
+            <br/>
+            <h5><strong>Olá, '.$dtname.'.</strong></h5>
+            <h5><strong>Você tem uma mensagem enviada de:</strong></h5>
+            <h5><strong>Administrador:  '.$nome.'.</strong></h5>
+            <h5><strong>Email:  '.$email.'</strong></h5>
+            <h5>
+            <br/>
+            <strong
+                >Você recebeu esse e-mail para recuperar seu acesso ao portal de
+                reservas da Garbuio</strong
+            >
+            </h5>
+            <h5>
+            <strong
+                >Caso não tenha sido você que tenha solicitado, desconsidere esse
+                email.</strong
+            >
+            </h5>
+            <h5>
+            <strong>Senão use o código informado e clique no botão abaixo</strong>
+            </h5>
         </div>
-      </div>
-    <div>
-      <img src="cid:logogarb" />
+        <div class="card">
+            <h3
+            >
+                <strong>Código: '.$codigo.'</strong>
+            </h3>
+            <h5><strong>Confirme abaixo para mudar sua senha.</strong></h5>
+            <div
+                class="page-item"
+                style="display: flex; align-items: center; justify-content: center"
+                >
+                <a
+                style="border-radius: 10px 10px 10px 10px; text-decoration: none"
+                class="n-overlay"
+                href="http://localhost/reservgarb/forgot/validateuser.php"
+                target="_blank"
+                >Confirmar</a
+                >
+            </div>
+        </div>
+        <div style="padding-top: 50px">
+            <img src="../app/img/lg_garuio.png" />
+        </div>
     </div>
     <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-6">
-            <p class="copyright">
-              &copy;
-              <a
-                style="color: white; text-decoration: none"
-                href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
-                target="blank"
-                >GuiMac</a
-              >&#160; &#10084;&#65039; 2023
-            </p>
-          </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <p class="copyright">
+                    &copy;
+                    <a
+                        style="color: white; text-decoration: none"
+                        href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
+                        target="blank"
+                        >GuiMac</a
+                    >&#160; &#10084;&#65039; 2023
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
     </footer>
-  </div>
-  </body>
+</div>
+</body>
 </html>

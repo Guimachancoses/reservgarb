@@ -54,12 +54,57 @@
 					)
 				) AS subquery;") or die(mysqli_error($conn));
 		$f_p = $q_p->fetch_array();
+
 		// query for total location
-		$q_ci = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE status_id = 2 ") or die(mysqli_error($conn));
+		$q_ci = $conn->query("SELECT SUM(total) AS total FROM (
+							SELECT
+							COUNT(*) AS total
+							FROM `lc_period` as lc
+							LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+							INNER JOIN `users` as u ON u.users_id = lc.users_id
+							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+							WHERE ms.mensagens_id = 3 AND lc.users_id != $session
+								AND (
+									(@groupId = 1) -- Administrador
+									OR
+									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+									OR
+									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+									OR
+									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+								)
+					UNION ALL
+							SELECT
+							COUNT(*) AS total
+							FROM `locacao` as lc
+							LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+							INNER JOIN `users` as u ON u.users_id = lc.users_id
+							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+							INNER JOIN `status` st ON st.status_id = lc.status_id
+							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+							WHERE
+								  lc.lc_period_id IS NOT NULL
+								AND lc.status_id = 2 
+								AND lc.users_id != $session
+								AND (
+									(@groupId = 1) -- Administrador
+									OR
+									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+									OR
+									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+									OR
+									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+								)
+			) AS subquery;") or die(mysqli_error($conn));
 		$f_ci = $q_ci->fetch_array();
+
 		// query for total pendding my location
 		$q_u = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 1 ") or die(mysqli_error($conn));
 		$f_u = $q_u->fetch_array();
+		
 		// query for total my location
 		$q_lc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 2") or die(mysqli_error($conn));
 		$f_lc = $q_lc->fetch_array();

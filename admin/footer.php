@@ -273,6 +273,6 @@
 				location.reload();
 			});
 		});
-	</script>
+	</script>	
   </body>
 </html>

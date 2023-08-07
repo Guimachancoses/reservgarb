@@ -62,7 +62,7 @@
                                                         ms.assunto as pendente
                                                     FROM mensagens as ms 
                                                     LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
-                                                    WHERE lc.mensagens_id = 2
+                                                    WHERE lc.mensagens_id = 2 && lc.lc_period_id IS NULL
                                                     UNION ALL
                                                     SELECT DISTINCT
                                                         ms.assunto as pendente
@@ -244,7 +244,7 @@
                         <li>
                             <?php $penlab = 'penlab';
                                 ?>
-                            <a href="reservlab.php?<?php echo $penlab?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i><small>Solicitações Pendentes</small></a>
+                            <a <?php if ($f_loc['total'] > 0) { ?>style="background-color: rgba(255, 253, 253, 0.2);"<?php } ?> href="reservlab.php?<?php echo $penlab?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i><small>Solicitações Pendentes</small></a>
                         </li>
 
                         <li>
@@ -285,7 +285,7 @@
                         <li>
                             <?php $perpen = 'perpen';
                                 ?>
-                            <a href="reservlab.php?<?php echo $perpen?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i><small>Reservas Pendentes</small></a>
+                            <a <?php if ($f_period['total'] > 0) { ?>style="background-color: rgba(255, 253, 253, 0.2);"<?php } ?> href="reservlab.php?<?php echo $perpen?>"><i class="material-icons" style="color:#e91e63" >pending_actions</i><small>Reservas Pendentes</small></a>
                         </li>
 
                         <li>

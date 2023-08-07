@@ -71,13 +71,12 @@
 			$stmt->execute();
 			$stmt->close();
 
-            $nome = $firstname. " " . $lastname;
             $assunto = 'RESERVE GARBUIO - Recuperar sua senha';
-            $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $nmdestin."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Administrador: " .$ademai0. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;
+            $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $nmdestin."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Administrador: " .$ademail. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;
 
-            sendMail($ademail, $nmadmin, $assunto, $nmdestin, $emailUser, $message);
+            sendMail($ademail, $nmadmin, $assunto, $nmdestin, $emailUser, $message, $codigo);
         } else {
-            echo "<script>alert('Usuário não cadastrado no sistema.');</script>";
+            echo "<script>alert('Usuário não cadastrado no sistema.') window.location.href = 'index.php';</script>";
         }
     }
 ?>

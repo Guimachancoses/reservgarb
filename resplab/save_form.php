@@ -13,10 +13,10 @@
 			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3  WHERE `locacao_id` = '$_REQUEST[locacao_id]'") or die(mysqli_error($conn));
 			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error($conn));
 
-			// Busca nome e email para enviar email de chamado aberto
-            $admin = 'Administrador';
-            $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ?");
-            $stmt->bind_param("s", $admin);
+			// Busca nome e email do aprovador para enviar email de confirmação de reserva
+            $admin = 'Aprovador';
+            $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ? && users_id = ?");
+            $stmt->bind_param("si", $admin, $users_id);
             $stmt->execute();
             $stmt->bind_result($fadname, $ladname, $ademail);
             $stmt->fetch();
@@ -24,23 +24,41 @@
             $stmt->close();
 
             $nmadmin = $fadname. " " . $ladname;
+            $email = $ademail;
 
-            $stmt2 = $conn->prepare("SELECT firstname, lastname, email FROM `users` as us INNER JOIN `locacao` as lc ON lc.users_id = us.users_id WHERE lc.locacao_id = ?");
+            // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
+            $stmt2 = $conn->prepare("SELECT 
+                                        us.firstname, 
+                                        us.lastname, 
+                                        us.email,
+                                        COALESCE(lb.room_no, vs.model) as description,
+                                        COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                        lc.checkin,  
+                                        lc.checkin_time, 
+                                        lc.checkout_time 
+                                        FROM `locacao` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
+                                        LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                                        INNER JOIN `users` as u ON u.users_id = lc.users_id
+                                        LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                                        LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                                        WHERE lc.locacao_id = ?");
             $stmt2->bind_param("i", $_REQUEST['locacao_id']);
             $stmt2->execute();
-            $stmt2->bind_result($ftname, $ltname, $rpemail);
+            $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $checkin, $checkin_time, $checkout_time);
             $stmt2->fetch();
 
             $firstname = $ftname;
             $lastname = $ltname;
-            $email = $rpemail;
+            $dtemail = $rpemail;
 
-            $nome = $firstname. " " . $lastname;
-            $assunto = 'Confirmação de Reserva - Reserve Lab';
-            $message = "Menssagem enviada de: \nUsuário: " .$nome. "\nEmail: " .$email." \n - Seu pedido de reserva foi confimado.";
+            $dtnome = $firstname. " " . $lastname;
+            $assunto = 'Confirmação de Reserva - Reserve Garbuio';
+            $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$email." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
+            $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Data de Início#'. $checkin.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
+            
             // Chama função para enviar email
-            sendMail($email, $nome, $assunto, $nmadmin, $ademail, $message);
+            sendMail($email, $nmadmin, $assunto, $dtnome, $dtemail, $message, $dadosLocacao);
 
 			// Fecha a conexão com o banco de dados
             $stmt2->close();

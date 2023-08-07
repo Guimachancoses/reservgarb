@@ -364,151 +364,181 @@ addEventTo.addEventListener("input", (e) => {
 });
 
 //--------------------------------------------------------------------------------------------------------------------------------------
-//funções de verificação sendo essa para não adicionar um evento vazio.
-addEventSubmit.addEventListener("click", () => {
-  const eventTitle = addEventTitle.value;
-  const eventDisc = addEventDisc.value;
-  const eventTimeFrom = addEventFrom.value;
-  const eventTimeTo = addEventTo.value;
-  if (
-    eventTitle === "" ||
-    eventTimeFrom === "" ||
-    eventTimeTo === "" ||
-    eventDisc === ""
-  ) {
-    alert("Por favor preencha todos os campos!!!");
-    return;
+document.addEventListener("DOMContentLoaded", function () {
+  function showOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "flex"; // Show the overlay when the function is called
+
+    // Create an image element for the loading GIF
+    const loadingGif = document.createElement("img");
+    loadingGif.classList.add("loading-gif");
+    loadingGif.src = "loading.gif";
+
+    // Append the loading GIF to the overlay
+    overlay.appendChild(loadingGif);
   }
 
-  //verifique o formato de hora correto 24 horas
-  const timeFromArr = eventTimeFrom.split(":");
-  const timeToArr = eventTimeTo.split(":");
-  if (
-    timeFromArr.length !== 2 ||
-    timeToArr.length !== 2 ||
-    timeFromArr[0] > 23 ||
-    timeFromArr[1] > 59 ||
-    timeToArr[0] > 23 ||
-    timeToArr[1] > 59
-  ) {
-    alert("Formato de hora inválido!!!");
-    return;
+  function hideOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "none"; // Hide the overlay when the function is called
+
+    // Remove the child elements (loading GIF) from the overlay
+    while (overlay.firstChild) {
+      overlay.removeChild(overlay.firstChild);
+    }
   }
 
-  // adiciona '00' aos minutos, caso os minutos não tenham sido fornecidos
-  if (timeFromArr[1].length === 0) {
-    timeFromArr[1] = "00";
-  }
-  if (timeToArr[1].length === 0) {
-    timeToArr[1] = "00";
-  }
+  // Rest of your code ...
 
-  // reconstroi as strings da hora
-  const eventTimeFromFormatted = timeFromArr.join(":");
-  const eventTimeToFormatted = timeToArr.join(":");
+  //funções de verificação sendo essa para não adicionar um evento vazio.
+  addEventSubmit.addEventListener("click", () => {
+    const eventTitle = addEventTitle.value;
+    const eventDisc = addEventDisc.value;
+    const eventTimeFrom = addEventFrom.value;
+    const eventTimeTo = addEventTo.value;
+    if (
+      eventTitle === "" ||
+      eventTimeFrom === "" ||
+      eventTimeTo === "" ||
+      eventDisc === ""
+    ) {
+      alert("Por favor preencha todos os campos!!!");
+      return;
+    }
 
-  // verifique se a hora inserida de inicio pelo usuário é maior ou igual à hora atual
-  // converter as horas de strings para formato date
-  const timeFrom = convertTime(eventTimeFromFormatted);
-  const timeTo = convertTime(eventTimeToFormatted);
-  const now = new Date();
-  const inputDate = new Date(year, month, activeDay);
-  inputDate.setHours(timeFromArr[0]);
-  inputDate.setMinutes(timeFromArr[1]);
-  if (inputDate < now && inputDate.toDateString() === now.toDateString()) {
-    alert("A hora inicio não pode ser menor que a hora atual.");
-    return;
-  }
+    //verifique o formato de hora correto 24 horas
+    const timeFromArr = eventTimeFrom.split(":");
+    const timeToArr = eventTimeTo.split(":");
+    if (
+      timeFromArr.length !== 2 ||
+      timeToArr.length !== 2 ||
+      timeFromArr[0] > 23 ||
+      timeFromArr[1] > 59 ||
+      timeToArr[0] > 23 ||
+      timeToArr[1] > 59
+    ) {
+      alert("Formato de hora inválido!!!");
+      return;
+    }
 
-  // Compara as datas, se data for menor que a data atual não aceitar
-  if (inputDate < now) {
-    alert(
-      "Não é possível inserir uma locação em uma data anterior à data atual."
-    );
-    return;
-  }
+    // adiciona '00' aos minutos, caso os minutos não tenham sido fornecidos
+    if (timeFromArr[1].length === 0) {
+      timeFromArr[1] = "00";
+    }
+    if (timeToArr[1].length === 0) {
+      timeToArr[1] = "00";
+    }
 
-  // Verifica se a hora final é menor que a hora atual para a data atual.
-  if (inputDate == now && addEventTo <= addEventFrom) {
-    alert("A hora final não pode ser menor que a hora inicial.");
-    return false;
-  }
+    // reconstroi as strings da hora
+    const eventTimeFromFormatted = timeFromArr.join(":");
+    const eventTimeToFormatted = timeToArr.join(":");
 
-  // Verifica se a hora que está sendo programado a locação está dentro do horário de funcionamento do laboratório.
-  const dateCompare = new Date(year, month, activeDay);
-  dateCompare.setHours(timeFromArr[0], timeFromArr[1], 0, 0);
-  const startForbidden = new Date(dateCompare);
-  startForbidden.setHours(6, 0, 0, 0);
-  const endForbidden = new Date(dateCompare);
-  endForbidden.setHours(24, 0, 0, 0);
+    // verifique se a hora inserida de inicio pelo usuário é maior ou igual à hora atual
+    // converter as horas de strings para formato date
+    const timeFrom = convertTime(eventTimeFromFormatted);
+    const timeTo = convertTime(eventTimeToFormatted);
+    const now = new Date();
+    const inputDate = new Date(year, month, activeDay);
+    inputDate.setHours(timeFromArr[0]);
+    inputDate.setMinutes(timeFromArr[1]);
+    if (inputDate < now && inputDate.toDateString() === now.toDateString()) {
+      alert("A hora inicio não pode ser menor que a hora atual.");
+      return;
+    }
 
-  if (
-    dateCompare >= endForbidden ||
-    dateCompare < startForbidden ||
-    timeTo >= endForbidden
-  ) {
-    alert("Não é possível inserir uma locação neste horário.");
-    return;
-  }
+    // Compara as datas, se data for menor que a data atual não aceitar
+    if (inputDate < now) {
+      alert(
+        "Não é possível inserir uma locação em uma data anterior à data atual."
+      );
+      return;
+    }
 
-  // Chama a função SaveEvent se for salvo contia e armazera em um array se não "Evento já adicionado ou hora com conflito"
-  const eventSave = saveEvents(
-    eventTitle,
-    eventDisc,
-    eventTimeFromFormatted,
-    eventTimeToFormatted
-  );
-  eventSave
-    .then(() => {
-      const newEvent = {
-        title: eventTitle,
-        time: timeFrom + " - " + timeTo,
-      };
-
-      let eventAdded = false;
-
-      if (eventsArr.length > 0) {
-        eventsArr.forEach((item) => {
-          if (
-            item.day === activeDay &&
-            item.month === month + 1 &&
-            item.year === year
-          ) {
-            item.events.push(newEvent);
-            eventAdded = true;
-          }
-        });
-      }
-
-      if (!eventAdded) {
-        eventsArr.push({
-          day: activeDay,
-          month: month + 1,
-          year: year,
-          events: [newEvent],
-        });
-      }
-
-      addEventWrapper.classList.remove("active");
-      addEventTitle.value = "";
-      addEventFrom.value = "";
-      addEventTo.value = "";
-      updateEvents(activeDay);
-
-      //selecione o dia evento e adicione a classe de active, se não for adicionado não faça nada.
-      const activeDayEl = document.querySelector(".day.active");
-      if (!activeDayEl.classList.contains("event")) {
-        activeDayEl.classList.add("event");
-      }
-      // Recarrega a página automaticamente
-      // window.location.reload();
-    })
-    .catch((error) => {
-      console.log(error);
-      alert(error); // exibir mensagem de erro ao usuário
+    // Verifica se a hora final é menor que a hora atual para a data atual.
+    if (inputDate == now && addEventTo <= addEventFrom) {
+      alert("A hora final não pode ser menor que a hora inicial.");
       return false;
-    });
-  return true; // se a promessa ainda não foi resolvida ou rejeitada, retorna true.
+    }
+
+    // Verifica se a hora que está sendo programado a locação está dentro do horário de funcionamento do laboratório.
+    const dateCompare = new Date(year, month, activeDay);
+    dateCompare.setHours(timeFromArr[0], timeFromArr[1], 0, 0);
+    const startForbidden = new Date(dateCompare);
+    startForbidden.setHours(6, 0, 0, 0);
+    const endForbidden = new Date(dateCompare);
+    endForbidden.setHours(24, 0, 0, 0);
+
+    if (
+      dateCompare >= endForbidden ||
+      dateCompare < startForbidden ||
+      timeTo >= endForbidden
+    ) {
+      alert("Não é possível inserir uma locação neste horário.");
+      return;
+    }
+
+    // Chama a função SaveEvent se for salvo contia e armazera em um array se não "Evento já adicionado ou hora com conflito"
+    showOverlay();
+    const eventSave = saveEvents(
+      eventTitle,
+      eventDisc,
+      eventTimeFromFormatted,
+      eventTimeToFormatted
+    );
+    eventSave
+      .then(() => {
+        const newEvent = {
+          title: eventTitle,
+          time: timeFrom + " - " + timeTo,
+        };
+
+        let eventAdded = false;
+
+        if (eventsArr.length > 0) {
+          eventsArr.forEach((item) => {
+            if (
+              item.day === activeDay &&
+              item.month === month + 1 &&
+              item.year === year
+            ) {
+              item.events.push(newEvent);
+              eventAdded = true;
+            }
+          });
+        }
+
+        if (!eventAdded) {
+          eventsArr.push({
+            day: activeDay,
+            month: month + 1,
+            year: year,
+            events: [newEvent],
+          });
+        }
+
+        addEventWrapper.classList.remove("active");
+        addEventTitle.value = "";
+        addEventFrom.value = "";
+        addEventTo.value = "";
+        updateEvents(activeDay);
+
+        //selecione o dia evento e adicione a classe de active, se não for adicionado não faça nada.
+        const activeDayEl = document.querySelector(".day.active");
+        if (!activeDayEl.classList.contains("event")) {
+          activeDayEl.classList.add("event");
+        }
+        // Recarrega a página automaticamente
+        alert("Seu pedido foi enviado com sucesso, aguarde a aprovação.");
+        hideOverlay();
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error); // exibir mensagem de erro ao usuário
+        return false;
+      });
+    return true; // se a promessa ainda não foi resolvida ou rejeitada, retorna true.
+  });
 });
 
 //---------------------------------------------------------------------------------------------------------
@@ -611,13 +641,11 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
     })
       .then((response) => response.text())
       .then((result) => {
-        if (result == "") {
-          console.log(result);
+        if (result === "") {
           reject(
             " - ERRO -\n \n * Verifique se já existe uma reserva nesse horário. *"
           );
         } else {
-          console.log(result);
           // Caso a API retorne evento cadastrado, set true
           resolve(true);
         }

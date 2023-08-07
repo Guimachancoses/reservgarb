@@ -94,24 +94,24 @@
                     <div class="logoeinstein" align="left"></div>
                       </br>                          
                     <form id="meuFormulario2" method="POST" action="forgot_key.php" id="form-cadastro" enctype = "multipart/form-data">
-                      <div class="labmsg">
-                        Será enviado para seu endereço de email, as instruções sobre como restabelecer seu acesso.
-                      </div>
-                    <div class="form-group">
-                      <input type="text" name="cpf" class="form-style" placeholder="Digite seu CPF" id="cpf" onblur="validateCPF()" autocomplete="off" required/>
-                      <i class="input-icon uil uil-user"></i>
-                      <span id="cpf-error" style="color: red; font-size: smaller;"></span>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input type="email" name="email" class="form-style" placeholder="Digite seu e-mail" id="email" autocomplete="off" required/>
-                      <i class="input-icon uil uil-at"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <button type="submit" name="forgot_key" style="color:black" class="btn mt-4" onclick="limparURL()">Enviar</button>
-                    <div id='mensagem'></div>
-                      <p class="mb-0 mt-3 text-center" >
-                      <a href="#" class="link" id="reg-log2" name="reg-log2">Entrar com sua conta!</a>
-                    </p>
+                          <div class="labmsg">
+                            Será enviado para seu endereço de email, as instruções sobre como restabelecer seu acesso.
+                          </div>
+                        <div class="form-group">
+                          <input type="text" name="cpf" class="form-style" placeholder="Digite seu CPF" id="cpf" onblur="validateCPF()" autocomplete="off" required/>
+                          <i class="input-icon uil uil-user"></i>
+                          <span id="cpf-error" style="color: red; font-size: smaller;"></span>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input type="email" name="email" class="form-style" placeholder="Digite seu e-mail" id="email" autocomplete="off" required/>
+                          <i class="input-icon uil uil-at"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <button type="submit" name="forgot_key" style="color:black" class="btn mt-4" onclick="limparURL()">Enviar</button>
+                        <div id='mensagem'></div>
+                          <p class="mb-0 mt-3 text-center" >
+                          <a href="#" class="link" id="reg-log2" name="reg-log2">Entrar com sua conta!</a>
+                        </p>
                     </form>
                   </div>
                 </div>

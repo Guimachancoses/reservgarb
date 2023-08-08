@@ -6,7 +6,7 @@
 						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastrais</strong></h4>
 						    <p class="category">Comfirme seus dados antes de salvar:</p>
                     <?php
-                        $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_SESSION[users_id]'") or die(mysqli_error());
+                        $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_SESSION[users_id]'") or die(mysqli_error($conn));
                         $fetch = $query->fetch_array();
                     ?>
                     <div class = "col-md-8" style="min-height:625px">	

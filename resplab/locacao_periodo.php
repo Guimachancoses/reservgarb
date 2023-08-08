@@ -9,9 +9,37 @@
         $checkin = $_POST['checkin'];
         $checkout = $_POST['checkout'];
         $dia_semana = $_POST['dia_semana'];
+
+        switch ($dia_semana) {
+            case "Segunda-feira":
+                $dia_semana = "Monday";
+                break;
+            case "Terça-feira":
+                $dia_semana = "Tuesday";
+                break;
+            case "Quarta-feira":
+                $dia_semana = "Wednesday";
+                break;
+            case "Quinta-feira":
+                $dia_semana = "Thursday";
+                break;
+            case "Sexta-feira":
+                $dia_semana = "Friday";
+                break;
+            case "Sábado":
+                $dia_semana = "Saturday";
+                break;
+            case "Domingo":
+                $dia_semana = "Sunday";
+                break;
+            default:
+                $dia_semana = "AllDays";
+                break;
+        }
+
         $eventTimeFrom = $_POST['checkin_time'];
         $eventTimeTo = $_POST['checkout_time'];
-        $users_id = $_POST['users_id'];
+        $users_id = $_SESSION['users_id'];
 
         // Converte a data de checkin para o formato do MySQL
         $checkin_dateIn = new DateTime($checkin);
@@ -220,7 +248,6 @@
 
                 $nome = $firstname . " " . $lastname;
                 $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
-                // $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
                 $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
             
@@ -239,6 +266,9 @@
                 // Laço para enviar um email para cada usuário encontrado
                 while ($stmt->fetch()) {
                 $nmadmin = $fadname . " " . $ladname;
+                
+                $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+
 
                 // Chama função para enviar email
                 sendMailPerLoc ($email, $nome, $assunto, $nmadmin, $ademail, $message, $dadosLocacao);

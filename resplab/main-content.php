@@ -101,6 +101,52 @@
 			) AS subquery;") or die(mysqli_error($conn));
 		$f_ci = $q_ci->fetch_array();
 
+		// total for total pendding location per period
+		$q_perday = $conn->query("SELECT
+								COUNT(*) AS total
+								FROM `locacao` as lc
+								LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+								INNER JOIN `users` as u ON u.users_id = lc.users_id
+								LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+								LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+								INNER JOIN `status` st ON st.status_id = lc.status_id
+								INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+								WHERE
+									lc.lc_period_id IS NULL
+									AND lc.status_id = 1 
+									AND lc.users_id != $session
+									AND (
+										(@groupId = 1) -- Administrador
+										OR
+										(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+										OR
+										(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+										OR
+										(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+									)") or die(mysqli_error($conn));
+		$f_perday = $q_perday->fetch_array();
+		
+		// total for total pendding location per period
+		$q_perper = $conn->query("SELECT
+							COUNT(*) AS total
+							FROM `lc_period` as lc
+							LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+							INNER JOIN `users` as u ON u.users_id = lc.users_id
+							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+							WHERE ms.mensagens_id = 37 AND lc.users_id != $session
+								AND (
+									(@groupId = 1) -- Administrador
+									OR
+									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+									OR
+									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+									OR
+									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+								)") or die(mysqli_error($conn));
+		$f_perper = $q_perper->fetch_array();
+
 		// query for total pendding my location
 		$q_u = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 1 ") or die(mysqli_error($conn));
 		$f_u = $q_u->fetch_array();
@@ -134,27 +180,55 @@
 			</a>
 		</div>
 
-		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $mybookp?>">
-				<div class="card card-stats">
-					<div class="card-header">
-						<div class="icon icon-warning">
-							<span class="material-icons">hourglass_empty</span>
+		<?php
+			$except = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$_SESSION[users_id]'");
+		?>
+
+		<?php if ($except->num_rows > 0): ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $mybookp?>">
+					<div class="card card-stats">
+						<div class="card-header">
+							<div class="icon icon-warning">
+								<span class="material-icons">hourglass_empty</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Reservas Por Período Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_perper['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-info">upgrade</i>
+								Aguardando sua aprovação
+							</div>
 						</div>
 					</div>
-					<div class="card-content">
-						<p class="category"><strong>Minhas Reservas Pendentes</strong></p>
-						<h3 class="card-title"><?php echo $f_u['total']?></h3>
-					</div>
-					<div class="card-footer">
-						<div class="stats">
-							<i class="material-icons text-info">upgrade</i>
-							Aguardando aprovação
+				</a>
+			</div>
+		<?php else: ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $mybookp?>">
+					<div class="card card-stats">
+						<div class="card-header">
+							<div class="icon icon-warning">
+								<span class="material-icons">hourglass_empty</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Minhas Reservas Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_u['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-info">upgrade</i>
+								Aguardando aprovação
+							</div>
 						</div>
 					</div>
-				</div>
-			</a>
-		</div>
+				</a>
+			</div>
+		<?php endif; ?>
 
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
 			<a href="reservlab.php?<?php echo $mybookr?>">
@@ -208,27 +282,51 @@
 		</script>
 
 
-		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $penlab?>">
-				<div class="card card-stats" >
-					<div class="card-header">
-						<div class="icon icon-rose">
-							<span class="material-icons">pending_actions</span>
+		<?php if ($except->num_rows > 0): ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $penlab?>">
+					<div class="card card-stats" >
+						<div class="card-header">
+							<div class="icon icon-rose">
+								<span class="material-icons">pending_actions</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Solicitações Por Dia Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_perday['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-status">rotate_right</i>
+								Aguardando sua aprovação
+							</div>
 						</div>
 					</div>
-					<div class="card-content">
-						<p class="category"><strong>Total de Solicitações Pendentes</strong></p>
-						<h3 class="card-title"><?php echo $f_p['total']?></h3>
-					</div>
-					<div class="card-footer">
-						<div class="stats">
-							<i class="material-icons text-status">rotate_right</i>
-							Aguardando sua aprovação
+				</a>
+			</div>
+		<?php else: ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $penlab?>">
+					<div class="card card-stats" >
+						<div class="card-header">
+							<div class="icon icon-rose">
+								<span class="material-icons">pending_actions</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Total De Solicitações Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_p['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-status">rotate_right</i>
+								Aguardando sua aprovação
+							</div>
 						</div>
 					</div>
-				</div>
-			</a>
-		</div>
+				</a>
+			</div>
+		<?php endif; ?>
 			
 		<div class="div-link col-lg-3 col-md-6 col-sm-6">
 			<a href="reservlab.php?<?php echo $reslab?>">

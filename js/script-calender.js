@@ -454,8 +454,19 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    console.log(
+      "inputData: " +
+        inputDate +
+        " now: " +
+        now +
+        " addEventTo: " +
+        addEventTo +
+        " addEventFrom: " +
+        addEventTo
+    );
+
     // Verifica se a hora final é menor que a hora atual para a data atual.
-    if (inputDate == now && addEventTo <= addEventFrom) {
+    if (inputDate <= now && addEventTo <= addEventFrom) {
       alert("A hora final não pode ser menor que a hora inicial.");
       return false;
     }

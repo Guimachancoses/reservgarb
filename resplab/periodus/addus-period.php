@@ -75,14 +75,14 @@
                                 <label><strong> Dia da Semana:</strong></label>
                                 <select class="form-control" name="dia_semana"required = required>
                                     <option class="select-box" value="" disabled selected>Escolha o dia da semana</option>
-                                    <option class="select-box" value="Monday">- Segunda-feira -</option>
-                                    <option class="select-box" value="Tuesday">- Terça-feira -</option>
-                                    <option class="select-box" value="Wednesday">- Quarta-feira -</option>
-                                    <option class="select-box" value="Thursday">- Quinta-feira -</option>
-                                    <option class="select-box" value="Friday">- Sexta-feira -</option>
-                                    <option class="select-box" value="Saturday">- Sábado -</option>
-                                    <option class="select-box" value="Sunday">- Domingo -</option>
-                                    <option class="select-box" value="AllDays"> - Todos os dias - </option>
+                                    <option class="select-box" value="Monday">Segunda-feira</option>
+                                    <option class="select-box" value="Tuesday">Terça-feira</option>
+                                    <option class="select-box" value="Wednesday">Quarta-feira</option>
+                                    <option class="select-box" value="Thursday">Quinta-feira</option>
+                                    <option class="select-box" value="Friday">Sexta-feira</option>
+                                    <option class="select-box" value="Saturday">Sábado</option>
+                                    <option class="select-box" value="Sunday">Domingo</option>
+                                    <option class="select-box" value="AllDays">Todos os dias</option>
                                 </select>
                             </div>
                             <div class="card-foot">
@@ -186,7 +186,7 @@
 <!-- Função responsavelação pelo select ---------------------------------------------------------------------------------------------------------------------->
 <script>
   function getDaysOfWeekBetweenDates(startDate, endDate) {
-    const daysOfWeek = ["- Segunda-feira -", "- Terça-feira -", "- Quarta-feira -", "- Quinta-feira -", "- Sexta-feira -", "- Sábado -", "- Domingo -"];
+    const daysOfWeek = ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"];
     const start = new Date(startDate);
     const end = new Date(endDate);
     
@@ -218,7 +218,7 @@
       select.innerHTML = ""; // Limpa as opções atuais
 
       // Sempre adicione a opção "Todos os dias"
-      select.options.add(new Option(" -- Todos os dias -- ", "AllDays"));
+      select.options.add(new Option("Todos os dias", "AllDays"));
 
       // Adicione todos os dias da semana individualmente
       daysOfWeek.forEach((day) => {

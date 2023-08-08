@@ -10,14 +10,14 @@
                         $fetch = $query->fetch_array();
                     ?>
                     <div class = "col-md-8" style="min-height:625px">	
-                        <form method = "POST" action = "aleter_query_account.php?users_id=<?php echo $_SESSION['users_id']?>" enctype = "multipart/form-data" autocomplete="off" onsubmit="edituser()">
+                        <form method = "POST" action = "alter_query_account.php?users_id=<?php echo $_SESSION['users_id']?>" enctype = "multipart/form-data" autocomplete="off" onsubmit="edituser()">
                             <div class="card-foot">
                                 <label><strong> Nome:</strong></label>
-                                <input  type = "text" class = "form-control" value = "<?php echo $fetch['firstname']?>" name = "firstname" required = required/>
+                                <input  type = "text" class = "form-control" value = "<?php echo $fetch['firstname']?>" name = "firstname" disabled/>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Sobrenome:</strong></label>
-                                <input type = "text" class = "form-control" value = "<?php echo $fetch['lastname']?>" name = "lastname" required = required/>
+                                <input type = "text" class = "form-control" value = "<?php echo $fetch['lastname']?>" name = "lastname" disabled/>
                             </div>
                             <div class="card-foot">
                                 <label><strong> E-mail:</strong></label>

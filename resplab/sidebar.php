@@ -363,7 +363,7 @@
                 </br>
 
                 <li>
-                <a href="https://central.tiflux.com.br/r/externals/tickets/new/3aa2d6da09887613520201a9e460c267016c8c15"><span class="btn btn-info form-control" style="color:white">Abrir ticket</span></a>                   
+                <a href="https://central.tiflux.com.br/r/externals/tickets/new/3aa2d6da09887613520201a9e460c267016c8c15" target="_blank"><span class="btn btn-info form-control" style="color:white">Abrir ticket</span></a>                   
                 </li>
                
                

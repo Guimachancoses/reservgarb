@@ -15,7 +15,7 @@
 		$q_u = $conn->query("SELECT COUNT(u.users_id) as total FROM `users` as u ") or die(mysqli_error($conn));
 		$f_u = $q_u->fetch_array();
 		// query for total location
-		$q_lc = $conn->query("SELECT COUNT(lc.locacao_id) as total FROM `locacao` as lc ") or die(mysqli_error($conn));
+		$q_lc = $conn->query("SELECT COUNT(lc.locacao_id) as total FROM `locacao` as lc WHERE status_id = 4") or die(mysqli_error($conn));
 		$f_lc = $q_lc->fetch_array();
 	?>
 	<div class="row">
@@ -72,7 +72,7 @@
 					</div>
 				</div>
 				<div class="card-content">
-					<p class="category"><strong>Pendente</strong></p>
+					<p class="category"><strong>Locações Pendente</strong></p>
 					<h3 class="card-title"><?php echo $f_p['total']?></h3>
 				</div>
 				<div class="card-footer">
@@ -115,7 +115,7 @@
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category"><strong>Reservado</strong></p>
+						<p class="category"><strong>Reservados</strong></p>
 						<h3 class="card-title"><?php echo $f_ci['total']?></h3>
 					</div>
 					<div class="card-footer">
@@ -137,7 +137,7 @@
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category"><strong>Locações</strong></p>
+						<p class="category"><strong>Histórico de Locações</strong></p>
 						<h3 class="card-title"><?php echo $f_lc['total']?></h3>
 					</div>
 					<div class="card-footer">

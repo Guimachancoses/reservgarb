@@ -462,13 +462,32 @@
 
     // Função para verificar a disponibilidade da internet
     function checkInternetAvailability() {
-        $dns = 'www.google.com';
-        $timeout = 1;
-
-        if (checkdnsrr($dns, 'A') || checkdnsrr($dns, 'AAAA')) {
-            return true;
+        $url = 'http://www.google.com';
+        $timeout = 5; // Defina um tempo limite maior, se necessário
+    
+        // Inicializa uma instância de cURL
+        $curl = curl_init($url);
+    
+        // Configura as opções do cURL
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+    
+        // Executa a solicitação cURL
+        $response = curl_exec($curl);
+    
+        // Verifica se ocorreu um erro durante a solicitação
+        if ($response === false) {
+            return false;
         }
-
-        return false;
+    
+        // Obtém o código de resposta HTTP
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    
+        // Fecha a instância do cURL
+        curl_close($curl);
+    
+        // Verifica se o código de resposta é 200 (OK)
+        return $httpCode === 200;
     }
 ?>

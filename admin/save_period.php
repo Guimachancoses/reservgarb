@@ -15,7 +15,7 @@
 			$conn->query("UPDATE `lc_period` SET `mensagens_id` = 3  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
 			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error($conn));
 
-			// Busca nome e email para enviar email de chamado aberto
+			// Busca nome e email para enviar email de confirmação de locação
             $admin = 'Administrador';
             $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ?");
             $stmt->bind_param("s", $admin);

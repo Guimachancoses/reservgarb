@@ -203,78 +203,148 @@
                 
                 }
 
-                //-----------------------------------------------------------------------------------------------//
-                // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
-                $stmt2 = $conn->prepare("SELECT 
-                                        COALESCE(lb.room_no, vs.model) as description,
-                                        COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-                                        CASE lc.weekday
-                                        WHEN 'Monday' THEN 'Segunda-feira'
-                                        WHEN 'Tuesday' THEN 'Terça-feira'
-                                        WHEN 'Wednesday' THEN 'Quarta-feira'
-                                        WHEN 'Thursday' THEN 'Quinta-feira'
-                                        WHEN 'Friday' THEN 'Sexta-feira'
-                                        WHEN 'Saturday' THEN 'Sábado'
-                                        WHEN 'Sunday' THEN 'Domingo'
-                                        ELSE 'Todos os dias' END AS dia_semana,
-                                        lc.checkin, 
-                                        lc.checkout, 
-                                        lc.checkin_time, 
-                                        lc.checkout_time 
-                                        FROM `lc_period` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
-                                        LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
-                                        INNER JOIN `users` as u ON u.users_id = lc.users_id
-                                        LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
-                                        LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
-                                        WHERE lc.lc_period_id = ?");
-                $stmt2->bind_param("i", $lc_period_id);
-                $stmt2->execute();
-                $stmt2->bind_result($description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
-                $stmt2->fetch();
-                $stmt2->close();
+                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                $verife = $query->num_rows;
+                if ($verife = 0){
 
-                // Busca dados do usuário para qual foi solicitado a reserva
-                $stmt2 = $conn->prepare("SELECT firstname, lastname, email FROM users WHERE users_id = ?");
-                $stmt2->bind_param("i", $users_id);
-                $stmt2->execute();
-                $stmt2->bind_result($ftname, $ltname, $rpemail);
-                $stmt2->fetch();
-                $stmt2->close();
+                    //-----------------------------------------------------------------------------------------------//
+                    // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
+                    $stmt2 = $conn->prepare("SELECT 
+                                            COALESCE(lb.room_no, vs.model) as description,
+                                            COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                            CASE lc.weekday
+                                            WHEN 'Monday' THEN 'Segunda-feira'
+                                            WHEN 'Tuesday' THEN 'Terça-feira'
+                                            WHEN 'Wednesday' THEN 'Quarta-feira'
+                                            WHEN 'Thursday' THEN 'Quinta-feira'
+                                            WHEN 'Friday' THEN 'Sexta-feira'
+                                            WHEN 'Saturday' THEN 'Sábado'
+                                            WHEN 'Sunday' THEN 'Domingo'
+                                            ELSE 'Todos os dias' END AS dia_semana,
+                                            lc.checkin, 
+                                            lc.checkout, 
+                                            lc.checkin_time, 
+                                            lc.checkout_time 
+                                            FROM `lc_period` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
+                                            LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                                            INNER JOIN `users` as u ON u.users_id = lc.users_id
+                                            LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                                            LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                                            WHERE lc.lc_period_id = ?");
+                    $stmt2->bind_param("i", $lc_period_id);
+                    $stmt2->execute();
+                    $stmt2->bind_result($description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
+                    $stmt2->fetch();
+                    $stmt2->close();
 
-                $firstname = $ftname;
-                $lastname = $ltname;
-                $email = $rpemail;
+                    // Busca dados do usuário para qual foi solicitado a reserva
+                    $stmt2 = $conn->prepare("SELECT firstname, lastname, email FROM users WHERE users_id = ?");
+                    $stmt2->bind_param("i", $users_id);
+                    $stmt2->execute();
+                    $stmt2->bind_result($ftname, $ltname, $rpemail);
+                    $stmt2->fetch();
+                    $stmt2->close();
 
-                $nome = $firstname . " " . $lastname;
-                $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
+                    $firstname = $ftname;
+                    $lastname = $ltname;
+                    $email = $rpemail;
 
-                $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
-            
-                // Busca dados dos aprovadores de acordo com o $approver_id
-                $stmt = $conn->prepare("SELECT
-                        u.firstname
-                        ,u.lastname
-                        ,u.email
-                    FROM gp_approver as gp
-                    LEFT JOIN users as u
-                    ON u.users_id = gp.users_id
-                    WHERE gp.approver_id = ? OR gp.approver_id = 1");
-                $stmt->bind_param("i", $approver_id);
-                $stmt->execute();
-                $stmt->bind_result($fadname, $ladname, $ademail);
-                // Laço para enviar um email para cada usuário encontrado
-                while ($stmt->fetch()) {
-                $nmadmin = $fadname . " " . $ladname;
+                    $nome = $firstname . " " . $lastname;
+                    $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
 
-                $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+                    $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
+                
+                    // Busca dados dos aprovadores de acordo com o $approver_id
+                    $stmt = $conn->prepare("SELECT
+                            u.firstname
+                            ,u.lastname
+                            ,u.email
+                        FROM gp_approver as gp
+                        LEFT JOIN users as u
+                        ON u.users_id = gp.users_id
+                        WHERE gp.approver_id = ? OR gp.approver_id = 1");
+                    $stmt->bind_param("i", $approver_id);
+                    $stmt->execute();
+                    $stmt->bind_result($fadname, $ladname, $ademail);
+                    // Laço para enviar um email para cada usuário encontrado
+                    while ($stmt->fetch()) {
+                    $nmadmin = $fadname . " " . $ladname;
 
-                // Chama função para enviar email
-                sendMailPerLoc ($email, $nome, $assunto, $nmadmin, $ademail, $message, $dadosLocacao);
+                    $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+
+                    // Chama função para enviar email
+                    sendMailPerLoc ($email, $nome, $assunto, $nmadmin, $ademail, $message, $dadosLocacao);
+                    }
+                    // Fecha a conexão com o banco de dados
+                    $stmt->close();
+
+                    //--------------------------------------------------------------------------------------------//
+                } 
+                else {
+
+                    // Busca nome e email para enviar email de confirmação de locação
+                    $admin = 'Administrador';
+                    $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ?");
+                    $stmt->bind_param("s", $admin);
+                    $stmt->execute();
+                    $stmt->bind_result($fadname, $ladname, $ademail);
+                    $stmt->fetch();
+                    // Fecha a conexão com o banco de dados
+                    $stmt->close();
+
+                    $nome = $fadname. " " . $ladname;
+                    $email= $ademail;
+
+                    $stmt2 = $conn->prepare("SELECT 
+                                                us.firstname, 
+                                                us.lastname, 
+                                                us.email,
+                                                COALESCE(lb.room_no, vs.model) as description,
+                                                COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                                CASE lc.weekday
+                                                WHEN 'Monday' THEN 'Segunda-feira'
+                                                WHEN 'Tuesday' THEN 'Terça-feira'
+                                                WHEN 'Wednesday' THEN 'Quarta-feira'
+                                                WHEN 'Thursday' THEN 'Quinta-feira'
+                                                WHEN 'Friday' THEN 'Sexta-feira'
+                                                WHEN 'Saturday' THEN 'Sábado'
+                                                WHEN 'Sunday' THEN 'Domingo'
+                                                ELSE 'Todos os dias' END AS dia_semana,
+                                                lc.checkin, 
+                                                lc.checkout, 
+                                                lc.checkin_time, 
+                                                lc.checkout_time 
+                                                FROM `lc_period` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
+                                                LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                                                INNER JOIN `users` as u ON u.users_id = lc.users_id
+                                                LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                                                LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                                                WHERE lc.lc_period_id = ?");
+                    $stmt2->bind_param("i", $lc_period_id);
+                    $stmt2->execute();
+                    $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
+                    $stmt2->fetch();
+
+                    $firstname = $ftname;
+                    $lastname = $ltname;
+                    $dtemail = $rpemail;
+                    $dtnome = $firstname. " " . $lastname;
+
+                    // Mensagem
+                    $assunto = 'Confirmação de Reserva - Reserve Garbuio';
+                    $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+
+                    $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
+                    
+                    // Chama função para enviar email
+                    sendMailPer ($email, $nome, $assunto, $dtnome, $dtemail, $message, $dadosLocacao);
+
+                    // Fecha a conexão com o banco de dados
+                    $stmt2->close();
+                    $conn->close();
+
                 }
-                // Fecha a conexão com o banco de dados
-                $stmt->close();
-
-                //--------------------------------------------------------------------------------------------//
                 
             } 
             else {
@@ -436,78 +506,149 @@
                 // Remove a penultima locação inserida
                 $conn->query("DELETE FROM `locacao` WHERE `locacao_id` = '$penLocacao_id'") or die(mysqli_error($conn));
 
-                //-----------------------------------------------------------------------------------------------//
-                // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
-                $stmt2 = $conn->prepare("SELECT 
-                                        COALESCE(lb.room_no, vs.model) as description,
-                                        COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-                                        CASE lc.weekday
-                                        WHEN 'Monday' THEN 'Segunda-feira'
-                                        WHEN 'Tuesday' THEN 'Terça-feira'
-                                        WHEN 'Wednesday' THEN 'Quarta-feira'
-                                        WHEN 'Thursday' THEN 'Quinta-feira'
-                                        WHEN 'Friday' THEN 'Sexta-feira'
-                                        WHEN 'Saturday' THEN 'Sábado'
-                                        WHEN 'Sunday' THEN 'Domingo'
-                                        ELSE 'Todos os dias' END AS dia_semana,
-                                        lc.checkin, 
-                                        lc.checkout, 
-                                        lc.checkin_time, 
-                                        lc.checkout_time 
-                                        FROM `lc_period` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
-                                        LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
-                                        INNER JOIN `users` as u ON u.users_id = lc.users_id
-                                        LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
-                                        LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
-                                        WHERE lc.lc_period_id = ?");
-                $stmt2->bind_param("i", $lc_period_id);
-                $stmt2->execute();
-                $stmt2->bind_result($description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
-                $stmt2->fetch();
-                $stmt2->close();
+                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                $verife = $query->num_rows;
+                if ($verife = 0){
 
-                // Busca dados do usuário para qual foi solicitado a reserva
-                $stmt2 = $conn->prepare("SELECT firstname, lastname, email FROM users WHERE users_id = ?");
-                $stmt2->bind_param("i", $users_id);
-                $stmt2->execute();
-                $stmt2->bind_result($ftname, $ltname, $rpemail);
-                $stmt2->fetch();
-                $stmt2->close();
+                    //-----------------------------------------------------------------------------------------------//
+                    // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
+                    $stmt2 = $conn->prepare("SELECT 
+                                            COALESCE(lb.room_no, vs.model) as description,
+                                            COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                            CASE lc.weekday
+                                            WHEN 'Monday' THEN 'Segunda-feira'
+                                            WHEN 'Tuesday' THEN 'Terça-feira'
+                                            WHEN 'Wednesday' THEN 'Quarta-feira'
+                                            WHEN 'Thursday' THEN 'Quinta-feira'
+                                            WHEN 'Friday' THEN 'Sexta-feira'
+                                            WHEN 'Saturday' THEN 'Sábado'
+                                            WHEN 'Sunday' THEN 'Domingo'
+                                            ELSE 'Todos os dias' END AS dia_semana,
+                                            lc.checkin, 
+                                            lc.checkout, 
+                                            lc.checkin_time, 
+                                            lc.checkout_time 
+                                            FROM `lc_period` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
+                                            LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                                            INNER JOIN `users` as u ON u.users_id = lc.users_id
+                                            LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                                            LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                                            WHERE lc.lc_period_id = ?");
+                    $stmt2->bind_param("i", $lc_period_id);
+                    $stmt2->execute();
+                    $stmt2->bind_result($description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
+                    $stmt2->fetch();
+                    $stmt2->close();
 
-                $firstname = $ftname;
-                $lastname = $ltname;
-                $email = $rpemail;
+                    // Busca dados do usuário para qual foi solicitado a reserva
+                    $stmt2 = $conn->prepare("SELECT firstname, lastname, email FROM users WHERE users_id = ?");
+                    $stmt2->bind_param("i", $users_id);
+                    $stmt2->execute();
+                    $stmt2->bind_result($ftname, $ltname, $rpemail);
+                    $stmt2->fetch();
+                    $stmt2->close();
 
-                $nome = $firstname . " " . $lastname;
-                $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
+                    $firstname = $ftname;
+                    $lastname = $ltname;
+                    $email = $rpemail;
 
-                $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
-            
-                // Busca dados dos aprovadores de acordo com o $approver_id
-                $stmt = $conn->prepare("SELECT
-                        u.firstname
-                        ,u.lastname
-                        ,u.email
-                    FROM gp_approver as gp
-                    LEFT JOIN users as u
-                    ON u.users_id = gp.users_id
-                    WHERE gp.approver_id = ? OR gp.approver_id = 1");
-                $stmt->bind_param("i", $approver_id);
-                $stmt->execute();
-                $stmt->bind_result($fadname, $ladname, $ademail);
-                // Laço para enviar um email para cada usuário encontrado
-                while ($stmt->fetch()) {
-                $nmadmin = $fadname . " " . $ladname;
+                    $nome = $firstname . " " . $lastname;
+                    $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
 
-                $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+                    $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
+                
+                    // Busca dados dos aprovadores de acordo com o $approver_id
+                    $stmt = $conn->prepare("SELECT
+                            u.firstname
+                            ,u.lastname
+                            ,u.email
+                        FROM gp_approver as gp
+                        LEFT JOIN users as u
+                        ON u.users_id = gp.users_id
+                        WHERE gp.approver_id = ? OR gp.approver_id = 1");
+                    $stmt->bind_param("i", $approver_id);
+                    $stmt->execute();
+                    $stmt->bind_result($fadname, $ladname, $ademail);
+                    // Laço para enviar um email para cada usuário encontrado
+                    while ($stmt->fetch()) {
+                    $nmadmin = $fadname . " " . $ladname;
 
-                // Chama função para enviar email
-                sendMailPerLoc ($email, $nome, $assunto, $nmadmin, $ademail, $message, $dadosLocacao);
+                    $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+
+                    // Chama função para enviar email
+                    sendMailPerLoc ($email, $nome, $assunto, $nmadmin, $ademail, $message, $dadosLocacao);
+                    }
+                    // Fecha a conexão com o banco de dados
+                    $stmt->close();
+
+                    //--------------------------------------------------------------------------------------------//
                 }
-                // Fecha a conexão com o banco de dados
-                $stmt->close();
+                else{
 
-                //--------------------------------------------------------------------------------------------//
+                    
+                    // Busca nome e email para enviar email de cconfirmação de locação
+                    $admin = 'Administrador';
+                    $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ?");
+                    $stmt->bind_param("s", $admin);
+                    $stmt->execute();
+                    $stmt->bind_result($fadname, $ladname, $ademail);
+                    $stmt->fetch();
+                    // Fecha a conexão com o banco de dados
+                    $stmt->close();
+
+                    $nome = $fadname. " " . $ladname;
+                    $email= $ademail;
+
+                    $stmt2 = $conn->prepare("SELECT 
+                                                us.firstname, 
+                                                us.lastname, 
+                                                us.email,
+                                                COALESCE(lb.room_no, vs.model) as description,
+                                                COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                                CASE lc.weekday
+                                                WHEN 'Monday' THEN 'Segunda-feira'
+                                                WHEN 'Tuesday' THEN 'Terça-feira'
+                                                WHEN 'Wednesday' THEN 'Quarta-feira'
+                                                WHEN 'Thursday' THEN 'Quinta-feira'
+                                                WHEN 'Friday' THEN 'Sexta-feira'
+                                                WHEN 'Saturday' THEN 'Sábado'
+                                                WHEN 'Sunday' THEN 'Domingo'
+                                                ELSE 'Todos os dias' END AS dia_semana,
+                                                lc.checkin, 
+                                                lc.checkout, 
+                                                lc.checkin_time, 
+                                                lc.checkout_time 
+                                                FROM `lc_period` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
+                                                LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                                                INNER JOIN `users` as u ON u.users_id = lc.users_id
+                                                LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                                                LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                                                WHERE lc.lc_period_id = ?");
+                    $stmt2->bind_param("i", $lc_period_id);
+                    $stmt2->execute();
+                    $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
+                    $stmt2->fetch();
+
+                    $firstname = $ftname;
+                    $lastname = $ltname;
+                    $dtemail = $rpemail;
+                    $dtnome = $firstname. " " . $lastname;
+
+                    // Mensagem
+                    $assunto = 'Confirmação de Reserva - Reserve Garbuio';
+                    $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+
+                    $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
+                    
+                    // Chama função para enviar email
+                    sendMailPer ($email, $nome, $assunto, $dtnome, $dtemail, $message, $dadosLocacao);
+
+                    // Fecha a conexão com o banco de dados
+                    $stmt2->close();
+                    $conn->close();
+
+                }
 
             }
 

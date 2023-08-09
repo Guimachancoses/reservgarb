@@ -1,3 +1,4 @@
+<?php require_once 'validate.php';?>
 <div class="main-content">	
 	<!---row-second----->
     <div class="row">

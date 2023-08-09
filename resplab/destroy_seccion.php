@@ -1,4 +1,5 @@
 <?php
+    require_once 'validate.php';
     // destrói a sessão atual
     session_start();
     session_destroy();

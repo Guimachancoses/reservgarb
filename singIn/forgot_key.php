@@ -76,7 +76,7 @@
 
             sendMail($ademail, $nmadmin, $assunto, $nmdestin, $emailUser, $message, $codigo);
         } else {
-            echo "<script>alert('Usuário não cadastrado no sistema.') window.location.href = 'index.php';</script>";
+            echo "<script>alert('Usuário não cadastrado no sistema.') window.location.href = '../index.php';</script>";
         }
     }
 ?>

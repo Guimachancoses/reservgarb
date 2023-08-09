@@ -1,4 +1,5 @@
 <?php
+    require_once 'validate.php';
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
     

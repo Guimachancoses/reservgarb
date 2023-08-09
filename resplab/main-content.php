@@ -1,4 +1,4 @@
-
+<?php require_once 'validate.php';?>
 <div class="main-content" >
 	<?php
 		$session = $_SESSION['users_id'];

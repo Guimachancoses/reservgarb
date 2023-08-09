@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<?php require_once "login.php"?>
-<?php require_once "connect.php"?>
+<?php require_once "./singIn/login.php"?>
+<?php require_once "./singIn/connect.php"?>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
@@ -60,7 +60,7 @@
                     </a>
                 </div>
                 <div class="center-wrap">
-                  <form id="meuFormulario" method="POST" action="login.php" enctype = "multipart/form-data">
+                  <form id="meuFormulario" method="POST" action="./singIn/login.php" enctype = "multipart/form-data">
                     <div class="section text-center">
                       <div class="logoeinstein" align="left">
                       </div>
@@ -84,7 +84,7 @@
                       </p>
                     </div>
                   </form>
-                  <?php require_once 'login.php'?>
+                  <?php require_once './singIn/login.php'?>
                 </div>
               </div>
               
@@ -93,7 +93,7 @@
                   <div class="section text-center">
                     <div class="logoeinstein" align="left"></div>
                       </br>                          
-                    <form id="meuFormulario2" method="POST" action="forgot_key.php" id="form-cadastro" enctype = "multipart/form-data">
+                    <form id="meuFormulario2" method="POST" action="./singIn/forgot_key.php" id="form-cadastro" enctype = "multipart/form-data">
                           <div class="labmsg">
                             Será enviado para seu endereço de email, as instruções sobre como restabelecer seu acesso.
                           </div>
@@ -113,6 +113,7 @@
                           <a href="#" class="link" id="reg-log2" name="reg-log2">Entrar com sua conta!</a>
                         </p>
                     </form>
+                    <?php require_once './singIn/forgot_key.php'?>
                   </div>
                 </div>
               </div>

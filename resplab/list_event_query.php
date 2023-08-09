@@ -1,5 +1,6 @@
 <?php
 require_once 'connect.php';
+require_once 'validate.php';
 // Executa a consulta SQL para buscar os eventos inseridos no banco de dados
 $query = $conn->query("SELECT 
                             lc.checkin,

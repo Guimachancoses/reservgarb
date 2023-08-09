@@ -1,7 +1,7 @@
 <nav id="sidebar" class="active">
 
 <?php
-
+    require_once 'validate.php';
     // Query for mode color page
     $modeColor = $conn->query("SELECT colorMode FROM set_color WHERE users_id = $_SESSION[users_id]");
 

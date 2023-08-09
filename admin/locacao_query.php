@@ -104,7 +104,7 @@
         // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
         $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
         $verife = $query->num_rows;
-        if ($verife = 0){
+        if ($verife == 0){
 
             //-----------------------------------------------------------------------------------------------//
             // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem

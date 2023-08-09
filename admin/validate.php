@@ -4,7 +4,6 @@
         header("Location:../index.php");
         exit();
     }
-
     // Verifica se o usuário é administrador
     $users_id = $_SESSION['users_id'];
     $stmt = $conn->prepare("SELECT * FROM users WHERE funcao = 'Administrador' AND users_id = ?");

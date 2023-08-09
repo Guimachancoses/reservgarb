@@ -1,6 +1,7 @@
 <?php
 // Função responsável por deletar todas as informações do usuário do banco de dados
 require 'connect.php';
+require_once 'validate.php';
 
     $users_id = $_REQUEST['users_id'];
 

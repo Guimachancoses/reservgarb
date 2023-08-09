@@ -1,3 +1,4 @@
+<?php require_once 'validate.php';?>
 <nav id="sidebar" class="active">
 
 <?php

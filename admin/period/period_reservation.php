@@ -1,3 +1,4 @@
+<?php require_once 'validate.php';?>
 <div class="main-content">
 		
 	<!---row-second----->
@@ -162,7 +163,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?lc_period_id=<?php echo $fetch['lc_period_id']."confirm-locp"?>"><abbr title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pending.php?lc_period_id=<?php echo $fetch['lc_period_id']?>"><abbr title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
+                                <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?lc_period_id=<?php echo $fetch['lc_period_id']."confirm-locp"?>"><abbr title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pendingPer.php?lc_period_id=<?php echo $fetch['lc_period_id']?>"><abbr title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }	

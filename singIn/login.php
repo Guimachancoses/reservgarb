@@ -82,14 +82,14 @@ function AntiSqlInjection($str, $conn) {
 
 				// echo "<script>alert('Seu conta foi desbloqueada, tente acessar novamente!'); window.location.href = 'index.php';</script>";
 				$mensagem = "Seu conta foi desbloqueada, tente acessar novamente!";
-				header("Location: {$_SERVER['HTTP_REFERER']}?mensagem=".urlencode($mensagem));
+				header("Location: ../index.php?mensagem=".urlencode($mensagem));
 			} else {
 
 				// Se o usuário excedeu o número máximo de tentativas, bloqueie a nova tentativa
 				// Verifica se a URL contém "index.php"
-				if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+				if (strpos('../reservlab/', 'index.php') !== false) {
 					// Remove tudo que está a frente de "index.php" na URL
-					$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+					$urlBase = ('../index.php');
 
 					// Acrescenta a mensagem na URL
 					$mensagem = "Você excedeu o limite de tentativas. Tente novamente após $waitTime minutos.";
@@ -149,7 +149,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location:admin/reservlab.php');
+					header('location: ../admin/reservlab.php');
 				} else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados
@@ -159,9 +159,9 @@ function AntiSqlInjection($str, $conn) {
 					$queryInsertAttempt->close();
 
 					// Verifica se a URL contém "index.php"
-					if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+					if (($_SERVER['HTTP_REFERER']) !== false) {
 						// Remove tudo que está a frente de "index.php" na URL
-						$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+						$urlBase = ('../index.php');
 
 						// Acrescenta a mensagem na URL
 						$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
@@ -171,7 +171,7 @@ function AntiSqlInjection($str, $conn) {
 						header("Location: " . $urlFinal);
 					} else {
 						// Caso "index.php" não esteja presente na URL, redireciona para a URL original sem mensagem
-						header("Location: " . $_SERVER['HTTP_REFERER']);
+						header("Location:  ../index.php");
 					}
 				}
 
@@ -187,7 +187,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location:profes/reservlab.php');
+					header('location: ../profes/reservlab.php');
 				} else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados
@@ -197,9 +197,9 @@ function AntiSqlInjection($str, $conn) {
 					$queryInsertAttempt->close();
 
 					// Verifica se a URL contém "index.php"
-					if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+					if (($_SERVER['HTTP_REFERER']) !== false) {
 						// Remove tudo que está a frente de "index.php" na URL
-						$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+						$urlBase = ('../index.php');
 
 						// Acrescenta a mensagem na URL
 						$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
@@ -225,7 +225,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location:resplab/reservlab.php');
+					header('location:../resplab/reservlab.php');
 				}  else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados
@@ -235,9 +235,9 @@ function AntiSqlInjection($str, $conn) {
 					$queryInsertAttempt->close();
 
 					// Verifica se a URL contém "index.php"
-					if (strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+					if (($_SERVER['HTTP_REFERER']) !== false) {
 						// Remove tudo que está a frente de "index.php" na URL
-						$urlBase = strstr($_SERVER['HTTP_REFERER'], 'index.php');
+						$urlBase = ('../index.php');
 
 						// Acrescenta a mensagem na URL
 						$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
@@ -254,7 +254,7 @@ function AntiSqlInjection($str, $conn) {
 			} else {
 
 				$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
-				header("Location: {$_SERVER['HTTP_REFERER']}?mensagem=".urlencode($mensagem));
+				header("Location: ../index.php?mensagem=".urlencode($mensagem));
 				
 			}
 						

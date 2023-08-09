@@ -1,6 +1,5 @@
 <?php
 // Arquivo: atualizar-locacoes.php
-
 // Estabelece a conexão com o banco de dados
 require_once "connect.php";
 require_once 'validate.php';

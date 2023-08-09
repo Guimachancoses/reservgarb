@@ -1,6 +1,7 @@
 
 <div class="main-content">
 	<?php
+		require_once 'validate.php';
 		// query for total pendding
 		$q_p = $conn->query("SELECT SUM(total) AS total FROM (
 															SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 37
@@ -20,7 +21,7 @@
 	?>
 	<div class="row">
 
-	<div class="div-swing col-lg-6 col-md-6 col-sm-6">
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
 			<a href = "reservlab.php?alter-account">
 				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
@@ -250,12 +251,11 @@
 						<tbody>
 
 							<tr onclick="window.location='<?php echo $editLink ?>'">
-								<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "7") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
+								<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "7") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></div></td>
 								<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 								<td><?php echo $fetch['funcao']?></td>
 								<td><?php echo $fetch['email']?></td>
-								<?php $contactno = $fetch['contactno'];	$formatted_contactno = '(' . substr($contactno, 0, 2) . ') ' . substr($contactno, 2, 5) . '-' . substr($contactno, 7);?>
-								<td><?php echo $formatted_contactno?></td>
+								<td><?php $contactno = $fetch['contactno'];	$formatted_contactno = '(' . substr($contactno, 0, 2) . ') ' . substr($contactno, 2, 5) . '-' . substr($contactno, 7);?><?php echo $formatted_contactno?></td>
 							</tr> 
 							<?php
 								}
@@ -314,13 +314,13 @@
 								</li>
 							<?php } ?>
 							<li>
-							<?php
-								if ($totalPages > 1) {
-									echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
-								} else {
-									echo "<p style=\"margin-left:10px;padding:5px;color:#5faa4f\"> Página 1</p>";
-								}
-							?>
+								<?php
+									if ($totalPages > 1) {
+										echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
+									} else {
+										echo "<p style=\"margin-left:10px;padding:5px;color:#5faa4f\"> Página 1</p>";
+									}
+								?>
 							</li>
 						</ul>					
 					</nav>

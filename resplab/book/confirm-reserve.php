@@ -1,3 +1,4 @@
+<?php require_once 'validate.php';?>
 <div class="main-content">  
     <div class="row">
 			<div class="col-lg-8">
@@ -38,7 +39,7 @@
                                                 ON eq.equip_id = lc.equip_id
                                                 INNER JOIN `status` st
                                                 ON st.status_id = lc.status_id
-                                                WHERE lc.status_id = 1 && lc.locacao_id = '$_REQUEST[locacao_id]'") or die(mysqli_error());
+                                                WHERE lc.status_id = 1 && lc.locacao_id = '$_REQUEST[locacao_id]'") or die(mysqli_error($conn));
                         $fetch = $query->fetch_array();
                     ?>
                     <br />

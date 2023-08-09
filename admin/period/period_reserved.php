@@ -1,3 +1,4 @@
+<?php require_once 'validate.php';?>
 <div class="main-content">
 		
 	<!---row-second----->
@@ -153,7 +154,7 @@
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#449D44;'><strong><small>" .$fetch['assunto']."</small></strong></label>"?></td>
-                                <td><center><a class = "btn btn-warning" href = "checkout_query.php?lc_period_id=<?php echo $fetch['lc_period_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
+                                <td><center><a class = "btn btn-warning" href = "checkout_query_per.php?lc_period_id=<?php echo $fetch['lc_period_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }	

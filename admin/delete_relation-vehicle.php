@@ -1,6 +1,7 @@
 <?php
 // Função responsável por deletar totas as informações do laboratório do banco de dados
 require 'connect.php';
+require_once 'validate.php';
 
     $vehicle_id = $_REQUEST['vehicle_id'];
 

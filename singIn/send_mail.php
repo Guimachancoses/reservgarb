@@ -454,7 +454,7 @@
             // Envia o email
             $mail->send();
 
-            echo "<script>alert('Foi encaminhado um e-mail com as instruções para recuperar o seu acesso!'); window.location.href = 'index.php';</script>";
+            echo "<script>alert('Foi encaminhado um e-mail com as instruções para recuperar o seu acesso!'); window.location.href = '../index.php';</script>";
         } catch (Exception $e) {
             echo 'Erro ao enviar o email: ', $mail->ErrorInfo;
         }

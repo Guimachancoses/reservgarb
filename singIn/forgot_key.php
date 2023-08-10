@@ -11,7 +11,7 @@
 		$cpf = str_replace(array('.', '-'), '', $identid);
                 
         // Consulta no banco se existe os dados do usuário
-        $queryad = $conn->prepare("SELECT * FROM `users` WHERE email = ? && cpf = ?") or die(mysqli_error());
+        $queryad = $conn->prepare("SELECT * FROM `users` WHERE email = ? && cpf = ?") or die(mysqli_error($conn));
         $queryad->bind_param('ss', $email, $cpf);
         $queryad->execute();
         $queryad->store_result();
@@ -66,7 +66,7 @@
             $codigo = str_shuffle($hash);
 
             // Insere no banco de dados em uma tabela unica para código gerado e ID de usuário, para mudar a senha de acesso.
-            $stmt = $conn->prepare("INSERT INTO pwdtemp (users_id, email, codigo) VALUES (?, ?, ?)") or die(mysqli_error());
+            $stmt = $conn->prepare("INSERT INTO pwdtemp (users_id, email, codigo) VALUES (?, ?, ?)") or die(mysqli_error($conn));
             $stmt->bind_param("sss", $users_id, $email, $codigo);
 			$stmt->execute();
 			$stmt->close();
@@ -74,9 +74,9 @@
             $assunto = 'RESERVE GARBUIO - Recuperar sua senha';
             $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $nmdestin."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Administrador: " .$ademail. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;
 
-            sendMail($ademail, $nmadmin, $assunto, $nmdestin, $emailUser, $message, $codigo);
+            sendMail ($ademail, $nmadmin, $assunto, $nmdestin, $emailUser, $message, $codigo);
         } else {
-            echo "<script>alert('Usuário não cadastrado no sistema.') window.location.href = '../index.php';</script>";
+            echo "<script>alert('Usuário não cadastrado no sistema.'); window.location.href = '../index.php';</script>";
         }
     }
 ?>

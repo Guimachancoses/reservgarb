@@ -249,11 +249,6 @@ a:focus {
   width: 100%;
 }
 
-/* .navbar {
-  background-image: #555e58;
-  color: #fff;
-} */
-
 @media (min-width: 1981px) and (max-width: 10000px) {
   .navbar {
     height: 260px;
@@ -1379,6 +1374,8 @@ a.btn.btn-success:focus {
 .dropdown-menu li a:hover {
   background-color: #f1f1f1;
 }
+
+/* Configurações para embaçar a tela e gif de loading */
 
 .overlay {
   position: fixed;

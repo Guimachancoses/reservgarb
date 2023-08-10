@@ -38,9 +38,9 @@
 		$f_period = $q_period->fetch_array();
 ?>
             <div class="sidebar-header">
-                <h3 style="font-family: 'Monte Serrat', sans-serif; letter-spacing: 0.1px;">
+                <h3 style="font-family: 'Monte Serrat', sans-serif; letter-spacing: 0.5px;">
                     <img src="../img/logo_title.png" class="img-fluid" />
-                        <span><strong>Reserve Garbuio</strong></span>
+                        <span><strong><small>Reserve Garbuio</small></strong></span>
                 </h3>
             <ul class="list-unstyled components">
 			    <li>

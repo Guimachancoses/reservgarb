@@ -2,10 +2,12 @@
     // Função responsável por enviar os e-mails
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
+
+    define('BASE_DIR', dirname(__DIR__));
     
-    require './phpmailer/src/PHPMailer.php';
-    require './phpmailer/src/Exception.php';
-    require './phpmailer/src/SMTP.php';
+    require ''.BASE_DIR.'/phpmailer/src/PHPMailer.php';
+    require ''.BASE_DIR.'/phpmailer/src/Exception.php';
+    require ''.BASE_DIR.'/phpmailer/src/SMTP.php';
 
     function sendMail ($email, $nome, $assunto, $dtname, $dtemail, $message, $codigo){
         // Verifica se a internet está disponível
@@ -37,11 +39,13 @@
             $mail->Subject = $assunto;
             // $mail->Body = $message;
 
-            // Obter o caminho absoluto da imagem "logo_title.png"
-            $imagePath = __DIR__ . '\img\logo_title.png';
+            define('BASE_DIR', dirname(__DIR__));
 
             // Obter o caminho absoluto da imagem "logo_title.png"
-            $imagePath2 = __DIR__ . '\img\lg_garbuio.png';
+            $imagePath = BASE_DIR . '\img\logo_title.png';
+
+            // Obter o caminho absoluto da imagem "logo_title.png"
+            $imagePath2 = BASE_DIR . '\img\lg_garbuio.png';
 
             // Adicionar a imagem ao e-mail
             $mail->AddEmbeddedImage($imagePath, 'logoimg', 'logo_title.png');
@@ -50,7 +54,7 @@
             $mail->AddEmbeddedImage($imagePath2, 'logogarb', 'lg_garbuio.png');
 
             // Obter o caminho absoluto da imagem de fundo "background_1.jpg"
-            $imagePath3 = __DIR__ . '/img/background_1.jpg';
+            $imagePath3 = BASE_DIR . '/img/background_1.jpg';
 
             // Adicionar a imagem ao e-mail com o identificador "cid:background"
             $mail->AddEmbeddedImage($imagePath3, 'background', 'background_1.jpg');

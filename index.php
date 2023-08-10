@@ -9,20 +9,30 @@
 
   <link rel="icon" 
       type="image/jpg" 
-      href="./img/logo_title.png" />
+      href="./img/logo_title.png"
+  />
 
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
   />
+
   <link
     rel="stylesheet"
     href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css"
   />
-  <link rel="stylesheet" type = "text/css" href="css/stylelg.css" />
 
+  <link 
+    rel="stylesheet" 
+    type = "text/css" 
+    href="css/stylelg.css" ]
+  />
+  
+  <script 
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+  >
+  </script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
   <style>
     /* Estilo para posicionar o ícone do olho à direita */
     .input-wrapper {
@@ -113,7 +123,6 @@
                           <a href="#" class="link" id="reg-log2" name="reg-log2">Entrar com sua conta!</a>
                         </p>
                     </form>
-                    <?php require_once './singIn/forgot_key.php'?>
                   </div>
                 </div>
               </div>
@@ -124,10 +133,14 @@
     </div>
   </div>
 
-  <!-- Add the alert wrapper -->
-  <div class="alert-wrapper">
-    <img src="path/to/your/loading-spinner.gif" alt="Loading..." />
-  </div>
+      <div class="overlay">
+      <div class="loadingio-spinner-spinner-7u0gjvj5v5j">
+        <div class="ldio-z00xh444d9c">
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div>
+        </div>
+      </div>
+    </div>
 
   <script>
     // Função para alternar a visibilidade da senha no input
@@ -283,5 +296,72 @@
         }
     });
 </script>
+
+<script>
+  // Function responsible for showing the overlay
+  function showOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "flex"; // Show the overlay when the function is called
+
+    // Create an image element for the loading GIF
+    const loadingGif = document.createElement("img");
+    loadingGif.classList.add("loading-gif");
+    loadingGif.src = "loading.gif";
+
+    // Append the loading GIF to the overlay
+    overlay.appendChild(loadingGif);
+  }
+
+  function hideOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "none"; // Hide the overlay when the function is called
+
+    // Remove the child elements (loading GIF) from the overlay
+    while (overlay.firstChild) {
+      overlay.removeChild(overlay.firstChild);
+    }
+  }
+
+  // Add event listener for the form submission
+  document.addEventListener("DOMContentLoaded", function() {
+    const submitButtons = document.getElementsByName("forgot_key");
+
+    submitButtons.forEach(function(submitButton) {
+      submitButton.addEventListener("click", function(event) {
+        const cPf = document.getElementById("cpf").value;
+        const eMail = document.getElementById("email").value;
+
+        if (cPf === "" || eMail === "") {
+          // If any field is empty, prevent the form submission
+          event.preventDefault();
+        } else {
+          // If all fields are filled, show the overlay
+          showOverlay();
+        }
+      });
+    });
+  });
+
+  // Add event listener for the form submission
+  document.addEventListener("DOMContentLoaded", function() {
+    const submitB = document.getElementsByName("login");
+
+    submitButt.forEach(function(submitButton2) {
+      submitButton2.addEventListener("click", function(event) {
+        const rA = document.getElementById("ra").value;
+        const passWord = document.getElementById("password").value;
+
+        if (rA === "" || passWord === "") {
+          // If any field is empty, prevent the form submission
+          event.preventDefault();
+        } else {
+          // If all fields are filled, show the overlay
+          showOverlay();
+        }
+      });
+    });
+  });
+</script>
+
 
 </html>

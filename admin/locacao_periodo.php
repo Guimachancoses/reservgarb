@@ -115,6 +115,7 @@
         if ($valid > 0) {
             // Se a locação existe retorne nada
             echo "<script>alert('Já existe uma reserva nesse periodo'); window.location.href = 'reservlab.php?period';</script>";
+            echo '<script>hideOverlay();</script>';
         }
         else {
 
@@ -180,6 +181,7 @@
                         if ($select_query->num_rows > 0) {
                             // Se a locação existe retorne nada
                             echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
+                            echo '<script>hideOverlay();</script>';
                         }
                         else {
 
@@ -278,6 +280,8 @@
                     }
                     // Fecha a conexão com o banco de dados
                     $stmt->close();
+                    
+                    echo '<script>hideOverlay();</script>';
 
                     //--------------------------------------------------------------------------------------------//
                 } 
@@ -348,6 +352,7 @@
                         if ($select_query->num_rows > 0) {
                             // Se a locação existe retorne nada
                             echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
+                            echo '<script>hideOverlay();</script>';
                         }
                         else {
 
@@ -399,6 +404,7 @@
                         if ($select_query->num_rows > 0) {
                             // Se a locação existe retorne nada
                             echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
+                            echo '<script>hideOverlay();</script>';
                         }
                         else {
 
@@ -518,6 +524,9 @@
                     // Fecha a conexão com o banco de dados
                     $stmt->close();
 
+                    echo '<script>hideOverlay();</script>';
+
+
                     //--------------------------------------------------------------------------------------------//
                 }
 
@@ -529,6 +538,7 @@
 
             // Define a resposta
             echo "<script>alert('Solicitação de reserva enviada com sucesso!'); window.location.href = 'reservlab.php?perpen';</script>";
+            echo '<script>hideOverlay();</script>';
         }
     }
 ?>

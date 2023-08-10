@@ -10,6 +10,7 @@
 		$row = $query->num_rows;
 		if($row > 0){
 			echo "<script>alert('Reserva já existe')</script>";
+            echo '<script>hideOverlay();</script>';
 		}else{
 			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
 			$conn->query("UPDATE `lc_period` SET `mensagens_id` = 3  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
@@ -76,6 +77,7 @@
             $stmt2->close();
             $conn->close();
 
+            echo '<script>hideOverlay();</script>';
 			header("location:reservlab.php?penlab");
 		}
 	}

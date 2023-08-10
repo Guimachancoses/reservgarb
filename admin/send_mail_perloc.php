@@ -483,7 +483,7 @@
             ini_set('display_errors', 1);
 
 
-            echo "<script>alert('Corfirmação enviada com sucesso!'); window.location.href = 'reservlab.php';</script>";
+            echo "<script>alert('Solicitação enviada com sucesso, aguarde a aprovação!'); window.location.href = 'reservlab.php';</script>";
         } catch (Exception $e) {
             echo "<script>alert('$e Erro ao enviar o email: " . $mail->ErrorInfo . "'); window.location.href = 'reservlab.php';</script>";
         }

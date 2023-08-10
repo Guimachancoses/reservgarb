@@ -1,4 +1,12 @@
 <?php require_once 'validate.php';?>
+<div class="overlay">
+  <div class="loadingio-spinner-spinner-7u0gjvj5v5j">
+    <div class="ldio-z00xh444d9c">
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+</div>
 <div class="main-content">    
         <div class="row">
 			<div class="col-lg-7 ">
@@ -114,7 +122,7 @@
                             </div>
                             <br />
                             <div class="card-foot">
-                                <button id="periodSubmit" type="submit" name = "locacao_periodo" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
+                                <button id="periodSubmit" type="submit" name = "locacao_periodo" class = "btn btn-primary form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                             </div>
                         </form>
                         <?php require_once 'locacao_periodo.php'?>
@@ -308,4 +316,41 @@ function hasErrors() {
     }
   });
 
+</script>
+
+<script>
+
+// Funcção responsavel por esconder a tela
+function showOverlay() {
+  const overlay = document.querySelector(".overlay");
+  overlay.style.display = "flex"; // Show the overlay when the function is called
+
+  // Create an image element for the loading GIF
+  const loadingGif = document.createElement("img");
+  loadingGif.classList.add("loading-gif");
+  loadingGif.src = "loading.gif";
+
+  // Append the loading GIF to the overlay
+  overlay.appendChild(loadingGif);
+}
+
+function hideOverlay() {
+  const overlay = document.querySelector(".overlay");
+  overlay.style.display = "none"; // Hide the overlay when the function is called
+
+  // Remove the child elements (loading GIF) from the overlay
+  while (overlay.firstChild) {
+    overlay.removeChild(overlay.firstChild);
+  }
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const submitButton = document.querySelector(".btn-primary");
+
+  submitButton.addEventListener("click", function() {
+    showOverlay();
+  });
+});
 </script>

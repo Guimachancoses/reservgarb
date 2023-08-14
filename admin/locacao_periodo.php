@@ -286,6 +286,7 @@
                     //--------------------------------------------------------------------------------------------//
                 } 
                 
+                // tentar enviar o email de confirmação de locação para a lista de emails que está na lista de exeções 
             } 
             else {
                 // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
@@ -529,6 +530,8 @@
 
                     //--------------------------------------------------------------------------------------------//
                 }
+
+                // tentar enviar o email para o uusário caso ele esteja na lista de exeções
 
             }
 

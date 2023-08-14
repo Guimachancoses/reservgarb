@@ -170,7 +170,7 @@
         }
         else {
 
-            // Busca nome e email do administrador
+            // Busca nome e email do administrador enviawr o email mde confirmação para a lista de execeções
             $admin = 'Administrador';
             $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ?");
             $stmt->bind_param("s", $admin);

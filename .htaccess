@@ -20,12 +20,12 @@ RewriteRule ^admin/(.\*)$ /admin/index.php [L]
 # Verifica se a solicitação é para a pasta resplab
 
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^resplab/(.\*)$ /resplab/index.php [L]
+RewriteRule ^resp/(.\*)$ /resp/index.php [L]
 
 # Verifica se a solicitação é para a pasta profes
 
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^profes/(.\*)$ /profes/index.php [L]
+RewriteRule ^user/(.\*)$ /user/index.php [L]
 
 # Redirecionar automaticamente para pastas que possuem um index.php
 RewriteCond %{REQUEST_FILENAME} -d

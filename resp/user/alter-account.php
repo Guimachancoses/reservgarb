@@ -5,6 +5,8 @@
 				<div class="card" style="min-height:625px">
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastrais</strong></h4>
+                            <p class="category" style="display:flex;align-items:center;justify-content:center; background-color: #f4d7d3;  border-radius: 6px;  padding: 5px;  margin-bottom: 8px; color: #000000;">
+                            Para alterar o nome ou sobreme, solicite ao administrador do sistema.</p>
 						    <p class="category">Comfirme seus dados antes de salvar:</p>
                     <?php
                         $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_SESSION[users_id]'") or die(mysqli_error($conn));

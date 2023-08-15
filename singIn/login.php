@@ -9,10 +9,10 @@ if (isset($_SESSION['users_id'])) {
     header('location: admin/reservlab.php');
     exit;
   } elseif ($_SESSION['funcao'] == 'Usuário') {
-    header('location: profes/reservlab.php');
+    header('location: user/reservlab.php');
     exit;
   } elseif ($_SESSION['funcao'] == 'Aprovador') {
-    header('location: resplab/reservlab.php');
+    header('location: resp/reservlab.php');
     exit;
   }
 }
@@ -187,7 +187,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location: ../profes/reservlab.php');
+					header('location: ../user/reservlab.php');
 				} else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados
@@ -225,7 +225,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location:../resplab/reservlab.php');
+					header('location:../resp/reservlab.php');
 				}  else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados

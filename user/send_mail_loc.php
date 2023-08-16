@@ -6,7 +6,7 @@
     require '../phpmailer/src/PHPMailer.php';
     require '../phpmailer/src/Exception.php';
     require '../phpmailer/src/SMTP.php';
-    function sendMail ($email, $nome, $assunto, $dtname, $dtemail, $message, $dadosLocacao){
+    function sendMailLoc ($email, $nome, $assunto, $dtname, $dtemail, $message, $dadosLocacao){
     // Verifica se a internet está disponível
     if (!checkInternetAvailability()) {
         echo "<script>alert('Internet indisponível no momento, tente mais tarte!'); window.location.href = 'index.php';</script>";
@@ -413,7 +413,7 @@
                         <h5><strong>Email: '.$email.'</strong></h5>
                         <br />
                         <h5>
-                        <strong>Seu pedido de reserva foi confimado.</strong>
+                        <strong>Locação de laboratório solicitada.</strong>
                         </h5>
                         <br />
                         <h5>
@@ -426,7 +426,7 @@
                         <li><strong>Hora Final: </strong> '.$checkout_time.' horas</li>
                     </div>
                     <div class="card">
-                        <h5><strong>Acesse o portal para visualizar sua reserva.</strong></h5>
+                        <h5><strong>Aguardando sua aprovação</strong></h5>
                         <div
                             class="page-item"
                             style="display: flex; align-items: center; justify-content: center"
@@ -436,7 +436,7 @@
                             class="n-overlay"
                             href="http://localhost/reservgarb/index.php"
                             target="_blank"
-                            >Página Inicial</a>
+                            >Aprovar</a>
                         </div>
                     </div>
                     <div style="padding-top: 50px">
@@ -480,6 +480,7 @@
             echo "<script>alert('$e Erro ao enviar o email: " . $mail->ErrorInfo . "'); window.location.href = 'reservlab.php';</script>";
         }
     }
+    
     // Função para verificar a disponibilidade da internet
     function checkInternetAvailability() {
         $url = 'http://www.google.com';
@@ -510,5 +511,6 @@
         // Verifica se o código de resposta é 200 (OK)
         return $httpCode === 200;
     }
+    
 
 ?>

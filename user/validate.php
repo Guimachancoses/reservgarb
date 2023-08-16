@@ -1,6 +1,5 @@
-<?php
-    // Função validar a sessão do usuário, e também garantir que o users_id está logado na sua área de interesse
-	session_start();
+<?php 
+    session_start();
     if (!isset($_SESSION['users_id'])) {
         header("Location:../index.php");
         exit();

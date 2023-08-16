@@ -6,7 +6,7 @@
     require '../phpmailer/src/PHPMailer.php';
     require '../phpmailer/src/Exception.php';
     require '../phpmailer/src/SMTP.php';
-    function sendMail ($email, $nome, $assunto, $dtname, $dtemail, $message, $dadosLocacao){
+    function sendMailPer ($email, $nome, $assunto, $dtname, $dtemail, $message, $dadosLocacao){
     // Verifica se a internet está disponível
     if (!checkInternetAvailability()) {
         echo "<script>alert('Internet indisponível no momento, tente mais tarte!'); window.location.href = 'index.php';</script>";
@@ -19,7 +19,9 @@
     // Inicializar as variáveis para armazenar os valores extraídos
     $locacao = '';
     $description = '';
+    $weekday = '';
     $checkin = '';
+    $checkout = '';
     $checkin_time = '';
     $checkout_time = '';
 
@@ -43,8 +45,12 @@
                 $locacao = $valor;
             } elseif ($chave === 'Descrição') { 
                 $description = $valor;
+            } elseif ($chave === 'Dia da Semana') { 
+                $weekday = $valor;
             } elseif ($chave === 'Data de Início') {
                 $checkin = DateTime::createFromFormat('Y-m-d', $valor)->format('d-m-Y');
+            } elseif ($chave === 'Data Final') {
+                $checkout = DateTime::createFromFormat('Y-m-d', $valor)->format('d-m-Y');
             } elseif ($chave === 'Hora de Início') {
                 $checkin_time = DateTime::createFromFormat('H:i:s', $valor)->format('H:i');
             } elseif ($chave === 'Hora Final') {
@@ -421,7 +427,9 @@
                         </h5>
                         <li><strong>Locação: </strong> '.$locacao.'</li>
                         <li><strong>Descrição: </strong> '.$description.'</li>
-                        <li><strong>Data: </strong> '.$checkin.'</li>
+                        <li><strong>Dia da Semana: </strong> '.$weekday.'</li>
+                        <li><strong>Data de Início: </strong> '.$checkin.'</li>
+                        <li><strong>Data Final: </strong> '.$checkout.'</li>
                         <li><strong>Hora de Início: </strong> '.$checkin_time.' horas</li>
                         <li><strong>Hora Final: </strong> '.$checkout_time.' horas</li>
                     </div>

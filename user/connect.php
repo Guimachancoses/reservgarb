@@ -17,5 +17,4 @@ try {
 } catch (Exception $e) {
     echo "<script>alert('Verifique sua conexão com o banco de dados'); window.location.href = 'index.php';</script>";
 }
-
 ?>

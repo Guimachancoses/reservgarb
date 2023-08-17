@@ -180,78 +180,6 @@
 			</a>
 		</div>
 
-		<?php
-			$except = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$_SESSION[users_id]'");
-		?>
-
-		<?php if ($except->num_rows > 0): ?>
-			<div class="div-link col-lg-3 col-md-6 col-sm-6">
-				<a href="reservlab.php?<?php echo $mybookp?>">
-					<div class="card card-stats">
-						<div class="card-header">
-							<div class="icon icon-warning">
-								<span class="material-icons">hourglass_empty</span>
-							</div>
-						</div>
-						<div class="card-content">
-							<p class="category"><strong>Reservas Por Período Pendentes</strong></p>
-							<h3 class="card-title"><?php echo $f_perper['total']?></h3>
-						</div>
-						<div class="card-footer">
-							<div class="stats">
-								<i class="material-icons text-info">upgrade</i>
-								Aguardando sua aprovação
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-		<?php else: ?>
-			<div class="div-link col-lg-3 col-md-6 col-sm-6">
-				<a href="reservlab.php?<?php echo $mybookp?>">
-					<div class="card card-stats">
-						<div class="card-header">
-							<div class="icon icon-warning">
-								<span class="material-icons">hourglass_empty</span>
-							</div>
-						</div>
-						<div class="card-content">
-							<p class="category"><strong>Minhas Reservas Pendentes</strong></p>
-							<h3 class="card-title"><?php echo $f_u['total']?></h3>
-						</div>
-						<div class="card-footer">
-							<div class="stats">
-								<i class="material-icons text-info">upgrade</i>
-								Aguardando aprovação
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-		<?php endif; ?>
-
-		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $mybookr?>">
-				<div class="card card-stats" >
-					<div class="card-header">
-						<div class="icon icon-rose">
-							<span class="material-icons">thumb_up_alt</span>
-						</div>
-					</div>
-					<div class="card-content">
-						<p class="category"><strong>Minhas Reservas Aprovadas</strong></p>
-						<h3 class="card-title"><?php echo $f_lc['total']?></h3>
-					</div>
-					<div class="card-footer">
-						<div class="stats">
-							<i class="material-icons text-status">check_box</i>
-							Solicitação aprovada
-						</div>
-					</div>
-				</div>
-			</a>
-		</div>
-
 		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
 			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
@@ -268,6 +196,39 @@
 			</div>
 		</div>
 
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+				<div class="card-header">
+					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
+						<div class="gif-container">
+							<iframe src="https://giphy.com/embed/wq1I3ILdsvYJub8Rwx" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
+						</div>
+					</div>
+				</div>
+				<div class="card-content">
+					<p class="category">Reservas Pendentes</p>
+					<h3 class="card-title"><?php echo $f_u['total']?></h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+				<div class="card-header">
+					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
+						<div class="gif-container">
+							<iframe src="https://giphy.com/embed/X3Rns1xcaxigefgM6S" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
+						</div>
+					</div>
+				</div>
+				<div class="card-content">
+					<p class="category">Reservas Aprovadas</p>
+					<h3 class="card-title"><?php echo $f_lc['total']?></h3>
+				</div>
+			</div>
+		</div>
+
+		
 		<script>
 			const calendarCard = document.getElementById('calendarCard');
 			const gifContainer = calendarCard.querySelector('.gif-container');
@@ -280,75 +241,6 @@
 				window.location.href = "reservlab.php?rscalender";
 			});
 		</script>
-
-
-		<?php if ($except->num_rows > 0): ?>
-			<div class="div-link col-lg-3 col-md-6 col-sm-6">
-				<a href="reservlab.php?<?php echo $penlab?>">
-					<div class="card card-stats" >
-						<div class="card-header">
-							<div class="icon icon-rose">
-								<span class="material-icons">pending_actions</span>
-							</div>
-						</div>
-						<div class="card-content">
-							<p class="category"><strong>Solicitações Por Dia Pendentes</strong></p>
-							<h3 class="card-title"><?php echo $f_perday['total']?></h3>
-						</div>
-						<div class="card-footer">
-							<div class="stats">
-								<i class="material-icons text-status">rotate_right</i>
-								Aguardando sua aprovação
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-		<?php else: ?>
-			<div class="div-link col-lg-3 col-md-6 col-sm-6">
-				<a href="reservlab.php?<?php echo $penlab?>">
-					<div class="card card-stats" >
-						<div class="card-header">
-							<div class="icon icon-rose">
-								<span class="material-icons">pending_actions</span>
-							</div>
-						</div>
-						<div class="card-content">
-							<p class="category"><strong>Total De Solicitações Pendentes</strong></p>
-							<h3 class="card-title"><?php echo $f_p['total']?></h3>
-						</div>
-						<div class="card-footer">
-							<div class="stats">
-								<i class="material-icons text-status">rotate_right</i>
-								Aguardando sua aprovação
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-		<?php endif; ?>
-			
-		<div class="div-link col-lg-3 col-md-6 col-sm-6">
-			<a href="reservlab.php?<?php echo $reslab?>">
-				<div class="card card-stats">
-					<div class="card-header">
-						<div class="icon icon-success">
-							<span class="material-icons">lock_clock</span>
-						</div>
-					</div>
-					<div class="card-content">
-						<p class="category"><strong>Total de Reservadas Aprovadas</strong></p>
-						<h3 class="card-title"><?php echo $f_ci['total']?></h3>
-					</div>
-					<div class="card-footer">
-						<div class="stats">
-							<i class="material-icons text-reserve">date_range</i>
-							Total de reservas
-						</div>
-					</div>
-				</div>
-			</a>
-		</div>
 
 	</div>								
 		

@@ -158,9 +158,9 @@
 	
 	<div class="row">
 
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
+		<div class="col-lg-6 col-md-6 col-sm-6">
 			<a href = "reservlab.php?alter-account">
-				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
+				<div class="div-swing card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
 						<div class="icon icon-info icon-animation">
 							<span class="material-icons">fingerprint</span>
@@ -180,11 +180,11 @@
 			</a>
 		</div>
 
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
-			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+		<div class="col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
-					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
-						<div class="gif-container">
+					<div class="icon icon-info">
+						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
 							<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
 						</div>
 					</div>
@@ -196,11 +196,11 @@
 			</div>
 		</div>
 
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
-			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+		<div class="col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
-					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
-						<div class="gif-container">
+					<div class="icon icon-info">
+						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
 							<iframe src="https://giphy.com/embed/wq1I3ILdsvYJub8Rwx" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
 						</div>
 					</div>
@@ -212,11 +212,11 @@
 			</div>
 		</div>
 
-		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
-			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+		<div class="col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
-					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
-						<div class="gif-container">
+					<div class="icon icon-info" >
+						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
 							<iframe src="https://giphy.com/embed/X3Rns1xcaxigefgM6S" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
 						</div>
 					</div>

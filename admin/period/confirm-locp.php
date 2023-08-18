@@ -137,6 +137,8 @@
             </div>
         </div>
 </div>
+
+<!-- Função responsavel pelo esmanecer da tela ------------------------------------------------------------------------------------------->
 <script>
 function showOverlay() {
   const overlay = document.querySelector(".overlay");

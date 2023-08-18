@@ -317,6 +317,8 @@ function hasErrors() {
 
 </script>
 
+<!-- Função responsavel pelo esmanecer a tela -------------------------------------------------------------------------------------------->
+
 <script>
   // Function responsible for showing the overlay
   function showOverlay() {

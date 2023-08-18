@@ -80,7 +80,6 @@
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
                                 <th>Status</th>
-                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,12 +91,6 @@
                                 $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE users_id != $session_id AND status_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
-
-                                $querypd = $conn->query("SET @groupId = (
-                                    SELECT approver_id
-                                    FROM gp_approver
-                                    WHERE users_id = $session_id
-                                )");
                                 
                                 $querypd2 = $conn->query("SELECT
                                     lc.locacao_id,
@@ -120,15 +113,6 @@
                                 WHERE
                                     lc.status_id = 2
                                     AND lc.users_id != $session_id
-                                    AND (
-                                        (@groupId = 1) -- Administrador
-                                        OR
-                                        (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-                                        OR
-                                        (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-                                        OR
-                                        (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-                                    )
                                 ORDER BY  lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
@@ -144,7 +128,6 @@
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#0000FF;'><strong>" .$fetch['status']."</strong></label>"?></td>
-                                <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }

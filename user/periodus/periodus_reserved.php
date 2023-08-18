@@ -81,8 +81,8 @@
                                 <th>Dt. Devolução</th>
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
-                                <th class="text-center">Status</th>
-                                <th>Ação</th>
+                                <th>Status</th>
+                                <th class="text-center">Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,17 +91,12 @@
                                 $perPage = 10; // Número de resultados por página
                                 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
                                 $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM lc_period as lc INNER JOIN mensagens as ms WHERE ms.mensagens_id = 3")->fetch_assoc()['total']; // Total de resultados no banco de dados
+                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM lc_period as lc INNER JOIN mensagens as ms WHERE ms.mensagens_id = 12")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
-
-                                $querypd = $conn->query("SET @groupId = (
-                                    SELECT approver_id
-                                    FROM gp_approver
-                                    WHERE users_id = $session_id
-                                )");
-                                
+                               
                                 $querypd2 = $conn->query("SELECT
+                                    u.users_id,
                                     lc.lc_period_id,
                                     u.firstname,
                                     u.lastname,
@@ -127,16 +122,7 @@
                                 LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                                 LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-                                WHERE ms.mensagens_id = 3
-                                    AND (
-                                        (@groupId = 1) -- Administrador
-                                        OR
-                                        (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-                                        OR
-                                        (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-                                        OR
-                                        (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-                                    )
+                                WHERE ms.mensagens_id = 12
                                 ORDER BY  lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
@@ -154,7 +140,22 @@
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#449D44;'><strong><small>" .$fetch['assunto']."</small></strong></label>"?></td>
-                                <td><center><a class = "btn btn-warning" href = "checkout_query_per.php?lc_period_id=<?php echo $fetch['lc_period_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
+                                <td>
+                                    <center>
+                                        <?php if ($fetch['users_id'] == $session_id): { ?>
+                                            <a class = "btn btn-warning" href = "checkout_query_per.php?lc_period_id=<?php echo $fetch['lc_period_id']?>" onclick = "confirmationCheckin(); return false;">
+                                                <abbr title="Liberar">
+                                                    <i class = "material-icons">task</i>
+                                                </abbr>
+                                            </a>
+                                            <?php } ?>
+                                        <?php else: ?>
+                                            <span class="text-danger" style="font-size: 12px;">Bloqueado</span>
+                                            
+                                            
+                                        <?php endif; ?>                                        
+                                    </center>
+                                </td>
                             </tr>
                             <?php
                                 }	

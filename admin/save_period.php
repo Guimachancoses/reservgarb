@@ -13,7 +13,7 @@
             echo '<script>hideOverlay();</script>';
 		}else{
 			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
-			$conn->query("UPDATE `lc_period` SET `mensagens_id` = 3  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
+			$conn->query("UPDATE `lc_period` SET `mensagens_id` = 12  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
 			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error($conn));
 
 			// Busca nome e email para enviar email de confirmação de locação

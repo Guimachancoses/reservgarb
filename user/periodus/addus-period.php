@@ -1,4 +1,12 @@
 <?php require_once 'validate.php';?>
+<div class="overlay">
+  <div class="loadingio-spinner-spinner-7u0gjvj5v5j">
+    <div class="ldio-z00xh444d9c">
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+</div>
 <div class="main-content">    
         <div class="row">
 			<div class="col-lg-7 ">
@@ -17,7 +25,7 @@
 						<h4 class="card-title"><strong class="text-primary"> Locação por Período</strong></h4>
 						    <p class="category">Escolha o que você deseja reservar e o período que você deseja:</p>
                     <div class = "col-md-10"style="min-height:720px">	
-                        <form method = "POST" action="locacao_periodo.php" enctype = "multipart/form-data" autocomplete="off">
+                        <form method = "POST" action="locacao_periodo.php" enctype = "multipart/form-data" autocomplete="off" onsubmit="submit()">
                             <div class="card-foot">
                                 <label><strong> Usuário:</strong></label>
                                 <select class = "form-control" name = "eventTitle" required = required>
@@ -97,7 +105,7 @@
                             </div>
                             <br />
                             <div class="card-foot">
-                                <button id="periodSubmit" type="submit" name = "locacao_periodo" class = "btn btn-info form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
+                                <button id="periodSubmit" type="submit" name = "locacao_periodo" class = "btn btn-primary form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                             </div>
                         </form>
                         <?php require_once 'locacao_periodo.php'?>
@@ -291,4 +299,61 @@ function hasErrors() {
     }
   });
 
+</script>
+
+<!-- Função responsavel pelo esmanecer a tela -------------------------------------------------------------------------------------------->
+
+<script>
+  // Function responsible for showing the overlay
+  function showOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "flex"; // Show the overlay when the function is called
+
+    // Create an image element for the loading GIF
+    const loadingGif = document.createElement("img");
+    loadingGif.classList.add("loading-gif");
+    loadingGif.src = "loading.gif";
+
+    // Append the loading GIF to the overlay
+    overlay.appendChild(loadingGif);
+  }
+
+  function hideOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "none"; // Hide the overlay when the function is called
+
+    // Remove the child elements (loading GIF) from the overlay
+    while (overlay.firstChild) {
+      overlay.removeChild(overlay.firstChild);
+    }
+  }
+
+  // Add event listener for the form submission
+  document.addEventListener("DOMContentLoaded", function() {
+    const submitButton = document.querySelector(".btn-primary");
+
+    submitButton.addEventListener("click", function(event) {
+      const eventTitle = document.getElementsByName("eventTitle")[0].value;
+      const checkin = document.getElementsByName("checkin")[0].value;
+      const checkout = document.getElementsByName("checkout")[0].value;
+      const diaSemana = document.getElementsByName("dia_semana")[0].value;
+      const checkinTime = document.getElementsByName("checkin_time")[0].value;
+      const checkoutTime = document.getElementsByName("checkout_time")[0].value;
+
+      if (
+        eventTitle === "" ||
+        checkin === "" ||
+        checkout === "" ||
+        diaSemana === "" ||
+        checkinTime === "" ||
+        checkoutTime === ""
+      ) {
+        // If any field is empty, prevent the form submission
+        event.preventDefault();
+      } else {
+        // If all fields are filled, show the overlay
+        showOverlay();
+      }
+    });
+  });
 </script>

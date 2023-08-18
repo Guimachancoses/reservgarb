@@ -93,12 +93,6 @@
                                 $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE users_id != $session_id AND status_id = 2 && users_id = $session_id")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
-
-                                $querypd = $conn->query("SET @groupId = (
-                                    SELECT approver_id
-                                    FROM gp_approver
-                                    WHERE users_id = $session_id
-                                )");
                                 
                                 $querypd2 = $conn->query("SELECT
                                     lc.locacao_id,
@@ -122,15 +116,6 @@
                                 WHERE
                                     lc.status_id = 2
                                     AND lc.users_id = $session_id
-                                    AND (
-                                        (@groupId = 1) -- Administrador
-                                        OR
-                                        (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-                                        OR
-                                        (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-                                        OR
-                                        (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-                                    )
                                 ORDER BY  lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 

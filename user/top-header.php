@@ -42,16 +42,7 @@
             LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
             LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-            WHERE ms.mensagens_id = 37 AND lc.users_id != $session_id
-                AND (
-                    (@groupId = 1) -- Administrador
-                    OR
-                    (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-                    OR
-                    (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-                    OR
-                    (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-                )
+            WHERE ms.mensagens_id = 12 AND lc.users_id = $session_id
     UNION ALL
             SELECT
             COUNT(*) AS total
@@ -63,19 +54,9 @@
             INNER JOIN `status` st ON st.status_id = lc.status_id
             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
             WHERE
-                lc.status_id = 1
-                AND lc.users_id != $session_id
-                AND ms.mensagens_id = 2
-                AND lc.lc_period_id IS NULL
-                AND (
-                    (@groupId = 1) -- Administrador
-                    OR
-                    (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-                    OR
-                    (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-                    OR
-                    (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-                )
+                lc.status_id = 2
+                AND lc.users_id = $session_id
+                AND ms.mensagens_id = 3
             ) AS subquery;") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
 ?>
@@ -121,13 +102,13 @@
                                                     ms.assunto as pendente
                                                 FROM mensagens as ms 
                                                 LEFT JOIN locacao as lc ON lc.mensagens_id = ms.mensagens_id
-                                                WHERE lc.mensagens_id = 2 && lc.lc_period_id IS NULL && lc.users_id != $session_id
+                                                WHERE lc.mensagens_id = 3 && lc.lc_period_id IS NULL && lc.users_id = $session_id
                                                 UNION ALL
                                                 SELECT DISTINCT
                                                     ms.assunto as pendente
                                                 FROM mensagens as ms
                                                 LEFT JOIN lc_period as lp ON lp.mensagens_id = ms.mensagens_id
-                                                WHERE lp.mensagens_id = 37 && lp.users_id != $session_id
+                                                WHERE lp.mensagens_id = 12 && lp.users_id = $session_id
                                             ) AS subquery
                                             ORDER BY pendente
                                             LIMIT 2") or die(mysqli_error($conn));
@@ -136,15 +117,15 @@
                             while ($f_msg = $q_msg->fetch_array()) {
                                 $pendente = $f_msg['pendente'];
                                 ?>
-                                <?php if ($pendente === "Solicitações pendentes!") { ?>
+                                <?php if ($pendente === "Reserva realizada!") { ?>
                                     <li>
-                                        <?php $penlab = 'penlab'; ?>
-                                        <a href="reservlab.php?<?php echo $penlab ?>" class="text-primary"><?php echo $pendente ?></a>
+                                        <?php $mybookr = 'mybookr'; ?>
+                                        <a href="reservlab.php?<?php echo $mybookr ?>" class="text-primary"><small>Sua reserva foi aprovada!</small></a>
                                     </li>
-                                <?php } elseif ($pendente === "Reserva Por Período Pendente!") { ?>
+                                <?php } elseif ($pendente === "Sua reserva por período foi aprovada!") { ?>
                                     <li>
-                                        <?php $perpen = 'perpen'; ?>
-                                        <a href="reservlab.php?<?php echo $perpen ?>" class="text-primary"><?php echo $pendente ?></a>
+                                        <?php $perres = 'perres'; ?>
+                                        <a href="reservlab.php?<?php echo $perres ?>" class="text-primary"><small><?php echo $pendente ?></small></a>
                                     </li>
                                 <?php } ?>
                                 <?php

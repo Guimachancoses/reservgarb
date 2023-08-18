@@ -114,16 +114,7 @@
 								WHERE
 									lc.lc_period_id IS NULL
 									AND lc.status_id = 1 
-									AND lc.users_id != $session
-									AND (
-										(@groupId = 1) -- Administrador
-										OR
-										(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-										OR
-										(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-										OR
-										(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-									)") or die(mysqli_error($conn));
+									AND lc.users_id = $session") or die(mysqli_error($conn));
 		$f_perday = $q_perday->fetch_array();
 		
 		// total for total pendding location per period
@@ -196,7 +187,7 @@
 			</div>
 		</div>
 
-		<div class="col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+		<div class="col-lg-6 col-md-6 col-sm-6" id="reservPen">
 			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
 					<div class="icon icon-info">
@@ -207,12 +198,12 @@
 				</div>
 				<div class="card-content">
 					<p class="category">Reservas Pendentes</p>
-					<h3 class="card-title"><?php echo $f_u['total']?></h3>
+					<h3 class="card-title"><?php echo $f_perday['total']?></h3>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+		<div class="col-lg-6 col-md-6 col-sm-6" id="reservAp">
 			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
 					<div class="icon icon-info" >
@@ -231,6 +222,8 @@
 		
 		<script>
 			const calendarCard = document.getElementById('calendarCard');
+			const reservPen = document.getElementById('reservPen');
+			const reservAp = document.getElementById('reservAp');
 			const gifContainer = calendarCard.querySelector('.gif-container');
 
 			gifContainer.addEventListener('click', function(event) {
@@ -239,6 +232,12 @@
 
 			calendarCard.addEventListener('click', function() {
 				window.location.href = "reservlab.php?rscalender";
+			});
+			reservPen.addEventListener('click', function() {
+				window.location.href = "reservlab.php?mybookp";
+			});
+			reservAp.addEventListener('click', function() {
+				window.location.href = "reservlab.php?mybookr";
 			});
 		</script>
 
@@ -322,12 +321,6 @@
 								$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 && lc.users_id != '$_SESSION[users_id]' && lc.lc_period_id IS NULL")->fetch_assoc()['total']; // Total de resultados no banco de dados
 								$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
 								$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
-
-								$querypd = $conn->query("SET @groupId = (
-									SELECT approver_id
-									FROM gp_approver
-									WHERE users_id = '$_SESSION[users_id]'
-								)") or die(mysqli_error($conn));
 								
 								$querypd2 = $conn->query("SELECT
 															lc.locacao_id,
@@ -352,15 +345,6 @@
 															AND lc.users_id = '$_SESSION[users_id]' 
 															AND ms.mensagens_id = 2
 															AND lc.lc_period_id IS NULL
-															AND (
-																(@groupId = 1) -- Administrador
-																OR
-																(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-																OR
-																(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-																OR
-																(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-															)
 														ORDER BY  lc.checkin ASC
 														LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
 								if (mysqli_num_rows($querypd2) == 0) {
@@ -371,11 +355,11 @@
 									echo "<td></td>";
 								}                        
 								while ($fetch = $querypd2->fetch_array()) {
-									$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."confirm-reserve";
+									$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."mybookp";
 							?>
 						<tbody>		
 								<tr onclick="window.location='<?php echo $editLink ?>'">
-									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
+									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" style="padding-top:5px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
 									<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 									<td><?php echo $fetch['locacao']?></td>
 									<td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>

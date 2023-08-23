@@ -116,6 +116,7 @@
                                 WHERE
                                     lc.status_id = 2
                                     AND lc.users_id = $session_id
+                                    AND lc.lc_period_id IS NULL
                                 ORDER BY  lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 

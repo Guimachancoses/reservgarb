@@ -27,12 +27,6 @@
     }
 
     // query for total pending
-    $q_p2 = $conn->query("SET @groupId = (
-        SELECT approver_id
-        FROM gp_approver
-        WHERE users_id = $session_id
-    )");
-
     $q_p = $conn->query("SELECT SUM(total) AS total FROM (
             SELECT
             COUNT(*) AS total
@@ -56,7 +50,7 @@
             WHERE
                 lc.status_id = 2
                 AND lc.users_id = $session_id
-                AND ms.mensagens_id = 3
+                AND lc.lc_period_id IS NULL
             ) AS subquery;") or die(mysqli_error($conn));
     $f_p = $q_p->fetch_array();
 ?>
@@ -132,7 +126,7 @@
                             }
                         } else {
                             ?>
-                                <li class="text-primary"><small>Sem pendências</small></li>
+                                <li class="text-primary"><small>Sem mensagens</small></li>
                             <?php
                         }
                         ?>

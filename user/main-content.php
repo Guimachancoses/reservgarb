@@ -143,7 +143,7 @@
 		$f_u = $q_u->fetch_array();
 		
 		// query for total my location
-		$q_lc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 2") or die(mysqli_error($conn));
+		$q_lc = $conn->query("SELECT count(*) as total FROM `locacao` WHERE users_id = $session and status_id = 2 and lc_period_id IS NULL") or die(mysqli_error($conn));
 		$f_lc = $q_lc->fetch_array();
 	?>
 	

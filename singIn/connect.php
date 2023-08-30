@@ -1,8 +1,8 @@
 <?php
 // Função responsável por fazer a conexão com o banco de dados
 // Configuração de conexão com o banco de dados
-$server = "localhost";
-$username = "user.mysql";
+$server = "192.168.1.64";
+$username = "user.ip";
 $password = "Fk@35978Gui@19==";
 $db_name = "locationlab_db";
 

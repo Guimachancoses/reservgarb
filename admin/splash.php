@@ -1,35 +1,26 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-	
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-	<!--iOS -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
 	<link rel="stylesheet" href="../css/main.css">
-	<link rel="stylesheet" href="../css/normalize.css">
-	<script src="../js/vendor/modernizr-2.6.2.min.js"></script>
-
+	<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var images = ["background_1.jpg", "background_2.jpg", "background_login.jpg","background_login5.jpg","background_login3.jpg"]; // Coloque o nome das suas imagens aqui
+            var randomImage = images[Math.floor(Math.random() * images.length)];
+            var imageUrl = "../img/" + randomImage; // Certifique-se de que o diretório esteja correto
+            document.body.style.backgroundImage = "url(" + imageUrl + ")";
+        });
+    </script>
 </head>
-<body class="demo">
+<body >
 
-		<div id="loader-wrapper">
-			<div id="loader"></div>
-
-			<div class="loader-section section-left"></div>
-            <div class="loader-section section-right"></div>
-
-		</div>
-
-		<div id="content">
-		</div>
-
+	<div id="loader-wrapper" style="padding-bottom:40px">
+		<img style="padding-bottom:25px;padding-left:30px;display:flex;align-items:center;justify-content:center;z-index: 0;" src="../img/lg_garbuio2.png"></img>
+		<div style="display:flex;align-items:center;justify-content:center;opacity:0.9;color:white;letter-spacing: 2px;"><h2><strong>Reserve Garbuio</strong></h3></div>
+		<div id="loader"></div>
 	</div>
-	<!-- /Demo content -->
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.1.min.js"><\/script>')</script>

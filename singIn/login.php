@@ -149,7 +149,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location: ../admin/reservlab.php');
+					header('location: ../admin/splash.php');
 				} else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados

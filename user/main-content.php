@@ -172,7 +172,7 @@
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6" id="calendarCard">
-			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+			<div class="div-swing card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
 					<div class="icon icon-info">
 						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
@@ -188,7 +188,7 @@
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6" id="reservPen">
-			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+			<div class="div-swing card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
 					<div class="icon icon-info">
 						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
@@ -204,7 +204,7 @@
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6" id="reservAp">
-			<div class="div-swing card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+			<div class="div-swing card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
 					<div class="icon icon-info" >
 						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">

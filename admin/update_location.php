@@ -30,13 +30,19 @@ if ($row > 0) {
       echo $checkout_time,"\n";
       echo $horaAtual,"\n";
 
-    // Atualiza a locação com mensagens_id = 4 e checkout_time igual ao valor encontrado na consulta
-      $sql = $conn->prepare("UPDATE locacao SET mensagens_id = 4, status_id = 4  WHERE locacao_id = ? ");
+    // Atualiza a locação com mensagens_id = 4 e checkout_time igual ao valor encontrado na consulta SOMENTE SALAS
+      $sql = $conn->prepare("UPDATE locacao SET mensagens_id = 4, status_id = 4  WHERE locacao_id = ? && (room_id IS NOT NULL OR lc_period_id IS NOT NULL)");
       $sql->bind_param("s", $locacao_id);
       $sql->execute();
       $sql->close();
       $conn->query("INSERT INTO `activities` set mensagens_id = 4, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn)); 
       echo 'Eventos finalizados';
+
+    // Atualiza a locação para atrasada e checkout_time igual ao valor encontrado na consulta SOMENTE veiculos e fora da locação por periodo.
+    $sql = $conn->prepare("UPDATE locacao SET mensagens_id = 38, status_id = 8  WHERE locacao_id = ? && lc_period_id IS NULL && vehicle_id IS NOT NULL");
+    $sql->bind_param("s", $locacao_id);
+    $sql->execute();
+    $sql->close(); 
     }
     else {
       echo 'Nenhum evento finalizado';

@@ -28,11 +28,11 @@ if ($row > 0) {
     if ($checkout < $dataAtual || ($checkout == $dataAtual && $checkout_time < $horaAtual)){
  
     // Atualiza a locação com mensagens_id = 4 e checkout_time igual ao valor encontrado na consulta
-      $sql = $conn->prepare("UPDATE lc_period SET mensagens_id = 4 WHERE lc_period_id = ? ");
+      $sql = $conn->prepare("UPDATE lc_period SET mensagens_id = 38 WHERE lc_period_id = ? ");
       $sql->bind_param("s", $lc_period_id);
       $sql->execute();
       $sql->close();
-      $conn->query("INSERT INTO `activities` set mensagens_id = 4, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn)); 
+      $conn->query("INSERT INTO `activities` set mensagens_id = 38, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn)); 
       echo 'Eventos finalizados';
     }
     else {

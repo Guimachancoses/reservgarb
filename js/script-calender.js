@@ -245,7 +245,9 @@ function updateEvents(date) {
 
         if (eventTitle.includes("Pend")) {
           eventColorStyle = 'style="color: yellow;"';
-        } else {
+        } else if (eventTitle.includes("Atrasa.")) {
+          eventColorStyle = 'style="color: red;"';
+        }else {
           eventColorStyle = 'style="color: green;"';
         }
 

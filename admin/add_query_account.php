@@ -22,7 +22,7 @@
 		if($valid > 0){
 			echo "<center><label style = 'color:red;'>Usuário já existe</label></center>";
 		}else{
-			$conn->query("INSERT INTO `users` (firstname, lastname, funcao, email, contactno, cpf, password, status) VALUES('$firstname', '$lastname', '$funcao', '$email','$contactno', '$cpf', '$hashedPassword', '$status')") or die(mysqli_error());
+			$conn->query("INSERT INTO `users` (firstname, lastname, funcao, email, contactno, cpf, password, status) VALUES('$firstname', '$lastname', '$funcao', '$email','$contactno', '$cpf', '$hashedPassword', '$status')") or die(mysqli_error($conn));
 			$conn->query("INSERT INTO `activities` set mensagens_id = 1, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
 			echo "<script>window.location.href = 'reservlab.php?edituser';</script>";
 		}

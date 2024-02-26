@@ -89,7 +89,7 @@
                                 $perPage = 10; // Número de resultados por página
                                 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
                                 $offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE status_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
+                                $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE status_id IN (2,8)")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 
@@ -118,7 +118,7 @@
                                 INNER JOIN `status` st ON st.status_id = lc.status_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
                                 WHERE
-                                    lc.status_id = 2
+                                    lc.status_id IN (2,8)
                                     AND (
                                         (@groupId = 1) -- Administrador
                                         OR
@@ -128,7 +128,7 @@
                                         OR
                                         (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
                                     )
-                                ORDER BY  lc.checkin ASC
+                                ORDER BY  lc.checkin ASC, st.status ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
                                 if (mysqli_num_rows($querypd2) == 0) {
@@ -136,13 +136,19 @@
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
                             ?>
-                            <tr>
+                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?>>
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#0000FF;'><strong>" .$fetch['status']."</strong></label>"?></td>
+                                <td>
+                                    <?php
+                                        $status = $fetch['status'];
+                                        $cor = ($status == 'Atrasado') ? '#ff0000' : '#0000FF';
+                                        echo "<label style='color: $cor;'><strong>$status</strong></label>";
+                                    ?>
+                                </td>
                                 <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php

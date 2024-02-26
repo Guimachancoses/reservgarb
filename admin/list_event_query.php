@@ -10,7 +10,11 @@ $query = $conn->query("SELECT
                             COALESCE(lb.room_no, vs.model, LEFT(eq.description, 9)) AS description,
                             us.firstname,
                             us.lastname,
-                            IF(lc.status_id = 1, 'Pend.', 'Reserv.') AS status
+                            CASE 
+                                WHEN lc.status_id = 1 THEN 'Pend.'
+                                WHEN lc.status_id = 8 THEN 'Atrasa.'
+                                ELSE 'Reserv.'
+                            END AS status
                             FROM `locacao` AS lc 
                             LEFT JOIN `laboratorios` AS lb ON lb.room_id = lc.room_id
                             LEFT JOIN `vehicles` AS vs ON vs.vehicle_id = lc.vehicle_id

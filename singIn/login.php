@@ -11,6 +11,9 @@ if (isset($_SESSION['users_id'])) {
   } elseif ($_SESSION['funcao'] == 'Usuário') {
     header('location: user/reservlab.php');
     exit;
+  } elseif ($_SESSION['funcao'] == 'Coordenador') {
+	header('location: coord/reservlab.php');
+	exit;
   } elseif ($_SESSION['funcao'] == 'Aprovador') {
     header('location: resp/reservlab.php');
     exit;
@@ -134,6 +137,16 @@ function AntiSqlInjection($str, $conn) {
 
 			$storedHashedPasswordAP = $passwordVerification;
 
+			// verifica se encontra o ID do usuário
+			$querycd = $conn->prepare("SELECT u.users_id, u.password FROM `users` as u	WHERE u.funcao = 'Coordenador' && u.email = ? && u.status = ? ") or die(mysqli_error($conn));
+			$querycd->bind_param("ss", $email, $status);
+			$querycd->execute();
+			$querycd->bind_result($users_id, $passwordVerification);
+			$fetchcd = $querycd->fetch();
+			$querycd->close(); // Fecha a consulta
+
+			$storedHashedPasswordCD = $passwordVerification;
+
 	
 			// Verifica se o ID do usuário encontrado é o do administrador
 			if ($fetchad) {
@@ -226,6 +239,44 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->close();
 
 					header('location:../resp/reservlab.php');
+				}  else {
+
+					// Se o login falhar, registre a tentativa mal sucedida no banco de dados
+					$queryInsertAttempt = $conn->prepare("INSERT INTO login_attempts (email) VALUES (?)");
+					$queryInsertAttempt->bind_param("s", $email);
+					$queryInsertAttempt->execute();
+					$queryInsertAttempt->close();
+
+					// Verifica se a URL contém "index.php"
+					if (($_SERVER['HTTP_REFERER']) !== false) {
+						// Remove tudo que está a frente de "index.php" na URL
+						$urlBase = ('../index.php');
+
+						// Acrescenta a mensagem na URL
+						$mensagem = "Nome de usuário ou senha errados. Por favor tente outra vez.";
+						$urlFinal = $urlBase . "?mensagem=" . urlencode($mensagem);
+
+						// Redireciona para a URL com a mensagem
+						header("Location: " . $urlFinal);
+					} else {
+						// Caso "index.php" não esteja presente na URL, redireciona para a URL original sem mensagem
+						header("Location: " . $_SERVER['HTTP_REFERER']);
+					}
+				}
+
+			} elseif ($fetchcd) {
+				if (password_verify($password, $storedHashedPasswordCD)) {
+					session_start();
+					$_SESSION['users_id'] = $users_id;
+					$_SESSION['funcao'] = 'Coordenador';
+					
+					// Se o login for bem sucedido, delete a tentativa mal sucedida no banco de dados
+					$queryDeleteAttempt = $conn->prepare("DELETE FROM login_attempts WHERE email = ?");
+					$queryDeleteAttempt->bind_param("s", $email);
+					$queryDeleteAttempt->execute();
+					$queryDeleteAttempt->close();
+
+					header('location:../coord/reservlab.php');
 				}  else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados

@@ -41,6 +41,7 @@
                                     <option value="">Escolha uma das opções</option>
                                     <option value="Administrador">Administrador</option>
                                     <option value="Aprovador">Aprovador</option>
+                                    <option value="Coordenador">Coordenador</option>
                                     <option value="Usuário">Usuário</option>
                                 </select>
                             </div>

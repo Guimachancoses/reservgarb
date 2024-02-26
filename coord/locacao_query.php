@@ -9,6 +9,7 @@
     $eventCheckin = $_POST['eventCheckin'];
     $eventTimeFrom = $_POST['eventTimeFrom'];
     $eventTimeTo = $_POST['eventTimeTo'];
+    $coord_id = $_SESSION['users_id'];
 
     // Converte a data para o formato do MySQL
     $checkin_date = DateTime::createFromFormat('d/m/Y', $eventCheckin);
@@ -43,6 +44,14 @@
     $stmt->bind_param("s", $eventTitle);
     $stmt->execute();
     $stmt->bind_result($equip_id, $approver_id);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Executa a segunda consulta para obter o users_id
+    $stmt = $conn->prepare("SELECT users_id FROM users WHERE firstname = ? AND lastname = ?");
+    $stmt->bind_param("ss", $firstname, $lastname);
+    $stmt->execute();
+    $stmt->bind_result($users_id);
     $stmt->fetch();
     $stmt->close();
 
@@ -85,15 +94,15 @@
         } 
         
         // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-        $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiiiiisssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id);
+        $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, coord_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id, $coord_id);
         $stmt->execute();
         $locacao_id = $stmt->insert_id;
         $stmt->close();
 
         $conn->query("INSERT INTO `activities` set mensagens_id = 2, users_id = '$_SESSION[users_id]'") or die(mysqli_error($conn));
 
-         // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+        // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
         $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
         $verife = $query->num_rows;
         if ($verife == 0){
@@ -118,6 +127,7 @@
             $stmt2->fetch();
             $stmt2->close();
 
+            // Busca dados do usuário para qual foi solicitado a reserva
             $stmt2 = $conn->prepare("SELECT firstname, lastname, email FROM users WHERE users_id = ?");
             $stmt2->bind_param("i", $users_id);
             $stmt2->execute();
@@ -135,8 +145,6 @@
 
             $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Data de Início#'. $checkin.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
 
-            //-------------------------------------------------------------//
-            // Busca nome e email para enviar email de solicitação pendente
             // Busca dados dos aprovadores de acordo com o $approver_id
             $stmt = $conn->prepare("SELECT
                                         u.firstname
@@ -161,13 +169,64 @@
 
             //-----------------------------------------------//
         }
-        // tentar enviawr o email mde confirmação para a lista de execeções 
+        else {
 
-        // Fecha a conexão com o banco de dados
-        $conn->close();
+            // Busca nome e email do administrador para enviar o email de confirmação para a lista de execeções
+            $admin = 'Administrador';
+            $stmt = $conn->prepare("SELECT firstname, lastname, email FROM `users` WHERE funcao = ?");
+            $stmt->bind_param("s", $admin);
+            $stmt->execute();
+            $stmt->bind_result($fadname, $ladname, $ademail);
+            $stmt->fetch();
+            // Fecha a conexão com o banco de dados
+            $stmt->close();
 
-        // Define a resposta
-        echo 'Evento salvo com sucesso!'; 
+            $nmadmin = $fadname. " " . $ladname;
+            $email = $ademail;
+
+            // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
+            $stmt2 = $conn->prepare("SELECT 
+                                        us.firstname, 
+                                        us.lastname, 
+                                        us.email,
+                                        COALESCE(lb.room_no, vs.model) as description,
+                                        COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                        lc.checkin,  
+                                        lc.checkin_time, 
+                                        lc.checkout_time 
+                                        FROM `locacao` as lc INNER JOIN `users` as us ON lc.users_id = us.users_id
+                                        LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+                                        INNER JOIN `users` as u ON u.users_id = lc.users_id
+                                        LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+                                        LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+                                        WHERE lc.locacao_id = ?");
+            $stmt2->bind_param("i", $locacao_id);
+            $stmt2->execute();
+            $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $checkin, $checkin_time, $checkout_time);
+            $stmt2->fetch();
+
+            $firstname = $ftname;
+            $lastname = $ltname;
+            $dtemail = $rpemail;
+
+            $dtnome = $firstname. " " . $lastname;
+            $assunto = 'Confirmação de Reserva - Reserve Garbuio';
+            $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$email." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
+
+            $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Data de Início#'. $checkin.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
+            
+            // Chama função para enviar email
+            sendMail($email, $nmadmin, $assunto, $dtnome, $dtemail, $message, $dadosLocacao);
+
+			// Fecha a conexão com o banco de dados
+            $stmt2->close();
+
+            // Fecha a conexão com o banco de dados
+            $conn->close();
+
+            // Define a resposta
+            echo 'Evento salvo com sucesso!'; 
+        }
     }
 ?>
 

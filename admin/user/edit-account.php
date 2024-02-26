@@ -17,7 +17,7 @@
                     <h4 class="card-title"><strong class="text-primary"> Editar Usuário</strong></h4>
                     <p class="category">Verifique os dados antes de salvar as alterações:</p>
                 <?php
-                    $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_REQUEST[users_id]'") or die(mysqli_error());
+                    $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_REQUEST[users_id]'") or die(mysqli_error($conn));
                     $fetch = $query->fetch_array();
                 ?>
                 <div class = "col-md-10"style="min-height:850px">	
@@ -45,6 +45,7 @@
                                 <option value = "<?php echo $fetch['funcao']?>"><?php echo $fetch['funcao']?></option>
                                 <option value="Administrador">Administrador</option>
                                 <option value="Aprovador">Aprovador</option>
+                                <option value="Coordenador">Usuário</option>
                                 <option value="Usuário">Usuário</option>
                             </select>
                         </div>

@@ -5,10 +5,20 @@
     // Verificar se ocorreu algum erro na conexão
     if(ISSET($_POST['locacao_periodo'])){
         // Obter a data de início e fim do usuário
-        $eventTitle = $_POST['eventTitle'];
+        $title = $_POST['eventTitle'];
         $checkin = $_POST['checkin'];
         $checkout = $_POST['checkout'];
         $dia_semana = $_POST['dia_semana'];
+        $escolha = $_POST['confirmacao'];
+
+        // Divide a string com base no caractere '-'
+        $parts = explode(' - ', $title);
+
+        // Atribui os valores divididos às variáveis $title e $description
+        $eventTitle = $parts[0];
+        $description = $parts[1];
+
+        echo "Escolha: " . $escolha . " Locacao: " . $eventTitle. " Description: " .$description;
 
         switch ($dia_semana) {
             case "Segunda-feira":
@@ -36,10 +46,9 @@
                 $dia_semana = "AllDays";
                 break;
         }
-
         $eventTimeFrom = $_POST['checkin_time'];
         $eventTimeTo = $_POST['checkout_time'];
-        $users_id = $_SESSION['users_id'];
+        $users_id = $_POST['users_id'];
 
         // Converte a data de checkin para o formato do MySQL
         $checkin_dateIn = new DateTime($checkin);
@@ -77,8 +86,8 @@
         $stmt->close();
 
         // Executa a primeira consulta para obter o vehicle_id
-        $stmt = $conn->prepare("SELECT vehicle_id, approver_id FROM vehicles WHERE name = ?");
-        $stmt->bind_param("s", $eventTitle);
+        $stmt = $conn->prepare("SELECT vehicle_id, approver_id FROM vehicles WHERE name = ? && description = ?");
+        $stmt->bind_param("ss", $eventTitle, $description);
         $stmt->execute();
         $stmt->bind_result($vehicle_id, $approver_id);
         $stmt->fetch();
@@ -95,20 +104,16 @@
         // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
         $verif = $conn->prepare("SELECT lc_period_id
                                 FROM lc_period
-                                WHERE room_id = ? OR vehicle_id = ? OR equip_id = ?
+                                WHERE (room_id = ? OR vehicle_id = ? OR equip_id = ?)
                                 AND (
                                     -- Verificar conflito para o mesmo dia do início do evento
                                     (checkin = ? AND checkout_time >= ?) OR
                                     -- Verificar conflito para o mesmo dia do término do evento
                                     (checkout = ? AND checkin_time <= ?) OR
                                     -- Verificar conflito para os dias entre o início e término do evento
-                                    (checkin > ? AND checkout < ?) OR
-                                    -- Verificar conflito para o dia seguinte ao término do evento (caso o evento passe da meia-noite)
-                                    (checkin = DATE_ADD(?, INTERVAL 1 DAY) AND checkin_time <= ?) OR
-                                    -- Verificar conflito para o dia anterior ao início do evento (caso o evento comece antes da meia-noite)
-                                    (checkout = DATE_SUB(?, INTERVAL 1 DAY) AND checkout_time >= ?)
+                                    (checkin = ? AND checkout = ?)
                                 ) AND mensagens_id != 4;");
-        $verif->bind_param("iiissssssssss", $room_id, $vehicle_id, $equip_id, $mysql_dateIn, $timeFrom, $mysql_dateOut, $timeTo, $mysql_dateIn, $mysql_dateOut, $mysql_dateOut, $timeTo, $mysql_dateIn, $timeFrom);
+        $verif->bind_param("iiissssss", $room_id, $vehicle_id, $equip_id, $mysql_dateIn, $timeFrom, $mysql_dateOut, $timeTo, $mysql_dateIn, $mysql_dateOut);
         $verif->execute();
         $verif->store_result();
         $valid = $verif->num_rows();
@@ -117,6 +122,7 @@
             // Se a locação existe retorne nada
             echo "<script>alert('Já existe uma reserva nesse periodo'); window.location.href = 'reservlab.php?period';</script>";
             echo '<script>hideOverlay();</script>';
+            exit;
         }
         else {
 
@@ -180,9 +186,16 @@
                             $select_query->store_result();
 
                         if ($select_query->num_rows > 0) {
-                            // Se a locação existe retorne nada
-                            echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
+
+                            // Remove a locação inserida
+                            $conn->query("DELETE FROM `locacao` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
+
+                            // Remove a locação por periodo inserida
+                            $conn->query("DELETE FROM `lc_period` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
+
+                            echo "<script>alert('Já existe uma reserva na data: ".$dataFormatString." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
                             echo '<script>hideOverlay();</script>';
+                            exit;
                         }
                         else {
 
@@ -206,7 +219,8 @@
                 
                 }
 
-                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                //-----------------------------------------------------------------------------------------------//
+                // Envia email e verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
                 $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
                 $verife = $query->num_rows;
                 if ($verife == 0){
@@ -260,36 +274,38 @@
                 
                     // Busca dados dos aprovadores de acordo com o $approver_id
                     $stmt = $conn->prepare("SELECT
-                            u.firstname
-                            ,u.lastname
-                            ,u.email
-                        FROM gp_approver as gp
-                        LEFT JOIN users as u
-                        ON u.users_id = gp.users_id
-                        WHERE gp.approver_id = ? OR gp.approver_id = 1");
-                    $stmt->bind_param("i", $approver_id);
+                                                u.firstname
+                                                ,u.lastname
+                                                ,u.email
+                                            FROM gp_approver as gp
+                                            LEFT JOIN users as u
+                                            ON u.users_id = gp.users_id
+                                            WHERE gp.gp_approver_id = (SELECT gp_approver_id
+                                                                    FROM gr_approved as gr 
+                                                                    WHERE users_id = ?
+                                                                    )
+                                                OR gp.gp_approver_id = 25");
+                    $stmt->bind_param("i", $users_id);
                     $stmt->execute();
                     $stmt->bind_result($fadname, $ladname, $ademail);
                     // Laço para enviar um email para cada usuário encontrado
                     while ($stmt->fetch()) {
                     $nmadmin = $fadname . " " . $ladname;
-                    
-                    $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
+                    $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
                     // Chama função para enviar email
                     sendMailPerLoc ($email, $nome, $assunto, $nmadmin, $ademail, $message, $dadosLocacao);
                     }
                     // Fecha a conexão com o banco de dados
                     $stmt->close();
-
+                    
                     echo '<script>hideOverlay();</script>';
 
                     //--------------------------------------------------------------------------------------------//
-                }
-
-                // tentar enoiar email de confirmação caso usuário esteja na lista de dexeceções do sistema
+                } 
                 
+                // tentar enviar o email de confirmação de locação para a lista de emails que está na lista de exeções 
             } 
             else {
                 // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
@@ -325,6 +341,7 @@
                         
                         $dataFormat = $data->format('Y-m-d');
 
+                        $dataFormatString = $data->format('d-m-Y');
                         // FAZ O PRIMEIRO INSERT E A PRIMEIRA VERIFICAÇÃO
 
                         // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
@@ -354,9 +371,16 @@
                             $select_query->store_result();
 
                         if ($select_query->num_rows > 0) {
-                            // Se a locação existe retorne nada
-                            echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
+
+                            // Remove a locação inserida
+                            $conn->query("DELETE FROM `locacao` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
+
+                            // Remove a primeira locação por periodo inserida
+                            $conn->query("DELETE FROM `lc_period` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
+
+                            echo "<script>alert('Já existe uma reserva na data: ".$dataFormatString." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
                             echo '<script>hideOverlay();</script>';
+                            exit;
                         }
                         else {
 
@@ -375,66 +399,76 @@
                             $stmt->execute();
                             $stmt->close();                       
                             
-                        }
                         
-                        // FAZ O SEGUNDO INSERT E A SEGUNDA VERIFICAÇÃO
-
-                        // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
-                        $stmt = $conn->prepare("SELECT users_id FROM users WHERE firstname = ? AND lastname = ?");
-                        $stmt->bind_param("ss", $firstname, $lastname);
-                        $stmt->execute();
-                        $stmt->bind_result($users_id);
-                        $stmt->fetch();
-                        $stmt->close();
-
-                        $select_query = $conn->prepare("
-                                                    SELECT locacao_id
-                                                    FROM locacao
-                                                    WHERE 
-                                                    (
-                                                        (room_id = ? OR vehicle_id = ? OR equip_id = ?)
-                                                        AND checkin = ? 
-                                                        AND (
-                                                            (checkin_time < ? AND checkout_time > ?) OR
-                                                            (checkin_time >= ? AND checkout_time <= ?) OR
-                                                            (checkin_time < ? AND checkout_time > ?)
-                                                        )
-                                                        AND mensagens_id != 4
-                                                        );");
-                            $select_query->bind_param("iiisssssss", $room_id, $vehicle_id, $equip_id, $dataFormat, $timeFrom_seg, $timeFrom_seg, $timeFrom_seg, $timeTo, $timeTo, $timeTo);
-                            $select_query->execute();
-                            $select_query->store_result();
-
-                        if ($select_query->num_rows > 0) {
-                            // Se a locação existe retorne nada
-                            echo "<script>alert('Já existe uma reserva na data: ".$data." desse periodo'); window.location.href = 'reservlab.php?period';</script>";
-                            echo '<script>hideOverlay();</script>';
-                        }
-                        else {
-
-                            // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
-                            $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
-                            $valid = $query->num_rows;
-                            if($valid > 0){
-                                $status_id = 2;
-                            }else{
-                                $status_id = 1;
-                            }
                         
-                            // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                            $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom_seg, $timeTo, $approver_id, $lc_period_id);
+                            // FAZ O SEGUNDO INSERT E A SEGUNDA VERIFICAÇÃO
+
+                            // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
+                            $stmt = $conn->prepare("SELECT users_id FROM users WHERE firstname = ? AND lastname = ?");
+                            $stmt->bind_param("ss", $firstname, $lastname);
                             $stmt->execute();
+                            $stmt->bind_result($users_id);
+                            $stmt->fetch();
+                            $stmt->close();
 
-                            $locacao_id = $stmt->insert_id;
+                            $select_query = $conn->prepare("
+                                                        SELECT locacao_id
+                                                        FROM locacao
+                                                        WHERE 
+                                                        (
+                                                            (room_id = ? OR vehicle_id = ? OR equip_id = ?)
+                                                            AND checkin = ? 
+                                                            AND (
+                                                                (checkin_time < ? AND checkout_time > ?) OR
+                                                                (checkin_time >= ? AND checkout_time <= ?) OR
+                                                                (checkin_time < ? AND checkout_time > ?)
+                                                            )
+                                                            AND mensagens_id != 4
+                                                            );");
+                                $select_query->bind_param("iiisssssss", $room_id, $vehicle_id, $equip_id, $dataFormat, $timeFrom_seg, $timeFrom_seg, $timeFrom_seg, $timeTo, $timeTo, $timeTo);
+                                $select_query->execute();
+                                $select_query->store_result();
 
-                            $stmt->close();                       
+                            if ($select_query->num_rows > 0) {
+
+                                // Remove a locação inserida
+                                $conn->query("DELETE FROM `locacao` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
+
+                                // Remove a primeira locação por periodo inserida
+                                $conn->query("DELETE FROM `lc_period` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
+
+                                echo "<script>alert('Já existe uma reserva na data: ".$dataFormatString." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
+                                echo '<script>hideOverlay();</script>';
+                                exit;
+                            }
+                            else {
+
+                                // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
+                                $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
+                                $valid = $query->num_rows;
+                                if($valid > 0){
+                                    $status_id = 2;
+                                }else{
+                                    $status_id = 1;
+                                }
                             
+                                // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
+                                $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom_seg, $timeTo, $approver_id, $lc_period_id);
+                                $stmt->execute();
+
+                                $locacao_id = $stmt->insert_id;
+
+                                $stmt->close();                       
+                                
+                            }
+
                         }
                     }                    
                 
                 }
                 
+                //-----------------------------------------------------------------------------------------------//
                 // Verifica qual o primeiro id da tabela de locação que foi inserido do range por período
                 $stmt = $conn->prepare("SELECT locacao_id FROM locacao as lc WHERE lc.lc_period_id = ? LIMIT 1");
                 $stmt->bind_param("i", $lc_period_id);
@@ -458,7 +492,7 @@
                 if ($verife == 0){
 
                     //-----------------------------------------------------------------------------------------------//
-                    // Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
+                    // ENVIA EMAIL e Buscar dados do usuário que fez a locação, e os dados da locação para concatenar na mensagem
                     $stmt2 = $conn->prepare("SELECT 
                                             COALESCE(lb.room_no, vs.model) as description,
                                             COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
@@ -501,25 +535,30 @@
 
                     $nome = $firstname . " " . $lastname;
                     $assunto = 'Solicitação de Locação Pendente - Reserve Garbuio';
-                    // $message = "Menssagem enviada de: \n \nAdministrador: " .$nmadmin. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
                     $dadosLocacao = ' * Locação#'.$locacao.' * Descrição#'.$description.' * Dia da Semana#'. $weekday.' * Data de Início#'. $checkin.' * Data Final#'. $checkout.' * Hora de Início#'. $checkin_time.' * Hora Final#'. $checkout_time.'';
                 
                     // Busca dados dos aprovadores de acordo com o $approver_id
                     $stmt = $conn->prepare("SELECT
-                            u.firstname
-                            ,u.lastname
-                            ,u.email
-                        FROM gp_approver as gp
-                        LEFT JOIN users as u
-                        ON u.users_id = gp.users_id
-                        WHERE gp.approver_id = ? OR gp.approver_id = 1");
-                    $stmt->bind_param("i", $approver_id);
+                                                u.firstname
+                                                ,u.lastname
+                                                ,u.email
+                                            FROM gp_approver as gp
+                                            LEFT JOIN users as u
+                                            ON u.users_id = gp.users_id
+                                            WHERE gp.gp_approver_id = (SELECT gp_approver_id
+                                                                    FROM gr_approved as gr 
+                                                                    WHERE users_id = ?
+                                                                    )
+                                            ");
+                    $stmt->bind_param("i", $users_id);
                     $stmt->execute();
                     $stmt->bind_result($fadname, $ladname, $ademail);
                     // Laço para enviar um email para cada usuário encontrado
                     while ($stmt->fetch()) {
                     $nmadmin = $fadname . " " . $ladname;
+
+                    $message = "Menssagem enviada de: \n \nAdministrador: " .$nome. "\nEmail: " .$ademail." \n \nSeu pedido de reserva foi confimado. \n \nInformações da reserva:\n \n - Locação: " . $locacao. "\n - Data de início: " .$checkin. "\n - Data de final: " .$checkout. "\n - Dia da semana: " . $weekday. "\n - Hora de início: " . $checkin_time. "\n - Hora final: " . $checkout_time;
 
                     // Chama função para enviar email
                     sendMailPerLoc ($email, $nome, $assunto, $nmadmin, $ademail, $message, $dadosLocacao);
@@ -529,10 +568,11 @@
 
                     echo '<script>hideOverlay();</script>';
 
+
                     //--------------------------------------------------------------------------------------------//
                 }
 
-                // tenta enviar o email de confirmação para o usuáprio caso ele esteja na lista de exeções
+                // tentar enviar o email para o uusário caso ele esteja na lista de exeções
 
             }
 

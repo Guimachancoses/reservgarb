@@ -30,7 +30,7 @@
                             <span id="capacity-error" class="text-danger"></span>
                         </div>
                         <div class="card-foot">
-                            <label><strong> Informações:</strong></label>
+                            <label><strong> Placa:</strong></label>
                             <input type = "text" class = "form-control" name = "description" required />
                             <span id="no-error" class="text-danger"></span>
                         </div>

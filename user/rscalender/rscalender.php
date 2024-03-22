@@ -1,4 +1,46 @@
-<?php require_once 'validate.php';?>
+<?php
+require_once 'validate.php';
+
+// Inicialize as variáveis para garantir que estejam vazias se não houver retorno da REQUEST
+$vehicleRQ = "";
+$roomRQ = "";
+$equipRQ = "";
+$value = "";
+
+// Verifica se há um parâmetro na URL
+if(isset($_GET['vehicle_id'])) {
+    $vehicle_id = $_GET['vehicle_id'];
+    // Executa a consulta SQL para buscar informações do veículo com o ID fornecido
+    $queryad = $conn->query("SELECT * FROM vehicles WHERE vehicle_id = $vehicle_id") or die(mysqli_error($conn));
+    $fetch = $queryad->fetch_array();
+    $vehicleRQ = strval($fetch['name'] . " - " . $fetch['model'] . " - " . $fetch['description']);
+    
+} elseif(isset($_GET['room_id'])) {
+    $room_id = $_GET['room_id'];
+    // Executa a consulta SQL para buscar informações da sala com o ID fornecido
+    $queryad = $conn->query("SELECT * FROM laboratorios WHERE room_id = $room_id") or die(mysqli_error($conn));
+    $fetch = $queryad->fetch_array();
+    $roomRQ = $fetch['room_type']." - ".$fetch['room_no'];
+
+} elseif(isset($_GET['equip_id'])) {
+    $equip_id = $_GET['equip_id'];
+    // Executa a consulta SQL para buscar informações do equipamento com o ID fornecido
+    $queryad = $conn->query("SELECT * FROM equipment WHERE equip_id = $equip_id") or die(mysqli_error($conn));
+    $fetch = $queryad->fetch_array();
+    $equipRQ = $fetch['equipment'];
+}
+
+// Define o valor $value se a respectiva variável não estiver vazia
+if(!empty($vehicleRQ) and empty($equipRQ) and empty($equipRQ)){
+    $value = $vehicleRQ;
+} elseif(!empty($roomRQ) and empty($vehicleRQ) and empty($equipRQ)){
+    $value = $roomRQ;
+} elseif(!empty($equipRQ) and empty($vehicleRQ) and empty($roomRQ)){
+    $value = $equipRQ;
+}
+
+?>
+
 <div class="overlay">
   <div class="loadingio-spinner-spinner-7u0gjvj5v5j">
     <div class="ldio-z00xh444d9c">
@@ -51,6 +93,9 @@
                             <div class="add-event-input">
                                 <select class="event-name select-box">
                                     <!-- query para trazer as salas -->
+                                    <!-- <option value="<?php echo ($vehicleRQ != "") ? $vehicleRQ : (($roomRQ != "") ? $roomRQ : (($equipRQ != "") ? $equipRQ : "")); ?>" disabled selected>
+                                        <?php echo ($vehicleRQ != "") ? $vehicleRQ : (($roomRQ != "") ? $roomRQ : (($equipRQ != "") ? $equipRQ : "Escolha o que você deseja locar")); ?>
+                                    </option> -->
                                     <option value="" disabled selected>Escolha o que você deseja locar</option>
                                     <optgroup label="Salas">
                                     <?php  
@@ -68,7 +113,7 @@
                                         $queryad = $conn->query("SELECT * FROM `vehicles`") or die(mysqli_error($conn));
                                         while($fetch = $queryad->fetch_array()){
                                     ?>     
-                                        <option><?php echo $fetch['name']." - ".$fetch['model']?></option>
+                                        <option><?php echo $fetch['name']." - ".$fetch['model']. " - " .$fetch['description']?></option>
                                         <?php
                                         }
                                         ?>
@@ -100,10 +145,14 @@
                                 ?>
                             </div>                            
                             <div class="add-event-input">
-                                <input type="text" placeholder="Hora da Locação" class="event-time-from" />
+                                <input type="text" placeholder="Hora da Locação" class="event-time-from"/>
                             </div>
                             <div class="add-event-input">
-                                <input type="text" placeholder="Hora da Devolução" class="event-time-to" />
+                                <input type="text" placeholder="Hora da Devolução" class="event-time-to"/>
+                            </div>
+                            <!-- Novo input -->
+                            <div class="add-event-input">
+                                <input type="text" placeholder="Motivo" maxlength="45" class="event-info"/>
                             </div>
                         </div>
                         <div class="add-event-footer div-swing ">
@@ -113,4 +162,7 @@
                 </div>
                 <button class="add-event"><i class="fas fa-plus"></i></button>
             </div>
+
+
+
 

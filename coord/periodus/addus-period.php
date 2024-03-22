@@ -11,38 +11,21 @@
         <div class="row">
 			<div class="col-lg-7 ">
 				<div class="card" style="min-height:625px">
-          <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
-              <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
-                  <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
-              </button>
-          </div>
-          <script>
-              function goBack() {
-                  window.history.back();
-              }
-          </script>
+                    <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+                        </button>
+                    </div>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Locação por Período</strong></h4>
 						    <p class="category">Escolha o que você deseja reservar e o período que você deseja:</p>
                     <div class = "col-md-10"style="min-height:720px">	
                         <form method = "POST" action="locacao_periodo.php" enctype = "multipart/form-data" autocomplete="off" onsubmit="submit()">
-                            <div class="card-foot">
-                                <label><strong> Usuário:</strong></label>
-                                <select class = "form-control" name = "users_id" required = required>
-                                                                                                                       
-                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
-                                <?php  
-                                  $queryad = $conn->query("SELECT * FROM `users`") or die(mysqli_error($conn));
-                                  while($fetch = $queryad->fetch_array()){
-                                    $users_id = $fetch['users_id'];
-								                ?>
-                                    <option class="select-box" value="<?php echo $users_id?>"><?php echo $fetch['firstname']." ".$fetch['lastname'];?></option>
-                                <?php
-                                }
-                                ?>
-                                </select>
-                                
-                            </div>
                             <div class="card-foot">
                                 <label><strong> Reservar:</strong></label>
                                 <select class = "form-control" name = "eventTitle" required = required>
@@ -56,9 +39,9 @@
                                         $room_type = $fetch['room_type'];
                                     ?>     
                                         <option class="select-box" value="<?php echo $room_type?>"><?php echo $fetch['room_type']." - ".$fetch['room_no']?></option>
-                                      <?php
-                                      }
-                                      ?>
+                                        <?php
+                                        }
+                                        ?>
                                     </optgroup>
                                     <!-- query para trazer as veículos -->
                                     <optgroup label="Veículos">
@@ -68,21 +51,21 @@
                                         $name = $fetch['name'];
                                     ?>     
                                         <option class="select-box" value="<?php echo $name?>"><?php echo $fetch['name']." - ".$fetch['model']?></option>
-                                      <?php
-                                      }
-                                      ?>
+                                        <?php
+                                        }
+                                        ?>
                                     </optgroup>
                                     <!-- query para trazer as equipameantos -->
                                     <optgroup label="Equipamentos">
                                     <?php  
-                                      $queryad = $conn->query("SELECT * FROM `equipment`") or die(mysqli_error($conn));
-                                      while($fetch = $queryad->fetch_array()){
-                                      $equip = $fetch['equipment'];
+                                        $queryad = $conn->query("SELECT * FROM `equipment`") or die(mysqli_error($conn));
+                                        while($fetch = $queryad->fetch_array()){
+                                        $equip = $fetch['equipment'];
                                     ?>     
-                                      <option class="select-box" value="<?php echo $equip?>"><?php echo $fetch['equipment']?></option>
-                                    <?php
-                                    }
-                                    ?>
+                                        <option class="select-box" value="<?php echo $equip?>"><?php echo $fetch['equipment']?></option>
+                                        <?php
+                                        }
+                                        ?>
                                     </optgroup>
                                 
                                 </select>
@@ -126,11 +109,12 @@
                             </div>
                         </form>
                         <?php require_once 'locacao_periodo.php'?>
-                       </div>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
+            </div>
+        </div>
+</div>
+</div>
 
 <!-- Função responsavel por tratar o recebimento de data de inicio e data fim ------------------------------------------------------------------------------->
 <script>
@@ -349,7 +333,6 @@ function hasErrors() {
     const submitButton = document.querySelector(".btn-primary");
 
     submitButton.addEventListener("click", function(event) {
-      const usersId = document.getElementsByName("users_id")[0].value;
       const eventTitle = document.getElementsByName("eventTitle")[0].value;
       const checkin = document.getElementsByName("checkin")[0].value;
       const checkout = document.getElementsByName("checkout")[0].value;
@@ -358,7 +341,6 @@ function hasErrors() {
       const checkoutTime = document.getElementsByName("checkout_time")[0].value;
 
       if (
-        usersId === "" ||
         eventTitle === "" ||
         checkin === "" ||
         checkout === "" ||

@@ -38,7 +38,7 @@
                                                 FROM approver AS ap
                                                 LEFT JOIN gp_approver AS gp
                                                 ON ap.approver_id = gp.approver_id
-                                                GROUP BY ap.approver_id") or die(mysqli_error());
+                                                GROUP BY ap.approver_id") or die(mysqli_error($conn));
                             while($fetch = $query->fetch_array()){
                         ?>	
                             <tr>

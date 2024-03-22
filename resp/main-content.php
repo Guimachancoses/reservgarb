@@ -1,7 +1,7 @@
 <?php require_once 'validate.php';?>
 <div class="main-content" >
 	<?php
-		$session = $_SESSION['users_id'];
+		$session_id = $_SESSION['users_id'];
 		// query for total pendding
 		$q_p2 = $conn->query("SET @groupId = (
 			SELECT approver_id
@@ -19,6 +19,16 @@
 				LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 				INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 				WHERE ms.mensagens_id = 37
+				AND lc.users_id IN (
+									SELECT
+										users_id
+									FROM gr_approved
+									WHERE gp_approver_id = (
+														SELECT
+															gp_approver_id
+														FROM gp_approver
+														WHERE users_id = $session_id)
+							) -- retorna lista de usuários da responsabilidade do gerente
 					AND (
 						(@groupId = 1) -- Administrador
 						OR
@@ -43,6 +53,16 @@
 					AND lc.users_id != $session_id
 					AND ms.mensagens_id = 2
 					AND lc.lc_period_id IS NULL
+					AND lc.users_id IN (
+									SELECT
+										users_id
+									FROM gr_approved
+									WHERE gp_approver_id = (
+														SELECT
+															gp_approver_id
+														FROM gp_approver
+														WHERE users_id = $session_id)
+							) -- retorna lista de usuários da responsabilidade do gerente
 					AND (
 						(@groupId = 1) -- Administrador
 						OR
@@ -65,7 +85,7 @@
 							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
 							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE ms.mensagens_id = 3 AND lc.users_id != $session
+							WHERE ms.mensagens_id = 3 AND lc.users_id != $session_id
 								AND (
 									(@groupId = 1) -- Administrador
 									OR
@@ -86,9 +106,9 @@
 							INNER JOIN `status` st ON st.status_id = lc.status_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 							WHERE
-								  lc.lc_period_id IS NOT NULL
-								AND lc.status_id = 2 
-								AND lc.users_id != $session
+								  lc.lc_period_id IS NULL
+								AND lc.status_id IN (2,8) 
+								AND lc.users_id != $session_id
 								AND (
 									(@groupId = 1) -- Administrador
 									OR
@@ -114,7 +134,7 @@
 								WHERE
 									lc.lc_period_id IS NULL
 									AND lc.status_id = 1 
-									AND lc.users_id != $session
+									AND lc.users_id != $session_id
 									AND (
 										(@groupId = 1) -- Administrador
 										OR
@@ -135,7 +155,18 @@
 							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
 							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE ms.mensagens_id = 37 AND lc.users_id != $session
+							WHERE ms.mensagens_id = 37
+							AND lc.users_id IN (
+                                                    SELECT
+                                                        users_id
+                                                    FROM gr_approved
+                                                    WHERE gp_approver_id = (
+                                                        SELECT
+                                                            gp_approver_id
+                                                        FROM gp_approver
+                                                        WHERE users_id = $session_id
+                                                    )
+                                                ) -- retorna lista de usuários da responsabilidade do gerente
 								AND (
 									(@groupId = 1) -- Administrador
 									OR
@@ -148,11 +179,11 @@
 		$f_perper = $q_perper->fetch_array();
 
 		// query for total pendding my location
-		$q_u = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 1 ") or die(mysqli_error($conn));
+		$q_u = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session_id && status_id = 1 ") or die(mysqli_error($conn));
 		$f_u = $q_u->fetch_array();
 		
 		// query for total my location
-		$q_lc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 2") or die(mysqli_error($conn));
+		$q_lc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session_id && status_id = 2") or die(mysqli_error($conn));
 		$f_lc = $q_lc->fetch_array();
 	?>
 	
@@ -186,7 +217,7 @@
 
 		<?php if ($except->num_rows > 0): ?>
 			<div class="div-link col-lg-3 col-md-6 col-sm-6">
-				<a href="reservlab.php?<?php echo $mybookp?>">
+				<a href="reservlab.php?<?php echo $perpen?>">
 					<div class="card card-stats">
 						<div class="card-header">
 							<div class="icon icon-warning">
@@ -253,7 +284,7 @@
 		</div>
 
 		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
-			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+			<div class="card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
 					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
 						<div class="gif-container">
@@ -432,34 +463,43 @@
 								$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
 
 								$querypd = $conn->query("SET @groupId = (
-									SELECT approver_id
-									FROM gp_approver
-									WHERE users_id = '$_SESSION[users_id]'
+																	SELECT approver_id
+																	FROM gp_approver
+																	WHERE users_id = '$_SESSION[users_id]'
 								)") or die(mysqli_error($conn));
 								
 								$querypd2 = $conn->query("SELECT
 															lc.locacao_id,
 															u.firstname,
 															u.lastname,
-															COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-															COALESCE(lb.room_no, vs.model) as description,
+															COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
+															COALESCE(lb.room_no, vs.model) AS description,
 															lc.checkin,
 															lc.checkin_time,
-															lc.checkout_time,
 															lc.approver_id,
 															st.status
-														FROM `locacao` as lc
-														LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
-														INNER JOIN `users` as u ON u.users_id = lc.users_id
-														LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
-														LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+														FROM `locacao` AS lc
+														LEFT JOIN `laboratorios` AS lb ON lb.room_id = lc.room_id
+														INNER JOIN `users` AS u ON u.users_id = lc.users_id
+														LEFT JOIN `vehicles` AS vs ON vs.vehicle_id = lc.vehicle_id
+														LEFT JOIN `equipment` AS eq ON eq.equip_id = lc.equip_id
 														INNER JOIN `status` st ON st.status_id = lc.status_id
-														INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-														WHERE
-															lc.status_id = 1
-															AND lc.users_id != '$_SESSION[users_id]' 
+														INNER JOIN `mensagens` AS ms ON ms.mensagens_id = lc.mensagens_id
+														WHERE lc.status_id = 1
+															AND lc.users_id != '$_SESSION[users_id]'
 															AND ms.mensagens_id = 2
 															AND lc.lc_period_id IS NULL
+															AND lc.users_id IN (
+																SELECT
+																	users_id
+																FROM gr_approved
+																WHERE gp_approver_id = (
+																	SELECT
+																		gp_approver_id
+																	FROM gp_approver
+																	WHERE users_id = $session_id
+																)
+															) -- retorna lista de usuários da responsabilidade do gerente
 															AND (
 																(@groupId = 1) -- Administrador
 																OR
@@ -469,7 +509,47 @@
 																OR
 																(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
 															)
-														ORDER BY  lc.checkin ASC
+														
+														UNION
+														
+														SELECT
+															lc.lc_period_id,
+															u.firstname,
+															u.lastname,
+															COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
+															COALESCE(lb.room_no, vs.model) AS description,
+															lc.checkin,
+															lc.checkin_time,
+															lc.approver_id,
+															ms.assunto AS assunto
+														FROM `lc_period` AS lc
+														LEFT JOIN `laboratorios` AS lb ON lb.room_id = lc.room_id
+														INNER JOIN `users` AS u ON u.users_id = lc.users_id
+														LEFT JOIN `vehicles` AS vs ON vs.vehicle_id = lc.vehicle_id
+														LEFT JOIN `equipment` AS eq ON eq.equip_id = lc.equip_id
+														INNER JOIN `mensagens` AS ms ON ms.mensagens_id = lc.mensagens_id
+														WHERE ms.mensagens_id = 37
+														AND lc.users_id IN (
+																SELECT
+																	users_id
+																FROM gr_approved
+																WHERE gp_approver_id = (
+																	SELECT
+																		gp_approver_id
+																	FROM gp_approver
+																	WHERE users_id = $session_id
+																)
+															) -- retorna lista de usuários da responsabilidade do gerente 
+															AND (
+																(@groupId = 1) -- Administrador
+																OR
+																(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+																OR
+																(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+																OR
+																(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+															) OR lc.users_id = $session_id
+														ORDER BY  checkin ASC							
 														LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
 								if (mysqli_num_rows($querypd2) == 0) {
 									echo "<td></td>";
@@ -478,12 +558,11 @@
 									echo "<td></td>";
 									echo "<td></td>";
 								}                        
-								while ($fetch = $querypd2->fetch_array()) {
-									$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."confirm-reserve";
+								while ($fetch = $querypd2->fetch_array()) {;
 							?>
 						<tbody>		
-								<tr onclick="window.location='<?php echo $editLink ?>'">
-									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
+								<tr>
+									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';}  else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';}?></td>
 									<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 									<td><?php echo $fetch['locacao']?></td>
 									<td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>

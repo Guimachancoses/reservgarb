@@ -88,6 +88,10 @@
 	else if(preg_match("~confirm-locp~", $url)) {
     	$content = 'periodus/confirmus-locp.php';
 	}
+	// Redirecionamento para informações das reservas
+	else if(preg_match("~info-reserve~", $url)) {
+    	$content = 'book/info-reserve.php';
+	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else
 		$content = 'main-content.php';

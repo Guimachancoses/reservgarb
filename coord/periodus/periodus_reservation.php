@@ -18,7 +18,7 @@
                     </script>
 					<div class="card-header card-header-text">
 					<h4 class="card-title"><strong class="text-primary"> Reservas por Período Pendentes</strong></h4>
-						<p class="category">Clique em excluir o pedido de reserva:</p>
+						<p class="category">Clique em aprovar ou excluir o pedido de reserva:</p>
 					</div>
 					<div class="card-content table-responsive">
 
@@ -94,6 +94,12 @@
                                 $totalResults = $conn->query("SELECT COUNT(*) as total FROM lc_period as lc INNER JOIN mensagens as ms WHERE ms.mensagens_id = 2")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+
+                                $querypd = $conn->query("SET @groupId = (
+                                    SELECT approver_id
+                                    FROM gp_approver
+                                    WHERE users_id = $session_id
+                                )");
                                 
                                 $querypd2 = $conn->query("SELECT
                                     lc.users_id,
@@ -122,7 +128,16 @@
                                 LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                                 LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-                                WHERE ms.mensagens_id = 37
+                                WHERE ms.mensagens_id = 37 
+                                    AND (
+                                        (@groupId = 1) -- Administrador
+                                        OR
+                                        (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+                                        OR
+                                        (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+                                        OR
+                                        (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+                                    ) or lc.users_id = $session_id
                                 ORDER BY  lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
@@ -151,15 +166,26 @@
                                 </td>
                                 <td>
                                     <center>
-                                        <?php if ($fetch['users_id'] == $session_id): { ?>
+                                        <?php if ($fetch['users_id'] != $session_id): { ?>
+                                            <a style="padding: 1px" class="btn btn-success" href="reservlab.php?lc_period_id=<?php echo $fetch['lc_period_id'] . 'confirm-locp' ?>">
+                                                <abbr title="Aprovar">
+                                                    <i class="material-icons">thumb_up_alt</i>
+                                                </abbr>
+                                            </a>
                                             <a style="padding: 1px" class="btn btn-danger" onclick="confirmationDelete(); return false;" href="delete_pendingPer.php?lc_period_id=<?php echo $fetch['lc_period_id'] ?>">
                                                 <abbr title="Excluir">
-                                                    <i class="material-icons">delete</i>
+                                                    <i class="material-icons">thumb_down_alt</i>
                                                 </abbr>
                                             </a>
                                             <?php } ?>
                                         <?php else: ?>
-                                            <span class="text-danger" style="font-size: 12px;">Bloqueado</span>                                           
+                                            
+                                            <a style="padding: 1px" class="btn btn-danger" onclick="confirmationDelete(); return false;" href="delete_pendingPER.php?lc_period_id=<?php echo $fetch['lc_period_id'] ?>">
+                                                <abbr title="Excluir">
+                                                    <i class="material-icons">delete</i>
+                                                </abbr>
+                                            </a>
+                                            
                                         <?php endif; ?>                                        
                                     </center>
                                 </td>

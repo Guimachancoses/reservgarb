@@ -106,7 +106,7 @@
                                 u.firstname,
                                 u.lastname,
                                 COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-                                COALESCE(lb.room_no, vs.model) as description,
+                                COALESCE(lb.room_no, vs.description) as description,
                                 lc.checkin,
                                 lc.checkin_time,
                                 lc.checkout_time,
@@ -142,7 +142,7 @@
                                 <?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td> 
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
                                 <td><?php echo "<label style = 'color:#808080;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#808080;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#800000;'><strong>" .$fetch['assunto']."</strong></label>"?></td>

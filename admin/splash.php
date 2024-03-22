@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html class="no-js">
+<?php
+	require_once 'connect.php';
+?>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../css/main.css">
+	<title>Reserve Garbuio</title>
+
+  	<link rel="icon" 
+      type="image/jpg"
+      href="../img/logo_title.png" 
+	  />
 	<script>
         document.addEventListener("DOMContentLoaded", function () {
-            var images = ["background_1.jpg", "background_2.jpg", "background_login.jpg","background_login5.jpg","background_login3.jpg"]; // Coloque o nome das suas imagens aqui
+            var images = ["background_1.jpg", "background_2.jpg", "background_login.jpg","background_login5.jpg",
+			"background_login3.jpg","background_login6.jpg","background_login100.jpg","background_login101.jpg",
+			"background_login103.jpg","background_login104.jpg","background_login106.jpg","background_login107.jpg",
+			"background_login107.jpg",'bg01.jpg','bg02.jpg','bg03.jpg','bg05.jpg','bg06.jpg','bg07.jpg','bg09.jpg','bg10.jpg'
+		]; // Coloque o nome das suas imagens aqui
             var randomImage = images[Math.floor(Math.random() * images.length)];
             var imageUrl = "../img/" + randomImage; // Certifique-se de que o diretório esteja correto
             document.body.style.backgroundImage = "url(" + imageUrl + ")";

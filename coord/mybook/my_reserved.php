@@ -80,6 +80,7 @@
                                 <th>Dt. Reserva</th>
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
+                                <th>Aprovador</th>
                                 <th>Status</th>
                                 <th>Ação</th>
                             </tr>
@@ -93,6 +94,12 @@
                                 $totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao WHERE users_id != $session_id AND status_id = 2 && users_id = $session_id")->fetch_assoc()['total']; // Total de resultados no banco de dados
                                 $totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
                                 $current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+
+                                $querypd = $conn->query("SET @groupId = (
+                                    SELECT approver_id
+                                    FROM gp_approver
+                                    WHERE users_id = $session_id
+                                )");
                                 
                                 $querypd2 = $conn->query("SELECT
                                     lc.locacao_id,
@@ -100,11 +107,13 @@
                                     u.firstname,
                                     u.lastname,
                                     COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-                                    COALESCE(lb.room_no, vs.model) as description,
+                                    COALESCE(lb.room_no, vs.description) as description,
                                     lc.checkin,
                                     lc.checkin_time,
                                     lc.checkout_time,
                                     lc.approver_id,
+                                    lc.gp_approver_id,
+                                    CONCAT(appr.firstname, ' ', LEFT(appr.lastname, 1)) AS approver_name,
                                     st.status
                                 FROM `locacao` as lc
                                 LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
@@ -113,10 +122,20 @@
                                 LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                 INNER JOIN `status` st ON st.status_id = lc.status_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+                                INNER JOIN `gp_approver` AS gp ON gp.gp_approver_id = lc.gp_approver_id
+                                LEFT JOIN `users` AS appr ON appr.users_id = gp.users_id
                                 WHERE
-                                    lc.status_id = 2
+                                    lc.status_id IN (2,8)
                                     AND lc.users_id = $session_id
-                                    AND lc.lc_period_id IS NULL
+                                    AND (
+                                        (@groupId = 1) -- Administrador
+                                        OR
+                                        (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+                                        OR
+                                        (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+                                        OR
+                                        (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+                                    )
                                 ORDER BY  lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
@@ -125,14 +144,27 @@
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
                             ?>
-                            <tr>
+                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?>>
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td>
                                 <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#0000FF;'><strong>" .$fetch['status']."</strong></label>"?></td>
+                                <td>
+                                    <?php
+                                        $approver_name = $fetch['approver_name'];
+                                        $adminName = ($approver_name == 'Guilherme M' or $approver_name == 'Bruno R') ? 'Administrador' : $approver_name;
+                                        echo "<label >$adminName</label>";
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                        $status = $fetch['status'];
+                                        $cor = ($status == 'Atrasado') ? '#ff0000' : '#0000FF';
+                                        echo "<label style='color: $cor;'><strong>$status</strong></label>";
+                                    ?>
+                                </td>
                                 <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php

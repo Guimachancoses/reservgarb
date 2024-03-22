@@ -442,7 +442,7 @@
                             <a
                             style="border-radius: 10px 10px 10px 10px; text-decoration: none"
                             class="n-overlay"
-                            href="http://localhost/reservgarb/index.php"
+                            href="http://192.168.1.49/reservgarb/index.php"
                             target="_blank"
                             >Página Inicial</a>
                         </div>

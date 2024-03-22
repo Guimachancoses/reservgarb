@@ -41,7 +41,6 @@
                                     <option value="">Escolha uma das opções</option>
                                     <option value="Administrador">Administrador</option>
                                     <option value="Aprovador">Aprovador</option>
-                                    <option value="Coordenador">Coordenador</option>
                                     <option value="Usuário">Usuário</option>
                                 </select>
                             </div>
@@ -73,6 +72,27 @@
                                 <input type="password" id="pwd2" placeholder="********" minlength="8" value="" class = "form-control" name = "confirme" onblur="validatePdw()" required = required/>
                                 <span id="pwd2-error" style="color: red; font-size: smaller;"></span>
                                 <img class = "form-inline" style = "cursor:pointer;padding:5px;float: right;" id="olho2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDUlEQVQ4jd2SvW3DMBBGbwQVKlyo4BGC4FKFS4+TATKCNxAggkeoSpHSRQbwAB7AA7hQoUKFLH6E2qQQHfgHdpo0yQHX8T3exyPR/ytlQ8kOhgV7FvSx9+xglA3lM3DBgh0LPn/onbJhcQ0bv2SHlgVgQa/suFHVkCg7bm5gzB2OyvjlDFdDcoa19etZMN8Qp7oUDPEM2KFV1ZAQO2zPMBERO7Ra4JQNpRa4K4FDS0R0IdneCbQLb4/zh/c7QdH4NL40tPXrovFpjHQr6PJ6yr5hQV80PiUiIm1OKxZ0LICS8TWvpyyOf2DBQQtcXk8Zi3+JcKfNafVsjZ0WfGgJlZZQxZjdwzX+ykf6u/UF0Fwo5Apfcq8AAAAASUVORK5CYII="/>
+                            </div>
+                            <div class="card-foot">
+                            <label><strong> Gerente Responsável:</strong></label>
+                                <select class="form-control" name="manager_name">
+                                    <option value="" disabled selected>Escolha uma das opções</option>
+                                    <?php  
+                                        $querysf = $conn->query("SELECT
+                                        us.firstname,
+                                        us.lastname,
+                                        gp.gp_approver_id
+                                    FROM gp_approver gp
+                                    INNER JOIN users as us 
+                                    on gp.users_id = us.users_id") or die(mysqli_error($conn));
+                                        while($fetchsf = $querysf->fetch_array()){
+                                        $gp_approver_id = $fetchsf['gp_approver_id'];
+                                    ?>	
+                                    <option value="<?php echo $gp_approver_id?>"><?php echo $fetchsf['firstname']." ".$fetchsf['lastname']?></option>';
+                                    <?php
+                                    } 
+                                    ?>
+                                </select>
                             </div>
                             <br />
                             <div class="card-foot">

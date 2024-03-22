@@ -76,7 +76,9 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Locação</th>
+                                <th>Descrição</th>
                                 <th>Dt. Reserva</th>
+                                <th>Dia da Semana</th>
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
                                 <th>Status</th>
@@ -99,51 +101,76 @@
                                     WHERE users_id = $session_id
                                 )");
                                 
-                                $querypd2 = $conn->query("SELECT
-                                    lc.locacao_id,
-                                    u.firstname,
-                                    u.lastname,
-                                    COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-                                    lc.checkin,
-                                    lc.checkin_time,
-                                    lc.checkout_time,
-                                    lc.approver_id,
-                                    st.status
-                                FROM `locacao` as lc
-                                LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
-                                INNER JOIN `users` as u ON u.users_id = lc.users_id
-                                LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
-                                LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
-                                INNER JOIN `status` st ON st.status_id = lc.status_id
-                                INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-                                WHERE
-                                    lc.status_id = 1
-                                    AND lc.users_id != $session_id 
-                                    AND ms.mensagens_id = 2
-                                    AND lc.lc_period_id IS NULL
-                                    AND (
-                                        (@groupId = 1) -- Administrador
-                                        OR
-                                        (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-                                        OR
-                                        (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-                                        OR
-                                        (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-                                    )
-                                ORDER BY  lc.checkin ASC
+                                $querypd2 = $conn->query("  SELECT
+                                                                lc.locacao_id,
+                                                                u.firstname,
+                                                                u.lastname,
+                                                                COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                                                COALESCE(lb.room_no, vs.description) as description,
+                                                                lc.checkin,
+                                                                lc.checkin_time,
+                                                                lc.checkout_time,
+                                                                lc.approver_id,
+                                                                st.status
+                                                            FROM 
+                                                                locacao lc
+                                                                LEFT JOIN laboratorios lb ON lb.room_id = lc.room_id
+                                                                LEFT JOIN vehicles vs ON vs.vehicle_id = lc.vehicle_id
+                                                                LEFT JOIN equipment eq ON eq.equip_id = lc.equip_id
+                                                                INNER JOIN users u ON u.users_id = lc.users_id
+                                                                INNER JOIN status st ON st.status_id = lc.status_id
+                                                                INNER JOIN mensagens ms ON ms.mensagens_id = lc.mensagens_id
+                                                            WHERE
+                                                                lc.status_id = 1
+                                                                AND lc.users_id IN (
+                                                                        SELECT
+                                                                            users_id
+                                                                        FROM gr_approved
+                                                                        WHERE gp_approver_id = (
+                                                                                            SELECT
+                                                                                                gp_approver_id
+                                                                                            FROM gp_approver
+                                                                                            WHERE users_id = $session_id)
+                                                                ) -- retorna lista de usuários da responsabilidade do gerente
+                                                                AND ms.mensagens_id = 2
+                                                                AND lc.lc_period_id IS NULL
+                                                                AND (
+                                                                    @groupId = 1 -- Administrador
+                                                                    OR
+                                                                    (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+                                                                    OR
+                                                                    (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+                                                                    OR
+                                                                    (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+                                                                )
+                                                            ORDER BY  
+                                                                lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
                                 if (mysqli_num_rows($querypd2) == 0) {
                                     echo "<td>Sem reservas pendentes...</td>";
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
+                                $englishToPortugueseDays = array(
+                                    'Monday' => 'Segunda-feira',
+                                    'Tuesday' => 'Terça-feira',
+                                    'Wednesday' => 'Quarta-feira',
+                                    'Thursday' => 'Quinta-feira',
+                                    'Friday' => 'Sexta-feira',
+                                    'Saturday' => 'Sábado',
+                                    'Sunday' => 'Domingo'
+                                );
+                                $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
+                                $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
                             <tr>
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td><?php echo $fetch['description']?></td>
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><?php echo $dia_semana ?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#449D44;'><strong>" .$fetch['status']."</strong></label>"?></td>
                                 <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?locacao_id=<?php echo $fetch['locacao_id']."confirm-reserve"?>"><abbr title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pending.php?locacao_id=<?php echo $fetch['locacao_id']?>"><abbr title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
                             </tr>

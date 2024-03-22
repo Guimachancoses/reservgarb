@@ -1,7 +1,7 @@
 <?php require_once 'validate.php';?>
 <div class="main-content" >
 	<?php
-		$session = $_SESSION['users_id'];
+		$session_id = $_SESSION['users_id'];
 		// query for total pendding
 		$q_p2 = $conn->query("SET @groupId = (
 			SELECT approver_id
@@ -19,6 +19,16 @@
 				LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 				INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 				WHERE ms.mensagens_id = 37
+				AND lc.users_id IN (
+									SELECT
+										users_id
+									FROM gr_approved
+									WHERE gp_approver_id = (
+														SELECT
+															gp_approver_id
+														FROM gp_approver
+														WHERE users_id = $session_id)
+							) -- retorna lista de usuários da responsabilidade do gerente
 					AND (
 						(@groupId = 1) -- Administrador
 						OR
@@ -43,6 +53,16 @@
 					AND lc.users_id != $session_id
 					AND ms.mensagens_id = 2
 					AND lc.lc_period_id IS NULL
+					AND lc.users_id IN (
+									SELECT
+										users_id
+									FROM gr_approved
+									WHERE gp_approver_id = (
+														SELECT
+															gp_approver_id
+														FROM gp_approver
+														WHERE users_id = $session_id)
+							) -- retorna lista de usuários da responsabilidade do gerente
 					AND (
 						(@groupId = 1) -- Administrador
 						OR
@@ -65,7 +85,7 @@
 							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
 							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE ms.mensagens_id = 3 AND lc.users_id != $session
+							WHERE ms.mensagens_id = 3 AND lc.users_id != $session_id
 								AND (
 									(@groupId = 1) -- Administrador
 									OR
@@ -86,9 +106,9 @@
 							INNER JOIN `status` st ON st.status_id = lc.status_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 							WHERE
-								  lc.lc_period_id IS NOT NULL
-								AND lc.status_id = 2 
-								AND lc.users_id != $session
+								  lc.lc_period_id IS NULL
+								AND lc.status_id IN (2,8) 
+								AND lc.users_id != $session_id
 								AND (
 									(@groupId = 1) -- Administrador
 									OR
@@ -114,7 +134,16 @@
 								WHERE
 									lc.lc_period_id IS NULL
 									AND lc.status_id = 1 
-									AND lc.users_id = $session") or die(mysqli_error($conn));
+									AND lc.users_id != $session_id
+									AND (
+										(@groupId = 1) -- Administrador
+										OR
+										(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+										OR
+										(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+										OR
+										(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+									)") or die(mysqli_error($conn));
 		$f_perday = $q_perday->fetch_array();
 		
 		// total for total pendding location per period
@@ -126,7 +155,7 @@
 							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
 							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE ms.mensagens_id = 37 AND lc.users_id != $session
+							WHERE ms.mensagens_id = 37 AND lc.users_id != $session_id
 								AND (
 									(@groupId = 1) -- Administrador
 									OR
@@ -139,26 +168,26 @@
 		$f_perper = $q_perper->fetch_array();
 
 		// query for total pendding my location
-		$q_u = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session && status_id = 1 ") or die(mysqli_error($conn));
+		$q_u = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session_id && status_id = 1 ") or die(mysqli_error($conn));
 		$f_u = $q_u->fetch_array();
 		
 		// query for total my location
-		$q_lc = $conn->query("SELECT count(*) as total FROM `locacao` WHERE users_id = $session and status_id = 2 and lc_period_id IS NULL") or die(mysqli_error($conn));
+		$q_lc = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `users_id` = $session_id && status_id = 2") or die(mysqli_error($conn));
 		$f_lc = $q_lc->fetch_array();
 	?>
 	
 	<div class="row">
 
-		<div class="col-lg-6 col-md-6 col-sm-6">
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6">
 			<a href = "reservlab.php?alter-account">
-				<div class="div-swing card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
+				<div class="card card-stats" style="box-shadow: 10px 10px 10px #5faa4f;">
 					<div class="card-header">
 						<div class="icon icon-info icon-animation">
 							<span class="material-icons">fingerprint</span>
 						</div>
 					</div>
 					<div class="card-content">
-						<p class="category-animation">Coordenador</p>
+						<p class="category-animation">Gerente Aprovador</p>
 						<h3 class="name-animation"><?php echo $name?></h3>
 					</div>
 					<div class="card-footer">
@@ -171,11 +200,83 @@
 			</a>
 		</div>
 
-		<div class="col-lg-6 col-md-6 col-sm-6" id="calendarCard">
-			<div class="div-swing card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
+		<?php
+			$except = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$_SESSION[users_id]'");
+		?>
+
+		<?php if ($except->num_rows > 0): ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $mybookp?>">
+					<div class="card card-stats">
+						<div class="card-header">
+							<div class="icon icon-warning">
+								<span class="material-icons">hourglass_empty</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Reservas Por Período Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_perper['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-info">upgrade</i>
+								Aguardando sua aprovação
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<?php else: ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $mybookp?>">
+					<div class="card card-stats">
+						<div class="card-header">
+							<div class="icon icon-warning">
+								<span class="material-icons">hourglass_empty</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Minhas Reservas Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_u['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-info">upgrade</i>
+								Aguardando aprovação
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<?php endif; ?>
+
+		<div class="div-link col-lg-3 col-md-6 col-sm-6">
+			<a href="reservlab.php?<?php echo $mybookr?>">
+				<div class="card card-stats" >
+					<div class="card-header">
+						<div class="icon icon-rose">
+							<span class="material-icons">thumb_up_alt</span>
+						</div>
+					</div>
+					<div class="card-content">
+						<p class="category"><strong>Minhas Reservas Aprovadas</strong></p>
+						<h3 class="card-title"><?php echo $f_lc['total']?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+							<i class="material-icons text-status">check_box</i>
+							Solicitação aprovada
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="div-swing col-lg-6 col-md-6 col-sm-6" id="calendarCard">
+			<div class="card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
 				<div class="card-header">
-					<div class="icon icon-info">
-						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
+					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
+						<div class="gif-container">
 							<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
 						</div>
 					</div>
@@ -187,43 +288,8 @@
 			</div>
 		</div>
 
-		<div class="col-lg-6 col-md-6 col-sm-6" id="reservPen">
-			<div class="div-swing card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
-				<div class="card-header">
-					<div class="icon icon-info">
-						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
-							<iframe src="https://giphy.com/embed/wq1I3ILdsvYJub8Rwx" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
-						</div>
-					</div>
-				</div>
-				<div class="card-content">
-					<p class="category">Reservas Pendentes</p>
-					<h3 class="card-title"><?php echo $f_perday['total']?></h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-6 col-md-6 col-sm-6" id="reservAp">
-			<div class="div-swing card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;">
-				<div class="card-header">
-					<div class="icon icon-info" >
-						<div class="gif-container" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;margin-left:90px">
-							<iframe src="https://giphy.com/embed/X3Rns1xcaxigefgM6S" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
-						</div>
-					</div>
-				</div>
-				<div class="card-content">
-					<p class="category">Reservas Aprovadas</p>
-					<h3 class="card-title"><?php echo $f_lc['total']?></h3>
-				</div>
-			</div>
-		</div>
-
-		
 		<script>
 			const calendarCard = document.getElementById('calendarCard');
-			const reservPen = document.getElementById('reservPen');
-			const reservAp = document.getElementById('reservAp');
 			const gifContainer = calendarCard.querySelector('.gif-container');
 
 			gifContainer.addEventListener('click', function(event) {
@@ -233,13 +299,76 @@
 			calendarCard.addEventListener('click', function() {
 				window.location.href = "reservlab.php?rscalender";
 			});
-			reservPen.addEventListener('click', function() {
-				window.location.href = "reservlab.php?mybookp";
-			});
-			reservAp.addEventListener('click', function() {
-				window.location.href = "reservlab.php?mybookr";
-			});
 		</script>
+
+
+		<?php if ($except->num_rows > 0): ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $penlab?>">
+					<div class="card card-stats" >
+						<div class="card-header">
+							<div class="icon icon-rose">
+								<span class="material-icons">pending_actions</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Solicitações Por Dia Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_perday['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-status">rotate_right</i>
+								Aguardando sua aprovação
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<?php else: ?>
+			<div class="div-link col-lg-3 col-md-6 col-sm-6">
+				<a href="reservlab.php?<?php echo $penlab?>">
+					<div class="card card-stats" >
+						<div class="card-header">
+							<div class="icon icon-rose">
+								<span class="material-icons">pending_actions</span>
+							</div>
+						</div>
+						<div class="card-content">
+							<p class="category"><strong>Total De Solicitações Pendentes</strong></p>
+							<h3 class="card-title"><?php echo $f_p['total']?></h3>
+						</div>
+						<div class="card-footer">
+							<div class="stats">
+								<i class="material-icons text-status">rotate_right</i>
+								Aguardando sua aprovação
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<?php endif; ?>
+			
+		<div class="div-link col-lg-3 col-md-6 col-sm-6">
+			<a href="reservlab.php?<?php echo $reslab?>">
+				<div class="card card-stats">
+					<div class="card-header">
+						<div class="icon icon-success">
+							<span class="material-icons">lock_clock</span>
+						</div>
+					</div>
+					<div class="card-content">
+						<p class="category"><strong>Total de Reservadas Aprovadas</strong></p>
+						<h3 class="card-title"><?php echo $f_ci['total']?></h3>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+							<i class="material-icons text-reserve">date_range</i>
+							Total de reservas
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
 
 	</div>								
 		
@@ -250,8 +379,8 @@
 		<div class="col-lg-9 col-md-20">
 			<div class="card" style="min-height:535px;">
 				<div class="card-header card-header-text">
-					<h4 class="card-title">Meus Pedidos de Reservas Aguardando Aprovação</h4>
-					<p class="category">Clique sobre uma pedido para visualizá-lo:</p>
+					<h4 class="card-title">Pedidos de Reservas Aguardando sua Aprovação</h4>
+					<p class="category">Clique sobre uma pedido para aprovar:</p>
 				</div>
 				<div class="card-content table-responsive">
 					<div class="search-container">
@@ -321,6 +450,12 @@
 								$totalResults = $conn->query("SELECT COUNT(*) as total FROM locacao as lc INNER JOIN mensagens as ms WHERE lc.status_id = 1 && ms.mensagens_id = 2 && lc.users_id != '$_SESSION[users_id]' && lc.lc_period_id IS NULL")->fetch_assoc()['total']; // Total de resultados no banco de dados
 								$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
 								$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+
+								$querypd = $conn->query("SET @groupId = (
+									SELECT approver_id
+									FROM gp_approver
+									WHERE users_id = '$_SESSION[users_id]'
+								)") or die(mysqli_error($conn));
 								
 								$querypd2 = $conn->query("SELECT
 															lc.locacao_id,
@@ -342,10 +477,28 @@
 														INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 														WHERE
 															lc.status_id = 1
-															-- AND lc.users_id = '$_SESSION[users_id]' 
+															AND lc.users_id != '$_SESSION[users_id]' 
 															AND ms.mensagens_id = 2
-															AND lc.coord_id = '$_SESSION[users_id]' 
 															AND lc.lc_period_id IS NULL
+															AND lc.users_id IN (
+																			SELECT
+																				users_id
+																			FROM gr_approved
+																			WHERE gp_approver_id = (
+																								SELECT
+																									gp_approver_id
+																								FROM gp_approver
+																								WHERE users_id = $session_id)
+																	) -- retorna lista de usuários da responsabilidade do gerente
+															AND (
+																(@groupId = 1) -- Administrador
+																OR
+																(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+																OR
+																(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+																OR
+																(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+															)
 														ORDER BY  lc.checkin ASC
 														LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
 								if (mysqli_num_rows($querypd2) == 0) {
@@ -356,11 +509,11 @@
 									echo "<td></td>";
 								}                        
 								while ($fetch = $querypd2->fetch_array()) {
-									$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."mybookp";
+									$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."confirm-reserve";
 							?>
 						<tbody>		
 								<tr onclick="window.location='<?php echo $editLink ?>'">
-									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" style="padding-top:5px"><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
+									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
 									<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 									<td><?php echo $fetch['locacao']?></td>
 									<td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>

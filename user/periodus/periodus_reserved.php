@@ -122,7 +122,7 @@
                                 LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                                 LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-                                WHERE ms.mensagens_id = 12
+                                WHERE ms.mensagens_id = 3
                                 ORDER BY  lc.checkin ASC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 

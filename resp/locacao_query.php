@@ -146,8 +146,12 @@
                                     FROM gp_approver as gp
                                     LEFT JOIN users as u
                                     ON u.users_id = gp.users_id
-                                    WHERE gp.approver_id = ? OR gp.approver_id = 1");
-            $stmt->bind_param("i", $approver_id);
+                                    WHERE gp.gp_approver_id = (SELECT gp_approver_id
+                                                            FROM gr_approved as gr 
+                                                            WHERE users_id = ?
+                                                            )
+                                        OR gp.gp_approver_id = 25");
+            $stmt->bind_param("i", $users_id);
             $stmt->execute();
             $stmt->bind_result($fadname, $ladname, $ademail);
             // Laço para enviar um email para cada usuário encontrado

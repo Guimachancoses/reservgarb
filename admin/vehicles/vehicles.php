@@ -33,7 +33,7 @@
                                     <div style = "float:left; margin-top:120px;margin-bottom:10px">
                                         <h3 class="category"><?php echo '<strong class="text-primary">Nome: </strong>'.$fetch['name']?></h3>
                                         <h3 class="category"><?php echo '<strong class="text-primary">Modelo: </strong>'.$fetch['model']?></h3>
-                                        <h3 class="category"><?php echo '<strong class="text-primary">Descrição: </strong>'.$fetch['description']?></h3>
+                                        <h3 class="category"><?php echo '<strong class="text-primary">Placa: </strong>'.$fetch['description']?></h3>
                                         </br>
                                         <a class = "btn btn-warning" href = "reservlab.php?vehicle_id=<?php echo $fetch['vehicle_id']?>&edit-vehicles"><abbr title="Editar"><i class = "material-icons">edit_note</i></abbr></a> <a class = "btn btn-danger" onclick = "confirmationDelete(this); return false;" href = "delete_vehicle_query.php?vehicle_id=<?php echo $fetch['vehicle_id']?>"><abbr title="Deletar"><i class = "material-icons">delete</i></abbr></a></td>
                                     </div>

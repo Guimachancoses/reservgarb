@@ -127,7 +127,7 @@
                                 LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                                 LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-                                WHERE ms.mensagens_id = 12
+                                WHERE ms.mensagens_id = 3
                                     AND (
                                         (@groupId = 1) -- Administrador
                                         OR

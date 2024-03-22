@@ -42,7 +42,18 @@
             LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
             LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-            WHERE ms.mensagens_id = 37 AND lc.users_id != $session_id
+            WHERE ms.mensagens_id = 37 
+            AND lc.users_id IN (
+                                SELECT
+                                    users_id
+                                FROM gr_approved
+                                WHERE gp_approver_id = (
+                                    SELECT
+                                        gp_approver_id
+                                    FROM gp_approver
+                                    WHERE users_id = $session_id
+                                )
+                            ) -- retorna lista de usuários da responsabilidade do gerente 
                 AND (
                     (@groupId = 1) -- Administrador
                     OR
@@ -67,6 +78,16 @@
                 AND lc.users_id != $session_id
                 AND ms.mensagens_id = 2
                 AND lc.lc_period_id IS NULL
+                AND lc.users_id IN (
+									SELECT
+										users_id
+									FROM gr_approved
+									WHERE gp_approver_id = (
+														SELECT
+															gp_approver_id
+														FROM gp_approver
+														WHERE users_id = $session_id)
+							) -- retorna lista de usuários da responsabilidade do gerente
                 AND (
                     (@groupId = 1) -- Administrador
                     OR

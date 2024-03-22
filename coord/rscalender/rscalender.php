@@ -49,7 +49,7 @@
                         </div>
                         <div class="add-event-body">
                             <div class="add-event-input">
-                                <select class="event-name select-box" >
+                                <select class="event-name select-box">
                                     <!-- query para trazer as salas -->
                                     <option value="" disabled selected>Escolha o que você deseja locar</option>
                                     <optgroup label="Salas">
@@ -68,7 +68,7 @@
                                         $queryad = $conn->query("SELECT * FROM `vehicles`") or die(mysqli_error($conn));
                                         while($fetch = $queryad->fetch_array()){
                                     ?>     
-                                        <option><?php echo $fetch['name']." - ".$fetch['model']?></option>
+                                        <option><?php echo $fetch['name']." - ".$fetch['model']. " - " .$fetch['description']?></option>
                                         <?php
                                         }
                                         ?>
@@ -86,24 +86,28 @@
                                     </optgroup>
                                 </select>
                             </div>
-                            <div class="add-event-input">
-                                <select class="event-disc select-box" >
-                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
+                            <div class="add-event-input" style="display:none">
+                               
                                 <?php  
-									$queryad = $conn->query("SELECT * FROM `users`") or die(mysqli_error($conn));
+									$queryad = $conn->query("SELECT * FROM `users` WHERE users_id = $_SESSION[users_id]") or die(mysqli_error($conn));
 									while($fetch = $queryad->fetch_array()){
-								?>
-                                    <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"><?php echo $fetch['firstname']." ".$fetch['lastname'];?></option>
-                                    <?php
+                                    $users_id = $fetch['users_id'];
+                                    
+                                ?>
+                                <input class="event-disc select-box" type="hidden" value="<?php echo $users_id?>">
+                                <?php
                                     }
-                                    ?>
-                                </select>
-                            </div>
+                                ?>
+                            </div>                            
                             <div class="add-event-input">
                                 <input type="text" placeholder="Hora da Locação" class="event-time-from" />
                             </div>
                             <div class="add-event-input">
                                 <input type="text" placeholder="Hora da Devolução" class="event-time-to" />
+                            </div>
+                            <!-- Novo input -->
+                            <div class="add-event-input">
+                                <input type="text" placeholder="Motivo" maxlength="45" class="event-info"/>
                             </div>
                         </div>
                         <div class="add-event-footer div-swing ">

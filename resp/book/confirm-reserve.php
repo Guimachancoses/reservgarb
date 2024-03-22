@@ -30,12 +30,13 @@
                                                     u.firstname
                                                     ,u.lastname
                                                     ,COALESCE(lb.room_type, vs.name, eq.equipment) as locacao
-                                                    ,COALESCE(lb.room_no, vs.model) as description
+                                                    ,COALESCE(lb.room_no, vs.description) as description
                                                     ,lc.locacao_id
                                                     ,lc.checkin
                                                     ,lc.checkin_time
                                                     ,lc.checkout_time
                                                     ,st.status
+                                                    ,lc.eventInfo
                                                 FROM `locacao` as lc
                                                 LEFT JOIN `laboratorios` as lb
                                                 ON lb.room_id = lc.room_id
@@ -97,6 +98,11 @@
                                 <label><strong>Status</strong></label>
                                 <br />
                                 <input type = "text" value="<?php echo $fetch['status']?>" name = "status" class = "form-control" size = "15" disabled = "disabled"/>
+                            </div>
+                            <div class = "form-inline" style = "float:left; margin-left:20px;">
+                                <label><strong>Motivo da Reserva</strong></label>
+                                <br />
+                                <input type = "text" value="<?php echo $fetch['eventInfo']?>" name = "eventInfo" class = "form-control" size = "60" disabled = "disabled"/>
                             </div>
                         <br style = "clear:both;"/>
                         <br />

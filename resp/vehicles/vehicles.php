@@ -33,7 +33,7 @@
                                     <div style = "float:left; margin-top:120px;margin-bottom:10px">
                                         <h3 class="category"><?php echo '<strong class="text-primary">Nome: </strong>'.$fetch['name']?></h3>
                                         <h3 class="category"><?php echo '<strong class="text-primary">Modelo: </strong>'.$fetch['model']?></h3>
-                                        <h3 class="category"><?php echo '<strong class="text-primary">Descrição: </strong>'.$fetch['description']?></h3>
+                                        <h3 class="category"><?php echo '<strong class="text-primary">Placa: </strong>'.$fetch['description']?></h3>
                                         </br>
                                         <a class="btn btn-info" href="reservlab.php?rscalender" style="display: flex; align-items: center; text-decoration: none;justify-content:center;">
                                             <span style="margin-right: 5px;color:white">Reservar</span>

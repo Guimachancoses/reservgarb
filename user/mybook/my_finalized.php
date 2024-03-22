@@ -106,7 +106,7 @@
                                 u.firstname,
                                 u.lastname,
                                 COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-                                COALESCE(lb.room_no, vs.model) as description,
+                                COALESCE(lb.room_no, vs.description) as description,
                                 lc.checkin,
                                 lc.checkin_time,
                                 lc.checkout_time,

@@ -6,14 +6,23 @@
 	require_once 'send_mail.php';
 
 	$users_id = $_SESSION['users_id'];
+
+    // Buscar o id do aprovador do grupo de aprovadores:
+    $stmt = $conn->prepare("SELECT gp_approver_id FROM gp_approver as gp WHERE gp.users_id = ?");
+    $stmt->bind_param("i", $users_id);
+    $stmt->execute();
+    $stmt->bind_result($gp_approver_id);
+    $stmt->fetch();
+    $stmt->close();
+
 	if(ISSET($_POST['add_form'])){
 		$query = $conn->query("SELECT * FROM `locacao` as lc WHERE lc.locacao_id = '$_REQUEST[locacao_id]' && lc.status_id = 2 ") or die(mysqli_error($conn));
 		$row = $query->num_rows;
 		if($row > 0){
-			echo "<script>alert('Laboratório já reservado')</script>";
+			echo "<script>alert('Sala já reservado')</script>";
             echo "<script>hideOverlay();</script>";
 		}else{
-			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3  WHERE `locacao_id` = '$_REQUEST[locacao_id]'") or die(mysqli_error($conn));
+			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3, `gp_approver_id` = '$gp_approver_id' WHERE `locacao_id` = '$_REQUEST[locacao_id]'") or die(mysqli_error($conn));
 			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error($conn));
 
 			// Busca nome e email do administrador

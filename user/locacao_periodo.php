@@ -95,20 +95,16 @@
         // Verifica se a locação já exite no banco de dados com base nos dados recebidos.
         $verif = $conn->prepare("SELECT lc_period_id
                                 FROM lc_period
-                                WHERE room_id = ? OR vehicle_id = ? OR equip_id = ?
+                                WHERE (room_id = ? OR vehicle_id = ? OR equip_id = ?)
                                 AND (
                                     -- Verificar conflito para o mesmo dia do início do evento
                                     (checkin = ? AND checkout_time >= ?) OR
                                     -- Verificar conflito para o mesmo dia do término do evento
                                     (checkout = ? AND checkin_time <= ?) OR
                                     -- Verificar conflito para os dias entre o início e término do evento
-                                    (checkin > ? AND checkout < ?) OR
-                                    -- Verificar conflito para o dia seguinte ao término do evento (caso o evento passe da meia-noite)
-                                    (checkin = DATE_ADD(?, INTERVAL 1 DAY) AND checkin_time <= ?) OR
-                                    -- Verificar conflito para o dia anterior ao início do evento (caso o evento comece antes da meia-noite)
-                                    (checkout = DATE_SUB(?, INTERVAL 1 DAY) AND checkout_time >= ?)
+                                    (checkin = ? AND checkout = ?)
                                 ) AND mensagens_id != 4;");
-        $verif->bind_param("iiissssssssss", $room_id, $vehicle_id, $equip_id, $mysql_dateIn, $timeFrom, $mysql_dateOut, $timeTo, $mysql_dateIn, $mysql_dateOut, $mysql_dateOut, $timeTo, $mysql_dateIn, $timeFrom);
+        $verif->bind_param("iiissssss", $room_id, $vehicle_id, $equip_id, $mysql_dateIn, $timeFrom, $mysql_dateOut, $timeTo, $mysql_dateIn, $mysql_dateOut);
         $verif->execute();
         $verif->store_result();
         $valid = $verif->num_rows();

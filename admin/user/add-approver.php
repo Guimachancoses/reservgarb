@@ -43,7 +43,7 @@
 															FROM
 																`users` AS u
 															WHERE
-																u.funcao IN ('Administrador','Aprovador')
+																u.funcao IN ('Administrador','Aprovador','Coordenador')
 															ORDER BY 
 																2") or die(mysqli_error($conn));
 									while($fetchsf = $querysf->fetch_array()){

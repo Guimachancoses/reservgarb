@@ -9,6 +9,8 @@
     $eventCheckin = $_POST['eventCheckin'];
     $eventTimeFrom = $_POST['eventTimeFrom'];
     $eventTimeTo = $_POST['eventTimeTo'];
+    $description = $_POST['description'];
+    $description_with_wildcard = '%' . $description . '%';
 
     // Converte a data para o formato do MySQL
     $checkin_date = DateTime::createFromFormat('d/m/Y', $eventCheckin);
@@ -31,8 +33,8 @@
     $stmt->close();
 
     // Executa a primeira consulta para obter o vehicle_id
-    $stmt = $conn->prepare("SELECT vehicle_id, approver_id FROM vehicles WHERE name = ?");
-    $stmt->bind_param("s", $eventTitle);
+    $stmt = $conn->prepare("SELECT vehicle_id, approver_id FROM vehicles WHERE name = ? AND model LIKE ?");
+    $stmt->bind_param("ss", $eventTitle, $description_with_wildcard);
     $stmt->execute();
     $stmt->bind_result($vehicle_id, $approver_id);
     $stmt->fetch();
@@ -152,7 +154,11 @@
                                     FROM gp_approver as gp
                                     LEFT JOIN users as u
                                     ON u.users_id = gp.users_id
-                                    WHERE gp.approver_id = ? OR gp.approver_id = 1");
+                                    WHERE gp.gp_approver_id = (SELECT gp_approver_id
+                                                            FROM gr_approved as gr 
+                                                            WHERE users_id = $users_id
+                                                            )
+                                        OR gp.gp_approver_id = 25");
             $stmt->bind_param("i", $approver_id);
             $stmt->execute();
             $stmt->bind_result($fadname, $ladname, $ademail);
@@ -228,4 +234,3 @@
         }
     }
 ?>
-

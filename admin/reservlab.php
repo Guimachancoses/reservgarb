@@ -27,11 +27,11 @@
 	else if(preg_match("~edit-account~", $url)) {
     	$content = 'user/edit-account.php';
 	}
-	// Redirecionamento para adicinar laboratórios
+	// Redirecionamento para adicinar salas
 	else if(preg_match("~addlab~", $url)) {
     	$content = 'lab/add-room.php';
 	}
-	// Redirecionamento para listar edição de laboratórios
+	// Redirecionamento para listar edição de salas
 	else if(preg_match("~editlab~", $url)) {
     	$content = 'lab/room.php';
 	}
@@ -39,19 +39,19 @@
 	else if(preg_match("~edit-room~", $url)) {
     	$content = 'lab/edit-lab-content.php';
 	}
-	// Redirecionamento para pedidos de reserva de laboratórios pendentes ou excluir caso desejado
+	// Redirecionamento para pedidos de reserva de salas pendentes ou excluir caso desejado
 	else if(preg_match("~penlab~", $url)) {
     	$content = 'book/reservation.php';
 	}
-	// Redirecionamento para corfimar reserva de laboratórios pendentes
+	// Redirecionamento para corfimar reserva de salas pendentes
 	else if(preg_match("~confirm-reserve~", $url)) {
     	$content = 'book/confirm-reserve.php';
 	}
-	// Redirecionamento para mostrar reservas de laboratórios e liberar reserva caso desejado
+	// Redirecionamento para mostrar reservas de salas e liberar reserva caso desejado
 	else if(preg_match("~reslab~", $url)) {
     	$content = 'book/reserved.php';
 	}
-	// Redirecionamento para listar histórico de reserva dos laboratórios
+	// Redirecionamento para listar histórico de reserva dos salas
 	else if(preg_match("~finlab~", $url)) {
     	$content = 'book/finalized.php';
 	}
@@ -71,7 +71,7 @@
 	else if(preg_match("~deluser~", $url)) {
     	$content = 'relation/relation-user.php';
 	}
-	// Redirecionamento para deltetar todas as informações no banco de dados dos laboratórios
+	// Redirecionamento para deltetar todas as informações no banco de dados dos salas
 	else if(preg_match("~dellab~", $url)) {
     	$content = 'relation/relation-room.php';
 	}
@@ -130,6 +130,10 @@
 	// Redirecionamento para corfimar reserva de locações por periodo pendentes
 	else if(preg_match("~confirm-locp~", $url)) {
     	$content = 'period/confirm-locp.php';
+	}
+	// Redirecionamento para informações das reservas
+	else if(preg_match("~info-reserve~", $url)) {
+    	$content = 'book/info-reserve.php';
 	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else

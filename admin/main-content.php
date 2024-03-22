@@ -2,6 +2,8 @@
 <div class="main-content">
 	<?php
 		require_once 'validate.php';
+		// query for total labs
+		$session = $_SESSION['users_id'];
 		// query for total pendding
 		$q_p = $conn->query("SELECT SUM(total) AS total FROM (
 															SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 37
@@ -9,12 +11,65 @@
 															SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
 														) AS subquery;") or die(mysqli_error($conn));
 		$f_p = $q_p->fetch_array();
-		// query for total labs
-		$q_ci = $conn->query("SELECT COUNT(*) as total FROM `locacao` WHERE `status_id` = 2 ") or die(mysqli_error($conn));
+
+		// query for total pendding
+		$q_p2 = $conn->query("SET @groupId = (
+			SELECT approver_id
+			FROM gp_approver
+			WHERE users_id = $session
+		)");
+		// query for total location
+		$q_ci = $conn->query("SELECT 
+						SUM(total) AS total 
+					FROM (
+					SELECT
+					COUNT(*) AS total
+					FROM `lc_period` as lc
+					LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+					INNER JOIN `users` as u ON u.users_id = lc.users_id
+					LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+					LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+					INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+					WHERE ms.mensagens_id = 3 AND lc.users_id != $session
+						AND (
+							(@groupId = 1) -- Administrador
+							OR
+							(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+							OR
+							(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+							OR
+							(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+						)
+			UNION ALL
+					SELECT
+					COUNT(*) AS total
+					FROM `locacao` as lc
+					LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
+					INNER JOIN `users` as u ON u.users_id = lc.users_id
+					LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
+					LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+					INNER JOIN `status` st ON st.status_id = lc.status_id
+					INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+					WHERE
+						lc.lc_period_id IS NULL
+						AND lc.status_id IN (2,8) 
+						AND lc.users_id != $session
+						AND (
+							(@groupId = 1) -- Administrador
+							OR
+							(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+							OR
+							(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+							OR
+							(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+						)
+		) AS subquery;") or die(mysqli_error($conn));
 		$f_ci = $q_ci->fetch_array();
+
 		// query for total users
 		$q_u = $conn->query("SELECT COUNT(u.users_id) as total FROM `users` as u ") or die(mysqli_error($conn));
 		$f_u = $q_u->fetch_array();
+
 		// query for total location
 		$q_lc = $conn->query("SELECT COUNT(lc.locacao_id) as total FROM `locacao` as lc WHERE status_id = 4") or die(mysqli_error($conn));
 		$f_lc = $q_lc->fetch_array();
@@ -86,7 +141,7 @@
 		</div>
 
 		<div class="div-swing col-lg-6 col-md-6 col-sm-6" onclick="redirectToCalendar()">
-			<div class="card card-stats" style="padding-bottom:5%;positon:relative;box-shadow: 10px 10px 10px #5faa4f;">
+			<div class="card card-stats" style="padding-bottom:5%;position:relative;box-shadow: 10px 10px 10px #5faa4f;cursor:pointer">
 				<div class="card-header">
 					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
 						<div class="gif-container">
@@ -162,7 +217,7 @@
 					<h4 class="card-title">Usuários Cadastrados</h4>
 					<!-- <p class="category">New employees on 15th December, 2016</p> (data atual)-->
 				</div>
-				<div class="card-content table-responsive">
+				<div class="card-content table-responsive" style="max-height:485px">
 					<div class="search-container">
 						<input for="search-input" type="text" class="select-box" id="search-input" placeholder="Pesquisar..."/>
 						<i class="material-icons" id="search-icon">search</i>
@@ -211,7 +266,7 @@
 					</script>
 
 
-					<table class="table table-hover" id="myTable">
+					<table class="table table-hover" id="myTable" style="cursor:pointer">
 
 						<thead class="" style="cursor:pointer;color:#5faa4f">
 							<tr>
@@ -224,12 +279,7 @@
 						</thead>
 
 						<?php  
-							$perPage = 6; // Número de resultados por página
-							$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página atual (por padrão, é a página 1)
-							$offset = ($page - 1) * $perPage; // Offset para a consulta SQL
-							$totalResults = $conn->query("SELECT COUNT(*) as total FROM users WHERE users_id != '$_SESSION[users_id]'")->fetch_assoc()['total']; // Total de resultados no banco de dados
-							$totalPages = ceil($totalResults / $perPage); // Total de páginas necessárias
-							$current_page = min($page, $totalPages); // Página atual não pode ser maior que o total de páginas
+							
 							
 							$queryad = $conn->query("SELECT users_id, 
 															firstname,
@@ -239,9 +289,9 @@
 															contactno,
 															status
 															FROM `users` 
-															WHERE users_id != '$_SESSION[users_id]'
+															WHERE users_id != '$_SESSION[users_id]' AND status != '6'
 															ORDER BY firstname
-															LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
+															") or die(mysqli_error($conn));
 							if (mysqli_num_rows($queryad) == 0) {
 								echo "<td>Sem usuários cadastrados</td>";
 							}
@@ -300,30 +350,7 @@
 						});
 					</script>
 
-					<!-- Paginação -->
-					<nav>
-						<ul class="pagination justify-content-center">
-							<?php if ($page > 1) { ?>
-								<li class="page-item">
-									<a class="n-overlay" href="reservlab.php?page=<?php echo ($page - 1); ?>">Anterior</a>
-								</li>
-							<?php } ?>
-							<?php if (mysqli_num_rows($queryad) == $perPage && $totalPages > 1) { ?>
-								<li class="page-item">
-									<a class="n-overlay" href="reservlab.php?page=<?php echo ($page + 1); ?>">Próxima</a>
-								</li>
-							<?php } ?>
-							<li>
-								<?php
-									if ($totalPages > 1) {
-										echo "<p style=\"margin-left:10px;color:#5faa4f\"> Página $current_page de $totalPages</p>";
-									} else {
-										echo "<p style=\"margin-left:10px;padding:5px;color:#5faa4f\"> Página 1</p>";
-									}
-								?>
-							</li>
-						</ul>					
-					</nav>
+					
 				</div>
 			</div>
 		<div>

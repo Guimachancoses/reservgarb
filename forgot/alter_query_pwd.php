@@ -1,18 +1,33 @@
 <?php
+function AntiSqlInjection($str, $conn) {
+    $str = mysqli_real_escape_string($conn, $str);
+    return $str;
+}
+?>
+
+<?php
 	require_once 'connect.php';
 	if(ISSET($_POST['alter_query_pwd'])){
-		$email = $_POST['email'];
-		$codigo = $_POST['codigo'];
-		$password = $_POST['password'];
+		$email = AntiSqlInjection(trim(strtolower($_POST['email'])), $conn);
+		$codigo = AntiSqlInjection($_POST['codigo'], $conn);
+		$password = AntiSqlInjection($_POST['password'], $conn);
 
 		// Gera um hash criptográfico da senha usando o algoritmo bcrypt
 		$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-		$query = $conn->query("SELECT * FROM `pwdtemp` WHERE `email` = '$email' && `codigo` = '$codigo'") or die(mysqli_error());
-		$valid = $query->num_rows;
-		if($valid > 0){
+		$stmt = $conn->prepare("SELECT * FROM `pwdtemp` WHERE `email` = ? AND `codigo` = ?") or die(mysqli_error($conn));
+		$stmt->bind_param("ss", $email, $codigo);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$valid = $result->num_rows;
+		$stmt->close();
+
+		if ($valid > 0) {
 			// Atulaiza na tabela users a nova senha para acesso do usuário
-			$conn->query("UPDATE `users` SET `password` = '$password' WHERE `email` = '$email'") or die(mysqli_error());
+			$stmt = $conn->prepare("UPDATE `users` SET `password` = ? WHERE `email` = ?") or die(mysqli_error($conn));
+			$stmt->bind_param("ss", $hashedPassword, $email);
+			$stmt->execute();
+			$stmt->close();
 			// Atulaiza na tabela pwdtemp o coluna 'codigo' em NULL, para não ser ultilizada mais de uma vez pelo usuário.
 
 			// Gera um novoo código aleatório com 8 dígitos para não ser posivel usuário acertar
@@ -37,18 +52,21 @@
 			$newCodigo = str_shuffle($hash);
 
 			// Executa a consulta para obter o users_id
-			$stmt = $conn->prepare("SELECT users_id FROM users WHERE email = ?");
+			$stmt = $conn->prepare("SELECT users_id FROM users WHERE email = ?") or die(mysqli_error($conn));
 			$stmt->bind_param("s", $email);
 			$stmt->execute();
 			$stmt->bind_result($users_id);
 			$stmt->fetch();
 			$stmt->close();
 			
-			// Atulaiza na tabela users a nova senha para acesso do usuário
-			$conn->query("UPDATE `pwdtemp` SET `codigo` = '$newCodigo' WHERE `email` = '$email' && `codigo` = '$codigo'") or die(mysqli_error());
+			// Atualiza na tabela users a nova senha para acesso do usuário
+			$stmt = $conn->prepare("UPDATE `pwdtemp` SET `codigo` = ? WHERE `email` = ? AND `codigo` = ?") or die(mysqli_error($conn));
+			$stmt->bind_param("sss", $newCodigo, $email, $codigo);
+			$stmt->execute();
+			$stmt->close();
 			
 			// Inserir atividade 
-			$stmt = $conn->prepare("INSERT INTO `activities` set mensagens_id = 27, users_id = ?") or die(mysqli_error());
+			$stmt = $conn->prepare("INSERT INTO `activities` set mensagens_id = 27, users_id = ?") or die(mysqli_error($conn));
 			$stmt->bind_param("s", $users_id);
 			$stmt->execute();
 			$stmt->close();

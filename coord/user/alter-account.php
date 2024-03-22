@@ -6,7 +6,7 @@
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastrais</strong></h4>
                             <p class="category" style="display:flex;align-items:center;justify-content:center; background-color: #f4d7d3;  border-radius: 6px;  padding: 5px;  margin-bottom: 8px; color: #000000;">
-                            Para alterar o nome ou sobreme, solicite ao administrador do sistema.</p>
+                            Para alterar o nome ou sobrenome, solicite ao administrador do sistema.</p>
 						    <p class="category">Comfirme seus dados antes de salvar:</p>
                     <?php
                         $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_SESSION[users_id]'") or die(mysqli_error($conn));
@@ -24,7 +24,7 @@
                             </div>
                             <div class="card-foot">
                                 <label><strong> E-mail:</strong></label>
-                                <input type = "email" class = "form-control" value = "<?php echo $fetch['email']?>" id="email" onblur="validateEmail()" placeholder="exemplo@mail.com.br" name = "email" required = required/>
+                                <input type = "email" class = "form-control" value = "<?php echo $fetch['email']?>" id="email" onblur="validateEmail()" placeholder="exemplo@mail.com.br" name = "email" required = required disabled/>
                                 <span id="mail-error" style="color: red; font-size: smaller;"></span>
                             </div>
                             <div class="card-foot">

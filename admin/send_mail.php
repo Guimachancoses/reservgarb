@@ -408,7 +408,7 @@
                         <h1 style="padding-top: 50px;padding-right:15   0px">Reserve Garbuio</h1>
                     </div>
                     <div class="main-content">
-                    <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://localhost/reservgarb/app/reply-email-cm.php"
+                    <a style="display:flex;padding: 0;margin: 0;align-items: right;justify-content: end;color: blue;" href="http://agenda.garbuio.int/reservgarb/app/reply-email-cm.php"
                         target="_blank">visualizar no navegador</a>
                         <div class="card">
                             <h5
@@ -449,7 +449,7 @@
                                 <a
                                 style="border-radius: 10px 10px 10px 10px; text-decoration: none"
                                 class="n-overlay"
-                                href="http://localhost/reservgarb/index.php"
+                                href="http://agenda.garbuio.int/reservgarb/index.php"
                                 target="_blank"
                                 >Página Inicial</a>
                             </div>

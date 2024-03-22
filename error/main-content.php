@@ -8,7 +8,7 @@
         <div style="padding-top:10px;display:flex;align-items:center;justify-content:center;opacity:0.9;"><h5><strong>A página que você está procurando não foi encontrada.</strong></h3></div>
         <div style="display:flex;align-items:center;justify-content:center;opacity:0.9;"><h5><strong>Tente acessar a página principal.</strong></h3></div>
         <li class="page-item" style="display:flex;align-items:center;justify-content:center;">
-            <a style="border-radius: 10px 10px 10px 10px;" class="n-overlay" href="../index.php">Página Inicial</a>
+            <a style="border-radius: 10px 10px 10px 10px;" class="n-overlay" href="./splash.php">Página Inicial</a>
         </li>
     </div>
 </div>

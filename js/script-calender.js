@@ -15,6 +15,7 @@
   (addEventTitle = document.querySelector(".event-name ")),
   (addEventFrom = document.querySelector(".event-time-from ")),
   (addEventTo = document.querySelector(".event-time-to ")),
+  (addEventInfo = document.querySelector(".event-info ")),
   (addEventDisc = document.querySelector(".event-disc")),
   (addEventSubmit = document.querySelector(".add-event-btn "));
 
@@ -63,6 +64,7 @@ function initCalendar() {
   for (let i = 1; i <= lastDate; i++) {
     //verifique se o evento está presente naquele dia
     let event = false;
+    // console.log(eventsArr)
     eventsArr.forEach((eventObj) => {
       if (
         eventObj.day === i &&
@@ -247,7 +249,7 @@ function updateEvents(date) {
           eventColorStyle = 'style="color: yellow;"';
         } else if (eventTitle.includes("Atrasa.")) {
           eventColorStyle = 'style="color: red;"';
-        }else {
+        } else {
           eventColorStyle = 'style="color: green;"';
         }
 
@@ -293,6 +295,12 @@ document.addEventListener("click", (e) => {
 //permitir 50 caracteres no título do evento
 addEventTitle.addEventListener("input", (e) => {
   addEventTitle.value = addEventTitle.value.slice(0, 60);
+});
+
+//--------------------------------------------------------------------------------------------------------------------------------------
+//permitir 50 caracteres no título do evento
+addEventInfo.addEventListener("input", (e) => {
+  addEventInfo.value = addEventInfo.value.slice(0, 45);
 });
 
 //--------------------------------------------------------------------------------------------------------------------------------------
@@ -398,11 +406,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const eventDisc = addEventDisc.value;
     const eventTimeFrom = addEventFrom.value;
     const eventTimeTo = addEventTo.value;
+    const eventInfo = addEventInfo.value;
     if (
       eventTitle === "" ||
       eventTimeFrom === "" ||
       eventTimeTo === "" ||
-      eventDisc === ""
+      eventDisc === "" ||
+      eventInfo === ""
     ) {
       alert("Por favor preencha todos os campos!!!");
       return;
@@ -456,16 +466,16 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    console.log(
-      "inputData: " +
-        inputDate +
-        " now: " +
-        now +
-        " addEventTo: " +
-        addEventTo +
-        " addEventFrom: " +
-        addEventTo
-    );
+    // console.log(
+    //   "inputData: " +
+    //     inputDate +
+    //     " now: " +
+    //     now +
+    //     " addEventTo: " +
+    //     addEventTo +
+    //     " addEventFrom: " +
+    //     addEventTo
+    // );
 
     // Verifica se a hora final é menor que a hora atual para a data atual.
     if (inputDate <= now && addEventTo <= addEventFrom) {
@@ -496,7 +506,8 @@ document.addEventListener("DOMContentLoaded", function () {
       eventTitle,
       eventDisc,
       eventTimeFromFormatted,
-      eventTimeToFormatted
+      eventTimeToFormatted,
+      eventInfo
     );
     eventSave
       .then(() => {
@@ -533,6 +544,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addEventTitle.value = "";
         addEventFrom.value = "";
         addEventTo.value = "";
+        addEventInfo.value = "";
         updateEvents(activeDay);
 
         //selecione o dia evento e adicione a classe de active, se não for adicionado não faça nada.
@@ -548,6 +560,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => {
         console.log(error);
         alert(error); // exibir mensagem de erro ao usuário
+        hideOverlay();
         return false;
       });
     return true; // se a promessa ainda não foi resolvida ou rejeitada, retorna true.
@@ -613,7 +626,7 @@ eventsContainer.addEventListener("click", (e) => {
             });
             updateEvents(activeDay);
             // Recarrega a página automaticamente
-            window.location.reload();
+            // window.location.reload();
           }
         })
         .catch((error) => {
@@ -625,7 +638,13 @@ eventsContainer.addEventListener("click", (e) => {
 
 //--------------------------------------------------------------------------------------------------------------------------------------
 // Define a função para realizar o INSERT no banco de dados
-function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
+function saveEvents(
+  eventTitle,
+  eventDisc,
+  eventTimeFrom,
+  eventTimeTo,
+  eventInfo
+) {
   return new Promise((resolve, reject) => {
     const inputDate = new Date(year, month, activeDay);
     var checkin = inputDate.toLocaleDateString();
@@ -633,11 +652,15 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
     // Separa o eventTitle em duas partes usando a string " - " como separador
     var titleParts = eventTitle.split(" - ");
     var title = titleParts[0]; // A primeira parte contém o título do evento
+    var description = titleParts[1]; // A segunda parte contém o description
 
     // Separa o eventDisc em duas partes usando a string " " como separador
     var nameParts = eventDisc.split(" ");
     var firstname = nameParts[0]; // A primeira parte contém o primeiro nome
     var lastname = nameParts[1]; // A segunda parte contém o segundo nome
+    EventInfoS = String(eventInfo);
+    var EventInfoT = EventInfoS.trim().toLowerCase();
+    EventInfo = EventInfoT.charAt(0).toUpperCase() + EventInfoT.slice(1);
 
     // Envia uma solicitação POST para a API "locacao_query.php" para inserir o evento do banco de dados
     var inser = new FormData();
@@ -647,6 +670,8 @@ function saveEvents(eventTitle, eventDisc, eventTimeFrom, eventTimeTo) {
     inser.append("eventCheckin", checkin);
     inser.append("eventTimeFrom", eventTimeFrom);
     inser.append("eventTimeTo", eventTimeTo);
+    inser.append("eventInfo", EventInfo);
+    inser.append("description", description);
 
     fetch("./locacao_query.php", {
       method: "POST",

@@ -68,7 +68,7 @@
                                         $queryad = $conn->query("SELECT * FROM `vehicles`") or die(mysqli_error($conn));
                                         while($fetch = $queryad->fetch_array()){
                                     ?>     
-                                        <option><?php echo $fetch['name']." - ".$fetch['model']?></option>
+                                        <option><?php echo $fetch['name']." - ".$fetch['model']. " - " .$fetch['description']?></option>
                                         <?php
                                         }
                                         ?>
@@ -104,6 +104,10 @@
                             </div>
                             <div class="add-event-input">
                                 <input type="text" placeholder="Hora da Devolução" class="event-time-to" />
+                            </div>
+                            <!-- Novo input -->
+                            <div class="add-event-input">
+                                <input type="text" placeholder="Motivo" maxlength="45" class="event-info"/>
                             </div>
                         </div>
                         <div class="add-event-footer div-swing ">

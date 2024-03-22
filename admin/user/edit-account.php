@@ -2,7 +2,7 @@
 <div class="main-content">    
     <div class="row">
         <div class="col-lg-8">
-            <div class="card" style="min-height:725px">
+            <div class="card" style="min-height:1050px">
             <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
                         <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
                             <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
@@ -17,11 +17,21 @@
                     <h4 class="card-title"><strong class="text-primary"> Editar Usuário</strong></h4>
                     <p class="category">Verifique os dados antes de salvar as alterações:</p>
                 <?php
-                    $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_REQUEST[users_id]'") or die(mysqli_error($conn));
+                    $query = $conn->query("SELECT
+                                                *,
+                                                (SELECT CONCAT(us_mgr.firstname, ' ', us_mgr.lastname) 
+                                                FROM gp_approver AS gp_mgr 
+                                                INNER JOIN users AS us_mgr 
+                                                ON gp_mgr.users_id = us_mgr.users_id
+                                                WHERE gp_mgr.gp_approver_id = us.gp_approver_id) AS manager_name
+                                            FROM users AS us
+                                            WHERE us.users_id = '$_REQUEST[users_id]'") or die(mysqli_error($conn));
                     $fetch = $query->fetch_array();
+                    // hash do password
+                    $password = $fetch['password']
                 ?>
-                <div class = "col-md-10"style="min-height:850px">	
-                    <form method = "POST" action = "edit_query_account_users.php?users_id=<?php echo $fetch['users_id']?>" enctype = "multipart/form-data" autocomplete="off">
+                <div class = "col-md-10"style="min-height:1050px">	
+                    <form id="editForm" method = "POST" action = "edit_query_account_users.php?users_id=<?php echo $fetch['users_id']?>" enctype = "multipart/form-data" autocomplete="off">
                         <div class="card-foot">
                             <label><strong> Status:</strong></label>
                             <select class = "form-control" name = "status">
@@ -45,7 +55,6 @@
                                 <option value = "<?php echo $fetch['funcao']?>"><?php echo $fetch['funcao']?></option>
                                 <option value="Administrador">Administrador</option>
                                 <option value="Aprovador">Aprovador</option>
-                                <option value="Coordenador">Usuário</option>
                                 <option value="Usuário">Usuário</option>
                             </select>
                         </div>
@@ -68,16 +77,39 @@
                         <div class="card-foot">
                             <label><strong> Senha:</strong></label>
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-                            <input type = "password" id="pwd" class = "form-control" onblur="validateRx()" placeholder="********" minlength="8" value = "" name = "password" required/>
+                            <input type = "password" id="pwd" class = "form-control" onblur="validateRx()" onclick="clearPassword()" placeholder="********" minlength="8" value = "<?php echo $password?>" name = "password" required/>
                             <span id="pwd-error" style="color: red; font-size: smaller;"></span>
-                            <img class = "form-inline" style = "cursor:pointer;padding:5px;float: right;" id="olho" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDUlEQVQ4jd2SvW3DMBBGbwQVKlyo4BGC4FKFS4+TATKCNxAggkeoSpHSRQbwAB7AA7hQoUKFLH6E2qQQHfgHdpo0yQHX8T3exyPR/ytlQ8kOhgV7FvSx9+xglA3lM3DBgh0LPn/onbJhcQ0bv2SHlgVgQa/suFHVkCg7bm5gzB2OyvjlDFdDcoa19etZMN8Qp7oUDPEM2KFV1ZAQO2zPMBERO7Ra4JQNpRa4K4FDS0R0IdneCbQLb4/zh/c7QdH4NL40tPXrovFpjHQr6PJ6yr5hQV80PiUiIm1OKxZ0LICS8TWvpyyOf2DBQQtcXk8Zi3+JcKfNafVsjZ0WfGgJlZZQxZjdwzX+ykf6u/UF0Fwo5Apfcq8AAAAASUVORK5CYII="/>
                         </div>
                         <div class="card-foot">
                             <label><strong> Confirmar Senha:</strong></label>
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-                            <input type="password" id="pwd2" placeholder="********" minlength="8" value="" class = "form-control" name = "confirme" onblur="validatePdw()" required/>
+                            <input type="password" id="pwd2" placeholder="********" minlength="8" value="<?php echo $password?>" class = "form-control" name = "confirme" onblur="validatePdw()" disabled/>
                             <span id="pwd2-error" style="color: red; font-size: smaller;"></span>
-                            <img class = "form-inline" style = "cursor:pointer;padding:5px;float: right;" id="olho2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDUlEQVQ4jd2SvW3DMBBGbwQVKlyo4BGC4FKFS4+TATKCNxAggkeoSpHSRQbwAB7AA7hQoUKFLH6E2qQQHfgHdpo0yQHX8T3exyPR/ytlQ8kOhgV7FvSx9+xglA3lM3DBgh0LPn/onbJhcQ0bv2SHlgVgQa/suFHVkCg7bm5gzB2OyvjlDFdDcoa19etZMN8Qp7oUDPEM2KFV1ZAQO2zPMBERO7Ra4JQNpRa4K4FDS0R0IdneCbQLb4/zh/c7QdH4NL40tPXrovFpjHQr6PJ6yr5hQV80PiUiIm1OKxZ0LICS8TWvpyyOf2DBQQtcXk8Zi3+JcKfNafVsjZ0WfGgJlZZQxZjdwzX+ykf6u/UF0Fwo5Apfcq8AAAAASUVORK5CYII="/>
+                        </div>
+                        <div class="card-foot">
+                            <label><strong> Gerente Responsável:</strong></label>
+                            <select class="form-control" name="manager_name">
+								<option value="<?php echo $fetch['gp_approver_id']?>"><?php echo ($fetch['manager_name'] != "") ? $fetch['manager_name'] : "Escolha umas das opções" ?></option>
+								<?php  
+									$querysf = $conn->query("SELECT
+                                    us.firstname,
+                                    us.lastname,
+                                    gp.gp_approver_id
+                                FROM gp_approver gp
+                                INNER JOIN users as us 
+                                on gp.users_id = us.users_id") or die(mysqli_error($conn));
+									while($fetchsf = $querysf->fetch_array()){
+									$gp_approver_id = $fetchsf['gp_approver_id'];
+								?>	
+								<option value="<?php echo $gp_approver_id?>"><?php echo $fetchsf['firstname']." ".$fetchsf['lastname']?></option>';
+								<?php
+								} 
+								?>
+							</select>
+                        </div>
+                        <div class="card-foot">
+                            <label><strong> Alterar senha no próximo login:</strong></label>
+                            <input id="checkbox" type="checkbox" name="checkbox" <?php echo $fetch['first_lg'] != 1 ? 'checked' : ''; ?>/>                         
                         </div>
                         <br />
                         <div class="card-foot">
@@ -94,4 +126,30 @@
     window.onbeforeunload = function() {
         document.querySelector('form').reset();
     };
+</script>
+
+<script>
+    // Função para limpar o campo Senha e ativar o campo Confirmar Senha
+    function clearPassword() {
+        document.getElementById('pwd').value = ''; // Limpa o valor do campo Senha
+        document.getElementById('pwd2').value = ''; // Limpa o valor do campo Confirmar Senha
+        document.getElementById('pwd2').removeAttribute('disabled'); // Remove o atributo disabled do campo Confirmar Senha
+        document.getElementById('pwd2').setAttribute('required', 'true'); // Define o atributo required para o campo Confirmar Senha
+    }
+</script>
+
+<script>
+    function edituser() {
+        var checkbox = document.getElementById('checkbox');
+        var form = document.getElementById('editForm');
+
+        // Verifica se a caixa de seleção está marcada
+        if (!checkbox.checked) {
+            // Se não estiver marcada, atribui um valor vazio ao campo 'checkbox'
+            checkbox.value = "";
+        }
+
+        // Submete o formulário
+        form.submit();
+    }
 </script>

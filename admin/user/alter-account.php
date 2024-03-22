@@ -33,7 +33,7 @@
                             </div>
                             <div class="card-foot">
                                 <label><strong> E-mail:</strong></label>
-                                <input type = "email" id="email" class = "form-control" onblur="validateEmail()" value = "<?php echo $fetch['email']?>" name = "email" />
+                                <input type = "email" id="email" class = "form-control" onblur="validateEmail()" value = "<?php echo $fetch['email']?>" name = "email" disabled/>
                                 <span id="mail-error" style="color: red; font-size: smaller;"></span>
                             </div>
                             <div class="card-foot">

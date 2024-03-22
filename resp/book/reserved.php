@@ -76,9 +76,12 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Locação</th>
+                                <th>Descrição</th>
                                 <th>Dt. Reserva</th>
+                                <th>Dia da Semana</th>
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
+                                <th>Aprovador</th>
                                 <th>Status</th>
                                 <th>Ação</th>
                             </tr>
@@ -105,10 +108,13 @@
                                     u.firstname,
                                     u.lastname,
                                     COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                    COALESCE(lb.room_no, vs.description) as description,
                                     lc.checkin,
                                     lc.checkin_time,
                                     lc.checkout_time,
                                     lc.approver_id,
+                                    lc.gp_approver_id,
+                                    CONCAT(appr.firstname, ' ', LEFT(appr.lastname, 1)) AS approver_name,
                                     st.status
                                 FROM `locacao` as lc
                                 LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
@@ -117,6 +123,8 @@
                                 LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                 INNER JOIN `status` st ON st.status_id = lc.status_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
+                                INNER JOIN `gp_approver` AS gp ON gp.gp_approver_id = lc.gp_approver_id
+                                LEFT JOIN `users` AS appr ON appr.users_id = gp.users_id
                                 WHERE
                                     lc.status_id IN (2,8)
                                     AND lc.users_id != $session_id
@@ -136,13 +144,34 @@
                                     echo "<td>Sem reservas...</td>";
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
+                                $editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."&info-reserve";
+                                $englishToPortugueseDays = array(
+                                    'Monday' => 'Segunda-feira',
+                                    'Tuesday' => 'Terça-feira',
+                                    'Wednesday' => 'Quarta-feira',
+                                    'Thursday' => 'Quinta-feira',
+                                    'Friday' => 'Sexta-feira',
+                                    'Saturday' => 'Sábado',
+                                    'Sunday' => 'Domingo'
+                                );
+                                $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
+                                $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
-                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?>>
-                                <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
+                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?> onclick="window.location='<?php echo $editLink ?>'">
+                            <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td><?php echo $fetch['description']?></td> 
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><?php echo $dia_semana ?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td>
+                                    <?php
+                                        $approver_name = $fetch['approver_name'];
+                                        $adminName = ($approver_name == 'Guilherme M' or $approver_name == 'Bruno R') ? 'Administrador' : $approver_name;
+                                        echo "<label >$adminName</label>";
+                                    ?>
+                                </td>
                                 <td>
                                     <?php
                                         $status = $fetch['status'];

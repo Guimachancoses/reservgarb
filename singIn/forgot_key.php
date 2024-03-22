@@ -65,11 +65,22 @@
             // Embaralhar os caracteres do hash gerado
             $codigo = str_shuffle($hash);
 
-            // Insere no banco de dados em uma tabela unica para código gerado e ID de usuário, para mudar a senha de acesso.
-            $stmt = $conn->prepare("INSERT INTO pwdtemp (users_id, email, codigo) VALUES (?, ?, ?)") or die(mysqli_error($conn));
-            $stmt->bind_param("sss", $users_id, $email, $codigo);
-			$stmt->execute();
-			$stmt->close();
+            // Verifica se já foi eviando um código de recupecação, para não enviar mais que um.
+            $stmt = $conn->prepare("SELECT * FROM pwdtemp WHERE email = ?") or die(mysqli_error($conn));
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            $stmt->store_result();
+            $valid = $stmt->num_rows();
+            // Se existe os dados do usuarios envia email com código para verificação
+            if ($valid != 0){
+                echo "<script>alert('Já foi enviado um código para recuperação. Verifique seu email!'); window.location.href = '../index.php';</script>";
+            } else {
+                // Insere no banco de dados em uma tabela unica para código gerado e ID de usuário, para mudar a senha de acesso.
+                $stmt = $conn->prepare("INSERT INTO pwdtemp (users_id, email, codigo) VALUES (?, ?, ?)") or die(mysqli_error($conn));
+                $stmt->bind_param("sss", $users_id, $email, $codigo);
+                $stmt->execute();
+                $stmt->close();
+            }
 
             $assunto = 'RESERVE GARBUIO - Recuperar sua senha';
             $message = "ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.\n \nOlá, ". $nmdestin."."."\n \nVocê tem uma mensagem enviada de:\n___________________________________________\n \n Administrador: " .$ademail. "\n Email: " .$email." \n___________________________________________\n \n - Para recuperar sua senha acesse o link abaixo.\n \nPor favor, acesse o seguinte link para validar seu código: http://localhost/reservgarb/forgot/validateuser.php\n" ."\nCódigo: ".$codigo;

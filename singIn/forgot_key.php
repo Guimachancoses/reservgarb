@@ -1,13 +1,22 @@
 <?php
+    function AntiSqlInjection($str, $conn) {
+        $str = mysqli_real_escape_string($conn, $str);
+        return $str;
+    }
+?>
+
+<?php
     // Função responsável por verificar dados recebidos para recuperar o acesso do usuário
     require_once "connect.php";
     require_once "send_mail.php";
 
+    
+
     if(ISSET($_POST['forgot_key'])){
         // Recebe os dados do formulário
-        $email = trim($_POST['email']);
+        $email = AntiSqlInjection(trim($_POST['email']), $conn);
         // remove a barra e o traço e deixa apenas os números
-        $identid = $_POST['cpf'];
+        $identid = AntiSqlInjection(trim($_POST['cpf']), $conn);
 		$cpf = str_replace(array('.', '-'), '', $identid);
                 
         // Consulta no banco se existe os dados do usuário

@@ -7,7 +7,7 @@
     }
     // Verifica se o usuário é aprovador
     $users_id = $_SESSION['users_id'];
-    $stmt = $conn->prepare("SELECT * FROM users WHERE funcao = 'Aprovador' AND users_id = ? && first_lg IS NULL");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE funcao = 'Coordenador' AND users_id = ? && (first_lg != 1 or first_lg is null)");
     $stmt->bind_param("i", $users_id);
     $stmt->execute();
     $result = $stmt->get_result();

@@ -4,7 +4,7 @@
 	<!---row-second----->
 
 		<div class="row">
-			<div class="col-lg-10 col-md-9">
+			<div class="col-lg-11 col-md-9">
 				<div class="card" style="min-height:750px">
                     <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
                         <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
@@ -76,7 +76,9 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Locação</th>
+                                <th>Descrição</th>
                                 <th>Dt. Reserva</th>
+                                <th>Dia da Semana</th>
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
                                 <th>Aprovador</th>
@@ -99,6 +101,7 @@
                                     u.firstname,
                                     u.lastname,
                                     COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                    COALESCE(lb.room_no, vs.description) as description,
                                     lc.checkin,
                                     lc.checkin_time,
                                     lc.checkout_time,
@@ -126,13 +129,26 @@
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
                                 $editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."&info-reserve";
+                                $englishToPortugueseDays = array(
+                                    'Monday' => 'Segunda-feira',
+                                    'Tuesday' => 'Terça-feira',
+                                    'Wednesday' => 'Quarta-feira',
+                                    'Thursday' => 'Quinta-feira',
+                                    'Friday' => 'Sexta-feira',
+                                    'Saturday' => 'Sábado',
+                                    'Sunday' => 'Domingo'
+                                );
+                                $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
+                                $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
-                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?> onclick="window.location='<?php echo $editLink ?>'">
+                            <tr <?php if($fetch['status'] == 'Atrasado') { echo 'style="background-color: #f2bdcd;cursor:pointer;"';} else { echo 'style="cursor:pointer;"';}; ?> onclick="window.location='<?php echo $editLink ?>'">
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td><?php echo $fetch['description']?></td> 
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><?php echo $dia_semana ?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td>
                                     <?php
                                         $approver_name = $fetch['approver_name'];

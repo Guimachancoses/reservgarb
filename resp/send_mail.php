@@ -74,395 +74,1202 @@
             $mail->Subject = $assunto;
             // $mail->Body = $message;
 
-            define('BASE_DIR', dirname(__DIR__));
+            // define('BASE_DIR', dirname(__DIR__));
 
-            // Obter o caminho absoluto da imagem "logo_title.png"
-            $imagePath = BASE_DIR . '\img\logo_title.png';
+            // // Obter o caminho absoluto da imagem "logo_title.png"
+            // $imagePath = BASE_DIR . '\img\logo_title.png';
 
-            // Obter o caminho absoluto da imagem "logo_title.png"
-            $imagePath2 = BASE_DIR . '\img\lg_garbuio.png';
+            // // Obter o caminho absoluto da imagem "logo_title.png"
+            // $imagePath2 = BASE_DIR . '\img\lg_garbuio.png';
 
-            // Obter o caminho absoluto da imagem de fundo "background_1.jpg"
-            $imagePath3 = BASE_DIR  . '\img\background_1.jpg';
+            // // Obter o caminho absoluto da imagem de fundo "background_1.jpg"
+            // $imagePath3 = BASE_DIR  . '\img\background_1.jpg';
 
-            // Adicionar a imagem ao e-mail com o identificador "cid:background"
-            $mail->AddEmbeddedImage($imagePath3, 'background', 'background_1.jpg');
+            // // Adicionar a imagem ao e-mail com o identificador "cid:background"
+            // $mail->AddEmbeddedImage($imagePath3, 'background', 'background_1.jpg');
 
-            // Adicionar a imagem ao e-mail
-            $mail->AddEmbeddedImage($imagePath, 'logoimg', 'logo_title.png');
+            // // Adicionar a imagem ao e-mail
+            // $mail->AddEmbeddedImage($imagePath, 'logoimg', 'logo_title.png');
 
-            // Adicionar a imagem ao e-mail
-            $mail->AddEmbeddedImage($imagePath2, 'logogarb', 'lg_garbuio.png');
+            // // Adicionar a imagem ao e-mail
+            // $mail->AddEmbeddedImage($imagePath2, 'logogarb', 'lg_garbuio.png');
 
             
             // Configurar o corpo do e-mail em HTML
             $mail->isHTML(true);
             $mail->Subject = $assunto;
             $mail->Body = '
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1, shrink-to-fit=no"
-                />
-                <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
-                />
-                <link
-                href="https://fonts.googleapis.com/css2?family=Monte+Serrat&display=swap"
-                rel="stylesheet"
-                />
-                <title>Reserve Garbuio</title>
-                <style>
-                html {
-                    line-height: 1.8;
-                    font-family: "Roboto", sans-serif;
-                    color: #555e58;
-                    /* text-transform:capitalize; */
-                    font-weight: 400;
-                    margin: 0px;
-                    padding: 0px;
-                    background-color: #f0f0f0;
+            <html xmlns="http://www.w3.org/1999/xhtml">
+            <link type="text/css" rel="stylesheet" id="dark-mode-custom-link" /><link
+              type="text/css"
+              rel="stylesheet"
+              id="dark-mode-general-link"
+            /><style lang="en" type="text/css" id="dark-mode-custom-style"></style
+            ><style lang="en" type="text/css" id="dark-mode-native-style"></style
+            ><head>
+              <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <!--[if !mso]><!-->
+              <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+              <!--<![endif]-->
+              <title>Reserve Garbuio</title>
+              <link rel="icon" type="image/jpg" href="./img/logo_title.png" />
+              <style type="text/css">
+                /* Reset styles */
+                @font-face {
+                  font-family: "Cachet", sans-serif;
+                  font-weight: 800;
+                  src: url("./font/Cachet\ Std\ Book.otf") format("truetype");
+              }
+
+                a,
+                a:link,
+                a:hover,
+                a:visited,
+                a:active {
+                  color: #000000;
+                  text-decoration: none;
+                }
+                .reset-blue-link {
+                  color: #000000 !important;
+                }
+                .iosLink a {
+                  color: #444444 !important;
+                  text-decoration: none !important;
+                }
+                .iosLinkWhite a {
+                  color: #ffffff !important;
+                  text-decoration: none !important;
+                }
+                a.disable-link {
+                  pointer-events: none;
+                  cursor: default;
+                }
+                a[x-apple-data-detectors="true"] {
+                  color: inherit !important;
+                  text-decoration: inherit !important;
+                  pointer-events: none !important;
+                }
+                u ~ div a,
+                #MessageViewBody a {
+                  color: inherit;
+                  text-decoration: none;
+                  font-weight: inherit;
+                }
+                .yshortcuts a {
+                  border-bottom: none !important;
+                }
+                #outlook a {
+                  padding: 0;
+                }
+                span.MsoHyperlink {
+                  mso-style-priority: 99;
+                  color: inherit;
+                }
+                span.MsoHyperlinkFollowed {
+                  mso-style-priority: 99;
+                  color: inherit;
+                }
+                .ReadMsgBody {
+                  width: 100%;
+                  background-color: #ffffff;
+                }
+                .ExternalClass {
+                  width: 100%;
+                }
+                .ExternalClass,
+                .ExternalClass p,
+                .ExternalClass span,
+                .ExternalClass font,
+                .ExternalClass td,
+                .ExternalClass div {
+                  line-height: 100%;
                 }
 
-                @media (min-width: 1981px) and (max-width: 10000px) {
-                    .header {
-                      position: relative;
-                      height: 100px;
-                      background-image: linear-gradient(
-                          to right,
-                          rgba(255, 255, 255, 0.5),
-                          rgba(0, 0, 0, 0.5)
-                        ),
-                        url("cid:background");
-                      background-size: cover;
-                      background-position: center;
-                      padding: 20px;
-                      text-align: center;
-                      align-items: center;
-                      justify-content: center;
-                      color:#fff;
-                      letter-spacing: 2px;
-                      font-family: Monte Serrat;
-                      font: sans-serif;
-                      font-size: 30px;
-                    }
-                  }
-            
-                  @media (min-width: 1551px) and (max-width: 1980px) {
-                    .header {
-                      position: relative;
-                      height: 100px;
-                      background-image: linear-gradient(
-                          to right,
-                          rgba(255, 255, 255, 0.5),
-                          rgba(0, 0, 0, 0.5)
-                        ),
-                        url("cid:background");
-                      background-size: cover;
-                      background-position: center;
-                      text-align: center;
-                      align-items: center;
-                      justify-content: center;
-                      color:#fff;
-                      letter-spacing: 2px;
-                      font-family: Monte Serrat;
-                      font: sans-serif;
-                      font-size: 25px;
-                    }
-                  }
-            
-                  @media (min-width: 1025px) and (max-width: 1550px) {
-                    .header {
-                      position: relative;
-                      height: 100px;
-                      background-image: linear-gradient(
-                          to right,
-                          rgba(255, 255, 255, 0.5),
-                          rgba(0, 0, 0, 0.5)
-                        ),
-                        url("cid:background");
-                      background-size: cover;
-                      background-position: center;
-                      text-align: center;
-                      align-items: center;
-                      justify-content: center;
-                      color:#fff;
-                      letter-spacing: 2px;
-                      font-family: Monte Serrat;
-                      font: sans-serif;
-                      font-size: 25px;
-                    }
-                  }
-            
-                  @media (min-width: 426px) and (max-width: 1024px) {
-                    .header {
-                      position: relative;
-                      height: 100px;
-                      background-image: linear-gradient(
-                          to right,
-                          rgba(255, 255, 255, 0.5),
-                          rgba(0, 0, 0, 0.5)
-                        ),
-                        url("cid:background");
-                      background-size: cover;
-                      background-position: center;
-                      text-align: center;
-                      align-items: center;
-                      justify-content: center;
-                      color:#fff;
-                      letter-spacing: 2px;
-                      font-family: Monte Serrat;
-                      font: sans-serif;
-                      font-size: 19px;
-                    }
-                  }
-            
-                  @media (max-width: 480px) {
-                    .header {
-                      position: relative;
-                      height: 100px;
-                      background-image: linear-gradient(
-                          to right,
-                          rgba(255, 255, 255, 0.5),
-                          rgba(0, 0, 0, 0.5)
-                        ),
-                        url("cid:background");
-                      background-size: cover;
-                      background-position: center;
-                      text-align: center;
-                      align-items: center;
-                      justify-content: center;
-                      color:#fff;
-                      letter-spacing: 2px;
-                      font-family: Monte Serrat;
-                      font: sans-serif;
-                      font-size: 10px;
-                    }
-                  }
-
-                .logo {
-                    width: 80px;
-                    margin-right: 10px;
-                    position: absolute;
-                    left: 20px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    text-align: center;
-                    align-items: center;
+                table,
+                td,
+                th {
+                  border-collapse: collapse;
+                  mso-table-lspace: 0pt;
+                  mso-table-rspace: 0pt;
+                }
+                body,
+                table,
+                td,
+                th,
+                p,
+                a,
+                li,
+                blockquote {
+                  -ms-text-size-adjust: 100%;
+                  -webkit-text-size-adjust: 100%;
+                }
+                body {
+                  margin: 0;
+                  padding: 0;
+                  background-color: #ffffff;
+                  -webkit-font-smoothing: antialiased;
+                  -moz-osx-font-smoothing: grayscale;
+                }
+                p {
+                  margin: 0;
+                }
+                ol,
+                ul {
+                  padding-left: 2em;
+                }
+                sup {
+                  font-size: 0.6em;
+                  vertical-align: 0.5em;
+                  line-height: 1em;
+                }
+                body,
+                table,
+                td,
+                th,
+                p,
+                ul,
+                ol,
+                li {
+                  font-family: Cachet, sans-serif;
+                  font-size: 13px;
+                  line-height: 16px;
+                  font-weight: 800;
+                }
+                img,
+                a img {
+                  display: block;
+                  border: 0;
+                  text-decoration: none;
+                  font-size: 13px;
+                  line-height: 16px;
+                  color: #070707;
+                  font-family: Cachet, sans-serif;
+                }
+                hr {
+                  border: 0;
+                  border-top: 1px solid #aaaaaa;
+                }
+                img {
+                  -ms-interpolation-mode: bicubic;
+                }
+                .showMobile {
+                  display: none;
+                }
+                .n-overlay {
+                  padding: 10px;
+                  color: white;
+                  background: #5faa4f;
+                  border: 2px solid white;
+                  border: 3px solid transparent;
+                  cursor: pointer;
                 }
 
-                .main-content {
-                    background-image: linear-gradient(
-                    to right,
-                    rgba(255, 255, 255, 0.5),
-                    rgba(104, 193, 66, 0.5)
-                    );
-                    background-size: cover;
-                    padding: 5% 10%; /* Adapta o padding internamente */
-                    color: #000000;
-                    text-align: center;
-                    min-height: 50vh; /* Define a altura em 100% da altura da viewport (tela) */
+                .n-overlay:hover {
+                  color: #5faa4f;
+                  background-color: white;
+                  box-shadow: 5px 3px 10px #5faa4f;
+                  border: 3px solid transparent;
+                  cursor: pointer;
+                }
+                /* Android 4.4 */
+                body[style*="margin: 0 10px"] {
+                  margin: 0 auto !important;
+                  padding: 0px !important;
+                }
+                div[style*="margin: 16px 0"] {
+                  margin: 0 auto !important;
+                  font-size: 100% !important;
+                }
+                /* Gmail */
+                * img[tabindex="0"] + div {
+                  display: none !important;
                 }
 
-                .footer {
-                    border-radius: 10px 10px 0px 0px;
-                    border-top: 1px solid #000000;
-                    background-color: #000000;
-                    padding: 10px 0;
-                    position: relative;
+                /* ------------- MOBILE START  ------------------ */
+
+                @media screen and (max-width: 600px) {
+                  u ~ div #fw-container {
+                    min-width: 100vw !important;
+                  }
+                  #m-p-container {
+                    padding: 10px !important;
+                  }
+                  /* ------------- Hero Image Swap  ------------------ */
+
+                  img[class="topbannerSwitcher"] {
+                    display: block !important;
+                    content: url() !important;
+                    width: 100% !important;
+                    height: auto !important;
+                  }
+
+                  img[class="mobile"] {
+                    display: block !important;
+                    width: 100% !important;
+                    height: auto !important;
+                  }
+
+                  /* ------------- END Hero Image Swap  ------------------ */
+
+                  .wrap {
+                    width: 100% !important;
+                    height: auto !important;
+                  }
+                  .showMobile {
+                    display: block !important;
+                  }
+                  .hide {
+                    display: none !important;
+                  }
+                  .stack {
+                    width: 100% !important;
+                    height: auto !important;
+                    display: block !important;
+                    border: none !important;
+                  }
+                  .m-p-reset {
+                    padding-top: 10px !important;
+                  }
+                  .m-px-reset {
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                  }
+                  .m-py-reset {
+                    padding-top: 0 !important;
+                    padding-bottom: 0 !important;
+                  }
+                  .m-p-10 {
+                    padding: 10px !important;
+                  }
+                  .m-p-15 {
+                    padding: 15px !important;
+                  }
+                  .m-px-20 {
+                    padding-left: 20px !important;
+                    padding-right: 20px !important;
+                  }
+                  .m-px-15 {
+                    padding-left: 15px !important;
+                    padding-right: 15px !important;
+                  }
+                  .m-px-10 {
+                    padding-left: 10px !important;
+                    padding-right: 10px !important;
+                  }
+                  .m-pb-10 {
+                    padding-bottom: 10px !important;
+                  }
+                  .m-pb-45 {
+                    padding-left: 45px !important;
+                  }
+                  .m-pb-20 {
+                    padding-bottom: 20px !important;
+                  }
+                  .m-pt-10 {
+                    padding-bottom: 10px !important;
+                  }
+                  .m-pt-20 {
+                    padding-top: 20px !important;
+                  }
+                  .mobile-skinny-banner-padding {
+                    padding: 0 0 15px 0 !important;
+                  }
+                  .hero-padding {
+                    padding-top: 25px !important;
+                    padding-bottom: 15px !important;
+                  }
+                  .mobile-cta-padding {
+                    padding: 10px 0px 0px 0px !important;
+                  }
+                  .mobile-cta-padding2 {
+                    padding: 10px 0px 20px 0px !important;
+                  }
+                  .width-auto {
+                    width: auto !important;
+                  }
+                  .height-auto {
+                    height: auto !important;
+                  }
+                  .align-center {
+                    text-align: center !important;
+                  }
+                  .img-center {
+                    margin-left: auto;
+                    margin-right: auto;
+                  }
+                  .align-left,
+                  .align-left td {
+                    text-align: left !important;
+                  }
+                  .fs13 {
+                    font-size: 11px !important;
+                    line-height: 13px !important;
+                  }
+                  .promo {
+                    font-size: 104px !important;
+                    line-height: 54px !important;
+                  }
+                  .promo-text {
+                    font-size: 40px !important;
+                    line-height: 42px !important;
+                  }
+                  .hero-subhead-padding {
+                    padding-top: 10px !important;
+                    padding-bottom: 15px !important;
+                  }
+                  .product-padding {
+                    padding-left: 20px !important;
+                    padding-right: 20px !important;
+                    padding-bottom: 15px !important;
+                  }
+                  .product-padding img {
+                    width: 100% !important;
+                    height: auto !important;
+                  }
+                  .product-padding-b15 {
+                    padding-left: 0px !important;
+                    padding-right: 0px !important;
+                    padding-bottom: 15px !important;
+                  }
+                  .product-padding-b15 img {
+                    width: 100% !important;
+                    height: auto !important;
+                  }
+                  .product-nopadding img {
+                    width: 100% !important;
+                    height: auto !important;
+                  }
+                  .product-col {
+                    padding-bottom: 25px !important;
+                  }
+                  .product-col-border {
+                    padding-top: 25px !important;
+                    border-top: 1px solid #c8c9c7 !important;
+                  }
+                  .product-col-middle-border {
+                    padding: 25px 0 !important;
+                    border-top: 1px solid #c8c9c7 !important;
+                  }
+                  #coop-banner .image1 {
+                    width: calc(120px * 1.5) !important;
+                  }
+                  #coop-banner .image2 {
+                    width: calc(53px * 1.5) !important;
+                  }
+                  #coop-banner .image3 {
+                    width: calc(74px * 1.5) !important;
+                  }
+                  .stack.mobile-ql table {
+                    border-bottom: 1px solid #ffffff !important;
+                  }
+                  .stack.mobile-ql table * {
+                    border-bottom: 0 !important;
+                  }
+                  .mobile-ql .stack {
+                    padding: 5px 0 !important;
+                  }
+                  .connect-text-padding {
+                    padding: 0 0 10px !important;
+                  }
+                  .wd_auto_3up4 {
+                    width: 100% !important;
+                    height: auto !important;
+                    border-right: none !important;
+                    padding: 15px 15px !important;
+                  }
+                  .wd_auto_3up3 {
+                    width: 100% !important;
+                    height: auto !important;
+                    padding-top: 10px !important;
+                  }
+                  .padding_mid {
+                    padding-left: 15px !important;
+                    padding-right: 15px !important;
+                  }
+                  .h_auto {
+                    height: auto !important;
+                  }
+                  .noneMobile {
+                    display: none !important;
+                  }
+                  td[class="hero-product"] .product_image_small {
+                    display: table-cell !important;
+                    height: auto !important;
+                    max-height: inherit !important;
+                    overflow: visible !important;
+                    float: none !important;
+                    padding-bottom: 10px;
+                  }
+                  td[class="hero-product"] .product_image_small img {
                     width: 100%;
+                    height: auto !important;
+                    display: block !important;
+                  }
+                  .config-border {
+                    width: 100% !important;
+                    height: auto !important;
+                    border-right: none !important;
+                    padding-bottom: 15px !important;
+                    /*border-bottom: 1px solid #aaaaaa !important;*/
+                  }
+                  .cta-button a {
+                    padding: 12px 20px !important;
+                  }
+                }
+                
+              </style>
+
+              <!-- Non-Gmail supported CSS -->
+              <style>
+                /* Outlook app iOS */
+
+                body[data-outlook-cycle] #m-p-container {
+                  padding: 10px !important;
+                  background-color: #ffffff !important;
                 }
 
-                .footer .copyright {
-                    color: white;
-                    padding: 15px;
-                    font-size: 14px;
-                    margin: 0;
-                    text-align: right; /* Alinha o texto à direita */
+                /* Outlook app Android */
+                @media (min-resolution: 1dpi) {
+                  body[data-outlook-cycle] #m-p-container {
+                    padding: 0px !important;
+                  }
                 }
+              </style>
 
-                /* Media query para telas menores, como celulares */
-                @media (max-width: 480px) {
-                    .header {
-                    min-height: 150px;
-                    }
-
-                    .logo {
-                    width: 60px;
-                    }
-
-                    .main-content {
-                    padding: 20px;
-                    }
-                }
-
-                /* Media query para telas menores, como celulares */
-                @media (min-width: 481px) and (max-width: 768px) {
-                    .header {
-                    min-height: 150px;
-                    }
-
-                    .logo {
-                    width: 60px;
-                    }
-
-                    .main-content {
-                    padding: 20px;
-                    }
-                }
-
-                /* Media query para telas médias, como tablets */
-                @media (min-width: 769px) and (max-width: 1200px) {
-                    .header {
-                        min-height: 200px;
-                    }
-
-                    .logo {
-                    width: 70px;
-                    }
-
-                    .main-content {
-                    padding: 25px;
-                    }
-                }
-
-                @media (min-width: 1201px) {
-                    .header {
-                        min-height: 200px;
-                    }
-                    
-                    .logo {
-                    width: 90px;
-                    }
-
-                    .main-content {
-                    padding: 30px;
-                    }
-                }
-                .page-item .n-overlay {
-                    padding: 10px;
-                    color: white;
-                    background: #5faa4f;
-                    border: 2px solid white;
-                    border: 3px solid transparent;
-                    cursor: pointer;
-                }
-
-                .page-item .n-overlay:hover {
-                    color: #5faa4f;
-                    background-color: white;
-                    box-shadow: 5px 3px 10px #5faa4f;
-                    border: 3px solid transparent;
-                    cursor: pointer;
-                }
-
-                .card {
-                    display: inline-block;
-                    position: relative;
-                    width: 75%;
-                    margin: 15px 0;
-                    border-radius: 6px;
-                    background-color: #fff;
-                    box-shadow: 10px 10px 10px #00000049;
-                    text-align: left;
-                    align-items: left;
-                    padding: 20px;
-                }
-
-                .card h5 {
-                    margin: 10px 0px;
-                }
-                /* Estilo para as tags <li> dentro da classe .card com a mesma fonte de <h5> */
-                .card li {
-                    font-size: 12px; /* Tamanho da fonte igual ao de <h5> */
-                    margin: 10px 0px; /* Margem igual à de <h5> */
-                }
-                </style>
+              <link
+                rel="stylesheet"
+                type="text/css"
+                href="chrome-extension://jggobmlojchhlngdhmmdghgganciigof/css/translate_popup.css"
+              />
+              <style type="text/css" id="operaUserStyle"></style>
             </head>
-            <body>
-                <div class="header">
-                    <img
-                        style="padding-top: 50px"
-                        align="left"
-                        class="logo"
-                        src="cid:logoimg"
-                    />
-                    <h1 style="padding-top: 50px;padding-right:15   0px">Reserve Garbuio</h1>
-                </div>
-                <div class="main-content">
-                    <div class="card">
-                        <h5
-                        style="
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: red;
-                        "
-                        >
-                        <strong>ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.</strong>
-                        </h5>
-                        <br />
-                        <h5><strong>Olá, '.$dtname.'.</strong></h5>
-                        <h5><strong>Você tem uma mensagem enviada de:</strong></h5>
-                        <h5><strong>Nome: '.$nome.'.</strong></h5>
-                        <h5><strong>Email: '.$email.'</strong></h5>
-                        <br />
-                        <h5>
-                        <strong>Seu pedido de reserva foi confimado.</strong>
-                        </h5>
-                        <br />
-                        <h5>
-                        <strong>Informações da reserva:</strong>
-                        </h5>
-                        <li><strong>Locação: </strong> '.$locacao.'</li>
-                        <li><strong>Descrição: </strong> '.$description.'</li>
-                        <li><strong>Data: </strong> '.$checkin.'</li>
-                        <li><strong>Hora de Início: </strong> '.$checkin_time.' horas</li>
-                        <li><strong>Hora Final: </strong> '.$checkout_time.' horas</li>
-                    </div>
-                    <div class="card">
-                        <h5><strong>Acesse o portal para visualizar sua reserva.</strong></h5>
-                        <div
-                            class="page-item"
-                            style="display: flex; align-items: center; justify-content: center"
+
+            <body bgcolor="#ffffff" style="margin: 0; padding: 0px">
+              <table
+                role="presentation"
+                align="center"
+                width="100%"
+                border="0"
+                cellspacing="0"
+                cellpadding="0"
+              >
+                <tbody>
+                  <tr>
+                    <td align="center" valign="top" bgcolor="#ffffff" id="fw-container">
+                      <table
+                        role="presentation"
+                        align="center"
+                        width="100%"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                      >
+                        <tbody>
+                          <tr>
+                            <td
+                              align="center"
+                              valign="top"
+                              style="padding: 25px"
+                              id="m-p-container"
                             >
-                            <a
-                            style="border-radius: 10px 10px 10px 10px; text-decoration: none"
-                            class="n-overlay"
-                            href="http://192.168.1.49/reservgarb/index.php"
-                            target="_blank"
-                            >Página Inicial</a>
-                        </div>
-                    </div>
-                    <div style="padding-top: 50px">
-                        <img src="cid:logogarb"/>
-                    </div>
-                </div>
-                <footer class="footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <p class="copyright">
-                                    &copy;
-                                    <a
-                                        style="color: white; text-decoration: none"
-                                        href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
-                                        target="blank"
-                                        >GuiMac</a
-                                    >&#160; &#10084;&#65039; 2023
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                              <table
+                                role="presentation"
+                                width="600"
+                                bgcolor="#ffffff"
+                                class="wrap"
+                                align="center"
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="0"
+                                style="width: 600px; margin: 0 auto"
+                              >
+                                <!--  EMAIL HEADER -->
+                                <!-- -------------- SSL   -->
+
+                                <tbody>
+                                  
+                                  <!-- -------------- END SSL -->
+
+                                  <!-- -------------- CSB OR ISG HEADER -->
+                                  <tr>
+                                    <td valign="top" bgcolor="#ffffff" class="noneMobile">
+                                      <table
+                                        role="presentation"
+                                        width="100%"
+                                        border="0"
+                                        cellspacing="0"
+                                        cellpadding="0"
+                                      >
+                                        <tbody>
+                                          <tr>
+                                            <td
+                                              valign="top"
+                                              style="padding: 0px"
+                                              class="m-p-15"
+                                            >
+                                              <table
+                                                role="presentation"
+                                                width="100%"
+                                                border="0"
+                                                cellspacing="0"
+                                                cellpadding="0"
+                                              >
+                                                <tbody>
+                                                  <tr>
+                                                                                                       
+                                                    <!-- ### FUNDING  ### -->
+
+                                                    <td align="center">
+                                                      <table
+                                                        cellpadding="0"
+                                                        cellspacing="0"
+                                                      >
+                                                        <tbody>
+                                                          <tr>
+                                                            <td align="right">
+                                                              <img
+                                                                src="https://www.garbuio.com.br/wp-content/uploads/2021/08/logo-garb.png"
+                                                                alt="Garbuio"
+                                                                style="
+                                                                  display: block;
+                                                                  border: 0;
+                                                                  width: 100px;
+                                                                "
+                                                              />
+                                                            </td>
+                                                          </tr>                                                            
+                                                        </tbody>
+                                                      </table>
+                                                    </td>
+
+                                                    <!--  END FUNDING   -->
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td height="15"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+
+                                  <!--[if !mso]><!-->
+                                  <tr>
+                                    <td
+                                      class="showMobile"
+                                      bgcolor="#ffffff"
+                                      style="padding-bottom: 10px"
+                                    >
+                                      <table
+                                        role="presentation"
+                                        width="100%"
+                                        border="0"
+                                        cellspacing="0"
+                                        cellpadding="0"
+                                      >
+                                        <tbody>
+                                          <tr>                                  
+                                            <td align="center">
+                                              <table
+                                                role="presentation"
+                                                width="100%"
+                                                border="0"
+                                                cellspacing="0"
+                                                cellpadding="0"
+                                              >
+                                                <tbody>
+                                                  <tr>
+                                                    <td width="100%" align="right">
+                                                      <table
+                                                        cellpadding="0"
+                                                        cellspacing="0"
+                                                      >
+                                                      </table>
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <!--<![endif]-->
+                                  <!-- -------------- END CSB OR ISG HEADER   -->
+
+                                  <!-- -------------- COUNTDOWN TIMER  ### -->
+
+                                  <tr style="
+                                  outline: none;
+                                  background-color: #2bc220;
+                                  text-decoration: none;
+                                  display: flex;
+                                  height: 10px;
+                                ">
+                                  </tr>
+
+                                  <!-- -------------- COUNTDOWN TIMER END / ### -->
+
+                                  <!-- ### HERO  ### -->
+                                  <tr>
+                                    <td width="600" align="center">
+                                      <table cellpadding="0" cellspacing="0">
+                                        <!---- HERO LAYOUT 1 START --->
+
+                                        <tbody>
+                                          <tr>
+                                            <td
+                                              align="center"
+                                              valign="top"
+                                              style="padding-top: 0px"
+                                            >
+                                              <table
+                                                role="presentation"
+                                                border="0"
+                                                cellspacing="0"
+                                                cellpadding="0"
+                                              >
+                                                <tbody>
+                                                  <tr>
+                                                    <td align="center" valign="middle">
+                                                      <a
+                                                        ><img
+                                                          src="https://scontent.fcpq8-1.fna.fbcdn.net/v/t39.30808-6/405414626_335840592399663_817382839607070585_n.png?stp=dst-png_p240x240&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFiHK2YHqVY4MKfNA41KDiJDQX0tBmq8-0NBfS0Garz7WVMvd3QsUWOVVeavBY824XLPQhQ4YpCz-3gVNGIzRRD&_nc_ohc=9_ajSZ3GwP8AX9_cuoc&_nc_ht=scontent.fcpq8-1.fna&oh=00_AfDgX6L_Mvv3jYRhfv9TyW3mFWAnBZgkjHRyeEJLUeLTUw&oe=66039751"
+                                                          alt="Garbuio"
+                                                          border="0"
+                                                          style="
+                                                            display: flex;
+                                                            font-size: 16px;
+                                                            color: #0076ce;
+                                                            width: 70%;
+                                                          "
+                                                          class="wrap"
+                                                      /></a>
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+
+                                  <tr style="
+                                  outline: none;
+                                  background-color: #2bc220;
+                                  text-decoration: none;
+                                  display: flex;
+                                  height: 10px;
+                                ">
+                                  </tr>
+
+                                  <tr>
+                                    <td height="20"></td>
+                                  </tr>
+                                  <!-- ### BANNER 1 IMAGE  ### -->
+                                  <tr>
+                                    <td
+                                      bgcolor="#ffffff"
+                                      align="center"
+                                      valign="top"
+                                      style="padding: 0px"
+                                    >
+                                      <table
+                                        dir="rtl"
+                                        role="presentation"
+                                        width="100%"
+                                        border="0"
+                                        cellspacing="0"
+                                        cellpadding="0"
+                                      >
+                                        <tbody>
+                                          <tr>
+                                            <td align="center" style="padding: 0px">
+                                              <table
+                                                width="100%"
+                                                role="presentation"
+                                                border="0"
+                                                cellspacing="0"
+                                                cellpadding="0"
+                                              >
+                                                <tbody>
+                                                  <tr>
+                                                    <th
+                                                      align="left"
+                                                      valign="top"
+                                                      class="stack"
+                                                    >
+                                                      <table
+                                                        role="presentation"
+                                                        width="100%"
+                                                        border="0"
+                                                        cellspacing="0"
+                                                        cellpadding="0"
+                                                      >
+                                                        <tbody>
+                                                          <tr>
+                                                            <td
+                                                              align="center"
+                                                              valign="middle"
+                                                              class="product-padding-b15"
+                                                            >
+                                                              <a
+                                                                href=""
+                                                                _label="Banner_1"                                                      
+                                                                ><img
+                                                                  src="https://scontent.fcpq8-1.fna.fbcdn.net/v/t39.30808-6/386750031_306484715335251_8721018202012945388_n.jpg?stp=c74.0.1292.1292a_dst-jpg_s851x315&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFUsUIP4yOA64YQadqDjjykTErvl7G7wM5MSu-XsbvAzjhgIAK__rSBmVwN-KQoAX7rl8EAYePt0PDsvHlrdrZw&_nc_ohc=fQvafc4B8I8AX-LuIbE&_nc_ht=scontent.fcpq8-1.fna&oh=00_AfCs5m7w7E2sV8XoCbzUUgqJaYVIHlOgDVkbot7VO1s7SA&oe=6604A956"
+                                                                  alt="Garbuio"
+                                                                  border="0"
+                                                                  style="
+                                                                  display: block;
+                                                                  width: 70%;
+                                                                  "
+                                                              /></a>
+                                                            </td>
+                                                          </tr>
+                                                        </tbody>
+                                                      </table>
+                                                    </th>
+                                                    <th
+                                                      align="center"
+                                                      valign="top"
+                                                      class="stack"
+                                                      style="padding: 0 0px"
+                                                    >
+                                                      <table
+                                                        dir="ltr"
+                                                        role="presentation"
+                                                        width="100%"
+                                                        border="0"
+                                                        cellspacing="0"
+                                                        cellpadding="0"
+                                                      >
+                                                        <tbody>
+                                                          <tr>
+                                                            <td
+                                                              style="padding: 0px 20px"
+                                                              class="m-pb-20"
+                                                            >
+                                                              <table
+                                                                role="presentation"
+                                                                width="100%"
+                                                                border="0"
+                                                                cellspacing="0"
+                                                                cellpadding="0"
+                                                              >
+                                                                <tbody>
+                                                                  <tr>
+                                                                    <td
+                                                                      align="left"
+                                                                      style="
+                                                                        font-family: Arial,
+                                                                          Helvetica,
+                                                                          sans-serif;
+                                                                      "
+                                                                      class="align-center"
+                                                                    >
+                                                                      <table
+                                                                        role="presentation"
+                                                                        width="100%"
+                                                                        border="0"
+                                                                        cellspacing="0"
+                                                                        cellpadding="0"
+                                                                      >
+                                                                        <tbody>
+                                                                          <tr>
+                                                                            <td
+                                                                              height="20"
+                                                                              class="noneMobile"
+                                                                            >
+                                                                              &nbsp;
+                                                                            </td>
+                                                                          </tr>
+
+                                                                          
+
+                                                                          <tr>
+                                                                            <td
+                                                                              style="
+                                                                                font-family: Arial,
+                                                                                  Helvetica,
+                                                                                  sans-serif;
+                                                                                font-size: 11px;
+                                                                                line-height: 14px;
+                                                                                color: #444444;                                                                      
+                                                                              "
+                                                                              class="align-center"
+                                                                            >
+                                                                              <a
+                                                                                href=""
+                                                                                _label="INFO"
+                                                                                target="_blank"
+                                                                                style="
+                                                                                  outline: none;
+                                                                                  color: #444444;
+                                                                                  text-decoration: none;                                                                        
+                                                                                "
+                                                                                >ESSA MENSAGEM É AUTOMÁTICA, FAVOR NÃO RESPONDER.
+
+                                                                                  <h5><strong>Olá, '.$dtname.'.</strong><br>
+                                                                                  <strong>Você tem uma mensagem enviada de:</strong><br>
+                                                                                  <strong>Nome: '.$nome.'.</strong><br>
+                                                                                  <strong>Email: '.$email.'</strong><br><br>
+
+                                                                                  <p>
+                                                                                  <strong style="color: red;">Seu pedido de reserva foi confirmado.</strong>
+                                                                                  </p><br>
+
+                                                                                  <strong>Informações da reserva:</strong>
+                                                                                  <ul>
+                                                                                      <li>Locação: '.$locacao.'</li>
+                                                                                      <li>Descrição: '.$description.'</li>
+                                                                                      <li>Data: '.$checkin.'</li>
+                                                                                      <li>Hora de Início: '.$checkin_time.'</li>
+                                                                                      <li>Hora Final: '.$checkout_time.'</li><br>
+                                                                                  </ul>
+
+                                                                                  <strong>Acesse o portal para visualizar sua reserva</strong></h5>
+                                                                              </a>
+                                                                            </td>
+                                                                          </tr>
+
+                                                                          <tr>
+                                                                            <td
+                                                                              height="10"
+                                                                            ></td>
+                                                                          </tr>
+
+                                                                          <tr>
+                                                                            <td
+                                                                              class="align-center m-px-5 m-pt-15"
+                                                                              valign="top"
+                                                                            >
+                                                                              <table
+                                                                              
+                                                                                role="presentation"
+                                                                                border="0"
+                                                                                cellpadding="0"
+                                                                                cellspacing="0"
+                                                                                class="wrap"
+                                                                              >
+                                                                                <tbody>
+                                                                                  <tr>
+                                                                                    <td
+                                                                                    
+                                                                                      valign="middle"
+                                                                                      align="CENTER"
+                                                                                      style="
+                                                                                        font-family: Arial,
+                                                                                          Helvetica,
+                                                                                          sans-serif;
+                                                                                        font-size: 14px;
+                                                                                        mso-line-height-rule: exactly;
+                                                                                        line-height: 16px;
+                                                                                        font-weight: 700;
+                                                                                        color: #444444;
+                                                                                        letter-spacing: 0.03em;
+                                                                                    "
+                                                                                      class="cta-button"
+                                                                                    >
+                                                                                      <a
+                                                                                      
+                                                                                        href="http://agenda.garbuio.int/reservgarb/index.php"
+                                                                                        _label="PÁGINA INICIAL"
+                                                                                        target="_blank"
+                                                                                        style="
+                                                                                          color:#444444;
+                                                                                          border: 2px
+                                                                                            solid
+                                                                                            #444444;
+                                                                                          text-decoration: none;
+                                                                                          padding: 20px
+                                                                                            20px;
+                                                                                          display: block;                                                                                        
+                                                                                        "
+                                                                                        >Página Inicial
+                                                                                      </a>
+                                                                                    </td>
+                                                                                  </tr>
+                                                                                </tbody>
+                                                                              </table>
+                                                                            </td>
+                                                                          </tr>
+                                                                        </tbody>
+                                                                      </table>
+                                                                    </td>
+                                                                  </tr>
+                                                                </tbody>
+                                                              </table>
+                                                            </td>
+                                                          </tr>
+                                                        </tbody>
+                                                      </table>
+                                                    </th>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="100%" align="center">
+                                      <table cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="center">
+                                              <table cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                  <tr>
+                                                    <td
+                                                      class="social-icon"
+                                                      align="center"
+                                                      style="padding: 0 5px"
+                                                    >
+                                                      <a
+                                                        href="https://www.instagram.com/transportadoragarbuio/?theme=dark"
+                                                        _label="Instagram"
+                                                        target="_blank"
+                                                        style="outline: none"
+                                                        ><img
+                                                          src="https://i.dell.com/is/image/DellContent/content/dam/ss1/csb/emails/latam/portuguese-brazil/basic-images/icon-ig.png"
+                                                          alt="Instagram"
+                                                          style="border: 0"
+                                                      /></a>
+                                                    </td>
+                                                    <td
+                                                      class="social-icon"
+                                                      align="center"
+                                                      style="padding: 0 5px"
+                                                    >
+                                                      <a
+                                                        href="https://api.whatsapp.com/send/?phone=5519982280312&text&type=phone_number&app_absent=0"
+                                                        _label="Whatsapp"
+                                                        target="_blank"
+                                                        style="outline: none"
+                                                        ><img
+                                                          src="https://img.icons8.com/?size=48&id=uZWiLUyryScN&format=png"
+                                                          alt="Whatsapp"
+                                                          style="
+                                                          border: 0;
+                                                          "
+                                                      /></a>
+                                                    </td>
+                                                    <td
+                                                      class="social-icon"
+                                                      align="center"
+                                                      style="padding: 0 5px"
+                                                    >
+                                                      <a
+                                                        href="https://www.facebook.com/garbuiotransportadora"
+                                                        _label="Facebook"
+                                                        target="_blank"
+                                                        style="outline: none"
+                                                        ><img
+                                                          src="https://i.dell.com/is/image/DellContent/content/dam/ss1/csb/emails/latam/portuguese-brazil/basic-images/icon-facebook.png"
+                                                          alt="Facebook"
+                                                          style="border: 0"
+                                                      /></a>
+                                                    </td>
+                                                    <td
+                                                      class="social-icon"
+                                                      align="center"
+                                                      style="padding: 0 5px"
+                                                    >
+                                                      <a
+                                                        href="https://www.linkedin.com/company/transportadoragarbuio/mycompany/"
+                                                        _label="LinkedIn"
+                                                        target="_blank"
+                                                        style="outline: none"
+                                                        ><img
+                                                          src="https://i.dell.com/is/image/DellContent/content/dam/ss1/csb/emails/latam/portuguese-brazil/basic-images/icon-li.png"
+                                                          alt="LinkedIn"
+                                                          style="border: 0"
+                                                      /></a>
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td valign="top" style="padding: 20px">
+                                      <table
+                                        role="presentation"
+                                        width="100%"
+                                        border="0"
+                                        cellspacing="0"
+                                        cellpadding="0"
+                                      >
+                                        <tbody>
+                                          <tr>
+                                            <td
+                                              valign="top"
+                                              style="line-height: 1px; font-size: 1px"
+                                            >
+                                              &nbsp;
+                                            </td>
+                                          </tr>
+
+                                          <tr>
+                                            <td
+                                              align="center"
+                                              valign="top"
+                                              style="
+                                                text-align: center;
+                                                color: rgb(68, 68, 68);
+                                                line-height: 16px;
+                                                font-family: Cachet, sans-serif;
+                                                font-size: 12px;
+                                                font-weight: normal;
+                                              "
+                                            >
+                                              <a
+                                                style="
+                                                  color: rgb(0, 118, 206);
+                                                  text-decoration: none;
+                                                "
+                                                href="https://www.garbuio.com.br"
+                                                _label="Empresa"
+                                                target="_blank"
+                                                >Empresa </a
+                                              >&nbsp;|&nbsp;
+                                              <a
+                                                style="
+                                                  color: rgb(0, 118, 206);
+                                                  text-decoration: none;
+                                                "
+                                                href="https://central.tiflux.com.br/r/externals/tickets/new/3aa2d6da09887613520201a9e460c267016c8c15" target="_blank"><span class="btn btn-info form-control"
+                                                _label="Abrir Ticket"
+                                                target="_blank"
+                                                >Abrir Ticket </a
+                                              >&nbsp;|&nbsp;
+                                              <a
+                                                style="
+                                                  color: rgb(0, 118, 206);
+                                                  text-decoration: none;
+                                                "
+                                                href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
+                                                _label="GuiMac"
+                                                target="_blank"
+                                              >
+                                              &copy&#160GuiMac&#160&#10084;&#65039;2024
+                                              </a>
+                                            </td>
+                                          </tr>
+
+                                          <tr>
+                                            <td height="20"></td>
+                                          </tr>
+                                          
+                                          <!-- ### FOOTER / ### -->
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td
+                              class="hide"
+                              align="center"
+                              height="1"
+                              style="font-size: 1px; line-height: 1px"
+                            >
+                              <table
+                                role="presentation"
+                                class="hide"
+                                width="600"
+                                align="center"
+                                cellpadding="0"
+                                cellspacing="0"
+                                style="min-width: 600px; mso-hide: all"
+                                border="0"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      style="
+                                        font-size: 0px;
+                                        line-height: 0px;
+                                        border: 0px;
+                                      "
+                                    >
+                                      &nbsp;
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- --------------ADD Impression Tag HERE -->
+              <style>
+                @media print {
+                  #_two50 {
+                    background-image: url("");
+                  }
+                }
+                blockquote #_two50,
+                #mailContainerBody #_two50,
+                div.OutlookMessageHeader,
+                table.moz-email-headers-table {
+                  background-image: url("");
+                }
+              </style>
+              <div id="_two50"></div>
+              <img
+                id="_two50_img"
+                src=""
+                width="1"
+                height="1"
+                style="
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  border: 0 !important;
+                  height: 1px !important;
+                  width: 1px !important;
+                "
+              />
+
+              <img
+                src=""
+                border="0"
+                height="1"
+                width="1"
+                alt="Advertisement"
+              />
+
+              <img
+                height="0"
+                width="0"
+                alt=""
+                src=""
+              />
             </body>
-            </html>
+          </html>
             ';
 
             // Configurar o corpo alternativo do e-mail (caso o cliente não suporte HTML)

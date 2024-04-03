@@ -22,15 +22,19 @@ RewriteRule ^admin/(.\*)$ /admin/index.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^resp/(.\*)$ /resp/index.php [L]
 
-# Verifica se a solicitação é para a pasta profes
+# Verifica se a solicitação é para a pasta user
 
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^user/(.\*)$ /user/index.php [L]
 
+# Verifica se a solicitação é para a pasta coord
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^coord/(.\*)$ /coord/index.php [L]
+
 # Redirecionar automaticamente para pastas que possuem um index.php
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1/index.php [L]
-
 
 # Adicionar extensão .php automaticamente
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -9,6 +9,7 @@
     $eventCheckin = $_POST['eventCheckin'];
     $eventTimeFrom = $_POST['eventTimeFrom'];
     $eventTimeTo = $_POST['eventTimeTo'];
+    $eventInfo = $_POST['eventInfo'];
     $description = $_POST['description'];
     $description_with_wildcard = '%' . $description . '%';
 
@@ -95,8 +96,8 @@
         } 
         
         // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-        $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiiiiisssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id);
+        $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiiiiisssis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id, $eventInfo);
         $stmt->execute();
         $locacao_id = $stmt->insert_id;
         $stmt->close();
@@ -156,10 +157,9 @@
                                     ON u.users_id = gp.users_id
                                     WHERE gp.gp_approver_id = (SELECT gp_approver_id
                                                             FROM gr_approved as gr 
-                                                            WHERE users_id = $users_id
-                                                            )
-                                        OR gp.gp_approver_id = 25");
-            $stmt->bind_param("i", $approver_id);
+                                                            WHERE users_id = ?
+                                                            )");
+            $stmt->bind_param("i", $users_id);
             $stmt->execute();
             $stmt->bind_result($fadname, $ladname, $ademail);
             // Laço para enviar um email para cada usuário encontrado

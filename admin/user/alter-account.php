@@ -14,14 +14,15 @@
                         }
                     </script>
 					<div class="card-header card-header-text">
-						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastrais</strong></h4>
+						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastro</strong></h4>
+                        <p class="category">Confirme seus dados antes de salvar:</p>
                     <?php
                         $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_SESSION[users_id]'") or die(mysqli_error($conn));
                         $fetch = $query->fetch_array();
-                    ?>
-					<p class="category"><?php echo $fetch['funcao']?>, comfirme seus dados antes de salvar:</p>
-                    
-                    <div class = "col-md-10"style="min-height:850px">	
+                    ?> 
+                    <p id='mensagem' class="mb-1 mt-2 text-center"></p>                   
+                    <div class = "col-md-10"style="min-height:850px">
+                        	
                         <form method = "POST" action = "alter_query_account.php" enctype = "multipart/form-data" autocomplete="off" onsubmit="edituser()">
                             <div class="card-foot">
                                 <label><strong> Nome:</strong></label>
@@ -78,4 +79,15 @@
     window.onbeforeunload = function() {
         document.querySelector('form').reset();
     };
-</script>   
+</script>
+
+<script>
+    // Verifica se a URL contém o parâmetro "mensagem"
+    const urlParams = new URLSearchParams(window.location.search);
+    const mensagem = urlParams.get('mensagem');
+
+    if (mensagem) {
+        // Adiciona a mensagem na div com ID "mensagem"
+        document.getElementById("mensagem").innerHTML = `<label style="color:#e61919;">${mensagem}</label>`;
+    }
+</script>

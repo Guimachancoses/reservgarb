@@ -15,13 +15,13 @@
       href="../img/logo_title.png" 
 	  />
 	<script>
-        document.addEventListener("DOMContentLoaded", function () {
+		document.addEventListener("DOMContentLoaded", function () {
             var images = ["background_1.jpg", "background_2.jpg", "background_login.jpg","background_login5.jpg",
-			"background_login3.jpg","background_login6.jpg","background_login100.jpg","background_login101.jpg",
+			"background_login3.jpg","background_login6.jpg","background_login100.jpg","background_login101.jpg",'background_login102.jpg',
 			"background_login103.jpg","background_login104.jpg","background_login106.jpg","background_login107.jpg",
-			"background_login107.jpg",'bg01.jpg','bg02.jpg','bg03.jpg','bg05.jpg','bg06.jpg','bg07.jpg','bg09.jpg','bg10.jpg'
-		]; // Coloque o nome das suas imagens aqui
-            var randomImage = images[Math.floor(Math.random() * images.length)];
+			"background_login107.jpg",'bg01.jpg','bg02.jpg','bg03.jpg','bg05.jpg','bg06.jpg','bg07.jpg','bg09.jpg','bg10.jpg','teste2.jpeg'
+		]; // Coloque o nome das suas imagens aqui            
+			var randomImage = images[Math.floor(Math.random() * images.length)];
             var imageUrl = "../img/" + randomImage; // Certifique-se de que o diretório esteja correto
             document.body.style.backgroundImage = "url(" + imageUrl + ")";
         });

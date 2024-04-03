@@ -76,6 +76,7 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Locação</th>
+                                <th>Descrição</th>
                                 <th>Dia da Semana</th>
                                 <th>Dt. Reserva</th>
                                 <th>Dt. Devolução</th>
@@ -107,6 +108,7 @@
                                     u.firstname,
                                     u.lastname,
                                     COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
+                                    COALESCE(lb.room_no, vs.description) as description,
                                     CASE lc.weekday
                                     WHEN 'Monday' THEN 'Segunda-feira'
                                     WHEN 'Tuesday' THEN 'Terça-feira'
@@ -149,11 +151,12 @@
                             <tr>
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
+                                <td><?php echo $fetch['description']?></td> 
                                 <td><?php echo $fetch['dia_semana']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><strong><?php if($fetch['checkout'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkout']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkout']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><strong><?php if($fetch['checkout'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkout']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkout']))."</label>";}?></strong></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td>
                                     <?php
                                     $assunto = $fetch['assunto'];
@@ -168,12 +171,12 @@
                                     <center>
                                         <?php if ($fetch['users_id'] != $session_id): { ?>
                                             <a style="padding: 1px" class="btn btn-success" href="reservlab.php?lc_period_id=<?php echo $fetch['lc_period_id'] . 'confirm-locp' ?>">
-                                                <abbr title="Aprovar">
+                                                <abbr style="display:flex;text-decoration:none" title="Aprovar">
                                                     <i class="material-icons">thumb_up_alt</i>
                                                 </abbr>
                                             </a>
                                             <a style="padding: 1px" class="btn btn-danger" onclick="confirmationDelete(); return false;" href="delete_pendingPer.php?lc_period_id=<?php echo $fetch['lc_period_id'] ?>">
-                                                <abbr title="Excluir">
+                                                <abbr style="display:flex;text-decoration:none" title="Excluir">
                                                     <i class="material-icons">thumb_down_alt</i>
                                                 </abbr>
                                             </a>
@@ -181,7 +184,7 @@
                                         <?php else: ?>
                                             
                                             <a style="padding: 1px" class="btn btn-danger" onclick="confirmationDelete(); return false;" href="delete_pendingPER.php?lc_period_id=<?php echo $fetch['lc_period_id'] ?>">
-                                                <abbr title="Excluir">
+                                                <abbr style="display:flex;text-decoration:none" title="Excluir">
                                                     <i class="material-icons">delete</i>
                                                 </abbr>
                                             </a>

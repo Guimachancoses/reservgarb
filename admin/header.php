@@ -5,7 +5,7 @@
 	require_once 'name.php';
 ?>
 <?php // tempo de expiração em segundos
-	$tempo_expiracao = 420; 
+	$tempo_expiracao = 4200; 
 	// cria um cookie com o nome 'sessao' e o valor '1234'
 	setcookie('sessao', '1234', time() + $tempo_expiracao);?>
 <html lang="pt-br">
@@ -50,7 +50,8 @@
     <script src="<?=$base_url?>../js/moment.js"></script>
     <script src="<?=$base_url?>../js/bootstrap.min.js"></script>
     <script src="<?=$base_url?>../js/bootstrap-datetimepicker.js"></script>
-    <script src="../js/updateLocation.js"></script>	
+    <script src="../js/updateLocation.js"></script>
+    <script src="../js/upgradePass.js"></script>	
     <link rel="stylesheet" href="<?=$base_url?>../css/bootstrap-datetimepicker.min.css" />
 
 	  <!--google material icon-->

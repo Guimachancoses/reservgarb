@@ -50,7 +50,8 @@
     <script src="<?=$base_url?>../js/moment.js"></script>
     <script src="<?=$base_url?>../js/bootstrap.min.js"></script>
     <script src="<?=$base_url?>../js/bootstrap-datetimepicker.js"></script>
-    <script src="../js/updateLocation.js"></script>	
+    <script src="../js/updateLocation.js"></script>
+    <script src="../js/upgradePass.js"></script>		
     <link rel="stylesheet" href="<?=$base_url?>../css/bootstrap-datetimepicker.min.css" />
 
 	  <!--google material icon-->
@@ -64,7 +65,7 @@
 <div class="wrapper">
 
   <div class="body-overlay"></div>
-  <!-- <script>
+  <script>
         // Função para limpar o console
         function limparConsole() {
             console.clear();
@@ -72,4 +73,4 @@
 
         // Chamando a função de limpeza ao carregar a página
         window.onload = limparConsole;
-    </script> -->
+    </script>

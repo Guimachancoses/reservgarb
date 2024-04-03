@@ -4,14 +4,15 @@
 			<div class="col-lg-7">
 				<div class="card" style="min-height:625px">
 					<div class="card-header card-header-text">
-						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastrais</strong></h4>
+						<h4 class="card-title"><strong class="text-primary"> Alterar Dados de Cadastro</strong></h4>
                             <p class="category" style="display:flex;align-items:center;justify-content:center; background-color: #f4d7d3;  border-radius: 6px;  padding: 5px;  margin-bottom: 8px; color: #000000;">
                             Para alterar o nome ou sobrenome, solicite ao administrador do sistema.</p>
-						    <p class="category">Comfirme seus dados antes de salvar:</p>
+						    <p class="category">Confirme seus dados antes de salvar:</p>
                     <?php
                         $query = $conn->query("SELECT * FROM `users` WHERE `users_id` = '$_SESSION[users_id]'") or die(mysqli_error($conn));
                         $fetch = $query->fetch_array();
                     ?>
+                    <p id='mensagem' class="mb-1 mt-2 text-center"></p>
                     <div class = "col-md-8" style="min-height:625px">	
                         <form method = "POST" action = "alter_query_account.php?users_id=<?php echo $_SESSION['users_id']?>" enctype = "multipart/form-data" autocomplete="off" onsubmit="edituser()">
                             <div class="card-foot">
@@ -62,4 +63,14 @@
     window.onbeforeunload = function() {
         document.querySelector('form').reset();
     };
-</script>   
+</script>
+<script>
+    // Verifica se a URL contém o parâmetro "mensagem"
+    const urlParams = new URLSearchParams(window.location.search);
+    const mensagem = urlParams.get('mensagem');
+
+    if (mensagem) {
+        // Adiciona a mensagem na div com ID "mensagem"
+        document.getElementById("mensagem").innerHTML = `<label style="color:#ffff00;">${mensagem}</label>`;
+    }
+</script>     

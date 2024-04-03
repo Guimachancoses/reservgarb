@@ -9,7 +9,7 @@
 															SELECT COUNT(*) AS total FROM lc_period WHERE mensagens_id = 37
 															UNION ALL
 															SELECT COUNT(*) AS total FROM locacao WHERE status_id = 1 AND lc_period_id IS NULL
-														) AS subquery;") or die(mysqli_error($conn));
+														) AS subquery;");
 		$f_p = $q_p->fetch_array();
 
 		// query for total pendding
@@ -30,16 +30,7 @@
 					LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
 					LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 					INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-					WHERE ms.mensagens_id = 3 AND lc.users_id != $session
-						AND (
-							(@groupId = 1) -- Administrador
-							OR
-							(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-							OR
-							(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-							OR
-							(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-						)
+					WHERE ms.mensagens_id = 3
 			UNION ALL
 					SELECT
 					COUNT(*) AS total
@@ -51,27 +42,16 @@
 					INNER JOIN `status` st ON st.status_id = lc.status_id
 					INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 					WHERE
-						lc.lc_period_id IS NULL
-						AND lc.status_id IN (2,8) 
-						AND lc.users_id != $session
-						AND (
-							(@groupId = 1) -- Administrador
-							OR
-							(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-							OR
-							(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-							OR
-							(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-						)
-		) AS subquery;") or die(mysqli_error($conn));
+						lc.status_id IN (2,8) 
+		) AS subquery;");
 		$f_ci = $q_ci->fetch_array();
 
 		// query for total users
-		$q_u = $conn->query("SELECT COUNT(u.users_id) as total FROM `users` as u ") or die(mysqli_error($conn));
+		$q_u = $conn->query("SELECT COUNT(u.users_id) as total FROM `users` as u ");
 		$f_u = $q_u->fetch_array();
 
 		// query for total location
-		$q_lc = $conn->query("SELECT COUNT(lc.locacao_id) as total FROM `locacao` as lc WHERE status_id = 4") or die(mysqli_error($conn));
+		$q_lc = $conn->query("SELECT COUNT(lc.locacao_id) as total FROM `locacao` as lc WHERE status_id = 4");
 		$f_lc = $q_lc->fetch_array();
 	?>
 	<div class="row">
@@ -145,7 +125,7 @@
 				<div class="card-header">
 					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
 						<div class="gif-container">
-							<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+							<iframe src="https://giphy.com/embed/rHWIuXiA4zvQsY0FdH" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 						</div>
 					</div>
 				</div>
@@ -291,7 +271,7 @@
 															FROM `users` 
 															WHERE users_id != '$_SESSION[users_id]' AND status != '6'
 															ORDER BY firstname
-															") or die(mysqli_error($conn));
+															");
 							if (mysqli_num_rows($queryad) == 0) {
 								echo "<td>Sem usuários cadastrados</td>";
 							}
@@ -378,7 +358,7 @@
 												ON ac.mensagens_id = ms.mensagens_id
 												WHERE ac.users_id = '$_SESSION[users_id]' 
 												ORDER BY 2 DESC 
-												LIMIT 6;") or die(mysqli_error($conn));						
+												LIMIT 6;");						
 						$i = 1;
 						if (mysqli_num_rows($q_act) == 0) {
 							echo '<div class="sl-item">';
@@ -389,8 +369,18 @@
 						echo'</div>';
 						}
 						while($f_act = $q_act->fetch_array()){
+							$assunto = $f_act['assunto'];
 							${'assunto'.$i} = $f_act['assunto'];
 							${'tempo'.$i} = $f_act['tempo'];
+
+							// Verificar se o assunto contém as palavras específicas
+							if (strpos($assunto, 'Senha irá') !== false) {
+								// Se encontrar as palavras específicas, definir o estilo da div
+								$style = 'color:#e61919;';
+							} else {
+								// Se não encontrar as palavras específicas, não definir nenhum estilo
+								$style = '';
+							}
 						
 						switch ($i) {
 								case 1:
@@ -415,7 +405,7 @@
 						?>
 					      		<div class="sl-content">
 						    		<small class="text-muted"><?php echo ${'tempo'.$i}?></small>
-									<p><?php echo ${'assunto'.$i}?></p>
+									<p style="<?php echo $style?>"><?php echo ${'assunto'.$i}?></p>
 					      		</div>
 				        	</div>
 						<?php

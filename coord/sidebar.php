@@ -212,7 +212,15 @@
                             <i class="material-icons">person</i><span><?php echo $name;?></span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                                 <li>
-                                    <a class="nav-link" href="logout.php"><i class="material-icons text-logout">logout</i><span class="text-primary"><strong><small>Sair</small></strong></span></a>
+                                    <a class="nav-link" href="reservlab.php?alter-account">
+                                    <i  class="material-icons" style="color:orange">auto_fix_normal</i><span class="text-primary"><small>Alterar Seu Dados</small></span></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="logout.php"><i style="color:#5faa4f" class="material-icons text-logout">logout</i>
+                                        <span class="text-primary">
+                                            <strong><small>Sair</small></strong>
+                                        </span>
+                                    </a>
                                 </li>
                             </ul>
                     </li>
@@ -224,9 +232,6 @@
                             <i class="material-icons">settings</i>
                                 <span>Configuração</span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-                                <li>
-                                    <a class="nav-link" href="reservlab.php?alter-account"><span><small>Alterar Sua Senha</small></span></a>
-                                </li>
                                 <li>
                                     <?php if (isset($lightMode)) { ?>
                                         <a class="nav-link toggle-mode dark-btn" id="darkbtn" name="color" data-value="0">

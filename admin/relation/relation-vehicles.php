@@ -49,7 +49,7 @@
                             <td><?php echo $fetch['name']?></td>
 
                             <td><?php echo $fetch['model']?></td>
-                            <td><center><a class = "btn btn-danger" onclick = "confirmationDeletedbl(this); return false;" href = "delete_relation-vehicle.php?vehicle_id=<?php echo $fetch['vehicle_id']?>"><abbr title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
+                            <td><center><a class = "btn btn-danger" onclick = "confirmationDeletedbl(this); return false;" href = "delete_relation-vehicle.php?vehicle_id=<?php echo $fetch['vehicle_id']?>"><abbr style="display:flex;text-decoration:none" title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
                         </tr>
                     <?php
                         }

@@ -1,3 +1,9 @@
+<?php // tempo de expiração em segundos
+	$tempo_expiracao = 4200; 
+	// cria um cookie com o nome 'sessao' e o valor '1234'
+	setcookie('sessao', '1234', time() + $tempo_expiracao);?>
+<html lang="pt-br">
+
 <nav id="sidebar" class="active">
 
 <?php
@@ -104,7 +110,15 @@
                             <i class="material-icons">person</i><span><small><?php echo $name;?></small></span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                                 <li>
-                                    <a class="nav-link" href="logout.php"><i class="material-icons text-logout">logout</i><span class="text-primary"><strong><small>Sair</small></strong></span></a>
+                                    <a class="nav-link" href="reservlab.php?alter-account">
+                                    <i  class="material-icons" style="color:orange">auto_fix_normal</i><span class="text-primary"><small>Alterar Seu Dados</small></span></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="logout.php"><i style="color:#5faa4f" class="material-icons text-logout">logout</i>
+                                        <span class="text-primary">
+                                            <strong><small>Sair</small></strong>
+                                        </span>
+                                    </a>
                                 </li>
                             </ul>
                     </li>
@@ -114,11 +128,7 @@
                     <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
                         <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" >
                             <i class="material-icons">settings</i><span>Configuração</span></a>
-                            <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-                                <li>
-                                    <a class="nav-link" href="reservlab.php?alter-account">
-                                    <i  class="material-icons" style="color:orange">auto_fix_normal</i><span class="text-primary"><small>Alterar Seu Dados</small></span></a>
-                                </li>
+                            <ul class="collapse list-unstyled menu" id="homeSubmenu2">                                
                                 <li>
                                     <?php if (isset($lightMode)) { ?>
                                         <a class="nav-link toggle-mode dark-btn" id="darkbtn" name="color" data-value="0">

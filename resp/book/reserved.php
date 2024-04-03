@@ -157,8 +157,8 @@
                                 $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
                                 $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
-                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?> onclick="window.location='<?php echo $editLink ?>'">
-                            <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
+                            <tr <?php if($fetch['status'] == 'Atrasado') { echo 'style="background-color: #f2bdcd;cursor:pointer;"';} else { echo 'style="cursor:pointer;"';}; ?> onclick="window.location='<?php echo $editLink ?>'">
+                                <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td> 
                                 <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
@@ -179,7 +179,7 @@
                                         echo "<label style='color: $cor;'><strong>$status</strong></label>";
                                     ?>
                                 </td>
-                                <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
+                                <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr style="display:flex;text-decoration:none" title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }

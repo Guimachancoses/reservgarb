@@ -10,6 +10,9 @@
     $eventTimeFrom = $_POST['eventTimeFrom'];
     $eventTimeTo = $_POST['eventTimeTo'];
     $users_id = $_SESSION['users_id'];
+    $eventInfo = $_POST['eventInfo'];
+    $description = $_POST['description'];
+    $description_with_wildcard = '%' . $description . '%';
 
     // Converte a data para o formato do MySQL
     $checkin_date = DateTime::createFromFormat('d/m/Y', $eventCheckin);
@@ -32,8 +35,8 @@
     $stmt->close();
 
     // Executa a primeira consulta para obter o vehicle_id
-    $stmt = $conn->prepare("SELECT vehicle_id, approver_id FROM vehicles WHERE name = ?");
-    $stmt->bind_param("s", $eventTitle);
+    $stmt = $conn->prepare("SELECT vehicle_id, approver_id FROM vehicles WHERE name = ? AND model LIKE ?");
+    $stmt->bind_param("ss", $eventTitle, $description_with_wildcard);
     $stmt->execute();
     $stmt->bind_result($vehicle_id, $approver_id);
     $stmt->fetch();
@@ -86,8 +89,8 @@
         } 
         
         // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-        $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiiiiisssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id);
+        $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiiiiisssis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_date, $timeFrom, $timeTo, $approver_id, $eventInfo);
         $stmt->execute();
         $locacao_id = $stmt->insert_id;
         $stmt->close();

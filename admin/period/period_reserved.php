@@ -17,7 +17,7 @@
                         }
                     </script>
 					<div class="card-header card-header-text">
-					<h4 class="card-title"><strong class="text-primary"> Solicitações de Reservas por Período Aprovadas</strong></h4>
+					<h4 class="card-title"><strong class="text-primary"> Reservas por Período Aprovadas</strong></h4>
 						<p class="category">Caso queira liberar a reserva, clique do botão ao lado:</p>
 					</div>
 					<div class="card-content table-responsive">
@@ -129,7 +129,7 @@
                                 LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                                 LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                 INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-                                WHERE ms.mensagens_id = 3
+                                WHERE ms.mensagens_id IN (3,38)
                                     AND (
                                         (@groupId = 1) -- Administrador
                                         OR
@@ -139,25 +139,32 @@
                                         OR
                                         (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
                                     )
-                                ORDER BY  lc.checkin ASC
+                                ORDER BY  lc.checkin DESC
                                 LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                                 
                                 if (mysqli_num_rows($querypd2) == 0) {
                                     echo "<td>Sem reservas pendentes...</td>";
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
+                                $editLink = "reservlab.php?lc_period_id=".$fetch['lc_period_id']."&info-per";
                             ?>
-                            <tr>
+                            <tr <?php if($fetch['assunto'] == 'Reserva atrasada!'){ echo 'style="background-color: #f2bdcd;cursor:pointer;"'; } else {echo 'style="cursor:pointer;"';} ?> onclick="window.location='<?php echo $editLink ?>'">
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td> 
                                 <td><?php echo $fetch['dia_semana']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><strong><?php if($fetch['checkout'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkout']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkout']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#449D44;'><strong><small>" .$fetch['assunto']."</small></strong></label>"?></td>
-                                <td><center><a class = "btn btn-warning" href = "checkout_query_per.php?lc_period_id=<?php echo $fetch['lc_period_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><strong><?php if($fetch['checkout'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkout']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkout']))."</label>";}?></strong></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td>
+                                    <?php
+                                        $assunt = $fetch['assunto'];
+                                        $cor = ($assunt == 'Reserva atrasada!') ? '#ff0000' : '#0000FF';
+                                        echo "<label style='color: $cor;'><strong><small>$assunt</small></strong></label>";
+                                    ?>
+                                </td>
+                                <td><center><a class = "btn btn-warning" href = "checkout_query_per.php?lc_period_id=<?php echo $fetch['lc_period_id']?>" onclick = "confirmationCheckin(); return false;"><abbr style="display:flex;text-decoration:none" title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }	

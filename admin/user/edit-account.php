@@ -55,6 +55,7 @@
                                 <option value = "<?php echo $fetch['funcao']?>"><?php echo $fetch['funcao']?></option>
                                 <option value="Administrador">Administrador</option>
                                 <option value="Aprovador">Aprovador</option>
+                                <option value="Coordenador">Coordenador</option>
                                 <option value="Usuário">Usuário</option>
                             </select>
                         </div>

@@ -78,6 +78,7 @@
                                 <th>Locação</th>
                                 <th>Descrição</th>
                                 <th>Dt. Reserva</th>
+                                <th>Dia da Semana</th>
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
                                 <th>Aprovador</th>
@@ -129,14 +130,26 @@
                                     echo "<td>Sem reservas...</td>";
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
+                                $englishToPortugueseDays = array(
+                                    'Monday' => 'Segunda-feira',
+                                    'Tuesday' => 'Terça-feira',
+                                    'Wednesday' => 'Quarta-feira',
+                                    'Thursday' => 'Quinta-feira',
+                                    'Friday' => 'Sexta-feira',
+                                    'Saturday' => 'Sábado',
+                                    'Sunday' => 'Domingo'
+                                );
+                                $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
+                                $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
-                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?>>
+                            <tr <?php if($fetch['status'] == 'Atrasado') { echo 'style="background-color: #f2bdcd;cursor:pointer;"';} else { echo 'style="cursor:pointer;"';}; ?>>
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><?php echo $dia_semana ?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td>
                                     <?php
                                         $approver_name = $fetch['approver_name'];

@@ -135,6 +135,10 @@
 	else if(preg_match("~info-reserve~", $url)) {
     	$content = 'book/info-reserve.php';
 	}
+	// Redirecionamento para informações das reservas por periodo
+	else if(preg_match("~info-per~", $url)) {
+		$content = 'period/info-per.php';
+	}
 	// Caso não for direcinado para nenhuma página, monte o HTML com a página principal
 	else
 		$content = 'main-content.php';

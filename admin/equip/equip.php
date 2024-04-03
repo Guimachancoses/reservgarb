@@ -42,7 +42,7 @@
                                 <td><?php echo $fetch['equipment']?></td>
                                 <td><?php echo $fetch['sector']?></td>
                                 <td><?php echo $fetch['description']?></td>
-                                <td><center><a class = "btn btn-warning" href = "reservlab.php?equip_id=<?php echo $fetch['equip_id']."edit-equip"?>"><abbr title="Editar"><i class = "material-icons">edit_note</i></abbr></a> <a class = "btn btn-danger" onclick = "confirmationDelete(this); return false;" href = "delete_equip_query.php?equip_id=<?php echo $fetch['equip_id']?>"><abbr title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
+                                <td><center><a class = "btn btn-warning" href = "reservlab.php?equip_id=<?php echo $fetch['equip_id']."edit-equip"?>"><abbr style="display:flex;text-decoration:none" title="Editar"><i class = "material-icons">edit_note</i></abbr></a> <a class = "btn btn-danger" onclick = "confirmationDelete(this); return false;" href = "delete_equip_query.php?equip_id=<?php echo $fetch['equip_id']?>"><abbr style="display:flex;text-decoration:none" title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
                             </tr>
                         <?php
                             }

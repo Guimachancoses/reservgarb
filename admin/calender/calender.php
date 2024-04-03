@@ -49,6 +49,19 @@
                         </div>
                         <div class="add-event-body">
                             <div class="add-event-input">
+                                <select class="event-disc select-box" >
+                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
+                                <?php  
+									$queryad = $conn->query("SELECT * FROM `users` WHERE`status` = 5 ORDER BY 2 ASC") or die(mysqli_error($conn));
+									while($fetch = $queryad->fetch_array()){
+								?>
+                                    <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"><?php echo $fetch['firstname']." ".$fetch['lastname'];?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="add-event-input">
                                 <select class="event-name select-box" >
                                     <!-- query para trazer as salas -->
                                     <option value="" disabled selected>Escolha o que você deseja locar</option>
@@ -85,20 +98,7 @@
                                         ?>
                                     </optgroup>
                                 </select>
-                            </div>
-                            <div class="add-event-input">
-                                <select class="event-disc select-box" >
-                                <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
-                                <?php  
-									$queryad = $conn->query("SELECT * FROM `users`") or die(mysqli_error($conn));
-									while($fetch = $queryad->fetch_array()){
-								?>
-                                    <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"><?php echo $fetch['firstname']." ".$fetch['lastname'];?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+                            </div>                            
                             <div class="add-event-input">
                                 <input type="text" placeholder="Hora da Locação" class="event-time-from" />
                             </div>

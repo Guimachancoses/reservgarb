@@ -583,7 +583,7 @@ eventsContainer.addEventListener("click", (e) => {
       var title = titleParts[0]; // A primeira parte contém o título do evento
       var room_no = titleParts[1]; // A segunda parte contém o número da sala
 
-      // Envia uma solicitação POST para a API "delete_event.php" para excluir o evento do banco de dados
+      // Envia uma solicitação POST para a API "delete_cal_query.php" para excluir o evento do banco de dados
       const formData = new FormData();
       const inputDate = new Date(year, month, activeDay);
       var checkin = inputDate.toLocaleDateString();

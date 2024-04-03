@@ -19,16 +19,6 @@
 				LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 				INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 				WHERE ms.mensagens_id = 37
-				AND lc.users_id IN (
-									SELECT
-										users_id
-									FROM gr_approved
-									WHERE gp_approver_id = (
-														SELECT
-															gp_approver_id
-														FROM gp_approver
-														WHERE users_id = $session_id)
-							) -- retorna lista de usuários da responsabilidade do gerente
 					AND (
 						(@groupId = 1) -- Administrador
 						OR
@@ -53,16 +43,6 @@
 					AND lc.users_id != $session_id
 					AND ms.mensagens_id = 2
 					AND lc.lc_period_id IS NULL
-					AND lc.users_id IN (
-									SELECT
-										users_id
-									FROM gr_approved
-									WHERE gp_approver_id = (
-														SELECT
-															gp_approver_id
-														FROM gp_approver
-														WHERE users_id = $session_id)
-							) -- retorna lista de usuários da responsabilidade do gerente
 					AND (
 						(@groupId = 1) -- Administrador
 						OR
@@ -85,16 +65,7 @@
 							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
 							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE ms.mensagens_id = 3 AND lc.users_id != $session_id
-								AND (
-									(@groupId = 1) -- Administrador
-									OR
-									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-									OR
-									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-									OR
-									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-								)
+							WHERE ms.mensagens_id = 3
 					UNION ALL
 							SELECT
 							COUNT(*) AS total
@@ -106,18 +77,7 @@
 							INNER JOIN `status` st ON st.status_id = lc.status_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
 							WHERE
-								  lc.lc_period_id IS NULL
-								AND lc.status_id IN (2,8) 
-								AND lc.users_id != $session_id
-								AND (
-									(@groupId = 1) -- Administrador
-									OR
-									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-									OR
-									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-									OR
-									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-								)
+								lc.status_id IN (2,8) 
 			) AS subquery;") or die(mysqli_error($conn));
 		$f_ci = $q_ci->fetch_array();
 
@@ -277,7 +237,7 @@
 				<div class="card-header">
 					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
 						<div class="gif-container">
-							<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
+							<iframe src="https://giphy.com/embed/rHWIuXiA4zvQsY0FdH" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
 						</div>
 					</div>
 				</div>
@@ -380,7 +340,7 @@
 			<div class="card" style="min-height:535px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Pedidos de Reservas Aguardando sua Aprovação</h4>
-					<p class="category">Clique sobre uma pedido para aprovar:</p>
+					<p class="category">Aqui consta tanto as reservas diária quanto as por período:</p>
 				</div>
 				<div class="card-content table-responsive">
 					<div class="search-container">
@@ -461,35 +421,23 @@
 															lc.locacao_id,
 															u.firstname,
 															u.lastname,
-															COALESCE(lb.room_type, vs.name, eq.equipment) as locacao,
-															COALESCE(lb.room_no, vs.model) as description,
+															COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
+															COALESCE(lb.room_no, vs.description) AS description,
 															lc.checkin,
 															lc.checkin_time,
-															lc.checkout_time,
 															lc.approver_id,
 															st.status
-														FROM `locacao` as lc
-														LEFT JOIN `laboratorios` as lb ON lb.room_id = lc.room_id
-														INNER JOIN `users` as u ON u.users_id = lc.users_id
-														LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
-														LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
+														FROM `locacao` AS lc
+														LEFT JOIN `laboratorios` AS lb ON lb.room_id = lc.room_id
+														INNER JOIN `users` AS u ON u.users_id = lc.users_id
+														LEFT JOIN `vehicles` AS vs ON vs.vehicle_id = lc.vehicle_id
+														LEFT JOIN `equipment` AS eq ON eq.equip_id = lc.equip_id
 														INNER JOIN `status` st ON st.status_id = lc.status_id
-														INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-														WHERE
-															lc.status_id = 1
-															AND lc.users_id != '$_SESSION[users_id]' 
+														INNER JOIN `mensagens` AS ms ON ms.mensagens_id = lc.mensagens_id
+														WHERE lc.status_id = 1
+															AND lc.users_id != '$_SESSION[users_id]'
 															AND ms.mensagens_id = 2
 															AND lc.lc_period_id IS NULL
-															AND lc.users_id IN (
-																			SELECT
-																				users_id
-																			FROM gr_approved
-																			WHERE gp_approver_id = (
-																								SELECT
-																									gp_approver_id
-																								FROM gp_approver
-																								WHERE users_id = $session_id)
-																	) -- retorna lista de usuários da responsabilidade do gerente
 															AND (
 																(@groupId = 1) -- Administrador
 																OR
@@ -499,7 +447,36 @@
 																OR
 																(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
 															)
-														ORDER BY  lc.checkin ASC
+														
+														UNION
+														
+														SELECT
+															lc.lc_period_id,
+															u.firstname,
+															u.lastname,
+															COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
+															COALESCE(lb.room_no, vs.description) AS description,
+															lc.checkin,
+															lc.checkin_time,
+															lc.approver_id,
+															ms.assunto AS assunto
+														FROM `lc_period` AS lc
+														LEFT JOIN `laboratorios` AS lb ON lb.room_id = lc.room_id
+														INNER JOIN `users` AS u ON u.users_id = lc.users_id
+														LEFT JOIN `vehicles` AS vs ON vs.vehicle_id = lc.vehicle_id
+														LEFT JOIN `equipment` AS eq ON eq.equip_id = lc.equip_id
+														INNER JOIN `mensagens` AS ms ON ms.mensagens_id = lc.mensagens_id
+														WHERE ms.mensagens_id = 37
+															AND (
+																(@groupId = 1) -- Administrador
+																OR
+																(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
+																OR
+																(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
+																OR
+																(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
+															) OR lc.users_id = $session_id
+														ORDER BY  checkin ASC
 														LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
 								if (mysqli_num_rows($querypd2) == 0) {
 									echo "<td></td>";
@@ -509,11 +486,10 @@
 									echo "<td></td>";
 								}                        
 								while ($fetch = $querypd2->fetch_array()) {
-									$editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."confirm-reserve";
 							?>
 						<tbody>		
-								<tr onclick="window.location='<?php echo $editLink ?>'">
-									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';} else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-danger";';}?></td>
+								<tr>
+									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';}  else { echo '<div class="steamline"><div class="sl-item sl-warning";';}?></td>
 									<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 									<td><?php echo $fetch['locacao']?></td>
 									<td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
@@ -623,40 +599,49 @@
 						echo'</div>';
 						}
 						while($f_act = $q_act->fetch_array()){
+							$assunto = $f_act['assunto'];
 							${'assunto'.$i} = $f_act['assunto'];
 							${'tempo'.$i} = $f_act['tempo'];
+
+							// Verificar se o assunto contém as palavras específicas
+							if (strpos($assunto, 'Senha irá') !== false) {
+								// Se encontrar as palavras específicas, definir o estilo da div
+								$style = 'color:#e61919;';
+							} else {
+								// Se não encontrar as palavras específicas, não definir nenhum estilo
+								$style = '';
+							}
 						
 						switch ($i) {
-								case 1:
-								  echo '<div class="sl-item">';
-								  break;
-								case 2:
-								  echo '<div class="sl-item">';
-								  break;
-								case 3:
-								  echo '<div class="sl-item sl-primary">';
-								  break;
-								case 4:
-								  echo '<div class="sl-item sl-success">';
-								  break;
-								case 5:
-								  echo '<div class="sl-item sl-warning">';
-								  break;
-								case 6:
-								  echo '<div class="sl-item sl-danger">';
-								  break;	  
-							  }
+							case 1:
+								echo '<div class="sl-item">';
+								break;
+							case 2:
+								echo '<div class="sl-item">';
+								break;
+							case 3:
+								echo '<div class="sl-item sl-primary">';
+								break;
+							case 4:
+								echo '<div class="sl-item sl-success">';
+								break;
+							case 5:
+								echo '<div class="sl-item sl-warning">';
+								break;
+							case 6:
+								echo '<div class="sl-item sl-danger">';
+								break;	  
+							}
 						?>
-					      		<div class="sl-content">
-						    		<small class="text-muted"><?php echo ${'tempo'.$i}?></small>
-									<p><?php echo ${'assunto'.$i}?></p>
-					      		</div>
-				        	</div>
+							<div class="sl-content">
+								<small class="text-muted"><?php echo ${'tempo'.$i}?></small>
+								<p style="<?php echo $style?>"><?php echo ${'assunto'.$i}?></p>
+							</div>
+						</div>
 						<?php
-						$i++;	
-						}	
+							$i++;	
+							}	
 						?>
-
 				   		</div>
 			  		</div>
 		        </div> 

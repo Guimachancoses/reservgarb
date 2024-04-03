@@ -257,9 +257,9 @@ a:focus {
         rgba(255, 255, 255, 0.5),
         rgba(0, 0, 0, 0.5)
       ),
-      url("../img/background_1.jpg");
+      url("../img/teste2.jpeg");
     background-size: cover;
-    background-position: center bottom 655px;
+    background-position: center;
   }
 }
 
@@ -271,9 +271,9 @@ a:focus {
         rgba(255, 255, 255, 0.5),
         rgba(0, 0, 0, 0.5)
       ),
-      url("../img/background_1.jpg");
+      url("../img/teste2.jpeg");
     background-size: cover;
-    background-position: center bottom 480px;
+    background-position: center;
   }
 }
 
@@ -285,9 +285,9 @@ a:focus {
         rgba(255, 255, 255, 0.5),
         rgba(0, 0, 0, 0.5)
       ),
-      url("../img/background_1.jpg");
+      url("../img/teste2.jpeg");
     background-size: cover;
-    background-position: center bottom 380px;
+    background-position: center;
   }
 }
 
@@ -299,7 +299,7 @@ a:focus {
         rgba(255, 255, 255, 0.5),
         rgba(0, 0, 0, 0.5)
       ),
-      url("../img/background_1.jpg");
+      url("../img/teste2.jpeg");
     background-size: cover;
     background-position: center;
   }
@@ -313,7 +313,7 @@ a:focus {
         rgba(255, 255, 255, 0.5),
         rgba(0, 0, 0, 0.5)
       ),
-      url("../img/background_1.jpg");
+      url("../img/teste2.jpeg");
     background-size: cover;
     background-position: center;
   }

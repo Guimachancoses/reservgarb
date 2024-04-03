@@ -2,6 +2,7 @@
 <?php
 	require_once 'connect.php';
 	require_once 'validate.php';
+
 ?>
 <html class="no-js">
 <head>
@@ -33,7 +34,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 	<script>
         document.addEventListener("DOMContentLoaded", function () {
-            var images = ["background_1.jpg", "background_2.jpg", "background_login.jpg","background_login5.jpg","background_login3.jpg"]; 
+            var images = ["background_1.jpg", "background_2.jpg", "background_login.jpg","background_login5.jpg",
+			"background_login3.jpg","background_login6.jpg","background_login100.jpg","background_login101.jpg",
+			"background_login103.jpg","background_login104.jpg","background_login106.jpg","background_login107.jpg",
+			"background_login107.jpg",'bg01.jpg','bg02.jpg','bg03.jpg','bg05.jpg','bg06.jpg','bg07.jpg','bg09.jpg','bg10.jpg','teste2.jpeg'
+		]; // Coloque o nome das suas imagens aqui 
             var randomImage = images[Math.floor(Math.random() * images.length)];
             var imageUrl = "../img/" + randomImage; // Certifique-se de que o diretório esteja correto
             document.body.style.backgroundImage = "url(" + imageUrl + ")";
@@ -57,10 +62,12 @@
 </head>
 <body >
 
-	<div id="loader-wrapper" style="padding-bottom:400px">
+	<div id="loader-wrapper" style="padding-bottom:200px">
 		<img style="padding-bottom:25px;padding-left:30px;display:flex;align-items:center;justify-content:center;z-index: 0;" src="../img/lg_garbuio2.png"></img>
 		<div style="display:flex;align-items:center;justify-content:center;opacity:0.9;color:white;letter-spacing: 2px;"><p><strong>Olá solicitamos que você crie</strong></p></div>
-		<div style="padding-top: 0px;;display:flex;align-items:center;justify-content:center;opacity:0.9;color:white;letter-spacing: 2px;"><p><strong>uma nova senha!</strong></p></div>
+		<div style="padding-top: 0px;display:flex;align-items:center;justify-content:center;opacity:0.9;color:white;letter-spacing: 2px;padding-bottom:200px"><p><strong>uma nova senha!</strong></p></div>
+		<br />
+		<br />
 		<div class="center-wrap">
 			<form id="meuFormulario" method="POST" action="change_password_query.php" enctype = "multipart/form-data">
 			  <div class="section text-center">
@@ -99,7 +106,7 @@
 			  </div>
 			</form>
 			<?php require_once 'change_password_query.php'?>
-		  </div>
+		</div>
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -120,31 +127,14 @@
   </script>
 
 	<script>
-	// Verifica se a URL contém o parâmetro "mensagem"
-	const urlParams = new URLSearchParams(window.location.search);
-	const mensagem = urlParams.get('mensagem');
+		// Verifica se a URL contém o parâmetro "mensagem"
+		const urlParams = new URLSearchParams(window.location.search);
+		const mensagem = urlParams.get('mensagem');
 
-	if (mensagem) {
-		// Adiciona a mensagem na div com ID "mensagem"
-		document.getElementById("mensagem").innerHTML = `<label>${mensagem}</label>`;
-	}
-
-	// function limparURL() {
-	// 	// Obtém a URL atual
-	// 	let currentUrl = window.location.href;
-
-	// 	// Encontra a posição do índice da string "index.php"
-	// 	let indexPhpIndex = currentUrl.indexOf("index.php");
-
-	// 	if (indexPhpIndex !== -1) {
-	// 	// Remove tudo que está após "index.php" na URL
-	// 	let newUrl = currentUrl.substring(0, indexPhpIndex + "index.php".length);
-
-	// 	// Atualiza a URL sem recarregar a página
-	// 	window.history.pushState({}, "", newUrl);
-	// 	}
-	// }
-	// 
+		if (mensagem) {
+			// Adiciona a mensagem na div com ID "mensagem"
+			document.getElementById("mensagem").innerHTML = `<label style="color:#ffff00;">${mensagem}</label>`;
+		}
 	</script>
 
 	<script src = "../js/jquery.js"></script>

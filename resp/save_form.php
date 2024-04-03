@@ -14,12 +14,14 @@
     $stmt->close();
 
 	if(ISSET($_POST['add_form'])){
-		$query = $conn->query("SELECT * FROM `locacao` as lc WHERE lc.locacao_id = '$_REQUEST[locacao_id]' && lc.status_id = 2 ") or die(mysqli_error($conn));
+        $locacaoID = $_REQUEST['locacao_id'];
+		$query = $conn->query("SELECT * FROM `locacao` as lc WHERE lc.locacao_id = '$locacaoID' && lc.status_id = 2 ") or die(mysqli_error($conn));
 		$row = $query->num_rows;
 		if($row > 0){
-			echo "<script>alert('Laboratório já reservado')</script>";
+			echo "<script>alert('Reserva já existe')</script>";
+            echo '<script>hideOverlay();</script>';
 		}else{
-			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3, `gp_approver_id` = '$gp_approver_id' WHERE `locacao_id` = '$_REQUEST[locacao_id]'") or die(mysqli_error($conn));
+			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3, `gp_approver_id` = '$gp_approver_id' WHERE `locacao_id` = '$locacaoID'") or die(mysqli_error($conn));
 			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error($conn));
 
 			// Busca nome e email do aprovador para enviar email de confirmação de reserva
@@ -51,7 +53,7 @@
                                         LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                                         LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                         WHERE lc.locacao_id = ?");
-            $stmt2->bind_param("i", $_REQUEST['locacao_id']);
+            $stmt2->bind_param("i", $locacaoID);
             $stmt2->execute();
             $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $checkin, $checkin_time, $checkout_time);
             $stmt2->fetch();

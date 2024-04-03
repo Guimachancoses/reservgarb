@@ -31,6 +31,7 @@
                                                     ,u.lastname
                                                     ,COALESCE(lb.room_type, vs.name, eq.equipment) as locacao
                                                     ,COALESCE(lb.room_no, vs.model) as description
+                                                    ,vs.description as placa
                                                     ,lc.lc_period_id
                                                     ,CASE lc.weekday
                                                     WHEN 'Monday' THEN 'Segunda-feira'
@@ -46,6 +47,7 @@
                                                     ,lc.checkin_time
                                                     ,lc.checkout_time
                                                     ,st.assunto
+                                                    ,lc.eventInfo
                                                 FROM `lc_period` as lc
                                                 LEFT JOIN `laboratorios` as lb
                                                 ON lb.room_id = lc.room_id
@@ -82,6 +84,11 @@
                                 <label><strong>Descrição:</strong></label>
                                 <br />
                                 <input type = "text" value="<?php echo $fetch['description']?>" name="description" class = "form-control" size = "35" disabled = "disabled"/>
+                            </div>
+                            <div class = "form-inline" style = "float:left; margin-left:20px;">
+                                <label><strong>Placa:</strong></label>
+                                <br />
+                                <input type = "text" value="<?php echo $fetch['placa']?>" name="description" class = "form-control" size = "10" disabled = "disabled"/>
                             </div>
                         <br style = "clear:both;" style = "float:left; margin-left:20px;"/>
                         <br />
@@ -125,6 +132,11 @@
                                         echo $assunto;
                                     }
                                     ?>" name = "status" class = "form-control text-center" size = "28" disabled = "disabled"/>
+                            </div>
+                            <div class = "form-inline" style = "float:left; margin-left:20px;">
+                                <label><strong>Motivo:</strong></label>
+                                <br />
+                                <input type = "text" value="<?php echo$fetch['eventInfo']?>" name="weekday" class = "form-control" size = "45" disabled = "disabled"/>
                             </div>
                         <br style = "clear:both;"/>
                         <br />

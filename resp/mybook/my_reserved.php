@@ -156,7 +156,7 @@
                                     $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
                                     $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
-                            <tr <?php if($fetch['status'] == 'Atrasado') echo 'style="background-color: #f4d7d3;"'; ?>>
+                            <tr <?php if($fetch['status'] == 'Atrasado') { echo 'style="background-color: #f2bdcd;cursor:pointer;"';} else { echo 'style="cursor:pointer;"';}; ?>>
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td>
@@ -178,7 +178,7 @@
                                         echo "<label style='color: $cor;'><strong>$status</strong></label>";
                                     ?>
                                 </td>
-                                <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
+                                <td><center><a class = "btn btn-warning" href = "checkout_query.php?locacao_id=<?php echo $fetch['locacao_id']?>" onclick = "confirmationCheckin(); return false;"><abbr style="display:flex;text-decoration:none" title="Liberar"><i class = "material-icons">task</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }

@@ -4,7 +4,7 @@
     <!---row-second----->
     <div class="row">
         <div class="col-lg-10 col-md-20">
-            <div class="card" style="min-height:755px">
+            <div class="card" style="min-height:655px">
                 <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
                     <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
                         <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
@@ -19,7 +19,7 @@
                     <h4 class="card-title"><strong class="text-primary"> Editar Usuários</strong></h4>
                     <p class="category">Escolha qual usuário você deseja editar, ativar, inativar ou excluir:</p>
                 </div>
-                <div class="card-content table-responsive">
+                <div class="card-content table-responsive" style="max-height:485px">
                     <div class="search-container">
                         <input for="search-input" type="text" class="select-box" id="search-input" placeholder="Pesquisar..." />
                         <i class="material-icons" id="search-icon">search</i>
@@ -90,7 +90,7 @@
                                                         status 
                                                         FROM `users` 
                                                         WHERE users_id != '$_SESSION[users_id]'
-                                                        ORDER BY firstname") or die(mysqli_error($conn));
+                                                        ORDER BY status, firstname") or die(mysqli_error($conn));
                             if (mysqli_num_rows($queryad) == 0) {
                                 echo "<td>Sem usuários cadastrados</td>";
                             }
@@ -121,11 +121,11 @@
                                     <td class="text-center">
                                         <center>
                                             <?php if ($fetch['status'] == '5') : ?>
-                                                <a class="btn btn-warning" href="reservlab.php?users_id=<?php echo $fetch['users_id'] . "edit-account" ?>"><abbr title="Editar"><i class="material-icons">edit_note</i></abbr></a>&#160<a class="btn btn-success" href="change_status_block.php?users_id=<?php echo $fetch['users_id'] ?>"><abbr title="Inativar"><i class="material-icons">lock_open</i></abbr></a>
+                                                <a class="btn btn-warning" href="reservlab.php?users_id=<?php echo $fetch['users_id'] . "edit-account" ?>"><abbr style="display:flex;text-decoration:none" title="Editar"><i class="material-icons">edit_note</i></abbr></a>&#160<a class="btn btn-success" href="change_status_block.php?users_id=<?php echo $fetch['users_id'] ?>"><abbr style="display:flex;text-decoration:none" title="Inativar"><i class="material-icons">lock_open</i></abbr></a>
                                             <?php elseif ($fetch['status'] == "6") : ?>
-                                                <a class="btn btn-warning" href="reservlab.php?users_id=<?php echo $fetch['users_id'] . "edit-account" ?>"><abbr title="Editar"><i class="material-icons">edit_note</i></abbr></a>&#160<a class="btn btn-danger" href="change_status_active.php?users_id=<?php echo $fetch['users_id'] ?>"><abbr title="Ativar"><i class="material-icons">lock</i></abbr></a>
+                                                <a class="btn btn-warning" href="reservlab.php?users_id=<?php echo $fetch['users_id'] . "edit-account" ?>"><abbr style="display:flex;text-decoration:none" title="Editar"><i class="material-icons">edit_note</i></abbr></a>&#160<a class="btn btn-danger" href="change_status_active.php?users_id=<?php echo $fetch['users_id'] ?>"><abbr style="display:flex;text-decoration:none" title="Ativar"><i class="material-icons">lock</i></abbr></a>
                                             <?php elseif ($fetch['status'] == "7") : ?>
-                                                <a class="btn btn-warning" href="reservlab.php?users_id=<?php echo $fetch['users_id'] . "edit-account" ?>"><abbr title="Editar"><i class="material-icons">edit_note</i></abbr></a>&#160<a class="btn btn-danger" onclick="confirmationDelete(this); return false;" href="delete_account.php?users_id=<?php echo $fetch['users_id'] ?>"><abbr title="Deletar"><i class="material-icons">delete</i></abbr></a>
+                                                <a class="btn btn-warning" href="reservlab.php?users_id=<?php echo $fetch['users_id'] . "edit-account" ?>"><abbr style="display:flex;text-decoration:none" title="Editar"><i class="material-icons">edit_note</i></abbr></a>&#160<a class="btn btn-danger" onclick="confirmationDelete(this); return false;" href="delete_account.php?users_id=<?php echo $fetch['users_id'] ?>"><abbr style="display:flex;text-decoration:none" title="Deletar"><i class="material-icons">delete</i></abbr></a>
                                             <?php endif; ?>
                                         </center>
                                     </td>
@@ -178,4 +178,4 @@
             </div>
         </div>
     </div>
-</div>
+

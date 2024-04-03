@@ -10,6 +10,7 @@
         $checkout = $_POST['checkout'];
         $dia_semana = $_POST['dia_semana'];
         $escolha = $_POST['confirmacao'];
+        $eventInfo = $_POST['eventInfo'];
 
         // Divide a string com base no caractere '-'
         $parts = explode(' - ', $title);
@@ -143,8 +144,8 @@
                     }
 
                     // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
-                    $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
+                    $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $stmt->bind_param("iiiiisssssis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id ,$eventInfo);
                     $stmt->execute();
 
                     $lc_period_id = $stmt->insert_id;
@@ -212,8 +213,8 @@
                                 }
                             
                                 // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                                $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                                $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom, $timeTo, $approver_id, $lc_period_id);
+                                $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                $stmt->bind_param("iiiiiisssiis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom, $timeTo, $approver_id, $lc_period_id, $eventInfo);
                                 $stmt->execute();
                                 $stmt->close();
                                 
@@ -287,7 +288,7 @@
                                                                         FROM gr_approved as gr 
                                                                         WHERE users_id = ?
                                                                         )
-                                                    OR gp.gp_approver_id = 25");
+                                                ");
                         $stmt->bind_param("i", $users_id);
                         $stmt->execute();
                         $stmt->bind_result($fadname, $ladname, $ademail);
@@ -327,8 +328,8 @@
                     $timeTo_seg = '23:59:00';
 
                     // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
-                    $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
+                    $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $stmt->bind_param("iiiiisssssis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id, $eventInfo);
                     $stmt->execute();
 
                     $lc_period_id = $stmt->insert_id;
@@ -398,8 +399,8 @@
                                 }
                             
                                 // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                                $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                                $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom, $timeTo_seg, $approver_id, $lc_period_id);
+                                $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id,  eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                $stmt->bind_param("iiiiiisssiis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom, $timeTo_seg, $approver_id, $lc_period_id, $eventInfo);
                                 $stmt->execute();
                                 $stmt->close();                       
                                 
@@ -457,8 +458,8 @@
                                     }
                                 
                                     // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                                    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                                    $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom_seg, $timeTo, $approver_id, $lc_period_id);
+                                    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                    $stmt->bind_param("iiiiiisssiis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dataFormat, $timeFrom_seg, $timeTo, $approver_id, $lc_period_id, $eventInfo);
                                     $stmt->execute();
 
                                     $locacao_id = $stmt->insert_id;
@@ -595,6 +596,10 @@
                 // echo "Data de início: " . $mysql_dateIn . " às " . $timeFrom . "<br>";
                 // echo "Data de fim: " . $mysql_dateOut . " às " . $timeTo . "<br>";
 
+                $datatmysql_dateInString = $checkin_dateIn->format('d-m-Y');
+
+                $datamysql_dateOutString = $checkin_dateOut->format('d-m-Y');
+
                 // Verifica se o usuário que etá locando for da lista de exceção, caso for já salva como reservado
                 $query = $conn->query("SELECT * FROM users WHERE firstname IN ('Orlando','Frederico', 'Helio') && users_id = '$users_id'") or die(mysqli_error($conn));
                 $valid = $query->num_rows;
@@ -607,8 +612,8 @@
                 }
 
                 // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação por periodo
-                $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("iiiiisssssi", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id);
+                $stmt = $conn->prepare("INSERT INTO lc_period (users_id, room_id, vehicle_id, equip_id, mensagens_id, weekday, checkin, checkout, checkin_time, checkout_time, approver_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iiiiisssssis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_idPe, $dia_semana, $mysql_dateIn, $mysql_dateOut, $timeFrom, $timeTo, $approver_id, $eventInfo);
                 $stmt->execute();
 
                 $lc_period_id = $stmt->insert_id; // retorna o ultimo id inserido
@@ -651,7 +656,7 @@
                     // Remove a locação por periodo inserida
                     $conn->query("DELETE FROM `lc_period` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
 
-                    echo "<script>alert('Já existe uma reserva na data: ".$mysql_dateIn." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
+                    echo "<script>alert('Já existe uma reserva na data: ".$datatmysql_dateInString." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
                     echo '<script>hideOverlay();</script>';
                     exit;
                 }
@@ -667,8 +672,8 @@
                     }
                 
                     // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_dateIn, $timeFrom, $timeToFI, $approver_id, $lc_period_id);
+                    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $stmt->bind_param("iiiiiisssiis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_dateIn, $timeFrom, $timeToFI, $approver_id, $lc_period_id, $eventInfo);
                     $stmt->execute();
                     $stmt->close();
 
@@ -708,7 +713,7 @@
                         // Remove a locação por periodo inserida
                         $conn->query("DELETE FROM `lc_period` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
 
-                        echo "<script>alert('Já existe uma reserva na data: ".$mysql_dateOut." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
+                        echo "<script>alert('Já existe uma reserva na data: ".$datamysql_dateOutString." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
                         echo '<script>hideOverlay();</script>';
                         exit;
                     }
@@ -724,8 +729,8 @@
                     }
                 
                     // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_dateOut, $timeFromFI, $timeTo, $approver_id, $lc_period_id);
+                    $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $stmt->bind_param("iiiiiisssiis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $mysql_dateOut, $timeFromFI, $timeTo, $approver_id, $lc_period_id, $eventInfo);
                     $stmt->execute();
                     $stmt->close();
 
@@ -734,13 +739,16 @@
                     $daterange = new DatePeriod($checkin_dateIn->add(new DateInterval('P1D')), $interval, $checkin_dateOut);
                     $datas_intermediarias = [];
                     foreach ($daterange as $dateInt) {
-                        $datas_intermediarias[] = $dateInt->format("Y-m-d");
+                        $datas_intermediarias[] = $dateInt;
                     }
 
                     // Iterar com todas as datas intermediárias dentro do intervalo da locação
                     echo "Datas intermediárias no intervalo:<br>";
                     foreach ($datas_intermediarias as $dateInt) {
-                        echo $dateInt . "<br>";
+
+                        $dateFormatInsert = $dateInt->format("Y-m-d");
+
+                        $dateIntString = $dateInt->format('d-m-Y');
 
                         // DEMAIS INSERT - Verifica se a locação já exite no banco de dados com base nos dados recebidos para a primeira data de inicio a ser inserida.
                         $stmt = $conn->prepare("SELECT users_id FROM users WHERE firstname = ? AND lastname = ?");
@@ -764,7 +772,7 @@
                                                         )
                                                         AND mensagens_id != 4
                                                         );");
-                            $select_query->bind_param("iiisssssss", $room_id, $vehicle_id, $equip_id, $dateInt, $timeFromFI, $timeFromFI, $timeFromFI, $timeToFI, $timeToFI, $timeToFI);
+                            $select_query->bind_param("iiisssssss", $room_id, $vehicle_id, $equip_id, $dateFormatInsert, $timeFromFI, $timeFromFI, $timeFromFI, $timeToFI, $timeToFI, $timeToFI);
                             $select_query->execute();
                             $select_query->store_result();
 
@@ -776,7 +784,7 @@
                             // Remove a locação por periodo inserida
                             $conn->query("DELETE FROM `lc_period` WHERE `lc_period_id` = '$lc_period_id'") or die(mysqli_error($conn));
 
-                            echo "<script>alert('Já existe uma reserva na data: ".$dateInt." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
+                            echo "<script>alert('Já existe uma reserva na data: ".$dateIntString." desse periodo'); window.location.href = 'reservlab.php?calender';</script>";
                             echo '<script>hideOverlay();</script>';
                             exit;
                         }
@@ -792,8 +800,8 @@
                             }
                         
                             // Realiza o INSERT no banco de dados usando as variáveis na tabela de locação
-                            $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("iiiiiisssii", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dateInt, $timeFromFI, $timeToFI, $approver_id, $lc_period_id);
+                            $stmt = $conn->prepare("INSERT INTO locacao (users_id, room_id, vehicle_id, equip_id, mensagens_id, status_id ,checkin, checkin_time, checkout_time, approver_id, lc_period_id, eventInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            $stmt->bind_param("iiiiiisssiis", $users_id, $room_id, $vehicle_id, $equip_id, $mensagens_id, $status_id, $dateFormatInsert, $timeFromFI, $timeToFI, $approver_id, $lc_period_id, $eventInfo);
                             $stmt->execute();
                             $stmt->close();
                         

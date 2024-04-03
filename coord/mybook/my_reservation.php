@@ -78,6 +78,7 @@
                                 <th>Locação</th>
                                 <th>Descrição</th>
                                 <th>Dt. Reserva</th>
+                                <th>Dia da Semana</th>
                                 <th>Hr. Reserva</th>
                                 <th>Hr. Devolução</th>
                                 <th>Status</th>
@@ -124,16 +125,28 @@
                                     echo "<td>Sem reservas pendentes...</td>";
                                 }                        
                                 while ($fetch = $querypd2->fetch_array()) {
+                                $englishToPortugueseDays = array(
+                                    'Monday' => 'Segunda-feira',
+                                    'Tuesday' => 'Terça-feira',
+                                    'Wednesday' => 'Quarta-feira',
+                                    'Thursday' => 'Quinta-feira',
+                                    'Friday' => 'Sexta-feira',
+                                    'Saturday' => 'Sábado',
+                                    'Sunday' => 'Domingo'
+                                );
+                                $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
+                                $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
                             <tr>
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td>
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
-                                <td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#006400;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><?php echo $dia_semana ?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
+                                <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#449D44;'><strong>" .$fetch['status']."</strong></label>"?></td>
-                                <td><center><a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pending.php?locacao_id=<?php echo $fetch['locacao_id']?>"><abbr title="Excluir"><i class = "material-icons">delete</i></abbr></a></center></td>
+                                <td><center><a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pending.php?locacao_id=<?php echo $fetch['locacao_id']?>"><abbr style="display:flex;text-decoration:none" title="Excluir"><i class = "material-icons">delete</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }	

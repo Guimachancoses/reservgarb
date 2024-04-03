@@ -39,7 +39,7 @@
         LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
         LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
         INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-        WHERE ms.mensagens_id = 12 AND lc.users_id = $session_id
+        WHERE ms.mensagens_id = 3 AND lc.users_id = $session_id
     UNION ALL
         SELECT
         COUNT(*) AS total
@@ -77,7 +77,7 @@
                             LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                             LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-                            WHERE ms.mensagens_id = 12 AND u.users_id = $session_id ") or die(mysqli_error($conn));
+                            WHERE ms.mensagens_id = 3 AND u.users_id = $session_id ") or die(mysqli_error($conn));
         $f_period = $q_period->fetch_array();
 
         // query for pending message
@@ -158,7 +158,15 @@
                             <i class="material-icons">person</i><span><?php echo $name;?></span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                                 <li>
-                                    <a class="nav-link" href="logout.php"><i class="material-icons text-logout">logout</i><span class="text-primary"><strong><small>Sair</small></strong></span></a>
+                                    <a class="nav-link" href="reservlab.php?alter-account">
+                                    <i  class="material-icons" style="color:orange">auto_fix_normal</i><span class="text-primary"><small>Alterar Seu Dados</small></span></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="logout.php"><i style="color:#5faa4f" class="material-icons text-logout">logout</i>
+                                        <span class="text-primary">
+                                            <strong><small>Sair</small></strong>
+                                        </span>
+                                    </a>
                                 </li>
                             </ul>
                     </li>
@@ -170,9 +178,6 @@
                             <i class="material-icons">settings</i>
                                 <span>Configuração</span></a>
                             <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-                                <li>
-                                    <a class="nav-link" href="reservlab.php?alter-account"><span><small>Alterar Sua Senha</small></span></a>
-                                </li>
                                 <li>
                                     <?php if (isset($lightMode)) { ?>
                                         <a class="nav-link toggle-mode dark-btn" id="darkbtn" name="color" data-value="0">

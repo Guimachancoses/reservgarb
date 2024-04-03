@@ -32,7 +32,7 @@
                                                                                                                        
                                 <option class="select-box" syle="border:none; outline:none; color:#5faa4f;"value="" disabled selected>Escolha o quem irá locar</option>
                                 <?php  
-                                  $queryad = $conn->query("SELECT * FROM `users` ORDER BY 2 ASC") or die(mysqli_error($conn));
+                                  $queryad = $conn->query("SELECT * FROM `users` WHERE `status` = 5 ORDER BY 2 ASC") or die(mysqli_error($conn));
                                   while($fetch = $queryad->fetch_array()){
                                     $users_id = $fetch['users_id'];
 								                ?>
@@ -40,8 +40,7 @@
                                 <?php
                                 }
                                 ?>
-                                </select>
-                                
+                                </select>                                
                             </div>
                             <div class="card-foot">
                                 <label><strong> Reservar:</strong></label>
@@ -168,6 +167,10 @@
                             <div class="card-foot">
                                 <label><strong> Hora Fim:</strong></label>
                                 <input type="time" class = "form-control" name = "checkout_time" required = required/>
+                            </div>
+                            <div class="card-foot">
+                                <label><strong> Motivo:</strong></label>
+                                <input type="text" maxlength="50" class = "form-control" name = "eventInfo" required = required/>
                             </div>
                             <br />
                             <div class="card-foot">

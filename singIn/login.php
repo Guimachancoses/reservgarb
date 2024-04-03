@@ -36,7 +36,7 @@ function AntiSqlInjection($str, $conn) {
 		
 		$email = AntiSqlInjection(trim(strtolower($_POST['ra'])), $conn);
 
-		$password = AntiSqlInjection($_POST['password'], $conn);
+		$password = AntiSqlInjection(trim($_POST['password']), $conn);
 		$status = "5";
 		// Antes de executar qualquer código, define o tempo de espera em minutos
 		$waitTime = 5;
@@ -90,7 +90,7 @@ function AntiSqlInjection($str, $conn) {
 
 				// Se o usuário excedeu o número máximo de tentativas, bloqueie a nova tentativa
 				// Verifica se a URL contém "index.php"
-				if (strpos('../reservlab/', 'index.php') !== false) {
+				if (($_SERVER['HTTP_REFERER']) !== false) {
 					// Remove tudo que está a frente de "index.php" na URL
 					$urlBase = ('../index.php');
 
@@ -102,7 +102,7 @@ function AntiSqlInjection($str, $conn) {
 					header("Location: " . $urlFinal);
 				} else {
 					// Caso "index.php" não esteja presente na URL, redireciona para a URL original sem mensagem
-					header("Location: " . $_SERVER['HTTP_REFERER']);
+					header("Location: " . '../index.php');
 				}
 			}
 		} else {
@@ -200,7 +200,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location: ../user/reservlab.php');
+					header('location: ../user/splash.php');
 				} else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados
@@ -238,7 +238,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location:../resp/reservlab.php');
+					header('location:../resp/splash.php');
 				}  else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados
@@ -276,7 +276,7 @@ function AntiSqlInjection($str, $conn) {
 					$queryDeleteAttempt->execute();
 					$queryDeleteAttempt->close();
 
-					header('location:../coord/reservlab.php');
+					header('location:../coord/splash.php');
 				}  else {
 
 					// Se o login falhar, registre a tentativa mal sucedida no banco de dados

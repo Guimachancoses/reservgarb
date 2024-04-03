@@ -85,16 +85,7 @@
 							LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
 							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE ms.mensagens_id = 3 AND lc.users_id != $session_id
-								AND (
-									(@groupId = 1) -- Administrador
-									OR
-									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-									OR
-									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-									OR
-									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-								)
+							WHERE ms.mensagens_id = 3
 					UNION ALL
 							SELECT
 							COUNT(*) AS total
@@ -105,19 +96,7 @@
 							LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
 							INNER JOIN `status` st ON st.status_id = lc.status_id
 							INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-							WHERE
-								  lc.lc_period_id IS NULL
-								AND lc.status_id IN (2,8) 
-								AND lc.users_id != $session_id
-								AND (
-									(@groupId = 1) -- Administrador
-									OR
-									(@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-									OR
-									(@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-									OR
-									(@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-								)
+							WHERE lc.status_id IN (2,8)
 			) AS subquery;") or die(mysqli_error($conn));
 		$f_ci = $q_ci->fetch_array();
 
@@ -288,7 +267,7 @@
 				<div class="card-header">
 					<div class="icon icon-info" style="position: absolute;top: 0;right: 80%;width: 100%;height: 100%;padding-left:90px">
 						<div class="gif-container">
-							<iframe src="https://giphy.com/embed/xTiQywlOn0gKyz0l56" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
+							<iframe src="https://giphy.com/embed/rHWIuXiA4zvQsY0FdH" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen ></iframe>
 						</div>
 					</div>
 				</div>
@@ -391,7 +370,7 @@
 			<div class="card" style="min-height:535px;">
 				<div class="card-header card-header-text">
 					<h4 class="card-title">Pedidos de Reservas Aguardando sua Aprovação</h4>
-					<p class="category">Clique sobre uma pedido para aprovar:</p>
+					<p class="category">Aqui consta tanto as reservas diária quanto as por período:</p>
 				</div>
 				<div class="card-content table-responsive">
 					<div class="search-container">
@@ -448,6 +427,7 @@
 								<th></th>
 								<th><strong>Nome</strong></th>
 								<th><strong>Locação</strong></th>
+								<th><strong>Descrição</strong></th>
 								<th><strong>Dt. Reserva</strong></th>
 								<th><strong>Hr. Reserva</strong></th>
 							</tr>
@@ -473,7 +453,7 @@
 															u.firstname,
 															u.lastname,
 															COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
-															COALESCE(lb.room_no, vs.model) AS description,
+															COALESCE(lb.room_no, vs.description) AS description,
 															lc.checkin,
 															lc.checkin_time,
 															lc.approver_id,
@@ -517,7 +497,7 @@
 															u.firstname,
 															u.lastname,
 															COALESCE(lb.room_type, vs.name, eq.equipment) AS locacao,
-															COALESCE(lb.room_no, vs.model) AS description,
+															COALESCE(lb.room_no, vs.description) AS description,
 															lc.checkin,
 															lc.checkin_time,
 															lc.approver_id,
@@ -565,6 +545,7 @@
 									<td><?php if ($fetch['status'] == "5") { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-success";';} else if ($fetch['status'] == "Pendente") { echo '<div class="steamline" ><div class="sl-item sl-warning";';}  else { echo '<div class="steamline" style="padding-top:10px"><div class="sl-item sl-warning";';}?></td>
 									<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 									<td><?php echo $fetch['locacao']?></td>
+									<td><?php echo $fetch['description']?></td> 
 									<td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
 									<td><?php echo "<label style = 'color:#00ff00;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
 								</tr> 
@@ -672,38 +653,48 @@
 						echo'</div>';
 						}
 						while($f_act = $q_act->fetch_array()){
+							$assunto = $f_act['assunto'];
 							${'assunto'.$i} = $f_act['assunto'];
 							${'tempo'.$i} = $f_act['tempo'];
+
+							// Verificar se o assunto contém as palavras específicas
+							if (strpos($assunto, 'Senha irá') !== false) {
+								// Se encontrar as palavras específicas, definir o estilo da div
+								$style = 'color:#e61919;';
+							} else {
+								// Se não encontrar as palavras específicas, não definir nenhum estilo
+								$style = '';
+							}
 						
 						switch ($i) {
-								case 1:
-								  echo '<div class="sl-item">';
-								  break;
-								case 2:
-								  echo '<div class="sl-item">';
-								  break;
-								case 3:
-								  echo '<div class="sl-item sl-primary">';
-								  break;
-								case 4:
-								  echo '<div class="sl-item sl-success">';
-								  break;
-								case 5:
-								  echo '<div class="sl-item sl-warning">';
-								  break;
-								case 6:
-								  echo '<div class="sl-item sl-danger">';
-								  break;	  
-							  }
+							case 1:
+								echo '<div class="sl-item">';
+								break;
+							case 2:
+								echo '<div class="sl-item">';
+								break;
+							case 3:
+								echo '<div class="sl-item sl-primary">';
+								break;
+							case 4:
+								echo '<div class="sl-item sl-success">';
+								break;
+							case 5:
+								echo '<div class="sl-item sl-warning">';
+								break;
+							case 6:
+								echo '<div class="sl-item sl-danger">';
+								break;	  
+							}
 						?>
-					      		<div class="sl-content">
-						    		<small class="text-muted"><?php echo ${'tempo'.$i}?></small>
-									<p><?php echo ${'assunto'.$i}?></p>
-					      		</div>
-				        	</div>
+							<div class="sl-content">
+								<small class="text-muted"><?php echo ${'tempo'.$i}?></small>
+								<p style="<?php echo $style?>"><?php echo ${'assunto'.$i}?></p>
+							</div>
+				        </div>
 						<?php
-						$i++;	
-						}	
+							$i++;	
+							}	
 						?>
 
 				   		</div>

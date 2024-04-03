@@ -120,30 +120,21 @@
                             INNER JOIN `status` st ON st.status_id = lc.status_id
                             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
                             WHERE ms.mensagens_id = 4
-                                AND lc.users_id != $session_id
-                                AND (
-                                    (@groupId = 1) -- Administrador
-                                    OR
-                                    (@groupId = 2 AND lc.vehicle_id IS NOT NULL) -- Veículos
-                                    OR
-                                    (@groupId = 3 AND lc.equip_id IS NOT NULL) -- Equipamentos
-                                    OR
-                                    (@groupId = 4 AND lc.room_id IS NOT NULL) -- Salas
-                                )
-                            ORDER BY  lc.checkin ASC
+                            ORDER BY  lc.checkin DESC
                             LIMIT $perPage OFFSET $offset") or die(mysqli_error($conn));
                             
                             if (mysqli_num_rows($querypd2) == 0) {
                                 echo "<td>Sem histórico de reserva...</td>";
                             }                        
                             while ($fetch = $querypd2->fetch_array()) {
+                            $editLink = "reservlab.php?locacao_id=".$fetch['locacao_id']."&info-reserve";
                             ?>
-                            <tr>
+                            <tr onclick="window.location='<?php echo $editLink ?>'">
                             <td>
                                 <?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td> 
-                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("M d, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
+                                <td><strong><?php if($fetch['checkin'] <= date("Y-m-d", strtotime("+8 HOURS"))){echo "<label style = 'color:#ff0000;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}else{echo "<label style = 'color:#00ff00;'>".date("d M, Y", strtotime($fetch['checkin']))."</label>";}?></strong></td>
                                 <td><?php echo "<label style = 'color:#808080;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#808080;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#800000;'><strong>" .$fetch['assunto']."</strong></label>"?></td>

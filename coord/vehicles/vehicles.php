@@ -35,9 +35,9 @@
                                         <h3 class="category"><?php echo '<strong class="text-primary">Modelo: </strong>'.$fetch['model']?></h3>
                                         <h3 class="category"><?php echo '<strong class="text-primary">Placa: </strong>'.$fetch['description']?></h3>
                                         </br>
-                                        <a class="btn btn-info" href="reservlab.php?rscalender" style="display: flex; align-items: center; text-decoration: none;justify-content:center;">
-                                            <span style="margin-right: 5px;color:white">Reservar</span>
-                                            <i class="material-icons" style="margin-left: 5px;">schedule</i>
+                                        <a class="btn btn-info" href="reservlab.php?rscalender" style="align-items:center;text-decoration:none;justify-content:center;">
+                                            <span style="display: inline-block;justify-content:center;align-items: center;margin-right: 5px;color:white">Reservar</span>
+                                            <i class="material-icons" style="text-align:center;display: inline-block;justify-content:center;align-items: center;margin-left: 5px;">schedule</i>
                                         </a>
                                     </div>
                                 </div>

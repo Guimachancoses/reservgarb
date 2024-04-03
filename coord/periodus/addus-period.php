@@ -11,27 +11,27 @@
         <div class="row">
 			<div class="col-lg-7 ">
 				<div class="card" style="min-height:625px">
-                    <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
-                        <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
-                            <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
-                        </button>
-                    </div>
-                    <script>
-                        function goBack() {
-                            window.history.back();
-                        }
-                    </script>
+          <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
+              <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
+                  <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">undo</i>
+              </button>
+          </div>
+          <script>
+              function goBack() {
+                  window.history.back();
+              }
+          </script>
 					<div class="card-header card-header-text">
 						<h4 class="card-title"><strong class="text-primary"> Locação por Período</strong></h4>
 						    <p class="category">Escolha o que você deseja reservar e o período que você deseja:</p>
-                    <div class = "col-md-10"style="min-height:720px">	
+                    <div class = "col-md-11" style="min-height:720px;">	
                         <form method = "POST" action="locacao_periodo.php" enctype = "multipart/form-data" autocomplete="off" onsubmit="submit()">
                             <div class="card-foot">
                                 <label><strong> Reservar:</strong></label>
-                                <select class = "form-control" name = "eventTitle" required = required>
+                                <select class = "form-control" name = "eventTitle" id="Title" onchange="checkSelection()" required = required>
                                                                                                                        
                                     <!-- query para trazer as salas -->
-                                    <option value="" disabled selected>Escolha o que você deseja locar:</option>
+                                    <option value="" disabled selected>Escolha o que você deseja locar</option>
                                     <optgroup label="Salas">
                                     <?php  
                                         $queryad = $conn->query("SELECT * FROM `laboratorios`") or die(mysqli_error($conn));
@@ -39,33 +39,33 @@
                                         $room_type = $fetch['room_type'];
                                     ?>     
                                         <option class="select-box" value="<?php echo $room_type?>"><?php echo $fetch['room_type']." - ".$fetch['room_no']?></option>
-                                        <?php
-                                        }
-                                        ?>
+                                      <?php
+                                      }
+                                      ?>
                                     </optgroup>
                                     <!-- query para trazer as veículos -->
                                     <optgroup label="Veículos">
                                     <?php  
                                         $queryad = $conn->query("SELECT * FROM `vehicles`") or die(mysqli_error($conn));
                                         while($fetch = $queryad->fetch_array()){
-                                        $name = $fetch['name'];
+                                        $name = $fetch['name']. " - ". $fetch['description'];
                                     ?>     
                                         <option class="select-box" value="<?php echo $name?>"><?php echo $fetch['name']." - ".$fetch['model']?></option>
-                                        <?php
-                                        }
-                                        ?>
+                                      <?php
+                                      }
+                                      ?>
                                     </optgroup>
                                     <!-- query para trazer as equipameantos -->
                                     <optgroup label="Equipamentos">
                                     <?php  
-                                        $queryad = $conn->query("SELECT * FROM `equipment`") or die(mysqli_error($conn));
-                                        while($fetch = $queryad->fetch_array()){
-                                        $equip = $fetch['equipment'];
+                                      $queryad = $conn->query("SELECT * FROM `equipment`") or die(mysqli_error($conn));
+                                      while($fetch = $queryad->fetch_array()){
+                                      $equip = $fetch['equipment'];
                                     ?>     
-                                        <option class="select-box" value="<?php echo $equip?>"><?php echo $fetch['equipment']?></option>
-                                        <?php
-                                        }
-                                        ?>
+                                      <option class="select-box" value="<?php echo $equip?>"><?php echo $fetch['equipment']?></option>
+                                    <?php
+                                    }
+                                    ?>
                                     </optgroup>
                                 
                                 </select>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="card-foot">
                                 <label><strong> Dia da Semana:</strong></label>
-                                <select class="form-control" name="dia_semana"required = required>
+                                <select class="form-control" name="dia_semana" id="Semana" onchange="checkSelection()" required = required>
                                     <option class="select-box" value="" disabled selected>Escolha o dia da semana</option>
                                     <option class="select-box" value="Monday">Segunda-feira</option>
                                     <option class="select-box" value="Tuesday">Terça-feira</option>
@@ -94,6 +94,55 @@
                                     <option class="select-box" value="AllDays">Todos os dias</option>
                                 </select>
                             </div>
+                            <script>
+                                // Função para verificar as seleções do usuário e mostrar/ocultar o input dinamicamente
+                                function checkSelection() {
+                                    var eventTitle = document.getElementById("Title");
+                                    var diaSemana = document.getElementById("Semana");
+                                    var confirmSelect = document.getElementById("confirm-select");
+
+                                    var selectedOption = eventTitle.options[eventTitle.selectedIndex];
+                                    var locacao = '';
+
+                                    // Verificar se a opção selecionada está dentro do optgroup "Veículos"
+                                    if (selectedOption.parentElement.label === "Veículos") {
+                                        locacao = "Veiculos";
+                                    } else {
+                                        locacao = selectedOption.value;
+                                    }
+
+                                    var dia = diaSemana.value;
+                                  
+                                    // Verificar se ambas as seleções foram feitas
+                                    if (locacao != "" && dia != "") {
+                                        console.log("locacao: " + locacao + " dia: " + dia);
+                                        // Verificar se a opção "Veículos" e "Todos os dias" foram selecionadas
+                                        if (locacao === "Veiculos" && dia== "AllDays") {
+                                            // Mostrar o select de confirmação
+                                            confirmSelect.style.display = "block";
+                                        } else {
+                                            // Ocultar o select de confirmação
+                                            confirmSelect.style.display = "none";
+
+                                        }
+                                    } else {
+                                        // Ocultar o select de confirmação
+                                        confirmSelect.style.display = "none";
+                                    }
+                                }
+                                
+                            </script>
+
+                            <div class="card-foot" id="confirm-select" style="display:none">
+                                <spam style="color: red; font-size: smaller;"><strong>* Sua locação irá preencher todos os horários do período do seu agendamento? (Sim)</strong></spam>
+                                <br />
+                                <spam style="color: red; font-size: smaller;"><strong>* Ou ela irá deixar algum horário do expediente livre? (Não)</strong></spam>
+                                <select class="form-control" name="confirmacao">
+                                    <option value="" disabled selected>Escolha uma das opções</option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                </select>
+                            </div>
                             <div class="card-foot">
                                 <label><strong> Hora de Início:</strong></label>
                                 <input type="time" class = "form-control" name = "checkin_time" id="checkin_time" required = required/>
@@ -103,18 +152,21 @@
                                 <label><strong> Hora Fim:</strong></label>
                                 <input type="time" class = "form-control" name = "checkout_time" required = required/>
                             </div>
+                            <div class="card-foot">
+                                <label><strong> Motivo:</strong></label>
+                                <input type="text" maxlength="50" class = "form-control" name = "eventInfo" required = required/>
+                            </div>
                             <br />
                             <div class="card-foot">
                                 <button id="periodSubmit" type="submit" name = "locacao_periodo" class = "btn btn-primary form-control"><i class = "glyphicon glyphicon-save"></i> Salvar</button>
                             </div>
                         </form>
                         <?php require_once 'locacao_periodo.php'?>
-
+                       </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-</div>
-</div>
 
 <!-- Função responsavel por tratar o recebimento de data de inicio e data fim ------------------------------------------------------------------------------->
 <script>
@@ -227,6 +279,9 @@
       select.innerHTML = ""; // Limpa as opções atuais
 
       // Sempre adicione a opção "Todos os dias"
+      select.options.add(new Option("Escolha o dia da semana", ""));
+
+      // Sempre adicione a opção "Todos os dias"
       select.options.add(new Option("Todos os dias", "AllDays"));
 
       // Adicione todos os dias da semana individualmente
@@ -333,6 +388,7 @@ function hasErrors() {
     const submitButton = document.querySelector(".btn-primary");
 
     submitButton.addEventListener("click", function(event) {
+      const usersId = document.getElementsByName("users_id")[0].value;
       const eventTitle = document.getElementsByName("eventTitle")[0].value;
       const checkin = document.getElementsByName("checkin")[0].value;
       const checkout = document.getElementsByName("checkout")[0].value;
@@ -341,6 +397,7 @@ function hasErrors() {
       const checkoutTime = document.getElementsByName("checkout_time")[0].value;
 
       if (
+        usersId === "" ||
         eventTitle === "" ||
         checkin === "" ||
         checkout === "" ||

@@ -4,7 +4,7 @@
 	<!---row-second----->
 
 		<div class="row">
-			<div class="col-lg-10 col-md-9">
+			<div class="col-lg-11 col-md-9">
 				<div class="card" style="min-height:750px">
                     <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
                         <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
@@ -160,7 +160,7 @@
                                 <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkin_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#006400;'>".date("h:i a", strtotime($fetch['checkout_time']))."</label>"?></td>
                                 <td><?php echo "<label style = 'color:#449D44;'><strong>" .$fetch['status']."</strong></label>"?></td>
-                                <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?locacao_id=<?php echo $fetch['locacao_id']."confirm-reserve"?>"><abbr title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pending.php?locacao_id=<?php echo $fetch['locacao_id']?>"><abbr title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
+                                <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?locacao_id=<?php echo $fetch['locacao_id']."confirm-reserve"?>"><abbr style="display:flex;text-decoration:none" title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pending.php?locacao_id=<?php echo $fetch['locacao_id']?>"><abbr style="display:flex;text-decoration:none" title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }	

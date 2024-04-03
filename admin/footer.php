@@ -13,7 +13,7 @@
 					   </div>					   
 					   <div class="col-md-6">
 					       <p class="copyright d-flex justify-content-end">
-						      &copy &#160<a style="color:white" href="https://www.linkedin.com/in/guilherme-machancoses-772986233/" target="blank"> GuiMac </a>&#160 &#10084;&#65039; 2023							  	                         		
+						      &copy &#160<a style="color:white" href="https://www.linkedin.com/in/guilherme-machancoses-772986233/" target="blank"> GuiMac </a>&#160 &#10084;&#65039; 2024							  	                         		
 						   </p>
 					   </div>
 				   </div>

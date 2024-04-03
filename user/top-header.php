@@ -36,7 +36,7 @@
             LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
             LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
             INNER JOIN `mensagens` as ms ON ms.mensagens_id = lc.mensagens_id
-            WHERE ms.mensagens_id = 12 AND lc.users_id = $session_id
+            WHERE ms.mensagens_id = 3 AND lc.users_id = $session_id
     UNION ALL
             SELECT
             COUNT(*) AS total
@@ -68,7 +68,7 @@
                 data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle">
                 <i style="font-size:35px;padding:10px;color:white" class="material-icons">menu</i>
         </button>        
-        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none justify-content-end" id="navbarcollapse">
+        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none justify-content-end" style="padding-right:20px;" id="navbarcollapse">
             <ul class="nav navbar-nav ml-auto">
                 <li>
                     <?php if (isset($lightMode)) { ?>
@@ -88,7 +88,7 @@
                                 <span style="color:white;border-radius:100%" name="notification" class="notification"><?php echo $f_p['total'] ?></span>
                             <?php } ?> 
                    </a>
-                   <ul class="dropdown-menu" style="display:flex;align-items:center;justify-content:center;flex-direction: column;">
+                   <ul class="dropdown-menu">
                         <?php
                         // query for pending message
                         $q_msg = $conn->query("SELECT pendente FROM (
@@ -112,12 +112,12 @@
                                 $pendente = $f_msg['pendente'];
                                 ?>
                                 <?php if ($pendente === "Reserva realizada!") { ?>
-                                    <li>
+                                    <li style="display:flex;align-items:left;justify-content:left;box-shadow: 0px 0px 5px black;">
                                         <?php $mybookr = 'mybookr'; ?>
                                         <a href="reservlab.php?<?php echo $mybookr ?>" class="text-primary"><small>Sua reserva foi aprovada!</small></a>
                                     </li>
                                 <?php } elseif ($pendente === "Sua reserva por período foi aprovada!") { ?>
-                                    <li>
+                                    <li style="display:flex;align-items:left;justify-content:left;box-shadow: 0px 0px 5px black;">
                                         <?php $perres = 'perres'; ?>
                                         <a href="reservlab.php?<?php echo $perres ?>" class="text-primary"><small><?php echo $pendente ?></small></a>
                                     </li>
@@ -126,7 +126,7 @@
                             }
                         } else {
                             ?>
-                                <li class="text-primary"><small>Sem mensagens</small></li>
+                                <li class="text-primary" ><small>Sem mensagens</small></li>
                             <?php
                         }
                         ?>
@@ -135,10 +135,21 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown"><span style="cursor:pointer" class = "material-icons">person</span></a>
                     <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="logout.php" style="display:flex;align-items:center;justify-content:center;"><span class = "material-icons text-logout" style="color:#5faa4f" >logout</span><strong>&#160SAIR</strong></span></a></li>
+                        <li>
+                            <a href = "reservlab.php?alter-account" style="display:flex;align-items:left;justify-content:left;box-shadow: 0px 0px 5px black;" class="text-primary">
+                            <spam  class="material-icons" style="color:orange">auto_fix_normal</spam>
+                                <strong>Alterar seu dados</strong>
+                            </a>
+                        </li>
+                        <li><a class="nav-link" href="logout.php" style="display:flex;align-items:left;justify-content:letf;box-shadow: 0px 0px 5px black;">
+                                <spam class = "material-icons text-logout" style="color:#5faa4f" >logout</spam>
+                                    <strong><spam>&#160Sair</strong>
+                                </spam>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link " href="#" data-toggle="dropdown">
                         <span class="material-icons">settings</span>
                     </a>
@@ -147,7 +158,7 @@
                         <a href = "reservlab.php?alter-account" style="display:flex;align-items:center;justify-content:center;" class="text-primary">Alterar sua senha</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
 			 

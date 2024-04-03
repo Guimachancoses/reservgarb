@@ -3,17 +3,26 @@
 	require_once 'validate.php';
 	require_once 'send_mail_per.php';
 
-	$users_id = $_SESSION['users_id'];
+    $users_id = $_SESSION['users_id'];
+
+    // Buscar o id do aprovador do grupo de aprovadores:
+    $stmt = $conn->prepare("SELECT gp_approver_id FROM gp_approver as gp WHERE gp.users_id = ?");
+    $stmt->bind_param("i", $users_id);
+    $stmt->execute();
+    $stmt->bind_result($gp_approver_id);
+    $stmt->fetch();
+    $stmt->close();
+
 	if(ISSET($_POST['save_period'])){
-                
-		$query = $conn->query("SELECT * FROM `locacao` as lc WHERE lc.lc_period_id = '$_REQUEST[lc_period_id]' && lc.mensagens_id = 3 ") or die(mysqli_error($conn));
+        $locacaoID = $_REQUEST['lc_period_id'];        
+		$query = $conn->query("SELECT * FROM `locacao` as lc WHERE lc.lc_period_id = '$locacaoID' && lc.mensagens_id = 3 ") or die(mysqli_error($conn));
 		$row = $query->num_rows;
 		if($row > 0){
 			echo "<script>alert('Reserva já existe')</script>";
             echo '<script>hideOverlay();</script>';
 		}else{
-			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
-			$conn->query("UPDATE `lc_period` SET `mensagens_id` = 12  WHERE `lc_period_id` = '$_REQUEST[lc_period_id]'") or die(mysqli_error($conn));
+			$conn->query("UPDATE `locacao` SET `status_id` = 2, `mensagens_id` = 3, `gp_approver_id` = '$gp_approver_id' WHERE `lc_period_id` = '$locacaoID'") or die(mysqli_error($conn));
+			$conn->query("UPDATE `lc_period` SET `mensagens_id` = 3  WHERE `lc_period_id` = '$locacaoID'") or die(mysqli_error($conn));
 			$conn->query("INSERT INTO `activities` set mensagens_id = 3, users_id = '$users_id'") or die(mysqli_error($conn));
 
 			// Busca nome e email para enviar email de confirmação de locação
@@ -54,7 +63,7 @@
                                         LEFT JOIN `vehicles` as vs ON vs.vehicle_id = lc.vehicle_id
                                         LEFT JOIN `equipment` as eq ON eq.equip_id = lc.equip_id
                                         WHERE lc.lc_period_id = ?");
-            $stmt2->bind_param("i", $_REQUEST['lc_period_id']);
+            $stmt2->bind_param("i", $locacaoID);
             $stmt2->execute();
             $stmt2->bind_result($ftname, $ltname, $rpemail, $description, $locacao, $weekday, $checkin, $checkout, $checkin_time, $checkout_time);
             $stmt2->fetch();

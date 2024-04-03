@@ -17,7 +17,7 @@
                         }
                     </script>
 					<div class="card-header card-header-text">
-                        <h4 class="card-title"><strong class="text-primary"> Editar Laboratórios</strong></h4>
+                        <h4 class="card-title"><strong class="text-primary"> Editar Salas</strong></h4>
 						<p class="category">Escolha qual sala você deseja editar ou excluir:</p>
 					</div>
 					<div class="card-content table-responsive"> 
@@ -42,7 +42,7 @@
                                 <td><?php echo $fetch['room_type']?></td>
                                 <td><?php echo $fetch['capacity']?></td>
                                 <td><?php echo $fetch['room_no']?></td>
-                                <td><center><a class = "btn btn-warning" href = "reservlab.php?room_id=<?php echo $fetch['room_id']."edit-room"?>"><abbr title="Editar"><i class = "material-icons">edit_note</i></abbr></a> <a class = "btn btn-danger" onclick = "confirmationDelete(this); return false;" href = "delete_room_query.php?room_id=<?php echo $fetch['room_id']?>"><abbr title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
+                                <td><center><a class = "btn btn-warning" href = "reservlab.php?room_id=<?php echo $fetch['room_id']."edit-room"?>"><abbr style="display:flex;text-decoration:none" title="Editar"><i class = "material-icons">edit_note</i></abbr></a> <a class = "btn btn-danger" onclick = "confirmationDelete(this); return false;" href = "delete_room_query.php?room_id=<?php echo $fetch['room_id']?>"><abbr style="display:flex;text-decoration:none" title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
                             </tr>
                         <?php
                             }

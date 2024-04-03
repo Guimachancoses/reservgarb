@@ -4,7 +4,7 @@
 	<!---row-second----->
 
 		<div class="row">
-			<div class="col-lg-11 col-md-10">
+			<div class="col-lg-12 col-md-08">
 				<div class="card" style="min-height:750px">
                     <div class="card-foot" style="padding: 10px; display: flex; justify-content: flex-start;">
                         <button class="btn btn-info form-control" onclick="goBack()" style="padding: 2px; font-size: 8px; width: 50px;">
@@ -166,7 +166,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?lc_period_id=<?php echo $fetch['lc_period_id']."confirm-locp"?>"><abbr title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pendingPer.php?lc_period_id=<?php echo $fetch['lc_period_id']?>"><abbr title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
+                                <td><center><a style="padding:1px" class = "btn btn-success" href = "reservlab.php?lc_period_id=<?php echo $fetch['lc_period_id']."confirm-locp"?>"><abbr style="display:flex;text-decoration:none" title="Aprovar"><i class = "material-icons">thumb_up_alt</i></abbr></a> <a style="padding:1px" class = "btn btn-danger" onclick = "confirmationDelete(); return false;" href = "delete_pendingPer.php?lc_period_id=<?php echo $fetch['lc_period_id']?>"><abbr style="display:flex;text-decoration:none" title="Excluir"><i class = "material-icons">thumb_down_alt</i></abbr></a></center></td>
                             </tr>
                             <?php
                                 }	

@@ -96,7 +96,7 @@
 							?>
 							<tr>
 								<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
-								<td><center><a class = "btn btn-danger" onclick = "confirmationDelete(this); return false;" href = "delete_approver.php?users_id=<?php echo $fetch['users_id']."&approver_id=".$approver_id?>"><abbr title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
+								<td><center><a class = "btn btn-danger" onclick = "confirmationDelete(this); return false;" href = "delete_approver.php?users_id=<?php echo $fetch['users_id']."&approver_id=".$approver_id?>"><abbr style="display:flex;text-decoration:none" title="Deletar"><i class = "material-icons">delete</i></abbr></a></center></td>
 							</tr>
 								<?php
 									}

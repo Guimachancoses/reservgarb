@@ -44,7 +44,7 @@
                             <tr>
                                 <td><?php echo $fetch['approvers']?></td>
 								<td class="text-center"><?php echo $fetch['num_approvers']?></td>
-                                <td class="text-center"><center><a style="padding:0px;position:absolute" class = "btn btn-info d-flex justify-content-center" href = "reservlab.php?approver_id=<?php echo $fetch['approver_id']."add-approver"?>"><abbr title="Adicionar"><i class = "material-icons">add</i></abbr></a></center></td>
+                                <td class="text-center"><center><a style="padding:0px;position:absolute" class = "btn btn-info d-flex justify-content-center" href = "reservlab.php?approver_id=<?php echo $fetch['approver_id']."add-approver"?>"><abbr style="display:flex;text-decoration:none" title="Adicionar"><i class = "material-icons">add</i></abbr></a></center></td>
                             </tr>
                         <?php
                             }

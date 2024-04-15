@@ -35,17 +35,17 @@ class zapbot:
     def abre_conversa(self, contato):
         """ Abre a conversa com um contato especifico """
         try:
-            WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/div[2]/div[3]/header/div[2]/div/span/div[4]/div/span")))
+            WebDriverWait(self.driver, 40).until(EC.presence_of_element_located((By.CSS_SELECTOR, '[data-icon="new-chat-outline"]')))
             # Seleciona a lista de contatos
-            self.lista_de_contato = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div[3]/header/div[2]/div/span/div[4]/div/span").click()
+            self.lista_de_contato = self.driver.find_element(By.CSS_SELECTOR, '[data-icon="new-chat-outline"]').click()
             sleep(1)
             # Seleciona a caixa de pesquisa de conversa
-            self.caixa_de_pesquisa = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div[2]/div[1]/span/div/span/div/div[1]/div[2]/div[2]/div/div[1]/p")
+            self.caixa_de_pesquisa = self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[1]/span/div/span/div/div[1]/div[2]/div[2]/div/div[1]')
             # Digita o nome ou numero do contato
             self.caixa_de_pesquisa.send_keys(contato)
             sleep(2)
             # Seleciona o contato
-            self.contato = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div[2]/div[1]/span/div/span/div/div[2]/div/div/div/div[2]/div")
+            self.contato = self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[1]/span/div/span/div/div[2]/div/div/div/div[2]')
             # Entra na conversa
             self.contato.click()
         except (TimeoutException, NoSuchElementException) as e:
@@ -56,13 +56,16 @@ class zapbot:
         """ Envia uma mensagem para a conversa aberta """
         try:
             sleep(5)
+            WebDriverWait(self.driver, 40).until(EC.presence_of_element_located((By.XPATH, '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]')))
             # Seleciona a caixa de mensagem
-            self.caixa_de_mensagem = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div/p")
+            self.caixa_de_mensagem = self.driver.find_element(By.XPATH, '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]')
             # Digita a mensagem
             self.caixa_de_mensagem.send_keys(msg)
             sleep(2)
             # Seleciona botão enviar
-            self.botao_enviar = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[2]/button")
+            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '[data-tab="11"]')))
+            self.botao_enviar = self.driver.find_element(By.CSS_SELECTOR, '[data-tab="11"]')
+            sleep(2)
             # Envia msg
             self.botao_enviar.click()
             sleep(2)

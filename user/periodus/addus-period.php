@@ -28,7 +28,7 @@
                         <form method = "POST" action="locacao_periodo.php" enctype = "multipart/form-data" autocomplete="off" onsubmit="submit()">
                             <div class="card-foot">
                                 <label><strong> Reservar:</strong></label>
-                                <select class = "form-control" name = "eventTitle" id="Title" onchange="checkSelection()" required = required>
+                                <select class = "form-control" name = "eventTitle" id="Title" onchange="checkSelection()" required>
                                                                                                                        
                                     <!-- query para trazer as salas -->
                                     <option value="" disabled selected>Escolha o que você deseja locar</option>
@@ -77,12 +77,12 @@
                             </div>
                             <div class="card-foot">
                                 <label><strong> Data Fim:</strong></label>
-                                <input type="date" class = "form-control" name = "checkout" id="checkout" required = required/>
+                                <input type="date" class = "form-control" name = "checkout" id="checkout" required/>
                                 <span id="checkout-error" style="color: red; font-size: smaller;"></span>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Dia da Semana:</strong></label>
-                                <select class="form-control" name="dia_semana" id="Semana" onchange="checkSelection()" required = required>
+                                <select class="form-control" name="dia_semana" id="Semana" onchange="checkSelection()" required>
                                     <option class="select-box" value="" disabled selected>Escolha o dia da semana</option>
                                     <option class="select-box" value="Monday">Segunda-feira</option>
                                     <option class="select-box" value="Tuesday">Terça-feira</option>
@@ -145,16 +145,16 @@
                             </div>
                             <div class="card-foot">
                                 <label><strong> Hora de Início:</strong></label>
-                                <input type="time" class = "form-control" name = "checkin_time" id="checkin_time" required = required/>
+                                <input type="time" class = "form-control" name = "checkin_time" id="checkin_time" required/>
                                 <span id="time-error" style="color: red; font-size: smaller;"></span>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Hora Fim:</strong></label>
-                                <input type="time" class = "form-control" name = "checkout_time" required = required/>
+                                <input type="time" class = "form-control" name = "checkout_time" required/>
                             </div>
                             <div class="card-foot">
                                 <label><strong> Motivo:</strong></label>
-                                <input type="text" maxlength="50" class = "form-control" name = "eventInfo" required = required/>
+                                <input type="text" maxlength="50" class = "form-control" name = "eventInfo" required/>
                             </div>
                             <br />
                             <div class="card-foot">

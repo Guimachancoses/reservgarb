@@ -242,8 +242,8 @@
 					</div>
 				</div>
 				<div class="card-content">
-					<p class="category">Agendar Locação</p>
-					<h3 class="card-title">Calendário</h3>
+					<p class="category">Calendário</p>
+					<h3 class="card-title">Agendar</h3>
 				</div>
 			</div>
 		</div>

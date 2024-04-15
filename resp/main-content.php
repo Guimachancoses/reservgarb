@@ -272,8 +272,8 @@
 					</div>
 				</div>
 				<div class="card-content">
-					<p class="category">Agendar Locação</p>
-					<h3 class="card-title">Calendário</h3>
+					<p class="category">Calendário</p>
+					<h3 class="card-title">Agendar</h3>
 				</div>
 			</div>
 		</div>
@@ -445,7 +445,7 @@
 								$querypd = $conn->query("SET @groupId = (
 																	SELECT approver_id
 																	FROM gp_approver
-																	WHERE users_id = '$_SESSION[users_id]'
+																	WHERE users_id = $session_id
 								)") or die(mysqli_error($conn));
 								
 								$querypd2 = $conn->query("SELECT
@@ -466,7 +466,7 @@
 														INNER JOIN `status` st ON st.status_id = lc.status_id
 														INNER JOIN `mensagens` AS ms ON ms.mensagens_id = lc.mensagens_id
 														WHERE lc.status_id = 1
-															AND lc.users_id != '$_SESSION[users_id]'
+															AND lc.users_id != $session_id
 															AND ms.mensagens_id = 2
 															AND lc.lc_period_id IS NULL
 															AND lc.users_id IN (

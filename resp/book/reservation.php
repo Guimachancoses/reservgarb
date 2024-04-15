@@ -101,7 +101,7 @@
                                     WHERE users_id = $session_id
                                 )");
                                 
-                                $querypd2 = $conn->query("  SELECT
+                                $querypd2 = $conn->query("SELECT
                                                                 lc.locacao_id,
                                                                 u.firstname,
                                                                 u.lastname,

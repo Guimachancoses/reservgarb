@@ -181,8 +181,8 @@
 					</div>
 				</div>
 				<div class="card-content">
-					<p class="category">Agendar Locação</p>
-					<h3 class="card-title">Calendário</h3>
+					<p class="category">Calendário</p>
+					<h3 class="card-title">Agendar</h3>
 				</div>
 			</div>
 		</div>
@@ -198,7 +198,7 @@
 				</div>
 				<div class="card-content">
 					<p class="category">Reservas Pendentes</p>
-					<h3 class="card-title"><?php echo $f_perday['total']?></h3>
+					<h3 class="card-title"><strong><?php echo $f_perday['total']?></strong></h3>
 				</div>
 			</div>
 		</div>
@@ -214,7 +214,7 @@
 				</div>
 				<div class="card-content">
 					<p class="category">Reservas Aprovadas</p>
-					<h3 class="card-title"><?php echo $f_lc['total']?></h3>
+					<h3 class="card-title"><strong><?php echo $f_lc['total']?></strong></h3>
 				</div>
 			</div>
 		</div>

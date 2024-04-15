@@ -1,55 +1,6 @@
- Argumento JSON recebido: {"IDlocation":323}
-IDlocation valor: 323
- IDlocation valor: 323
- Contatos: [('19997411896',)]
-Erro ao abrir conversa: Message: 
-Stacktrace:
-	GetHandleVerifier [0x00007FF6A60F70C2+63090]
-	(No symbol) [0x00007FF6A6062D12]
-	(No symbol) [0x00007FF6A5EFEC65]
-	(No symbol) [0x00007FF6A5F4499D]
-	(No symbol) [0x00007FF6A5F44ADC]
-	(No symbol) [0x00007FF6A5F85B37]
-	(No symbol) [0x00007FF6A5F6701F]
-	(No symbol) [0x00007FF6A5F83412]
-	(No symbol) [0x00007FF6A5F66D83]
-	(No symbol) [0x00007FF6A5F383A8]
-	(No symbol) [0x00007FF6A5F39441]
-	GetHandleVerifier [0x00007FF6A64F262D+4238301]
-	GetHandleVerifier [0x00007FF6A652F78D+4488509]
-	GetHandleVerifier [0x00007FF6A6527A6F+4456479]
-	GetHandleVerifier [0x00007FF6A61D0606+953270]
-	(No symbol) [0x00007FF6A606E5DF]
-	(No symbol) [0x00007FF6A60692B4]
-	(No symbol) [0x00007FF6A60693EB]
-	(No symbol) [0x00007FF6A6059C24]
-	BaseThreadInitThunk [0x00007FFECD49257D+29]
-	RtlUserThreadStart [0x00007FFECF72AA58+40]
-
-Erro ao enviar msg: Message: no such element: Unable to locate element: {"method":"xpath","selector":"/html/body/div[1]/div/div[2]/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div/p"}
-  (Session info: chrome=123.0.6312.105); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
-Stacktrace:
-	GetHandleVerifier [0x00007FF6A60F70C2+63090]
-	(No symbol) [0x00007FF6A6062D12]
-	(No symbol) [0x00007FF6A5EFEC65]
-	(No symbol) [0x00007FF6A5F4499D]
-	(No symbol) [0x00007FF6A5F44ADC]
-	(No symbol) [0x00007FF6A5F85B37]
-	(No symbol) [0x00007FF6A5F6701F]
-	(No symbol) [0x00007FF6A5F83412]
-	(No symbol) [0x00007FF6A5F66D83]
-	(No symbol) [0x00007FF6A5F383A8]
-	(No symbol) [0x00007FF6A5F39441]
-	GetHandleVerifier [0x00007FF6A64F262D+4238301]
-	GetHandleVerifier [0x00007FF6A652F78D+4488509]
-	GetHandleVerifier [0x00007FF6A6527A6F+4456479]
-	GetHandleVerifier [0x00007FF6A61D0606+953270]
-	(No symbol) [0x00007FF6A606E5DF]
-	(No symbol) [0x00007FF6A60692B4]
-	(No symbol) [0x00007FF6A60693EB]
-	(No symbol) [0x00007FF6A6059C24]
-	BaseThreadInitThunk [0x00007FFECD49257D+29]
-	RtlUserThreadStart [0x00007FFECF72AA58+40]
-
-mensagem enviada para ('19997411896',)
+ Argumento JSON recebido: {"IDlocation":332}
+IDlocation valor: 332
+ IDlocation valor: 332
+ Contatos: [('19998068077',)]
+mensagem enviada para ('19998068077',)
 Fim

@@ -80,25 +80,49 @@
             $mail->Subject = $assunto;
             // $mail->Body = $message;
 
-            // define('BASE_DIR', dirname(__DIR__));
+            define('BASE_DIR', dirname(__DIR__));
 
-            // // Obter o caminho absoluto da imagem "logo_title.png"
-            // $imagePath = BASE_DIR . '\img\logo_title.png';
+            // Obter o caminho absoluto da imagem "Banner topo"
+            $imagePathlg = BASE_DIR . '\img\icon_garbuio.png';
 
-            // // Obter o caminho absoluto da imagem "logo_title.png"
-            // $imagePath2 = BASE_DIR . '\img\lg_garbuio.png';
+            // Obter o caminho absoluto da imagem "Banner topo"
+            $imagePath = BASE_DIR . '\img\bannermail.png';
 
-            // // Obter o caminho absoluto da imagem de fundo "background_1.jpg"
-            // $imagePath3 = BASE_DIR  . '\img\background_1.jpg';
+            // Obter o caminho absoluto da imagem "Banner esquerda"
+            $imagePath2 = BASE_DIR . '\img\bannermail2.jpeg';
 
-            // // Adicionar a imagem ao e-mail com o identificador "cid:background"
-            // $mail->AddEmbeddedImage($imagePath3, 'background', 'background_1.jpg');
+            // Obter o caminho absoluto da imagem de fundo "icon_insta"
+            $imagePath3 = BASE_DIR  . '\img\icon_insta.gif';
 
-            // // Adicionar a imagem ao e-mail
-            // $mail->AddEmbeddedImage($imagePath, 'logoimg', 'logo_title.png');
+            // Obter o caminho absoluto da imagem de fundo "icon_whats"
+            $imagePath4 = BASE_DIR  . '\img\icon_whats.gif';
+            
+            // Obter o caminho absoluto da imagem de fundo "icon_face"
+            $imagePath5 = BASE_DIR  . '\img\icon_face.gif';
+            
+            // Obter o caminho absoluto da imagem de fundo "icon_linkedin"
+            $imagePath6 = BASE_DIR  . '\img\icon_linkedin.gif';
 
-            // // Adicionar a imagem ao e-mail
-            // $mail->AddEmbeddedImage($imagePath2, 'logogarb', 'lg_garbuio.png');
+            // Adicionar a imagem ao e-mail
+            $mail->AddEmbeddedImage($imagePathlg, 'icongarbuio', 'icon_garbuio.png');
+
+            // Adicionar a imagem ao e-mail
+            $mail->AddEmbeddedImage($imagePath, 'bannerimg', 'bannermail.png');
+
+            // Adicionar a imagem ao e-mail
+            $mail->AddEmbeddedImage($imagePath2, 'bannerimg2', 'bannermail2.jpeg');
+
+            // Adicionar a imagem ao e-mail
+            $mail->AddEmbeddedImage($imagePath3, 'iconinsta', 'icon_insta.gif');
+
+            // Adicionar a imagem ao e-mail
+            $mail->AddEmbeddedImage($imagePath4, 'iconwhats', 'icon_whats.gif');
+
+            // Adicionar a imagem ao e-mail
+            $mail->AddEmbeddedImage($imagePath5, 'iconface', 'icon_face.gif');
+
+            // Adicionar a imagem ao e-mail
+            $mail->AddEmbeddedImage($imagePath6, 'iconlinkedin', 'icon_linkedin.gif');
 
             
             // Configurar o corpo do e-mail em HTML
@@ -635,7 +659,7 @@
                                                             <tr>
                                                               <td align="right">
                                                                 <img
-                                                                  src="https://www.garbuio.com.br/wp-content/uploads/2021/08/logo-garb.png"
+                                                                  src="cid:icongarbuio"
                                                                   alt="Garbuio"
                                                                   style="
                                                                     display: block;
@@ -745,7 +769,7 @@
                                                       <td align="center" valign="middle">
                                                         <a
                                                           ><img
-                                                            src="https://scontent.fcpq8-1.fna.fbcdn.net/v/t39.30808-6/405414626_335840592399663_817382839607070585_n.png?stp=dst-png_p240x240&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFiHK2YHqVY4MKfNA41KDiJDQX0tBmq8-0NBfS0Garz7WVMvd3QsUWOVVeavBY824XLPQhQ4YpCz-3gVNGIzRRD&_nc_ohc=9_ajSZ3GwP8AX9_cuoc&_nc_ht=scontent.fcpq8-1.fna&oh=00_AfDgX6L_Mvv3jYRhfv9TyW3mFWAnBZgkjHRyeEJLUeLTUw&oe=66039751"
+                                                            src="cid:bannerimg"
                                                             alt="Garbuio"
                                                             border="0"
                                                             style="
@@ -830,7 +854,7 @@
                                                                   href=""
                                                                   _label="Banner_1"                                                      
                                                                   ><img
-                                                                    src="https://scontent.fcpq8-1.fna.fbcdn.net/v/t39.30808-6/386750031_306484715335251_8721018202012945388_n.jpg?stp=c74.0.1292.1292a_dst-jpg_s851x315&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFUsUIP4yOA64YQadqDjjykTErvl7G7wM5MSu-XsbvAzjhgIAK__rSBmVwN-KQoAX7rl8EAYePt0PDsvHlrdrZw&_nc_ohc=fQvafc4B8I8AX-LuIbE&_nc_ht=scontent.fcpq8-1.fna&oh=00_AfCs5m7w7E2sV8XoCbzUUgqJaYVIHlOgDVkbot7VO1s7SA&oe=6604A956"
+                                                                    src="cid:bannerimg2"
                                                                     alt="Garbuio"
                                                                     border="0"
                                                                     style="
@@ -1049,7 +1073,7 @@
                                                           target="_blank"
                                                           style="outline: none"
                                                           ><img
-                                                            src="https://i.dell.com/is/image/DellContent/content/dam/ss1/csb/emails/latam/portuguese-brazil/basic-images/icon-ig.png"
+                                                            src="cid:iconinsta"
                                                             alt="Instagram"
                                                             style="border: 0"
                                                         /></a>
@@ -1065,7 +1089,7 @@
                                                           target="_blank"
                                                           style="outline: none"
                                                           ><img
-                                                            src="https://img.icons8.com/?size=48&id=uZWiLUyryScN&format=png"
+                                                            src="cid:iconwhats"
                                                             alt="Whatsapp"
                                                             style="
                                                             border: 0;
@@ -1083,7 +1107,7 @@
                                                           target="_blank"
                                                           style="outline: none"
                                                           ><img
-                                                            src="https://i.dell.com/is/image/DellContent/content/dam/ss1/csb/emails/latam/portuguese-brazil/basic-images/icon-facebook.png"
+                                                            src="cid:iconface"
                                                             alt="Facebook"
                                                             style="border: 0"
                                                         /></a>
@@ -1099,7 +1123,7 @@
                                                           target="_blank"
                                                           style="outline: none"
                                                           ><img
-                                                            src="https://i.dell.com/is/image/DellContent/content/dam/ss1/csb/emails/latam/portuguese-brazil/basic-images/icon-li.png"
+                                                            src="cid:iconlinkedin"
                                                             alt="LinkedIn"
                                                             style="border: 0"
                                                         /></a>
@@ -1175,8 +1199,8 @@
                                                   _label="GuiMac"
                                                   target="_blank"
                                                 >
-                                                &copy&#160GuiMac&#160&#10084;&#65039;2024
-                                                </a>
+                                                GuiMac
+                                                </a>&#10084;&#65039;<p style="color:#0080ff">2024</p>
                                               </td>
                                             </tr>
 
@@ -1290,7 +1314,7 @@
             ini_set('display_errors', 1);
 
 
-            echo "<script>alert('Solicitação enviada com sucesso, aguarde a aprovação!'); window.location.href = 'reservlab.php';</script>";
+            echo "<script>alert('Corfirmação enviada com sucesso!'); window.location.href = 'reservlab.php';</script>";
         } catch (Exception $e) {
             echo "<script>alert('$e Erro ao enviar o email: " . $mail->ErrorInfo . "'); window.location.href = 'reservlab.php';</script>";
         }
@@ -1325,5 +1349,4 @@
         // Verifica se o código de resposta é 200 (OK)
         return $httpCode === 200;
     }
-
 ?>

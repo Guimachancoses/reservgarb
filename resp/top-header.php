@@ -173,7 +173,7 @@
                             }
                         } else {
                             ?>
-                                <li class="text-primary"><small>Sem pendências</small></li>
+                                <li><small><a style="display:block;align-items:left;justify-content:left;box-shadow: 0px 0px 5px black;" class="text-primary">Sem pendências</a></small></li>
                             <?php
                         }
                         ?>

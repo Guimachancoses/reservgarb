@@ -220,8 +220,15 @@
 
 			var logotipo = $('.logoeinstein2');
 
+			// box-shadow: inset 0 5px 10px 10px rgba(0, 0, 0, 0.4);
+
+
 			// Toggle dark mode classes
-			mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-color', !isDarkModeActive ? 'black' : '');
+			mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-image', !isDarkModeActive ? 'url("../img/darkback.jpg")' : '');
+			mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-size', !isDarkModeActive ? '100%' : '');
+			mainContent.toggleClass('dark-mode', !isDarkModeActive).css('background-position', !isDarkModeActive ? 'center' : '');
+			mainContent.toggleClass('dark-mode', !isDarkModeActive).css('width', !isDarkModeActive ? '100%' : '');
+
 			card.toggleClass('dark-mode', !isDarkModeActive);
 			cardHeader.toggleClass('dark-mode', !isDarkModeActive);
 			cardFoot.toggleClass('dark-mode', !isDarkModeActive);

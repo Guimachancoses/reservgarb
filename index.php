@@ -53,7 +53,7 @@
 
 <!-- partial:index.partial.html -->
   <div class="container">
-    <div class="row full-height justify-content-center">
+    <div class="row full-height justfy-containt-center">
       <div class="col-12 text-center align-self-center py-5">
         <div class="section pb-5 pt-5 pt-sm-2 text-center">
             <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>

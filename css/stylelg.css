@@ -68,20 +68,13 @@
 }
 
 .light-mode {
-  /* background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-    url("../img/background_login.jpg"); */
-  background-image: url("../img/background_login104.jpg");
+  background-image: url("https://source.unsplash.com/random/?truck");
   background-size: cover;
   background-position: center;
   font-weight: 300;
   font-size: 15px;
   line-height: 1.7;
   color: #50d18e;
-  /* background-image: linear-gradient(to right, #ffffff, #a1a1a1a4); */
   overflow-x: hidden;
 }
 

@@ -155,7 +155,7 @@
                                 $englishDayOfWeek = date('l', strtotime($fetch['checkin']));
                                 $dia_semana = $englishToPortugueseDays[$englishDayOfWeek];
                             ?>
-                            <tr <?php if($fetch['status'] == 'Atrasado') { echo 'style="background-color: #f2bdcd;cursor:pointer;"';} else { echo 'style="cursor:pointer;"';}; ?> onclick="window.location='<?php echo $editLink ?>'">
+                            <tr <?php if($fetch['status'] == 'Atrasado') { echo 'style="background-color: #ffb04c; cursor:pointer;"';} else { echo 'style="cursor:pointer;"';}; ?> onclick="window.location='<?php echo $editLink ?>'">
                                 <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
                                 <td><?php echo $fetch['locacao']?></td>
                                 <td><?php echo $fetch['description']?></td> 
